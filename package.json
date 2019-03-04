@@ -1,0 +1,31 @@
+{
+  "flat": true,
+  "main": "./index.html",
+  "name": "contrast-tool",
+  "author": "The Contrast Tool Authors",
+  "license": "BSD-3-Clause",
+  "version": "v0.0.0-concept.0",
+  "repository": "https://github.com/contrast-tool/source",
+  "dependencies": {
+    "canvas-webworker": "0.0.2",
+    "dropbox": "^4.0.16",
+    "jszip": "^3.2.0",
+    "lit-element": "^2.0.1",
+    "lit-html": "^0.14.0"
+  },
+  "devDependencies": {
+    "@webcomponents/webcomponentsjs": "^2.2.7",
+    "babel-eslint": "^10.0.1",
+    "electron": "^4.0.6",
+    "eslint": "^5.15.0",
+    "eslint-config-google": "^0.11.0",
+    "eslint-plugin-react": "^7.12.4",
+    "esm": "^3.2.10"
+  },
+  "scripts": {
+    "start": "polymer serve --open",
+    "build": "polymer build",
+    "lint": "eslint source/**/*.js",
+    "fix": "eslint source/**/*.js --fix"
+  }
+}
