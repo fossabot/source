@@ -40,6 +40,7 @@ applic.$ = new class {
   }
 
   update() {
+    // console.log('applic-wireframe:update');
     render(model.mount(model, this.state), this.mount);
     applic.$.hints.update();
   }
@@ -56,59 +57,64 @@ applic.$ = new class {
 
     const key = stack.shift();
     if (!obj[key]) obj[key] = {};
-    if (value == null) delete obj[key];
-    else obj[key] = value;
-
-    this.update();
+    if (value == null) {
+      delete obj[key];
+      this.update();
+    }
+    else if (obj[key] != value) {
+      obj[key] = value;
+      this.update();
+    };
   }
+
+  nonce() {
+    let nonce = ''; const s = 'ABCDEFGHIJKLMNOPQRSTUVWXYZabcdefghijklmnopqrstuvwxyz0123456789';
+    for (let i = 0; i < 24; i++) {
+      nonce += s.charAt(Math.floor(Math.random() * s.length));
+    };
+    return nonce;
+  }
+
 };
 
 
 applic.$.hints = new class {
+  constructor() {
+    this.hintParent = [];
+    applic.$.state.hint = {};
+  }
+  
   update() {
-    if (!this.hintParent) {
-      this.hintVisible = false;
-      this.hintCall = setTimeout(() => {});
-      this.hintParent = [];
-      window.addEventListener('blur', this.resetHint.bind(this));
-    }
-
-    const activeHint = this.hintParent;
     const requreHint = [...document.querySelectorAll('[applc-hint]')];
 
-    for (const node of activeHint) {
+    for (const node of this.hintParent) {
       const i = requreHint.indexOf(node);
-      if (-1 == i) activeHint.splice(i, 1);
+      if (-1 == i) this.hintParent.splice(i, 1);
     };
+
     for (const node of requreHint) {
-      if (-1 == activeHint.indexOf(node)) {
-        activeHint.push(node);
-        node.addEventListener('mouseover', (event) => {
-          this.hint(node);
+      if (-1 == this.hintParent.indexOf(node)) {
+        this.hintParent.push(node);
+
+        const nonce = `applic-hint-${applic.$.nonce()}`;
+
+        applic.$.set(`hint.${nonce}`, {
+          nonce, target: node, show: false, render: false,
+          inner: node.getAttribute('applc-hint'),
+          align: node.getAttribute('applc-hint-align'),
+          deprecat: () => { applic.$.set(`hint.${nonce}.render`, false) }
         });
-        node.addEventListener('mouseleave', this.resetHint.bind(this));
+        
+        node.addEventListener('mouseover', (event) => { this.hint(nonce) });
+        node.addEventListener('mouseleave', (event) => { this.resetHint(nonce) });
       };
     };
   }
 
-  hint(node) {
-    self.clearTimeout(this.hintCall);
-    this.hintVisible = true;
-    this.hintCall = setTimeout(() => {
-      applic.$.set('hint', {
-        target: node,
-        inner: node.getAttribute('applc-hint'),
-        align: node.getAttribute('applc-hint-align'),
-      });
-    }, 200);
+  hint( nonce) { 
+    applic.$.set(`hint.${nonce}.render`, true)
+    applic.$.set(`hint.${nonce}.show`, true) 
   }
+  resetHint(nonce) { applic.$.set(`hint.${nonce}.show`, false) }
 
-  resetHint() {
-    if (this.hintVisible == true) {
-      self.clearTimeout(this.hintCall);
-      this.hintVisible = false;
-      applic.$.set('hint', null);
-    }
-  }
 };
-

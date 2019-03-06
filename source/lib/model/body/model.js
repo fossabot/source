@@ -82,12 +82,14 @@ export const model = (model, state) => html`
       ${template.usercard(model, state)}
     </div>
     <div class="applic main">
+
     
     </div>
   </div>
 
 `;
 
+const handlers = {};
 const template = {};
 template.usercard = (model, state) => html`
   <style>
