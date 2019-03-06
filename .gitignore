@@ -1,9 +1,0 @@
-build
-node_modules
-!**/static/**/node_modules
-
-*.old*
-_/img/example/**/*
-
-yarn.lock
-package-lock.json
