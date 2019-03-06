@@ -11,17 +11,10 @@
     "./static/**/*" ],
 
   "extraDependencies": [
-    "./404.html",
-    "./oauth2/index.html",
-
-    "./source/**/*.mixin.js",
-    "./source/**/*.worker.js",
-
+    "./404.html", "./oauth2/index.html",
     "./static/manifest.json",
-
     "./node_modules/@webcomponents/webcomponentsjs/**/*.js",
     "./node_modules/dropbox/dist/Dropbox-sdk.min.js",
-
     "./favicon.ico"],
 
   "lint": { "rules": [ "polymer-3" ] },
@@ -31,6 +24,15 @@
 
   "builds": [{
     "name": "esm-bundled",
+    "browserCapabilities": [ "es2015", "modules" ],
+    "js": { "minify": true, "compile": true },
+    "css": { "minify": true, "compile": true },
+    "html": { "minify": true, "compile": true },
+    "bundle": true,
+    "addServiceWorker": false,
+    "addPushManifest": false
+  }, {
+    "name": "public",
     "browserCapabilities": [ "es2015", "modules" ],
     "js": { "minify": true, "compile": true },
     "css": { "minify": true, "compile": true },

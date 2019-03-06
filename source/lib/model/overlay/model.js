@@ -40,10 +40,12 @@ export const model = (model, state) => html`
   </style>
     
 
-  <div applic-role="hint" class="applic hint" 
-    aria-hidden="true" ?visible="${hint.stance(state.hint)}">
-    <span class="applic hint-inner">${state.hint ? state.hint.inner : ''}</span>    
-  </div>
+  ${state.hint ? html`
+    <div applic-role="hint" class="applic hint" 
+      aria-hidden="true" ?visible="${hint.stance(state.hint)}">
+      <span class="applic hint-inner">${state.hint.inner}</span>    
+    </div>
+  ` : ''}
 
 `;
 

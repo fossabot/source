@@ -23,7 +23,6 @@ export const model = (model, state) => html`
       </div>
 
       <div class="applic bar-section align-end">
-        ${template.usercard()}
       </div>
     </div>
 
@@ -34,52 +33,4 @@ export const model = (model, state) => html`
 
   </div>
 
-`;
-
-const template = {};
-template.usercard = () => html`
-  <style>
-    .applic.usercard {
-      ${css.apply('--layout--sizing--border-box')} 
-      ${css.apply('--layout--vertical')} 
-
-      width: 240px;
-    }
-    .applic.usercard-storage {
-      ${css.apply('--layout--sizing--border-box')} 
-      ${css.apply('--stance--relative')} 
-
-      height: 4px;
-      width: 100%;
-
-      background: #e0e5e6;
-    }
-    
-    .applic.usercard-storage > * {
-      ${css.apply('--layout--sizing--border-box')} 
-      ${css.apply('--stance--absolute')} 
-      ${css.apply('--stance--pin--start')} 
-
-      height: 100%; }
-
-    .applic.usercard-storage > .used {
-      background: red; 
-      width: 70%; }
-    .applic.usercard-storage > .saved {
-      opacity: .5;
-      background: blue; 
-      width: 90%; }
-    
-  </style>
-    
-
-  <div class="applic usercard">
-    <i class="applic icon">data_usage</i>
-    usercard
-
-    <div class="applic usercard-storage">
-      <div class="saved"></div>
-      <div class="used"></div>
-    </div>
-  </div>
 `;
