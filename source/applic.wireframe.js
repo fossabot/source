@@ -115,18 +115,12 @@ applic.$.hints = new class {
     };
   }
 
-<<<<<<< HEAD
-  hint( nonce) { 
-    applic.$.set(`hint.${nonce}.event`, applic.$.nonce())
-    applic.$.set(`hint.${nonce}.render`, true)
-    applic.$.set(`hint.${nonce}.show`, true) 
-=======
   hint( nonce) {
+    applic.$.set(`hint.${nonce}.event`, applic.$.nonce());
     applic.$.set(`hint.${nonce}.render`, true);
     applic.$.set(`hint.${nonce}.show`, true);
   }
   resetHint(nonce) {
     applic.$.set(`hint.${nonce}.show`, false);
->>>>>>> 4cac0a47b4f10e0a208e46fe827cd2d68a08aa12
   }
 };

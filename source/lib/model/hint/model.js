@@ -50,9 +50,9 @@ export const model = (model, state) => html`
   </style>
 
 <<<<<<< HEAD
-  ${Object.keys(state.hint).map(hintID => {
-  return template.hint(state.hint[hintID])
-})}
+  ${Object.keys(state.hint).map((hintID) => {
+    return template.hint(state.hint[hintID]);
+  })}
 =======
   ${Object.keys(state.hint).map((hintID) => {
     return template.hint(state.hint[hintID]);
@@ -71,43 +71,30 @@ template.hint = (params) => html`
 
 const hint = {};
 hint.update = (params) => {
-<<<<<<< HEAD
   Promise.resolve()
-    .then(() => {
-      const node = document.querySelector(`[applic-nonce="${params.nonce}"]`)
+      .then(() => {
+        const node = document.querySelector(`[applic-nonce="${params.nonce}"]`);
 
-      if (params.show) {
-        setTimeout(() => { node.setAttribute('visible', '') }, 10);
-        hint.stance(node, params)
-      } else {
-        const event = params.event;
-        const deprecat = () => {
-          Promise.resolve()
-            .then(() => { if (event == params.event) params.deprecat() });
-        }
-        node.addEventListener('webkitTransitionEnd', deprecat, false);
-        node.addEventListener('transitionend', deprecat, false);
-        node.removeAttribute('visible')
-      };
-    });
-}
-=======
-  Promise.resolve().then(() => {
-    const node = document.querySelector(`[applic-nonce="${params.nonce}"]`);
-
-    if (params.show) {
-      setTimeout(() => {
-        node.setAttribute('visible', '');
-      }, 10);
-      hint.stance(node, params);
-    } else {
-      node.addEventListener('webkitTransitionEnd', params.deprecat, false);
-      node.addEventListener('transitionend', params.deprecat, false);
-      node.removeAttribute('visible');
-    };
-  });
+        if (params.show) {
+          setTimeout(() => {
+            node.setAttribute('visible', '');
+          }, 10);
+          hint.stance(node, params);
+        } else {
+          const event = params.event;
+          const deprecat = () => {
+            Promise.resolve()
+                .then(() => {
+                  if (event == params.event) params.deprecat();
+                });
+          };
+          node.addEventListener('webkitTransitionEnd', deprecat, false);
+          node.addEventListener('transitionend', deprecat, false);
+          node.removeAttribute('visible');
+        };
+      });
 };
->>>>>>> 4cac0a47b4f10e0a208e46fe827cd2d68a08aa12
+
 hint.stance = (node, params) => {
   const bounds = hint.bounds(params.target, node, params.align);
   node.setAttribute('style', `top: ${bounds.pos.y}px; left: ${bounds.pos.x}px;`);
@@ -157,9 +144,5 @@ hint.bounds = (target, node, align) => {
       break;
   };
 
-<<<<<<< HEAD
-  return { pos };
-=======
   return {pos};
->>>>>>> 4cac0a47b4f10e0a208e46fe827cd2d68a08aa12
 };
