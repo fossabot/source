@@ -21,8 +21,6 @@ export const model = (model, state) => html`
       
   </style>
     
-  ${model.header()}
-  ${model.body()}
-  
+  ${model.body(model, state)}
 
 `;

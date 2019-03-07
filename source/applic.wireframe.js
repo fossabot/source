@@ -112,6 +112,7 @@ applic.$.hints = new class {
   }
 
   hint( nonce) { 
+    applic.$.set(`hint.${nonce}.event`, applic.$.nonce())
     applic.$.set(`hint.${nonce}.render`, true)
     applic.$.set(`hint.${nonce}.show`, true) 
   }

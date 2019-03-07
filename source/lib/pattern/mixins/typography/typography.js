@@ -9,6 +9,13 @@ The complete set of contributors may be found at https://contrast-tool.github.io
 export const mixins = {
   '--typo': () => `
     font-family: Roboto, sans-serif;
+    -moz-osx-font-smoothing: grayscale;
+    -webkit-font-smoothing: antialiased;
+
+    color: #6f6f6f;
+  `,
+
+  '--typo-sans': () => `
     font-family: 'Google Sans', Roboto, sans-serif;
     -moz-osx-font-smoothing: grayscale;
     -webkit-font-smoothing: antialiased;
@@ -25,7 +32,7 @@ export const mixins = {
 
 
   '--typo--headline1': () => `
-    ${css.apply('--typo')}
+    ${css.apply('--typo-sans')}
     font-size: 96px;
     line-height: 96px;
     font-weight: 300;
@@ -34,7 +41,7 @@ export const mixins = {
     text-transform: inherit;
   `,
   '--typo--headline2': () => `
-    ${css.apply('--typo')}
+    ${css.apply('--typo-sans')}
     font-size: 60px;
     line-height: 60px;
     font-weight: 300;
@@ -43,7 +50,7 @@ export const mixins = {
     text-transform: inherit;
   `,
   '--typo--headline3': () => `
-    ${css.apply('--typo')}
+    ${css.apply('--typo-sans')}
     font-size: 48px;
     line-height: 50px;
     font-weight: 400;
@@ -52,7 +59,7 @@ export const mixins = {
     text-transform: inherit;
   `,
   '--typo--headline4': () => `
-    ${css.apply('--typo')}
+    ${css.apply('--typo-sans')}
     font-size: 34px;
     line-height: 40px;
     font-weight: 400;
@@ -61,7 +68,7 @@ export const mixins = {
     text-transform: inherit;
   `,
   '--typo--headline5': () => `
-    ${css.apply('--typo')}
+    ${css.apply('--typo-sans')}
     font-size: 24px;
     line-height: 32px;
     font-weight: 500;
@@ -70,7 +77,7 @@ export const mixins = {
     text-transform: inherit;
   `,
   '--typo--headline6': () => `
-    ${css.apply('--typo')}
+    ${css.apply('--typo-sans')}
     font-size: 20px;
     line-height: 32px;
     font-weight: 500;
@@ -79,7 +86,7 @@ export const mixins = {
     text-transform: inherit;
   `,
   '--typo--subtitle1': () => `
-    ${css.apply('--typo')}
+    ${css.apply('--typo-sans')}
     font-size: 16px;
     line-height: 28px;
     font-weight: 400;
@@ -88,7 +95,7 @@ export const mixins = {
     text-transform: inherit;
   `,
   '--typo--subtitle2': () => `
-    ${css.apply('--typo')}
+    ${css.apply('--typo-sans')}
     font-size: 14px;
     line-height: 22px;
     font-weight: 500;
@@ -124,7 +131,7 @@ export const mixins = {
     text-transform: inherit;
   `,
   '--typo--button': () => `
-    ${css.apply('--typo')}
+    ${css.apply('--typo-sans')}
     font-size: 12px;
     line-height: 32px;
     font-weight: 500;
@@ -133,7 +140,7 @@ export const mixins = {
     text-transform: uppercase;
   `,
   '--typo--overline': () => `
-    ${css.apply('--typo')}
+    ${css.apply('--typo-sans')}
     font-size: 10px;
     line-height: 32px;
     font-weight: 500;

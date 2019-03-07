@@ -49,9 +49,9 @@ export const model = (model, state) => html`
 
   </style>
 
-  ${Object.keys(state.hint).map(hintID => { 
-    return template.hint(state.hint[hintID]) 
-  })}
+  ${Object.keys(state.hint).map(hintID => {
+  return template.hint(state.hint[hintID])
+})}
 `;
 
 const template = {};
@@ -65,18 +65,24 @@ template.hint = (params) => html`
 
 const hint = {}
 hint.update = (params) => {
-  Promise.resolve().then(() => {
-    const node = document.querySelector(`[applic-nonce="${params.nonce}"]`)
+  Promise.resolve()
+    .then(() => {
+      const node = document.querySelector(`[applic-nonce="${params.nonce}"]`)
 
-    if (params.show) {
-      setTimeout(() => {node.setAttribute('visible', '')}, 10);
-      hint.stance(node, params)
-    } else {
-      node.addEventListener('webkitTransitionEnd', params.deprecat, false);
-      node.addEventListener('transitionend', params.deprecat, false);
-      node.removeAttribute('visible')
-    };
-  });
+      if (params.show) {
+        setTimeout(() => { node.setAttribute('visible', '') }, 10);
+        hint.stance(node, params)
+      } else {
+        const event = params.event;
+        const deprecat = () => {
+          Promise.resolve()
+            .then(() => { if (event == params.event) params.deprecat() });
+        }
+        node.addEventListener('webkitTransitionEnd', deprecat, false);
+        node.addEventListener('transitionend', deprecat, false);
+        node.removeAttribute('visible')
+      };
+    });
 }
 hint.stance = (node, params) => {
   const bounds = hint.bounds(params.target, node, params.align);
@@ -127,5 +133,5 @@ hint.bounds = (target, node, align) => {
       break;
   };
 
-  return { pos};
+  return { pos };
 };
