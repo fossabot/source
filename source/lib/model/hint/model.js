@@ -6,7 +6,7 @@ The complete set of authors may be found at https://contrast-tool.github.io/stat
 The complete set of contributors may be found at https://contrast-tool.github.io/static/CONTRIBUTORS.md
 */
 
-import { html } from 'lit-html';
+import {html} from 'lit-html';
 
 export const model = (model, state) => html`
  <style>
@@ -49,9 +49,15 @@ export const model = (model, state) => html`
 
   </style>
 
+<<<<<<< HEAD
   ${Object.keys(state.hint).map(hintID => {
   return template.hint(state.hint[hintID])
 })}
+=======
+  ${Object.keys(state.hint).map((hintID) => {
+    return template.hint(state.hint[hintID]);
+  })}
+>>>>>>> 4cac0a47b4f10e0a208e46fe827cd2d68a08aa12
 `;
 
 const template = {};
@@ -63,8 +69,9 @@ template.hint = (params) => html`
   ` : ''}
 `;
 
-const hint = {}
+const hint = {};
 hint.update = (params) => {
+<<<<<<< HEAD
   Promise.resolve()
     .then(() => {
       const node = document.querySelector(`[applic-nonce="${params.nonce}"]`)
@@ -84,6 +91,23 @@ hint.update = (params) => {
       };
     });
 }
+=======
+  Promise.resolve().then(() => {
+    const node = document.querySelector(`[applic-nonce="${params.nonce}"]`);
+
+    if (params.show) {
+      setTimeout(() => {
+        node.setAttribute('visible', '');
+      }, 10);
+      hint.stance(node, params);
+    } else {
+      node.addEventListener('webkitTransitionEnd', params.deprecat, false);
+      node.addEventListener('transitionend', params.deprecat, false);
+      node.removeAttribute('visible');
+    };
+  });
+};
+>>>>>>> 4cac0a47b4f10e0a208e46fe827cd2d68a08aa12
 hint.stance = (node, params) => {
   const bounds = hint.bounds(params.target, node, params.align);
   node.setAttribute('style', `top: ${bounds.pos.y}px; left: ${bounds.pos.x}px;`);
@@ -93,7 +117,7 @@ hint.bounds = (target, node, align) => {
     return Math.max(lim[0], Math.min(cor, lim[1]));
   };
 
-  let pos, offset = {};
+  let pos; const offset = {};
   const rect = node.getBoundingClientRect();
   const tr = target.getBoundingClientRect();
 
@@ -101,37 +125,41 @@ hint.bounds = (target, node, align) => {
     case 'start':
       pos = {
         x: contain(tr.left - rect.width,
-          [0, window.innerWidth - rect.width]),
+            [0, window.innerWidth - rect.width]),
         y: contain((tr.height / 2 + tr.top) - rect.height / 2,
-          [0, window.innerHeight - rect.height]),
+            [0, window.innerHeight - rect.height]),
       };
       break;
     case 'end':
       pos = {
         x: contain(tr.width + tr.left,
-          [0, window.innerWidth - rect.width]),
+            [0, window.innerWidth - rect.width]),
         y: contain((tr.height / 2 + tr.top) - rect.height / 2,
-          [0, window.innerHeight - rect.height]),
+            [0, window.innerHeight - rect.height]),
       };
       break;
     case 'top':
       pos = {
         x: contain(tr.width / 2 + tr.left - rect.width / 2,
-          [0, window.innerWidth - rect.width]),
+            [0, window.innerWidth - rect.width]),
         y: contain(tr.top - rect.height,
-          [0, window.innerHeight - rect.height]),
+            [0, window.innerHeight - rect.height]),
       };
       break;
     case 'bottom':
     default:
       pos = {
         x: contain(tr.width / 2 + tr.left - rect.width / 2,
-          [0, window.innerWidth - rect.width]),
+            [0, window.innerWidth - rect.width]),
         y: contain(tr.height + tr.top,
-          [0, window.innerHeight - rect.height]),
+            [0, window.innerHeight - rect.height]),
       };
       break;
   };
 
+<<<<<<< HEAD
   return { pos };
+=======
+  return {pos};
+>>>>>>> 4cac0a47b4f10e0a208e46fe827cd2d68a08aa12
 };

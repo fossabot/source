@@ -60,8 +60,7 @@ applic.$ = new class {
     if (value == null) {
       delete obj[key];
       this.update();
-    }
-    else if (obj[key] != value) {
+    } else if (obj[key] != value) {
       obj[key] = value;
       this.update();
     };
@@ -74,7 +73,6 @@ applic.$ = new class {
     };
     return nonce;
   }
-
 };
 
 
@@ -83,7 +81,7 @@ applic.$.hints = new class {
     this.hintParent = [];
     applic.$.state.hint = {};
   }
-  
+
   update() {
     const requreHint = [...document.querySelectorAll('[applc-hint]')];
 
@@ -102,20 +100,33 @@ applic.$.hints = new class {
           nonce, target: node, show: false, render: false,
           inner: node.getAttribute('applc-hint'),
           align: node.getAttribute('applc-hint-align'),
-          deprecat: () => { applic.$.set(`hint.${nonce}.render`, false) }
+          deprecat: () => {
+            applic.$.set(`hint.${nonce}.render`, false);
+          },
         });
-        
-        node.addEventListener('mouseover', (event) => { this.hint(nonce) });
-        node.addEventListener('mouseleave', (event) => { this.resetHint(nonce) });
+
+        node.addEventListener('mouseover', (event) => {
+          this.hint(nonce);
+        });
+        node.addEventListener('mouseleave', (event) => {
+          this.resetHint(nonce);
+        });
       };
     };
   }
 
+<<<<<<< HEAD
   hint( nonce) { 
     applic.$.set(`hint.${nonce}.event`, applic.$.nonce())
     applic.$.set(`hint.${nonce}.render`, true)
     applic.$.set(`hint.${nonce}.show`, true) 
+=======
+  hint( nonce) {
+    applic.$.set(`hint.${nonce}.render`, true);
+    applic.$.set(`hint.${nonce}.show`, true);
   }
-  resetHint(nonce) { applic.$.set(`hint.${nonce}.show`, false) }
-
+  resetHint(nonce) {
+    applic.$.set(`hint.${nonce}.show`, false);
+>>>>>>> 4cac0a47b4f10e0a208e46fe827cd2d68a08aa12
+  }
 };
