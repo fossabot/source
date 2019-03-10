@@ -2,24 +2,21 @@
   "name": "contrast-tool",
   "version": "0.0.0-concept.0",
   "license": "BSD-3-Clause",
-
   "main": "./index.html",
-  
   "author": "The Contrast Tool Authors",
   "repository": "https://github.com/contrast-tool/source",
-
   "dependencies": {
     "dropbox": "^4.0.16",
     "lit-html": "^0.14.0",
-    "jszip": "^3.2.0" },
-    
+    "jszip": "^3.2.0"
+  },
   "devDependencies": {
     "owc-dev-server": "^0.2.0",
-    "@webcomponents/webcomponentsjs": "^2.2.7" },
-
+    "@webcomponents/webcomponentsjs": "^2.2.7"
+  },
   "flat": true,
-  
   "scripts": {
-    "start": "owc-dev-server" }
-
+    "start": "owc-dev-server",
+    "build": "polymer build && polymer serve ./build/public/"
+  }
 }
