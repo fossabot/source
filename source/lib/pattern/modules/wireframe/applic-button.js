@@ -8,10 +8,52 @@ The complete set of contributors may be found at https://contrast-tool.github.io
 
 export const modules = {
   'applic::button': () => `
+    /*.applic.fab {
+      ${css.apply('--stance--absolute')} 
+      ${css.apply('--stance--pin--bottom-end')} 
+
+      ${css.apply('--layout--sizing--border-box')} 
+      ${css.apply('--layout--vertical')} 
+      ${css.apply('--layout--center-center')} 
+      ${css.apply('--layout--flex')} 
+      
+      height: 56px;
+      width: 56px;
+      margin: 16px;
+
+      cursor: pointer; 
+      outline: none;
+      border: none;
+
+      border-radius: 28px;
+      color: #ffffff !important;
+      background: #fbce61; }*/
+
+    .applic.fab {
+      ${css.apply('--stance--absolute')} 
+      ${css.apply('--stance--pin--bottom-end')} 
+
+      ${css.apply('--layout--sizing--border-box')} 
+      ${css.apply('--layout--vertical')} 
+      ${css.apply('--layout--center-center')} 
+      ${css.apply('--layout--flex')} 
+      
+      height: 56px;
+      width: 56px;
+      margin: 16px;
+
+      cursor: pointer; 
+      outline: none;
+      border: none;
+
+      border-radius: 28px;
+      color: #ffffff !important;
+      background: #fbce61; }
+      
     .applic.button {
       ${css.apply('--layout')}
       ${css.apply('--layout--horizontal')}
-      ${css.apply('--layout--center-center')}
+      ${css.apply('--layout--center')}
       ${css.apply('--typo--button')}
 
       height: 36px;

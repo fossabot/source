@@ -77,7 +77,6 @@ export const modules = {
 
     .applic.menu-list {
       ${css.apply('--layout--vertical')}
-      ${css.apply('--layout--center')}
       ${css.apply('--layout--flex-none')}
 
       padding: 8px 0px;

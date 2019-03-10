@@ -60,6 +60,7 @@ applic.$ = new class {
     const apply = () => {
       this.rendering = false;
 
+      // console.debug('applic-wireframe:render', `${Date.now() - applic.created}ms`);
       render(model.mount(model, this.state), this.mount);
 
       Promise.resolve().then(() => {

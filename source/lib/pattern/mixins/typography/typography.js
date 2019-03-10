@@ -8,7 +8,7 @@ The complete set of contributors may be found at https://contrast-tool.github.io
 
 export const mixins = {
   '--typo': () => `
-    font-family: 'Roboto Mono', Roboto, sans-serif;
+    font-family: 'Roboto', Roboto, sans-serif;
     -moz-osx-font-smoothing: grayscale;
     -webkit-font-smoothing: antialiased;
 
@@ -16,7 +16,7 @@ export const mixins = {
   `,
 
   '--typo-sans': () => `
-    font-family: 'Roboto Mono', Roboto, sans-serif;
+    font-family: 'Roboto', Roboto, sans-serif;
     -moz-osx-font-smoothing: grayscale;
     -webkit-font-smoothing: antialiased;
 

@@ -25,58 +25,107 @@ export const model = (model, state) => html`
 
     width: var(--app-aside--width); }
 
+  .applic.aside--header {
+    ${css.apply('--layout--sizing--content-box')} 
+    ${css.apply('--layout--vertical')} 
+    ${css.apply('--layout--flex-none')} 
+
+    min-height: 96px;
+
+    border-bottom: 1px solid #e6e6e6;
+    border-right: 1px solid #e6e6e6;
+    background: #f1f4f6; }
+
   .applic.aside--inner {
     ${css.apply('--layout--sizing--content-box')} 
     ${css.apply('--layout--vertical')} 
     ${css.apply('--layout--flex')} 
 
-    border: 1px solid #e0e0e0;
-    background: #f8f8f8; }
+    padding: 8px 0;
 
-  .applic.aside--end {
-    ${css.apply('--layout--sizing--content-box')} 
-    ${css.apply('--layout--vertical')} 
-    ${css.apply('--layout--flex-none')} 
-    
-    height: 72px;
-    border-right: 1px solid #e0e0e0;
-    background: #ffffff; }
+    border-right: 1px solid #e6e6e6;
+    background: #fafafa; }
 
   .applic.main {
+    ${css.apply('--stance--relative')} 
     ${css.apply('--layout--sizing--content-box')} 
     ${css.apply('--layout--vertical')} 
     ${css.apply('--layout--flex')} 
 
     background: #fafafa; }
 
+  .applic.name {
+    ${css.apply('--layout--sizing--border-box')} 
+    ${css.apply('--layout--horizontal')} 
+    ${css.apply('--layout--center')} 
+    ${css.apply('--layout--felx-none')} 
+    ${css.apply('--typo--subtitle2')}
+
+    padding: 0 24px;
+    height: 48px; }
+
 </style>
 
 
 <div class="applic wrap">
   <div class="applic aside">
+    <div class="applic aside--header">
+      <div class="flex-spacer"></div>
+      <div class="applic name">${'Contrast Tool'.toUpperCase()}</div>
+     
+
+    </div>
+
     <div class="applic aside--inner">
-      ${model.usercard(model, state)}
 
-      <div style="margin: 16px 16px;">
-        <div class="typo headline5" style="margin: 0 0 8px;">Contrast Tool</div>
-        <div class="typo body1" style="margin: 0 0 16px;">An interactive viewer to compare
-          and export your chat graphics.</div>
-        <div class="typo body1" style="margin: 0 0 16px;"></div>
-      </div>
+      ${model.usercard({
+        email: 'mihroy.rikkunbrouwers@gmail.com',
+        label: 'Last sync on 03/03/2019 1:38pm'
+      })}
+<!--
+
+      <div class="applic menu-list">
+        <button class="applic menu-list-item button">
+          <i class="applic icon">folder</i>
+          <div>Brainstorming</div>
+        </button>
+        <button class="applic menu-list-item button">
+          <i class="applic icon">folder</i>
+          <div>Work</div>
+        </button>
+        <button class="applic menu-list-item button">
+          <i class="applic icon">folder</i>
+          <div>Work</div>
+        </button>
+        <button class="applic menu-list-item button">
+          <i class="applic icon">folder</i>
+          <div>Uncategorized</div>
+        </button>
+
+        <button class="applic menu-list-item button">
+          <i class="applic icon">edit</i>
+          <div>Manage Categories</div>
+        </button>
+        </div>
+        -->
 
     </div>
-    <div class="applic aside--end">
-
-    </div>
+  
   </div>
 
   <div class="applic main">
+    <button class="applic fab"
+      applc-hint="Add Card"
+      applc-hint-align="start">
+      <i class="applic icon">add</i>
+    </button>
+
     <div class="applic bar body--toolbar">
       <div class="applic bar-row">
 
         <div class="applic bar-section align-start">
           <div class="applic menu-bar">
-            <button class="applic menu-bar-item icon-button" applc-hint="Select All ⌘ + A"
+            <button class="applic menu-bar-item icon-button" applc-hint="Select All"
               applc-hint-align="bottom">
               <i class="applic icon">select_all</i>
             </button>
@@ -91,15 +140,18 @@ export const model = (model, state) => html`
 
             <div class="applic menu-bar-divider"></div>
 
-            <button class="applic menu-bar-item icon-button" applc-hint="Grid View"
+            <button class="applic menu-bar-item icon-button" 
+              applc-hint="Notifications"
               applc-hint-align="bottom">
               <i class="applic icon">notifications_none</i>
             </button>
-            <button class="applic menu-bar-item icon-button" applc-hint="Grid View"
+            <button class="applic menu-bar-item icon-button" 
+              applc-hint="Grid View"
               applc-hint-align="bottom">
               <i class="applic icon">search</i>
             </button>
-            <button class="applic menu-bar-item icon-button" applc-hint="More Options"
+            <button class="applic menu-bar-item icon-button" 
+              applc-hint="More Options"
               applc-hint-align="bottom">
               <i class="applic icon">more_vert</i>
             </button>
@@ -108,6 +160,8 @@ export const model = (model, state) => html`
         </div>
       </div>
     </div>
+
+
 
   </div>
 
