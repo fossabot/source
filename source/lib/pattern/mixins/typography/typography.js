@@ -130,6 +130,17 @@ export const mixins = {
     text-decoration: inherit;
     text-transform: inherit;
   `,
+
+  '--typo--hint': () => `
+    ${css.apply('--typo')}
+    font-size: 12px;
+    line-height: 20px;
+    font-weight: 400;
+    letter-spacing: 0.4px;
+    text-decoration: inherit;
+    text-transform: inherit;
+  `,
+
   '--typo--button': () => `
     ${css.apply('--typo-sans')}
     font-size: 12px;

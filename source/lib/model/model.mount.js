@@ -17,8 +17,7 @@ export const model = (model, state) => html`
       ${css.apply('--layout--overflow-none')} 
 
       margin: 0px 0px 0px 0px; 
-      padding: 0px 0px 0px 0px;
-      background: #eae9ea; }
+      padding: 0px 0px 0px 0px; }
 
     *[hidden] { display: none !important; }
 

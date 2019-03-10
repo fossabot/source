@@ -23,6 +23,12 @@ export const modules = {
     
     .applic.button.dense {
       height: 30px; }
+
+    .applic.button {
+      color: #949294; }
+    .applic.button:focus,
+    .applic.button:hover {
+      color: #6e6d6f; }
     
   `,
   'applic::icon-button': () => `
@@ -41,6 +47,7 @@ export const modules = {
 
     .applic.icon-button {
       color: #949294; }
+    .applic.icon-button:focus,
     .applic.icon-button:hover {
       color: #6e6d6f; }
     

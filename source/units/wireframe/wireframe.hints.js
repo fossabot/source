@@ -34,10 +34,18 @@ export class WireframeHints {
           },
         });
 
+        node.addEventListener('focus', (event) => {
+          this.clearHints(nonce);
+          this.hint(nonce);
+        });
         node.addEventListener('mouseover', (event) => {
+          this.clearHints(nonce);
           this.hint(nonce);
         });
         node.addEventListener('mouseleave', (event) => {
+          this.resetHint(nonce);
+        });
+        node.addEventListener('blur', (event) => {
           this.resetHint(nonce);
         });
       };
@@ -51,6 +59,14 @@ export class WireframeHints {
   }
   resetHint(nonce) {
     applic.$.set(`hint.${nonce}.show`, false);
+  }
+  clearHints(nonce) {
+    // console.log(applic.$.state)
+    // for (const hint of) {
+      // if (!!hint.show && hint.nonce != nonce) {
+      //   this.resetHint(hint.nonce);
+      // };
+    // }
   }
   
 };

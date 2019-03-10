@@ -15,24 +15,25 @@ export const model = (model, state) => html`
       ${css.apply('--stance--fixed')}
 
       top: 0; left: 0;
-      padding: 4px 4px;
+      padding: 4px 8px;
       pointer-events: none; }
     
     .applic.hint-inner {
       ${css.apply('--stance--relative')}
-      ${css.apply('--layout--sizing--border-box')}
+      ${css.apply('--layout--sizing--content-box')}
       ${css.apply('--layout--horizontal')}
       ${css.apply('--layout--center')}
-      ${css.apply('--typo--caption')}
+      ${css.apply('--typo--hint')}
       ${css.apply('--typo--nowrap')}
       
-      height: 24px;
+      height: 36px;
       min-width: 32px;
-      padding: 0 8px;
+      padding: 0 16px;
+      overflow: visible;
+
+      border: 1px solid #e0e0e0;
       border-radius: 4px;
-      background: #000000;
-      color: #ffffff; 
-      overflow: visible;}
+      background: #fafafa; }
 
     .applic.hint[visible] .applic.hint-inner {
       opacity: 1; transition: opacity 100ms 100ms cubic-bezier(0.0, 0.0, 0.2, 1); }

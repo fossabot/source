@@ -30,8 +30,8 @@ export const model = (model, state) => html`
     ${css.apply('--layout--vertical')} 
     ${css.apply('--layout--flex')} 
 
-    border: 1px solid #e0e5e6;
-    background: #f6f8f8; }
+    border: 1px solid #e0e0e0;
+    background: #f8f8f8; }
 
   .applic.aside--end {
     ${css.apply('--layout--sizing--content-box')} 
@@ -39,7 +39,7 @@ export const model = (model, state) => html`
     ${css.apply('--layout--flex-none')} 
     
     height: 72px;
-    border-right: 1px solid #e0e5e6;
+    border-right: 1px solid #e0e0e0;
     background: #ffffff; }
 
   .applic.main {
@@ -47,7 +47,7 @@ export const model = (model, state) => html`
     ${css.apply('--layout--vertical')} 
     ${css.apply('--layout--flex')} 
 
-    background: #ffffff; }
+    background: #fafafa; }
 
 </style>
 
@@ -86,8 +86,6 @@ export const model = (model, state) => html`
         <div class="applic bar-section align-end">
           <div class="applic menu-bar">
 
-            <button class="applic menu-bar-item button">Customize
-            </button>
             <button class="applic menu-bar-item button">Export All
             </button>
 
@@ -95,11 +93,15 @@ export const model = (model, state) => html`
 
             <button class="applic menu-bar-item icon-button" applc-hint="Grid View"
               applc-hint-align="bottom">
-              <i class="applic icon">view_comfy</i>
+              <i class="applic icon">notifications_none</i>
             </button>
-            <button class="applic menu-bar-item icon-button" applc-hint="Fine-Tuning"
+            <button class="applic menu-bar-item icon-button" applc-hint="Grid View"
               applc-hint-align="bottom">
-              <i class="applic icon">tune</i>
+              <i class="applic icon">search</i>
+            </button>
+            <button class="applic menu-bar-item icon-button" applc-hint="More Options"
+              applc-hint-align="bottom">
+              <i class="applic icon">more_vert</i>
             </button>
 
           </div>
