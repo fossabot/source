@@ -49,15 +49,10 @@ export const model = (model, state) => html`
 
   </style>
 
-<<<<<<< HEAD
   ${Object.keys(state.hint).map((hintID) => {
     return template.hint(state.hint[hintID]);
   })}
-=======
-  ${Object.keys(state.hint).map((hintID) => {
-    return template.hint(state.hint[hintID]);
-  })}
->>>>>>> 4cac0a47b4f10e0a208e46fe827cd2d68a08aa12
+
 `;
 
 const template = {};

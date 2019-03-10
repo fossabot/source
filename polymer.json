@@ -2,20 +2,18 @@
   "entrypoint": 
     "./index.html",
   "shell": 
-    "./source/applic.js",
+    "./index.html",
   "fragments": [
-    "./source/applic.lazies.js",
-    "./source/applic.wireframe.js" ],
+    "./source/applic.js",
+    "./source/applic.lazies.js" ],
 
   "sources": [
     "./static/**/*" ],
 
   "extraDependencies": [
-    "./404.html", "./oauth2/index.html",
-    "./static/manifest.json",
-    "./node_modules/@webcomponents/webcomponentsjs/**/*.js",
-    "./node_modules/dropbox/dist/Dropbox-sdk.min.js",
-    "./favicon.ico"],
+    "./404.html", "./oauth2/index.html", "./favicon.ico",
+    "node_modules/@webcomponents/webcomponentsjs/**/*.js",
+    "node_modules/dropbox/dist/Dropbox-sdk.min.js" ],
 
   "lint": { "rules": [ "polymer-3" ] },
 

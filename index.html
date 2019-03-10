@@ -21,7 +21,7 @@ The complete set of contributors may be found at https://contrast-tool.github.io
 
 	<meta name="viewport" content="width=device-width, minimum-scale=1.0, maximum-scale=1.0, user-scalable=no">
 
-	<script nonce="PQRQBXzW9ErgDvEDdLIV4iiI"> self.applic = { created: Date.now(), standalone: false }	</script>
+	<script> self.applic = { created: Date.now(), standalone: false }	</script>
 
 	<meta itemprop="name" content="Contrast Tool">
 	<meta itemprop="description" content="An interactive viewer to compare and export your chat graphics.">
@@ -55,27 +55,43 @@ The complete set of contributors may be found at https://contrast-tool.github.io
 	<meta name="apple-mobile-web-app-capable" content="yes">
 	<meta name="apple-mobile-web-app-status-bar-style" content="black-translucent">
 
-	<!-- <link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Roboto:500,400,300"> -->
+	<link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Roboto:500,400,300">
 	<link rel="stylesheet" href="https://fonts.googleapis.com/icon?family=Material+Icons">
-	<link rel="stylesheet" href="/static/fonts/GoogleSans.css">
 
+	<style>
+		body {
+			margin: .00px;
+			height: 100vh; }
+	
+		body {
+			background-color: #eae9ea;
+			background-image: url('./static/img/site.svg');
+			background-size: 48px 48px;
+			background-repeat: no-repeat;
+			background-attachment: fixed;
+			background-position: center; }
 
-	<script nonce="PQRQBXzW9ErgDvEDdLIV4iiI">
+	</style>
+
+	<script>
 		if ('serviceWorker' in navigator) self.addEventListener('load', () => { 
 			navigator.serviceWorker.register('service-worker.js');
 		});
 	</script>
-
-	<script src="/node_modules/@webcomponents/webcomponentsjs/webcomponents-loader.js"></script>
-	<script src="/node_modules/dropbox/dist/Dropbox-sdk.min.js"></script>
-
-	<script type="module" src="/source/applic.wireframe.js"></script>
-	<script type="module" src="/source/applic.js" defer></script>
 	
+	<script src="/node_modules/@webcomponents/webcomponentsjs/webcomponents-bundle.js"></script>
+	<!-- <script src="node_modules/@webcomponents/webcomponentsjs/webcomponents-loader.js" defer></script> -->
+	<!-- <script src="/node_modules/dropbox/dist/Dropbox-sdk.min.js"></script> -->
+	
+	<script type="module" src="/source/applic.wireframe.js"></script>
+	<script type="module" src="/source/applic.js"></script>
+	<script type="module" src="/source/applic.lazies.js"></script>
+
 </head>
 
 <body>
 	<noscript>Please enable JavaScript to view this application.</noscript>
+
 </body>
 
 </html>

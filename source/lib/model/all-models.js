@@ -6,12 +6,12 @@ The complete set of authors may be found at https://contrast-tool.github.io/stat
 The complete set of contributors may be found at https://contrast-tool.github.io/static/CONTRIBUTORS.md
 */
 
-import {model as body} from './body/model.js';
-import {model as frame} from './frame/model.js';
-import {model as hint} from './hint/model.js';
-import {model as mount} from './mount/model.js';
-import {model as overlay} from './overlay/model.js';
-import {model as usercard} from './usercard/model.js';
+import {model as body} from './model.body.js';
+import {model as frame} from './model.frame.js';
+import {model as hint} from './model.hint.js';
+import {model as mount} from './model.mount.js';
+import {model as overlay} from './model.overlay.js';
+import {model as usercard} from './model.usercard.js';
 
 
 export const model = {

@@ -6,12 +6,13 @@ The complete set of authors may be found at https://contrast-tool.github.io/stat
 The complete set of contributors may be found at https://contrast-tool.github.io/static/CONTRIBUTORS.md
 */
 
-export const dispatch = (nonce, params) => {
-  self.dispatchEvent(new CustomEvent(nonce, {detail: params}));
-};
+export class WireframeOrder {
+  constructor() {
 
-export const on = (nonce, callback, params) => {
-  self.addEventListener(nonce, (evt) => {
-    callback(evt.detail);
-  }, params);
+  }
+
+  update() {
+   
+  }
+
 };

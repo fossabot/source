@@ -22,6 +22,14 @@ export const model = (model, state) => html`
 
     *[hidden] { display: none !important; }
 
+    .applic.mount {
+      opacity: 1; 
+      transition: opacity ease-in 120ms; } 
+
+    .applic.mount[unresolved] {
+      transition: opacity ease-in 0ms;
+      opacity: 0; } 
+
   </style>
 
   ${applic.standalone ? template.window() : ''}
