@@ -51,42 +51,100 @@ class ApplicScrollable extends LitElement {
           padding: 0 ${this.width__add} ${this.width__add} 0; }
 
 
-        ._scroll-bar {
-          ${applic.$.css.apply('--layout--block')} 
+
+       ._scroll-bar {
+          ${applic.$.css.apply('--layout--sizing--border-box')} 
           ${applic.$.css.apply('--stance--absolute')} 
+          ${applic.$.css.apply('--layout--vertical')} 
+
+          padding: 5px;
+       }
+       ._scroll-bar._scroll-bar--x {
+          ${applic.$.css.apply('--stance--pin--bottom-start')} 
+          
+          width: ${this.scroll_size_x}px;
+          height: 13px;
+          margin: 0px 0px ${this.width__add} ${this.scroll_x}px; }
+
+        ._scroll-bar._scroll-bar--y {
           ${applic.$.css.apply('--stance--pin--top-end')} 
           
-          width: 3px;
-          height: ${this.scroll_size_y - 10}px;
-          margin: ${this.scroll_y + 5}px 5px 5px;
-          
+          width: 13px;
+          height: ${this.scroll_size_y}px;
+          margin: ${this.scroll_y}px 0px 0px; }
+
+ 
+
+        ._scroll-bar > div {
+          ${applic.$.css.apply('--layout--sizing--border-box')} 
+          ${applic.$.css.apply('--stance--absolute')} 
+          ${applic.$.css.apply('--layout--flex')} 
+
+          height: calc(100% - 10px);
+          width: calc(100% - 10px);
+
+          opacity: 1;
+          transition: opacity 125ms linear;
+
           border-radius: 1.5px;
           background: rgba(0,0,0,0.23); }
+
+        ._scroll-bar[hide] > div {
+          opacity: 0;
+          transition: opacity 125ms linear;
+        }
 
       </style>
 
       <div class="_wrap">
         <div class="_wrap-inner">
           <slot></slot>
-
-          <div class="_scroll-bar"></div>
         </div>
       </div>
+
+      <div ?hide="${!this.scroll_show || !this.scroll_x_active}" class="_scroll-bar _scroll-bar--x"><div></div></div>
+      <div ?hide="${!this.scroll_show || !this.scroll_y_active}" class="_scroll-bar _scroll-bar--y"><div></div></div>
     `;
   }
   constructor() {
     super();
-    console.log()
+
     window.addEventListener('resize', this._reset.bind(this));
     window.addEventListener('resize', this._update.bind(this));
+
+    
   }
 
   firstUpdated() {
+    this.scroll_show = false;
+    
     Promise.resolve().then(this._reset.bind(this));
-    Promise.resolve().then(this._update.bind(this));
+
+    const $_wrap = this.shadowRoot.querySelector('._wrap');
+
+    $_wrap.addEventListener('scroll', this._update.bind(this));
+    $_wrap.addEventListener('scroll', this._trigger.bind(this));
+    $_wrap.addEventListener('mouseover', this._trigger.bind(this));
+  }
+
+  _trigger() {
+    if (!this.scroll_show) {
+      this.scroll_show = true;
+      this.requestUpdate();
+    };
+
+    this._spleep();
+  }
+  _spleep() {
+    clearTimeout(this._sleepTimer)
+    this._sleepTimer = setTimeout(() => {
+      this.scroll_show = false;
+      this.requestUpdate();
+    }, 2000);
   }
 
   async _update() {
+
     const $_wrap = this.shadowRoot.querySelector('._wrap');
 
     const xLimit = $_wrap.scrollWidth - $_wrap.clientWidth;
@@ -95,12 +153,11 @@ class ApplicScrollable extends LitElement {
     const xSize = Math.max(48, $_wrap.clientWidth * ($_wrap.clientWidth / $_wrap.scrollWidth));
     const ySize = Math.max(48, $_wrap.clientHeight * ($_wrap.clientHeight / $_wrap.scrollHeight));
 
-    console.log(xSize)
-    console.log(ySize)
-
     const x = ($_wrap.clientWidth - xSize) / 100 * Math.floor(($_wrap.scrollLeft / xLimit || 0) * 100);
     const y = ($_wrap.clientHeight - ySize) / 100 * Math.floor(($_wrap.scrollTop / yLimit || 0) * 100);
 
+    this.scroll_x_active = $_wrap.scrollWidth != $_wrap.clientWidth;
+    this.scroll_y_active = $_wrap.scrollHeight != $_wrap.clientHeight;
     this.scroll_x = x;
     this.scroll_y = y;
     this.scroll_size_x = xSize;
@@ -113,14 +170,10 @@ class ApplicScrollable extends LitElement {
     this.requestUpdate();
   }
 
-  _scroll() {
-    this._update();
-  }
+
 
   async _reset() {
     const $_wrap = this.shadowRoot.querySelector('._wrap');
-
-    $_wrap.addEventListener('scroll', this._scroll.bind(this));
 
     const _scrollbar_width = $_wrap.offsetWidth - $_wrap.clientWidth;
     const _add = _scrollbar_width <= 1 ? 20 : 0;
@@ -132,6 +185,7 @@ class ApplicScrollable extends LitElement {
     this.width__add = `${_add}px`;
 
     await this.updateComplete;
+    this._update();
     this.requestUpdate();
   }
 }
