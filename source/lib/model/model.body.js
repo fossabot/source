@@ -46,12 +46,6 @@ export const model = ($) => html`
     background: #f4f4f4; }
 
   .applic.aside > .aside--inner {
-    ${$.css.apply('--layout--sizing--content-box')} 
-    ${$.css.apply('--layout--vertical')} 
-    ${$.css.apply('--layout--flex')} 
-
-    padding: 8px 0;
-
     border-right: 1px solid #e6e6e6;
     background: #fafafa; }
 
@@ -92,13 +86,12 @@ export const model = ($) => html`
       <div class="flex-spacer"></div>
       <div class="applic name">
         <div>${'Contrast Tool'.toUpperCase()}</div>
-        <img style="margin-left: -16px; height: 28px; width: 28px;" src="/static/img/site.suffix.svg">
       </div>
      
 
     </div>
 
-    <div class="aside--inner">
+    <applic-scrollable class="aside--inner">
 
       ${$.model.usercard($, {
         email: 'mihroy.rikkunbrouwers@gmail.com',
@@ -122,6 +115,38 @@ export const model = ($) => html`
           <i class="applic icon">folder</i>
           <div>Uncategorized</div>
         </button>
+        <button class="applic menu-list-item button">
+          <i class="applic icon">folder</i>
+          <div>Uncategorized</div>
+        </button>
+        <button class="applic menu-list-item button">
+          <i class="applic icon">folder</i>
+          <div>Uncategorized</div>
+        </button>
+        <button class="applic menu-list-item button">
+          <i class="applic icon">folder</i>
+          <div>Uncategorized</div>
+        </button>
+        <button class="applic menu-list-item button">
+          <i class="applic icon">folder</i>
+          <div>Uncategorized</div>
+        </button>
+        <button class="applic menu-list-item button">
+          <i class="applic icon">folder</i>
+          <div>Uncategorized</div>
+        </button>
+        <button class="applic menu-list-item button">
+          <i class="applic icon">folder</i>
+          <div>Uncategorized</div>
+        </button>
+        <button class="applic menu-list-item button">
+          <i class="applic icon">folder</i>
+          <div>Uncategorized</div>
+        </button>
+        <button class="applic menu-list-item button">
+          <i class="applic icon">folder</i>
+          <div>Uncategorized</div>
+        </button>
 
         <button class="applic menu-list-item button">
           <i class="applic icon">edit</i>
@@ -129,7 +154,7 @@ export const model = ($) => html`
         </button>
         </div>
 
-    </div>
+    </applic-scrollable>
   
   </div>
 

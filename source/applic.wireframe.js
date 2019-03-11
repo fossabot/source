@@ -8,6 +8,8 @@ The complete set of contributors may be found at https://contrast-tool.github.io
 
 import { render } from 'lit-html';
 
+import './lib/elements/all-elements.js';
+
 import { model } from './lib/model/all-models.js';
 import { style } from './units/wireframe/wireframe.style.js';
 

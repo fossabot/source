@@ -52,7 +52,7 @@ export const module = {
 
       border-radius: 20px;
       color: #ffffff !important;
-      background: #fbce61; }
+      background: #6090ff; }
 
     .applic.fab > .fab--icon { 
       margin: 0 4px 0 -4px;
@@ -81,7 +81,7 @@ export const module = {
 
       border-radius: 28px;
       color: #ffffff !important;
-      background: #fbce61; }
+      background: #6090ff; }
       
     .applic.button {
       ${css.apply('--layout')}
