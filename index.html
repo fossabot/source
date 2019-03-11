@@ -21,7 +21,12 @@ The complete set of contributors may be found at https://mihroy.github.io/emote-
 
 	<meta name="viewport" content="width=device-width, minimum-scale=1.0, maximum-scale=1.0, user-scalable=no">
 
-	<script> self.applic = { created: Date.now(), standalone: false }	</script>
+	<script> 
+		self.applic = { 
+			created: Date.now(), standalone: false,
+			develop: -1 != location.search.indexOf('develop=true')
+		} 
+	</script>
 
 	<meta itemprop="name" content="Contrast Tool">
 	<meta itemprop="description" content="An interactive viewer to compare and export your chat graphics.">
@@ -55,26 +60,27 @@ The complete set of contributors may be found at https://mihroy.github.io/emote-
 	<meta name="apple-mobile-web-app-capable" content="yes">
 	<meta name="apple-mobile-web-app-status-bar-style" content="black-translucent">
 
-	<link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Roboto:500,400,300">
-	<link rel="stylesheet" href="https://fonts.googleapis.com/icon?family=Material+Icons">
+	<!-- <link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Roboto:500,400,300"> -->
+	<!-- <link rel="stylesheet" href="https://fonts.googleapis.com/icon?family=Material+Icons"> -->
 
 	<style>
-		body {	
-			background: #fafafa url('./static/img/site.svg') no-repeat fixed center; 
-			background-size: 56px 56px; }
+		body {
+			background: #f4f4f4 url('./static/img/site.svg') no-repeat fixed center;
+			background-size: 64px 64px; }
 
 	</style>
 
 	<script>
-		if ('serviceWorker' in navigator) self.addEventListener('load', () => { 
-			navigator.serviceWorker.register('service-worker.js');
+		self.addEventListener('load', async () => { 
+			if (!('serviceWorker' in navigator)) return;
+			applic.sw = await navigator.serviceWorker.register('service-worker.js');
+			self.onerror = () => { applic.sw.unregister(); console.info('Service worker has been unregister.'); }
 		});
 	</script>
-	
-	<script src="/node_modules/@webcomponents/webcomponentsjs/webcomponents-bundle.js"></script>
-	<!-- <script src="node_modules/@webcomponents/webcomponentsjs/webcomponents-loader.js" defer></script> -->
-	<!-- <script src="/node_modules/dropbox/dist/Dropbox-sdk.min.js"></script> -->
-	
+
+	<script src="/node_modules/@webcomponents/webcomponentsjs/webcomponents-loader.js"></script>
+	<!-- <script src="/node_modules/@webcomponents/webcomponentsjs/webcomponents-bundle.js"></script> -->
+
 	<script type="module" src="/source/applic.wireframe.js"></script>
 	<script type="module" src="/source/applic.js"></script>
 	<script type="module" src="/source/applic.lazies.js"></script>
@@ -83,6 +89,7 @@ The complete set of contributors may be found at https://mihroy.github.io/emote-
 
 <body>
 	<noscript>Please enable JavaScript to view this application.</noscript>
+	<div class="applic loding-error" aria-hidden="true"></div>
 </body>
 
 </html>

@@ -6,8 +6,8 @@ The complete set of authors may be found at https://contrast-tool.github.io/stat
 The complete set of contributors may be found at https://contrast-tool.github.io/static/CONTRIBUTORS.md
 */
 
-export const modules = {
-  'applic::overline': () => `
+export const module = {
+  'applic::overline': (css) => `
     .applic.overline {
       ${css.apply('--layout')}
       ${css.apply('--layout--horizontal')}

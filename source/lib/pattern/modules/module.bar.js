@@ -6,8 +6,8 @@ The complete set of authors may be found at https://contrast-tool.github.io/stat
 The complete set of contributors may be found at https://contrast-tool.github.io/static/CONTRIBUTORS.md
 */
 
-export const modules = {
-  'applic::bar': () => `
+export const module = {
+  'applic::bar': (css) => `
     .applic.bar {
       ${css.apply('--stance--relative')}
       ${css.apply('--layout--flex-none')}
@@ -66,13 +66,14 @@ export const modules = {
       margin-right: 0px;
       padding: 0px 8px;
     }
+
     .applic.menu-bar-divider {
       margin-left: 16px;
       margin-right: 8px;
 
       height: 28px;
       width: 1px;
-      background-color: #e0e5e6;
+      background-color: #e6e6e6;
     }
 
     .applic.menu-list {
@@ -81,18 +82,28 @@ export const modules = {
 
       padding: 8px 0px;
     }
-    .applic.menu-list-item{
+    .applic.menu-list-item {
       ${css.apply('--layout--flex-none')}
       margin-top: 0px;
       margin-bottom: 0px;
     }
+
+    .applic.menu-list-item {
+      ${css.apply('--layout--flex-none')}
+      margin-top: 0px;
+      margin-bottom: 0px;
+
+      color: #646464;
+    }
+
+
     .applic.menu-list-divider {
       margin-top: 8px;
       margin-bottom: 8px;
 
       height: 1px;
       width: 24px;
-      background-color: var(--scheme--edge);
+      background-color: #e6e6e6;
     }
 
   `,

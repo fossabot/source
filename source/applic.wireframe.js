@@ -7,12 +7,14 @@ The complete set of contributors may be found at https://contrast-tool.github.io
 */
 
 import { render } from 'lit-html';
+
 import { model } from './lib/model/all-models.js';
+import { style } from './units/wireframe/wireframe.style.js';
 
-import './lib/pattern/pattern.js';
-
+import { ResponsiveGrid } from './units/wireframe/responsive-grid.js';
 import { WireframeHints } from './units/wireframe/wireframe.hints.js';
 import { WireframeOrder } from './units/wireframe/wireframe.order.js';
+
 
 console.debug('applic-wireframe:loaded', `${Date.now() - applic.created}ms`);
 
@@ -20,14 +22,16 @@ console.debug('applic-wireframe:loaded', `${Date.now() - applic.created}ms`);
 applic.$ = new class {
   constructor() {
     this.linked = false;
-    this.state = {
-      cards: [
+    this.state = {};
 
-      ]
-    };
+    this.model = model;
+    this.css = style.css;
+    this.html = style.html;
 
+    this.brack = new ResponsiveGrid();
     this.hints = new WireframeHints();
     this.order = new WireframeOrder();
+
 
     this.init();
   }
@@ -44,9 +48,11 @@ applic.$ = new class {
     this.mount.setAttribute('role', 'application');
     this.mount.setAttribute('class', 'applic mount');
 
-    if (Date.now() - applic.created > 130) {
+    if (Date.now() - applic.created > 220) {
       this.mount.setAttribute('unresolved', '');
-      setTimeout(() => { this.mount.removeAttribute('unresolved') }, 0);
+      requestAnimationFrame(() => {
+        this.mount.removeAttribute('unresolved');
+      }) 
     }
 
     this.update(true);
@@ -60,8 +66,8 @@ applic.$ = new class {
     const apply = () => {
       this.rendering = false;
 
-      // console.debug('applic-wireframe:render', `${Date.now() - applic.created}ms`);
-      render(model.mount(model, this.state), this.mount);
+      // console.debug('applic-wireframe:render');
+      render(model.mount(this), this.mount);
 
       Promise.resolve().then(() => {
         this.order.update();
@@ -71,7 +77,10 @@ applic.$ = new class {
 
     if (first) console.debug('applic-wireframe:ready', `${Date.now() - applic.created}ms`);
     if (first) apply()
-    else Promise.resolve().then(apply.bind(this));
+    
+    else requestAnimationFrame(() => {
+      Promise.resolve().then(apply.bind(this))
+    });
   }
 
   set(path, value) {

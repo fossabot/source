@@ -61,26 +61,26 @@ export const mixins = {
     display: inline-flex;
   `,
 
-  '--layout--horizontal': () => `
+  '--layout--horizontal': (css) => `
     ${css.apply('--layout')}
     -ms-flex-direction: row;
     -webkit-flex-direction: row;
     flex-direction: row;
   `,
-  '--layout--horizontal-reverse': () => `
+  '--layout--horizontal-reverse': (css) => `
     ${css.apply('--layout')}
     -ms-flex-direction: row-reverse;
     -webkit-flex-direction: row-reverse;
     flex-direction: row-reverse;
   `,
 
-  '--layout--vertical': () => `
+  '--layout--vertical': (css) => `
     ${css.apply('--layout')}
     -ms-flex-direction: column;
     -webkit-flex-direction: column;
     flex-direction: column;
   `,
-  '--layout--vertical-reverse': () => `
+  '--layout--vertical-reverse': (css) => `
     ${css.apply('--layout')}
     -ms-flex-direction: column-reverse;
     -webkit-flex-direction: column-reverse;

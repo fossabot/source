@@ -6,13 +6,13 @@ The complete set of authors may be found at https://contrast-tool.github.io/stat
 The complete set of contributors may be found at https://contrast-tool.github.io/static/CONTRIBUTORS.md
 */
 
-import {modules as typo} from './typography/typography.js';
-import {modules as button} from './wireframe/applic-button.js';
-import {modules as icon} from './wireframe/applic-icon.js';
-import {modules as bar} from './wireframe/applic-bar.js';
-import {modules as backdrop} from './wireframe/applic-backdrop.js';
-import {modules as outline} from './wireframe/applic-outline.js';
-import {modules as overline} from './wireframe/applic-overline.js';
+import { module as typo } from './module.typography.js';
+import { module as button } from './module.button.js';
+import { module as icon } from './module.icon.js';
+import { module as bar } from './module.bar.js';
+import { module as backdrop } from './module.backdrop.js';
+import { module as outline } from './module.outline.js';
+import { module as overline } from './module.overline.js';
 
 const cssModules = {};
 const addModules = (object, template) => {
@@ -30,4 +30,4 @@ addModules(backdrop);
 addModules(outline);
 addModules(overline);
 
-export {cssModules};
+export { cssModules };

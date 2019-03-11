@@ -17,6 +17,6 @@
   },
   "scripts": {
     "start": "owc-dev-server",
-    "build": "polymer build && polymer serve ./build/public/"
+    "build": "polymer build && polymer serve ./build/esm-bundled/"
   }
 }

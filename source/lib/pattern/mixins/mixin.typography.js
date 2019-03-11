@@ -8,7 +8,7 @@ The complete set of contributors may be found at https://contrast-tool.github.io
 
 export const mixins = {
   '--typo': () => `
-    font-family: 'Roboto', Roboto, sans-serif;
+    font-family: Roboto, sans-serif;
     -moz-osx-font-smoothing: grayscale;
     -webkit-font-smoothing: antialiased;
 
@@ -16,7 +16,7 @@ export const mixins = {
   `,
 
   '--typo-sans': () => `
-    font-family: 'Roboto', Roboto, sans-serif;
+    font-family: Roboto, sans-serif;
     -moz-osx-font-smoothing: grayscale;
     -webkit-font-smoothing: antialiased;
 
@@ -31,7 +31,7 @@ export const mixins = {
   `,
 
 
-  '--typo--headline1': () => `
+  '--typo--headline1': (css) => `
     ${css.apply('--typo-sans')}
     font-size: 96px;
     line-height: 96px;
@@ -40,7 +40,7 @@ export const mixins = {
     text-decoration: inherit;
     text-transform: inherit;
   `,
-  '--typo--headline2': () => `
+  '--typo--headline2': (css) => `
     ${css.apply('--typo-sans')}
     font-size: 60px;
     line-height: 60px;
@@ -49,7 +49,7 @@ export const mixins = {
     text-decoration: inherit;
     text-transform: inherit;
   `,
-  '--typo--headline3': () => `
+  '--typo--headline3': (css) => `
     ${css.apply('--typo-sans')}
     font-size: 48px;
     line-height: 50px;
@@ -58,7 +58,7 @@ export const mixins = {
     text-decoration: inherit;
     text-transform: inherit;
   `,
-  '--typo--headline4': () => `
+  '--typo--headline4': (css) => `
     ${css.apply('--typo-sans')}
     font-size: 34px;
     line-height: 40px;
@@ -67,7 +67,7 @@ export const mixins = {
     text-decoration: inherit;
     text-transform: inherit;
   `,
-  '--typo--headline5': () => `
+  '--typo--headline5': (css) => `
     ${css.apply('--typo-sans')}
     font-size: 24px;
     line-height: 32px;
@@ -76,7 +76,7 @@ export const mixins = {
     text-decoration: inherit;
     text-transform: inherit;
   `,
-  '--typo--headline6': () => `
+  '--typo--headline6': (css) => `
     ${css.apply('--typo-sans')}
     font-size: 20px;
     line-height: 32px;
@@ -85,7 +85,7 @@ export const mixins = {
     text-decoration: inherit;
     text-transform: inherit;
   `,
-  '--typo--subtitle1': () => `
+  '--typo--subtitle1': (css) => `
     ${css.apply('--typo-sans')}
     font-size: 16px;
     line-height: 28px;
@@ -94,7 +94,7 @@ export const mixins = {
     text-decoration: inherit;
     text-transform: inherit;
   `,
-  '--typo--subtitle2': () => `
+  '--typo--subtitle2': (css) => `
     ${css.apply('--typo-sans')}
     font-size: 14px;
     line-height: 22px;
@@ -103,7 +103,7 @@ export const mixins = {
     text-decoration: inherit;
     text-transform: inherit;
   `,
-  '--typo--body1': () => `
+  '--typo--body1': (css) => `
     ${css.apply('--typo')}
     font-size: 16px;
     line-height: 24px;
@@ -112,7 +112,7 @@ export const mixins = {
     text-decoration: inherit;
     text-transform: inherit;
   `,
-  '--typo--body2': () => `
+  '--typo--body2': (css) => `
     ${css.apply('--typo')}
     font-size: 14px;
     line-height: 20px;
@@ -121,7 +121,7 @@ export const mixins = {
     text-decoration: inherit;
     text-transform: inherit;
   `,
-  '--typo--caption': () => `
+  '--typo--caption': (css) => `
     ${css.apply('--typo')}
     font-size: 12px;
     line-height: 20px;
@@ -131,7 +131,7 @@ export const mixins = {
     text-transform: inherit;
   `,
 
-  '--typo--hint': () => `
+  '--typo--hint': (css) => `
     ${css.apply('--typo')}
     font-size: 12px;
     line-height: 20px;
@@ -141,7 +141,7 @@ export const mixins = {
     text-transform: inherit;
   `,
 
-  '--typo--button': () => `
+  '--typo--button': (css) => `
     ${css.apply('--typo-sans')}
     font-size: 12px;
     line-height: 32px;
@@ -150,7 +150,7 @@ export const mixins = {
     text-decoration: none;
     text-transform: uppercase;
   `,
-  '--typo--overline': () => `
+  '--typo--overline': (css) => `
     ${css.apply('--typo-sans')}
     font-size: 10px;
     line-height: 32px;

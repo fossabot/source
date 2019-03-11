@@ -8,23 +8,23 @@ The complete set of contributors may be found at https://contrast-tool.github.io
 
 import {html} from 'lit-html';
 
-export const model = (model, state) => html`
+export const model = ($) => html`
  <style>
     .applic.hint {
-      ${css.apply('--layout--sizing--border-box')}
-      ${css.apply('--stance--fixed')}
+      ${$.css.apply('--layout--sizing--border-box')}
+      ${$.css.apply('--stance--fixed')}
 
       top: 0; left: 0;
-      padding: 4px 8px;
+      padding: 4px 4px;
       pointer-events: none; }
     
     .applic.hint-inner {
-      ${css.apply('--stance--relative')}
-      ${css.apply('--layout--sizing--content-box')}
-      ${css.apply('--layout--horizontal')}
-      ${css.apply('--layout--center')}
-      ${css.apply('--typo--hint')}
-      ${css.apply('--typo--nowrap')}
+      ${$.css.apply('--stance--relative')}
+      ${$.css.apply('--layout--sizing--content-box')}
+      ${$.css.apply('--layout--horizontal')}
+      ${$.css.apply('--layout--center')}
+      ${$.css.apply('--typo--hint')}
+      ${$.css.apply('--typo--nowrap')}
       
       height: 36px;
       min-width: 32px;
@@ -33,7 +33,7 @@ export const model = (model, state) => html`
 
       border: 1px solid #e0e0e0;
       border-radius: 4px;
-      background: #fafafa; }
+      background: rgba(250, 250, 250, .7); }
 
     .applic.hint[visible] .applic.hint-inner {
       opacity: 1; transition: opacity 100ms 100ms cubic-bezier(0.0, 0.0, 0.2, 1); }
@@ -41,7 +41,7 @@ export const model = (model, state) => html`
       opacity: 0; transition: opacity 40ms 0ms cubic-bezier(0.0, 0.0, 0.2, 1); }
 
     .applic.hint .applic.hint-pointer {
-      ${css.apply('--stance--absolute')}
+      ${$.css.apply('--stance--absolute')}
       top: 0; left: 0;
       height: 6px; width: 6px;
       transform: rotate(45deg);
@@ -50,8 +50,8 @@ export const model = (model, state) => html`
 
   </style>
 
-  ${Object.keys(state.hint).map((hintID) => {
-    return template.hint(state.hint[hintID]);
+  ${!$.state.hint ? '': Object.keys($.state.hint).map((hintID) => {
+    return template.hint($.state.hint[hintID]);
   })}
 
 `;
@@ -68,27 +68,28 @@ template.hint = (params) => html`
 const hint = {};
 hint.update = (params) => {
   Promise.resolve()
-      .then(() => {
-        const node = document.querySelector(`[applic-nonce="${params.nonce}"]`);
+    .then(() => {
+      const node = document.querySelector(`[applic-nonce="${params.nonce}"]`);
 
-        if (params.show) {
-          setTimeout(() => {
-            node.setAttribute('visible', '');
-          }, 10);
-          hint.stance(node, params);
-        } else {
-          const event = params.event;
-          const deprecat = () => {
-            Promise.resolve()
-                .then(() => {
-                  if (event == params.event) params.deprecat();
-                });
-          };
-          node.addEventListener('webkitTransitionEnd', deprecat, false);
-          node.addEventListener('transitionend', deprecat, false);
-          node.removeAttribute('visible');
+      if (params.show) {
+        setTimeout(() => {
+          node.setAttribute('visible', '');
+        }, 0);
+        hint.stance(node, params);
+      } else {
+        const event = params.event;
+        const deprecat = () => {
+          Promise.resolve()
+              .then(() => {
+                if (event == params.event) params.deprecat();
+              });
         };
-      });
+        node.addEventListener('webkitTransitionEnd', deprecat, false);
+        node.addEventListener('transitionend', deprecat, false);
+        node.removeAttribute('visible');
+      };
+    });
+
 };
 
 hint.stance = (node, params) => {

@@ -6,8 +6,8 @@ The complete set of authors may be found at https://contrast-tool.github.io/stat
 The complete set of contributors may be found at https://contrast-tool.github.io/static/CONTRIBUTORS.md
 */
 
-export const modules = {
-  'applic::typography': () => `
+export const module = {
+  'applic::typography': (css) => `
     .typo {
       ${css.apply('--typo')}
       color: rgba(0,0,0,.70);

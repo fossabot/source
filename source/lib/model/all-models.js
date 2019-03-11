@@ -7,7 +7,6 @@ The complete set of contributors may be found at https://contrast-tool.github.io
 */
 
 import {model as body} from './model.body.js';
-import {model as frame} from './model.frame.js';
 import {model as hint} from './model.hint.js';
 import {model as mount} from './model.mount.js';
 import {model as overlay} from './model.overlay.js';
@@ -16,12 +15,12 @@ import {model as usercard} from './model.usercard.js';
 
 export const model = {
   // wireframe
-  mount, frame, overlay,
-
-  // components
+  mount, 
+  overlay,
   body,
 
   // elements
-  hint, usercard,
+  hint, 
+  usercard,
 
 };

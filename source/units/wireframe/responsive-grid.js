@@ -6,16 +6,14 @@ The complete set of authors may be found at https://contrast-tool.github.io/stat
 The complete set of contributors may be found at https://contrast-tool.github.io/static/CONTRIBUTORS.md
 */
 
-import {cssModules} from './modules/modules.js';
-import {cssMixins} from './mixins/mixins.js';
+export class ResponsiveGrid {
+  constructor() {
+    self.addEventListener('resize', this.update.bind(this));
+    this.update();
+  }
 
-self.css = {};
-self.css.include = (cssNonce) => {
-  const cls = cssModules[cssNonce];
-  return cls ? cls().replace(/\s+/g, ' ') : '';
-};
+  update() {
+    console.log(self.innerWidth)
+  }
 
-self.css.apply = (cssNonce) => {
-  const mix = cssMixins[cssNonce];
-  return mix ? mix().replace(/\s+/g, ' ') : '';
 };

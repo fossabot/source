@@ -25,9 +25,3 @@ const init = () => {
 
 if (!!applic.$) init();
 else self.addEventListener('applic-wireframe:ready', init);
-
-// Promise.resolve().then(async () => {
-//   // import('./applic.lazies.js')
-//   const lazies = document.createElement('script');
-//   lazies.src = './source/applic.lazies.js'
-// });

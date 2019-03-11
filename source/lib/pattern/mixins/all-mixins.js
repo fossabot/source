@@ -6,12 +6,13 @@ The complete set of authors may be found at https://contrast-tool.github.io/stat
 The complete set of contributors may be found at https://contrast-tool.github.io/static/CONTRIBUTORS.md
 */
 
-import {mixins as typo} from './typography/typography.js';
-import {mixins as icon} from './typography/iconography.js';
+import {mixins as typo} from './mixin.typography.js';
+import {mixins as icon} from './mixin.iconography.js';
 
-import {mixins as elevation} from './wireframe/elevation.js';
-import {mixins as layout} from './wireframe/layout.js';
-import {mixins as stance} from './wireframe/stance.js';
+import {mixins as elevation} from './mixin.elevation.js';
+
+import {mixins as layout} from './mixin.layout.js';
+import {mixins as stance} from './mixin.stance.js';
 
 const cssMixins = {};
 const addMixins = (object, template) => {

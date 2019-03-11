@@ -8,23 +8,23 @@ The complete set of contributors may be found at https://contrast-tool.github.io
 
 import {html} from 'lit-html';
 
-export const model = (params) => html`
+export const model = ($, params) => html`
 <style>
     .applic.usercard {
-      ${css.apply('--layout--sizing--border-box')} 
-      ${css.apply('--layout--vertical')} 
-      ${css.apply('--layout--center-center')} 
+      ${$.css.apply('--layout--sizing--border-box')} 
+      ${$.css.apply('--layout--vertical')} 
+      ${$.css.apply('--layout--center-center')} 
 
       height: 56px;
       padding: 0 24px; }
 
     .applic.usercard-user--name {
-      ${css.apply('--typo--body2')}
+      ${$.css.apply('--typo--body2')}
       width: 100%;
       color: #252525;
     }
     .applic.usercard-user--detail {
-      ${css.apply('--typo--caption')}
+      ${$.css.apply('--typo--caption')}
       width: 100%;
       color: #979797;
     }

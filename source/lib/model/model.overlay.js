@@ -8,16 +8,22 @@ The complete set of contributors may be found at https://contrast-tool.github.io
 
 import {html} from 'lit-html';
 
-export const model = (model, state) => html`
+export const model = ($) => html`
   <style>
     .applic.olverlay {
       z-index: 18;
     }
 
   </style>
-
+  
   <div class="applic olverlay">
-    ${state.hint ? model.hint(model, state) : ''}
+    <button class="applic icon-fab"
+      applc-hint="New Card"
+      applc-hint-align="start">
+      <i class="applic icon fab--icon">add</i>
+    </button>
+
+    ${$.model.hint($)}
 
   </div>
 

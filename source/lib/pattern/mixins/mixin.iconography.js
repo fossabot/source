@@ -7,7 +7,7 @@ The complete set of contributors may be found at https://contrast-tool.github.io
 */
 
 export const mixins = {
-  '--icono': () => `
+  '--icono': (css) => `
     ${css.apply('--layout--flex-none')}
 
     font-family: 'Material Icons';
@@ -27,7 +27,7 @@ export const mixins = {
     -moz-osx-font-smoothing: grayscale;
     font-feature-settings: 'liga';
   `,
-  '--icono--dense': () => `
+  '--icono--dense': (css) => `
     ${css.apply('--layout--flex-none')}
 
     font-family: 'Material Icons';

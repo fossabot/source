@@ -6,8 +6,8 @@ The complete set of authors may be found at https://contrast-tool.github.io/stat
 The complete set of contributors may be found at https://contrast-tool.github.io/static/CONTRIBUTORS.md
 */
 
-export const modules = {
-  'applic::outline': () => `
+export const module = {
+  'applic::outline': (css) => `
     .applic.outline {
       ${css.apply('--stance--absolute')}
       ${css.apply('--stance--fit')}
