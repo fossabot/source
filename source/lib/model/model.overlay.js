@@ -17,11 +17,10 @@ export const model = ($) => html`
   </style>
   
   <div class="applic olverlay">
-    <button class="applic icon-fab"
+    <applic-fab icon="add" pin="end"
       applc-hint="New Card"
       applc-hint-align="start">
-      <i class="applic icon fab--icon">add</i>
-    </button>
+    </applic-fab>
 
     ${$.model.hint($)}
 

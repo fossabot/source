@@ -33,7 +33,7 @@ export const model = ($) => html`
 
       border: 1px solid #e0e0e0;
       border-radius: 4px;
-      background: rgba(250, 250, 250, .7); }
+      background: rgba(250, 250, 250, 1); }
 
     .applic.hint[visible] .applic.hint-inner {
       opacity: 1; transition: opacity 100ms 100ms cubic-bezier(0.0, 0.0, 0.2, 1); }
@@ -72,17 +72,15 @@ hint.update = (params) => {
       const node = document.querySelector(`[applic-nonce="${params.nonce}"]`);
 
       if (params.show) {
-        setTimeout(() => {
-          node.setAttribute('visible', '');
-        }, 0);
+        setTimeout(() => { node.setAttribute('visible', '')}, 0);
         hint.stance(node, params);
       } else {
         const event = params.event;
         const deprecat = () => {
           Promise.resolve()
-              .then(() => {
-                if (event == params.event) params.deprecat();
-              });
+            .then(() => {
+              if (event == params.event) params.deprecat();
+            });
         };
         node.addEventListener('webkitTransitionEnd', deprecat, false);
         node.addEventListener('transitionend', deprecat, false);

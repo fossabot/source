@@ -13,7 +13,8 @@ export class ResponsiveGrid {
   }
 
   update() {
-    console.log(self.innerWidth)
+    // console.log(self.innerWidth)
+    
   }
 
 };

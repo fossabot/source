@@ -20,7 +20,9 @@ export const model = ($) => html`
       padding: ${applic.standalone ? '30px' : '0px'} 0px 0px 0px;
 
       opacity: 1; 
-      transition: opacity ease-in 200ms; } 
+      transition: opacity ease-in 200ms; 
+      background: #f4f4f4; 
+      background-image: none; } 
 
     .applic.mount[unresolved]
       transition: opacity ease-in 0ms;

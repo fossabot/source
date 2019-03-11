@@ -7,8 +7,6 @@ The complete set of contributors may be found at https://contrast-tool.github.io
 */
 
 import { module as typo } from './module.typography.js';
-import { module as button } from './module.button.js';
-import { module as icon } from './module.icon.js';
 import { module as bar } from './module.bar.js';
 import { module as backdrop } from './module.backdrop.js';
 import { module as outline } from './module.outline.js';
@@ -23,8 +21,6 @@ const addModules = (object, template) => {
 };
 
 addModules(typo);
-addModules(button);
-addModules(icon);
 addModules(bar);
 addModules(backdrop);
 addModules(outline);

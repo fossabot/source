@@ -21,39 +21,14 @@ export const model = ($) => html`
     ${$.css.apply('--layout--horizontal')} 
     ${$.css.apply('--layout--flex')} }
 
-  .applic.aside {
-    ${$.css.apply('--layout--sizing--content-box')} 
-    ${$.css.apply('--layout--vertical')}
-    ${$.css.apply('--layout--flex-none')} 
-
-    width: 320px;
-    max-width: calc(100% - 56px); }
-
-  .applic.aside > .aside--header,
-  .applic.aside > .main--header {
-    margin-top: -28px;
-    padding-top: 28px; }
-
-  .applic.aside > .aside--header {
-    ${$.css.apply('--layout--sizing--content-box')} 
-    ${$.css.apply('--layout--vertical')} 
-    ${$.css.apply('--layout--flex-none')} 
-
-    min-height: 96px;
-
-    border-bottom: 1px solid #e6e6e6;
-    border-right: 1px solid #e6e6e6;
-    background: #f4f4f4; }
-
-  .applic.aside > .aside--inner {
-    border-right: 1px solid #e6e6e6;
-    background: #fafafa; }
 
   .applic.main {
     ${$.css.apply('--stance--relative')} 
     ${$.css.apply('--layout--sizing--content-box')} 
     ${$.css.apply('--layout--vertical')} 
-    ${$.css.apply('--layout--flex')} }
+    ${$.css.apply('--layout--flex')} 
+  
+    background: #efefef; }
 
   .applic.main > .main--header {
     border-bottom: 1px solid #e6e6e6;
@@ -63,32 +38,107 @@ export const model = ($) => html`
     ${$.css.apply('--stance--relative')} 
     ${$.css.apply('--layout--sizing--content-box')} 
     ${$.css.apply('--layout--vertical')} 
-    ${$.css.apply('--layout--flex')} 
+    ${$.css.apply('--layout--flex')} }
 
-    background: #efefef; }
+  </style>
 
-  .applic.name {
-    ${$.css.apply('--layout--sizing--border-box')} 
-    ${$.css.apply('--layout--horizontal')} 
-    ${$.css.apply('--layout--center')} 
-    ${$.css.apply('--layout--felx-none')} 
-    ${$.css.apply('--typo--subtitle2')}
-
-    padding: 0 24px;
-    height: 48px; }
-
-</style>
+  ${template.aside($)}
 
 
-<div class="applic wrap">
-  <div class="applic aside">
+  <div class="main--header applic bar body--toolbar">
+    <div class="applic bar-row">
+
+      <div class="applic bar-section align-start">
+
+        <applic-icon-button icon="${$.state.sheet.opened ? 'chevron_left' : 'menu'}" 
+          applc-hint="${$.state.sheet.opened ? 'Hide navigation' : 'Show navigation'}" 
+          applc-hint-align="bottom"
+          @click="${() => { $.set('sheet.open', !$.state.sheet.opened) }}">
+        </applic-icon-button>
+
+      </div>
+
+      <div class="applic bar-section align-end">
+
+        <applic-button>Export</applic-button>
+
+        <applic-icon-button icon="search" 
+          applc-hint="Search" 
+          applc-hint-align="bottom">
+        </applic-icon-button>
+
+        <applic-icon-button icon="more_vert" size="narrow"
+          applc-hint="More Options" 
+          applc-hint-align="bottom">
+        </applic-icon-button>
+
+      </div>
+    </div>
+  </div>
+
+
+  ${true ? template.emty($, {
+  label: 'No cards', icon: 'view_comfy',
+  description: 'The cards you added will appear here.'
+}) : ''}
+
+`;
+
+const handlers = {};
+const template = {};
+
+template.aside = ($) => html`
+  <style>
+    .applic.aside {
+      ${$.css.apply('--stance--absolute')} 
+      ${$.css.apply('--stance--pin--start')} 
+      ${$.css.apply('--layout--sizing--content-box')} 
+      ${$.css.apply('--layout--vertical')}
+      ${$.css.apply('--layout--flex-none')} 
+
+      width: 320px;
+      max-width: calc(100% - 56px); }
+
+    .applic.aside > .aside--header,
+    .applic.aside > .main--header {
+      margin-top: -28px;
+      padding-top: 28px; }
+
+    .applic.aside > .aside--header {
+      ${$.css.apply('--layout--sizing--content-box')} 
+      ${$.css.apply('--layout--vertical')} 
+      ${$.css.apply('--layout--flex-none')} 
+
+      min-height: 96px;
+
+      border-bottom: 1px solid #e6e6e6;
+      border-right: 1px solid #e6e6e6;
+      background: #f4f4f4; }
+
+    .applic.aside > .aside--inner {
+      border-right: 1px solid #e6e6e6;
+      background: #fafafa; }
+
+    .applic.name {
+      ${$.css.apply('--layout--sizing--border-box')} 
+      ${$.css.apply('--layout--horizontal')} 
+      ${$.css.apply('--layout--center')} 
+      ${$.css.apply('--layout--felx-none')} 
+      ${$.css.apply('--typo--subtitle2')}
+
+      padding: 0 24px;
+      height: 48px; }
+
+  </style>
+
+  <applic-side-sheet class="applic aside"
+    ?open="${$.state.sheet.open}"
+    @sheet-open="${() => {console.log('show'); $.set('sheet.opened', true)}}"
+    @sheet-close="${() => {console.log('hide'); $.set('sheet.opened', false)}}">
+
     <div class="aside--header">
       <div class="flex-spacer"></div>
-      <div class="applic name">
-        <div>${'Contrast Tool'.toUpperCase()}</div>
-      </div>
-     
-
+      <div class="applic name">${'Contrast Tool'.toUpperCase()}</div>
     </div>
 
     <applic-scrollable class="aside--inner">
@@ -115,38 +165,6 @@ export const model = ($) => html`
           <i class="applic icon">folder</i>
           <div>Uncategorized</div>
         </button>
-        <button class="applic menu-list-item button">
-          <i class="applic icon">folder</i>
-          <div>Uncategorized</div>
-        </button>
-        <button class="applic menu-list-item button">
-          <i class="applic icon">folder</i>
-          <div>Uncategorized</div>
-        </button>
-        <button class="applic menu-list-item button">
-          <i class="applic icon">folder</i>
-          <div>Uncategorized</div>
-        </button>
-        <button class="applic menu-list-item button">
-          <i class="applic icon">folder</i>
-          <div>Uncategorized</div>
-        </button>
-        <button class="applic menu-list-item button">
-          <i class="applic icon">folder</i>
-          <div>Uncategorized</div>
-        </button>
-        <button class="applic menu-list-item button">
-          <i class="applic icon">folder</i>
-          <div>Uncategorized</div>
-        </button>
-        <button class="applic menu-list-item button">
-          <i class="applic icon">folder</i>
-          <div>Uncategorized</div>
-        </button>
-        <button class="applic menu-list-item button">
-          <i class="applic icon">folder</i>
-          <div>Uncategorized</div>
-        </button>
 
         <button class="applic menu-list-item button">
           <i class="applic icon">edit</i>
@@ -155,62 +173,35 @@ export const model = ($) => html`
         </div>
 
     </applic-scrollable>
-  
-  </div>
-
-  <div class="applic main">
-  
-
-    <div class="main--header applic bar body--toolbar">
-      <div class="applic bar-row">
-
-        <div class="applic bar-section align-start">
-          <div class="applic menu-bar">
-            <button class="applic menu-bar-item icon-button" applc-hint="Select All"
-              applc-hint-align="bottom">
-              <i class="applic icon">select_all</i>
-            </button>
-          </div>
-        </div>
-
-        <div class="applic bar-section align-end">
-          <div class="applic menu-bar">
-
-            <button class="applic menu-bar-item button">Export All
-            </button>
-
-            <div class="applic menu-bar-divider"></div>
-
-            <button class="applic menu-bar-item icon-button" 
-              applc-hint="Notifications"
-              applc-hint-align="bottom">
-              <i class="applic icon">notifications_none</i>
-            </button>
-            <button class="applic menu-bar-item icon-button" 
-              applc-hint="Search"
-              applc-hint-align="bottom">
-              <i class="applic icon">search</i>
-            </button>
-            <button class="applic menu-bar-item icon-button" 
-              applc-hint="More Options"
-              applc-hint-align="bottom">
-              <i class="applic icon">more_vert</i>
-            </button>
-
-          </div>
-        </div>
-      </div>
-    </div>
-
-
-    <div class="main--inner">
-
-    </div>
-
-  </div>
-
-</div>
+  </applic-side-sheet>
 `;
 
-const handlers = {};
-const template = {};
+template.emty = ($, params) => html`
+  <style>
+    .applic.emty {
+      ${$.css.apply('--layout--sizing--content-box')} 
+      ${$.css.apply('--layout--vertical')} 
+      ${$.css.apply('--layout--center')} 
+      ${$.css.apply('--layout--flex-none')}  
+
+      padding: calc(50vh - 128px) 0 0; 
+      pointer-events: none; }
+    
+    .applic.emty > .emty--label {
+      ${$.css.apply('--typo--body1')} 
+      margin: 0 0 48px;
+      color: #b8b8b8; }
+
+    .applic.emty > .emty--description {
+      ${$.css.apply('--typo--body2')} 
+      color: #b8b8b8; }
+      
+  </style>
+
+  <div class="applic emty">
+    <applic-icon name="${params.icon}" size="huge">
+    </applic-icon>
+    <div class="emty--label">${params.label}</div>
+    <div class="emty--description">${params.description}</div>
+  </div>
+`;

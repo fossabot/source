@@ -14,8 +14,8 @@ import { model } from './lib/model/all-models.js';
 import { style } from './units/wireframe/wireframe.style.js';
 
 import { ResponsiveGrid } from './units/wireframe/responsive-grid.js';
-import { WireframeHints } from './units/wireframe/wireframe.hints.js';
-import { WireframeOrder } from './units/wireframe/wireframe.order.js';
+// import { WireframeOrder } from './units/wireframe/wireframe.order.js';
+// import { WireframeHints } from './units/wireframe/wireframe.hints.js';
 
 
 console.debug('applic-wireframe:loaded', `${Date.now() - applic.created}ms`);
@@ -24,15 +24,15 @@ console.debug('applic-wireframe:loaded', `${Date.now() - applic.created}ms`);
 applic.$ = new class {
   constructor() {
     this.linked = false;
-    this.state = {};
+    this.state = { sheet: { open: false } };
 
     this.model = model;
     this.css = style.css;
     this.html = style.html;
 
     this.brack = new ResponsiveGrid();
-    this.hints = new WireframeHints();
-    this.order = new WireframeOrder();
+    // this.hints = new WireframeHints();
+    // this.order = new WireframeOrder();
 
 
     this.init();
@@ -71,10 +71,10 @@ applic.$ = new class {
       // console.debug('applic-wireframe:render');
       render(model.mount(this), this.mount);
 
-      Promise.resolve().then(() => {
-        this.order.update();
-        this.hints.update();
-      });
+      // Promise.resolve().then(() => {
+      //   this.order.update();
+      //   this.hints.update();
+      // });
     };
 
     if (first) console.debug('applic-wireframe:ready', `${Date.now() - applic.created}ms`);
@@ -97,7 +97,7 @@ applic.$ = new class {
 
     const key = stack.shift();
     if (!obj[key]) obj[key] = {};
-    if (value == null) {
+    if (value === null) {
       delete obj[key];
       this.update();
     } else if (obj[key] != value) {

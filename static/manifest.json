@@ -5,9 +5,9 @@
   "description": "An interactive viewer to compare and export your chat graphics.",
 
   "start_url": "/",
-  "display": "fullscreen",
+  "display": "standalone",
 
-  "background_color": "#6090ff",
+  "background_color": "#fafafa",
 
   "icons": [{
     "src": "/static/img/mobile/192x192.png",

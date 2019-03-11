@@ -32,7 +32,7 @@ The complete set of contributors may be found at https://mihroy.github.io/emote-
 	<meta itemprop="description" content="An interactive viewer to compare and export your web graphics.">
 	<meta itemprop="image" content="https://contrast-tool.github.io/static/img/share.png">
 
-	<meta name="theme-color" content="#6090ff">
+	<meta name="theme-color" content="#fafafa">
 	<link rel="manifest" href="/static/manifest.json">
 
 	<meta property="og:type" content="website">
@@ -74,7 +74,7 @@ The complete set of contributors may be found at https://mihroy.github.io/emote-
 		self.addEventListener('load', async () => { 
 			if (!('serviceWorker' in navigator)) return;
 			applic.sw = await navigator.serviceWorker.register('service-worker.js');
-			self.onerror = () => { applic.sw.unregister(); console.info('Service worker has been unregister.'); }
+			self.onerror = (err) => { applic.sw.unregister(); console.info('Service worker has been unregister.'); }
 		});
 	</script>
 

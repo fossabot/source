@@ -6,4 +6,10 @@ The complete set of authors may be found at https://contrast-tool.github.io/stat
 The complete set of contributors may be found at https://contrast-tool.github.io/static/CONTRIBUTORS.md
 */
 
+import './element.button.js';
+import './element.fa-button.js';
+import './element.hint.js';
+import './element.icon-button.js';
+import './element.icon.js';
 import './element.scrollable.js';
+import './element.side-sheet.js';
