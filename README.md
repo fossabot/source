@@ -1,16 +1,15 @@
 ## Contrast Tool
 
-If you want to contribute to the code please join the [Discord](https://discord.gg/f6RV5yS). 
+If you want to contribute please join the [Discord](https://discord.gg/f6RV5yS). 
 
 ### To-Dos
-- [x] File handler + Folder traverse 
-- [ ] File grid
 - [x] File handler
-- [ ] Chat preview
+- [ ] File grid
+- [x] Dom export
+- [x] Zip export
 
 ### Maybes
-- [ ] Drive support
+- [x] Folder traverse 
 - [x] Dropbox support
-- [x] Preview print
-- [x] Zip export
-- [ ] Audit log
+- [ ] Drive support
+- [ ] Chat preview
