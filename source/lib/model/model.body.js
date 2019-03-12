@@ -40,9 +40,7 @@ export const model = ($) => html`
 
       <div class="applic bar-section align-start">
 
-        <applic-icon-button icon="${$.state.sheet.opened ? 'chevron_left' : 'notes'}" 
-          applc-hint="${$.state.sheet.opened ? 'Hide navigation' : 'Show navigation'}" 
-          applc-hint-align="bottom"
+        <applic-icon-button icon="${$.state.sheet.opened ? 'chevron_left' : 'notes'}" tune="accent"
           @click="${() => { $.call('applic-wireframe:navigation-sheet:toggle') }}">
         </applic-icon-button>
 
@@ -52,14 +50,10 @@ export const model = ($) => html`
 
         <applic-button>Export</applic-button>
 
-        <applic-icon-button icon="search" 
-          applc-hint="Search" 
-          applc-hint-align="bottom">
+        <applic-icon-button icon="search" tune="accent">
         </applic-icon-button>
 
-        <applic-icon-button icon="more_vert" size="narrow"
-          applc-hint="More Options" 
-          applc-hint-align="bottom">
+        <applic-icon-button icon="more_vert" size="narrow" tune="accent">
         </applic-icon-button>
 
       </div>
@@ -88,26 +82,28 @@ const template = {};
 template.aside = ($) => html`
   <style>
     .applic.aside--header {
-      ${$.css.apply('--layout--sizing--border-box')} 
-      ${$.css.apply('--layout--vertical')} 
-      ${$.css.apply('--layout--flex-none')} 
-
-      min-height: 96px;
-
       border-bottom: 1px solid #e6e6e6;
       background: #f4f4f4; }
 
     .applic.aside--inner {
       background: #fafafa; }
 
-    .applic.name {
+    ._name {
       ${$.css.apply('--layout--sizing--border-box')} 
       ${$.css.apply('--layout--horizontal')} 
       ${$.css.apply('--layout--center')} 
       ${$.css.apply('--layout--felx-none')} 
-      ${$.css.apply('--typo--subtitle2')}
 
-      height: 48px;
+      ${$.css.apply('--typo')}
+
+      font-size: 13px;
+      line-height: 22px;
+      font-weight: 500;
+      letter-spacing: -0.18px;
+      text-transform: uppercase;
+      
+      color: #636364;
+
       padding: 0px 24px; }
 
   </style>
@@ -115,9 +111,17 @@ template.aside = ($) => html`
   <applic-side-sheet applis-role="navigation-sheet"
     @sheet-changed="${() => { $.update() }}">
 
-    <div class="applic aside--header">
-      <div class="flex-spacer"></div>
-      <div class="applic name">${'Contrast Tool'.toUpperCase()}</div>
+    <div class="applic aside--header bar">
+      <div class="applic bar-row dense">
+        <div class="applic bar-section align-end">
+          <applic-icon-button icon="settings" scheme=""></applic-icon-button> 
+        </div>
+      </div>
+      <div class="applic bar-row">
+        <div class="applic bar-section align-start">
+          <span class="_name">Contrast Tool</span>
+        </div>
+      </div>
     </div>
 
     <applic-scrollable class="applic aside--inner">
@@ -137,22 +141,22 @@ template.aside = ($) => html`
         <hr>
   
         <applic-list-item>
-          <applic-icon slot="graphic" name="folder_open" size="dense"></applic-icon>
+          <applic-icon slot="graphic" name="apps" size="dense"></applic-icon>
           <span>Brainstorming</span>
           <span slot="meta" aria-hidden="true">42</span>
         </applic-list-item>
         <applic-list-item>
-          <applic-icon slot="graphic" name="folder_open" size="dense"></applic-icon>
+          <applic-icon slot="graphic" name="apps" size="dense"></applic-icon>
           <span>Work</span>
           <span slot="meta" aria-hidden="true">0</span>
         </applic-list-item>
         <applic-list-item>
-          <applic-icon slot="graphic" name="folder_open" size="dense"></applic-icon>
+          <applic-icon slot="graphic" name="apps" size="dense"></applic-icon>
           <span>Eryn</span>
           <span slot="meta" aria-hidden="true">7</span>
         </applic-list-item>
         <applic-list-item>
-          <applic-icon slot="graphic" name="folder_open" size="dense"></applic-icon>
+          <applic-icon slot="graphic" name="apps" size="dense"></applic-icon>
           <span>Uncategorized</span>
           <span slot="meta" aria-hidden="true">32</span>
         </applic-list-item>

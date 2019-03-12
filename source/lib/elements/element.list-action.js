@@ -24,7 +24,7 @@ class ApplicListAction extends LitElement {
           ${applic.$.css.apply('--layout--center')} 
           ${applic.$.css.apply('--layout--flex-none')} 
         
-          padding: 0 20px 0 9px;
+          padding: 0 20px 0 24px;
           min-height: 59px;
         
           cursor: pointer; 

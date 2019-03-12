@@ -34,8 +34,10 @@ class ApplicIconBtn extends LitElement {
           width: 28px; }
  
         applic-icon { 
-          color: #6090ff;
-        }
+          color: #7a7a7a; }
+
+        :host([tune="accent"]) applic-icon {
+          color: #ff9569; }
         
       </style>
 

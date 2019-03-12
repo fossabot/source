@@ -19,14 +19,14 @@ class ApplicSideSheet extends LitElement {
   render() {
     return html`
       <style>
-        :host { z-index: 1; }
+        :host { z-index: 2; }
 
         ._scrim {
           ${applic.$.css.apply('--stance--absolute')} 
-          top: -60px;
-          right: -30px;
-          bottom: -30px;
-          left: -30px;
+          top: -50vh;
+          right: -50vw;
+          bottom: -50vh;
+          left: -50vw;
 
           content: ""; 
           background: rgba(0,0,0,.2);

@@ -20,7 +20,7 @@ class ApplicFABtn extends LitElement {
       <style>
         :host {
           --fab-size: 56px;
-          --fab-color: #6090ff;
+          --fab-color: #ff9569;
 
           ${applic.$.css.apply('--layout--sizing--border-box')} 
           ${applic.$.css.apply('--layout--horizontal')} 
@@ -33,10 +33,12 @@ class ApplicFABtn extends LitElement {
           height: var(--fab-size);
           width: var(--fab-size);
           margin: 16px;
-          
+          z-index: 1;
+
           background: var(--fab-color); 
           border-radius: calc(var(--fab-size) / 2);
-          cursor: pointer;}
+
+          cursor: pointer; }
 
         :host([pin="end"]) {
           ${applic.$.css.apply('--stance--absolute')} 

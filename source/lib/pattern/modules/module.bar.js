@@ -29,10 +29,10 @@ export const module = {
       ${css.apply('--layout--horizontal')}
       ${css.apply('--layout--center')}
       
-      height: 56px;
+      height: 48px;
     }
     .applic.bar-row.dense {
-      height: 48px;
+      height: 45.5px;
     }
 
     .applic.bar-section {
@@ -44,11 +44,9 @@ export const module = {
 
     .applic.bar-section.align-start {
       margin-right: auto;
-      padding: 0 0 0 8px;
     }
     .applic.bar-section.align-end {
       margin-left: auto;
-      padding: 0 8px 0 0;
     }
 
     .applic.menu-bar {

@@ -10,6 +10,9 @@ import {html} from 'lit-html';
 
 export const model = ($) => html`
   <style>
+    body {
+      background: #eee; }
+
     .applic.mount {
       ${$.css.apply('--layout--sizing--content-box')} 
       ${$.css.apply('--stance--fixed')}
