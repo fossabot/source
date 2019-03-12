@@ -87,8 +87,8 @@ class ApplicSideSheet extends LitElement {
   }
 
   toggle() { this.open = !this.open; }
-  collapse() { this.open = false; console.log('collapse') }
-  expand() { this.open = true; console.log('expand') }
+  collapse() { this.open = false; }
+  expand() { this.open = true; }
 
   updated() {
     this.open ? this.setAttribute('opened', '') : this.removeAttribute('opened');
@@ -97,7 +97,6 @@ class ApplicSideSheet extends LitElement {
     // this.parentElement.style.transitionProperty = 'margin';
     // this.parentElement.style.transitionDuration = this.open ? this._expand_dur : this._collapse_dur;
     // this.parentElement.style.transitionTimingFunction = this.open ? this._expand_tmf : this._collapse_tmf;
-
 
     this.dispatchEvent(new Event('sheet-changed'));
   }

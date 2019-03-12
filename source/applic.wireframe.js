@@ -93,7 +93,9 @@ applic.$ = new class {
     if (first) console.debug('applic-wireframe:ready', `${Date.now() - applic.created}ms`);
     if (first) apply()
     
-    else requestAnimationFrame(() => {
+    // else requestAnimationFrame(() => {
+    else Promise.resolve().then(() => {
+
       this.state.sheet = {
         opened: this['navigation-sheet'].open
       }

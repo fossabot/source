@@ -64,12 +64,15 @@ export const model = ($) => html`
     </div>
   </div>
 
+  <applic-fab icon="add" pin="end"
+    applc-hint="New Card"
+    applc-hint-align="start">
+  </applic-fab>
 
   ${true ? template.emty($, {
-  label: 'No cards', icon: 'view_comfy',
-  description: 'The cards you added will appear here.'
-}) : ''}
-
+    label: 'No cards', icon: 'view_comfy',
+    description: 'The cards you added will appear here.'
+  }) : ''}
 `;
 
 const handlers = {};

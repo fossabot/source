@@ -17,10 +17,7 @@ export const model = ($) => html`
   </style>
   
   <div class="applic olverlay">
-    <applic-fab icon="add" pin="end"
-      applc-hint="New Card"
-      applc-hint-align="start">
-    </applic-fab>
+  
 
     ${$.model.hint($)}
 
