@@ -45,6 +45,18 @@ applic.$ = new class {
     this.linked = true;
   }
 
+  call(nonce) {
+    const _path = nonce.split(':')
+    
+    if (_path[0] === 'applic-wireframe') {
+      console.debug('applic-wireframe:call', `"${nonce}"`)
+      try { this[_path[1]][_path[2]]() } 
+      catch (err) { console.debug('applic-wireframe:call', `"${nonce}"`) }
+    } else {
+      console.log('applic call', _path[0])
+    }
+  }
+
   init() {
     this.mount = document.body;
     this.mount.setAttribute('role', 'application');
@@ -71,16 +83,21 @@ applic.$ = new class {
       // console.debug('applic-wireframe:render');
       render(model.mount(this), this.mount);
 
-      // Promise.resolve().then(() => {
+      Promise.resolve().then(() => {
+        this['navigation-sheet'] = this.mount.querySelector('[applis-role="navigation-sheet"]')
       //   this.order.update();
       //   this.hints.update();
-      // });
+      });
     };
 
     if (first) console.debug('applic-wireframe:ready', `${Date.now() - applic.created}ms`);
     if (first) apply()
     
     else requestAnimationFrame(() => {
+      this.state.sheet = {
+        opened: this['navigation-sheet'].open
+      }
+
       Promise.resolve().then(apply.bind(this))
     });
   }

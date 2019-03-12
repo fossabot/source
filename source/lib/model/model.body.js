@@ -53,7 +53,7 @@ export const model = ($) => html`
         <applic-icon-button icon="${$.state.sheet.opened ? 'chevron_left' : 'menu'}" 
           applc-hint="${$.state.sheet.opened ? 'Hide navigation' : 'Show navigation'}" 
           applc-hint-align="bottom"
-          @click="${() => { $.set('sheet.open', !$.state.sheet.opened) }}">
+          @click="${() => { $.call('applic-wireframe:navigation-sheet:toggle') }}">
         </applic-icon-button>
 
       </div>
@@ -97,7 +97,7 @@ template.aside = ($) => html`
       ${$.css.apply('--layout--flex-none')} 
 
       width: 320px;
-      max-width: calc(100% - 56px); }
+      max-width: calc(100vw - 56px); }
 
     .applic.aside > .aside--header,
     .applic.aside > .main--header {
@@ -131,10 +131,9 @@ template.aside = ($) => html`
 
   </style>
 
-  <applic-side-sheet class="applic aside"
-    ?open="${$.state.sheet.open}"
-    @sheet-open="${() => {console.log('show'); $.set('sheet.opened', true)}}"
-    @sheet-close="${() => {console.log('hide'); $.set('sheet.opened', false)}}">
+  <applic-side-sheet 
+    applis-role="navigation-sheet" class="applic aside"
+    @sheet-changed="${() => { $.update() }}">
 
     <div class="aside--header">
       <div class="flex-spacer"></div>
@@ -144,9 +143,9 @@ template.aside = ($) => html`
     <applic-scrollable class="aside--inner">
 
       ${$.model.usercard($, {
-        email: 'mihroy.rikkunbrouwers@gmail.com',
-        label: 'Last sync on 03/03/2019 1:38pm'
-      })}
+  email: 'mihroy.rikkunbrouwers@gmail.com',
+  label: 'Last sync on 03/03/2019 1:38pm'
+})}
 
       <div class="applic menu-list">
         <button class="applic menu-list-item button">

@@ -47,9 +47,16 @@ class ApplicSideSheet extends LitElement {
     this.parentElement.style.marginLeft = '320px'
   }
 
+  toggle() {
+    this.open = !this.open;
+  }
+
   updated() {
     console.log(this.open ? 'sheet-open' : 'sheet-close')
-    this.dispatchEvent(new Event(this.open ? 'sheet-open' : 'sheet-close'))
+    // this.dispatchEvent(new Event(this.open ? 'sheet-open' : 'sheet-close'))
+    this.parentElement.style.marginLeft = this.open ? '320px' : '0px'
+
+    this.dispatchEvent(new Event('sheet-changed'));
   }
 
   async _update() {
