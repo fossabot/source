@@ -17,28 +17,16 @@ export const model = ($) => html`
     ${$.css.include('applic::typography')}
   </style>
   <style>
-  .applic.wrap {
-    ${$.css.apply('--layout--horizontal')} 
-    ${$.css.apply('--layout--flex')} }
 
+    .main--header {
+      border-bottom: 1px solid #e6e6e6;
+      background: #fafafa; }
 
-  .applic.main {
-    ${$.css.apply('--stance--relative')} 
-    ${$.css.apply('--layout--sizing--content-box')} 
-    ${$.css.apply('--layout--vertical')} 
-    ${$.css.apply('--layout--flex')} 
-  
-    background: #efefef; }
-
-  .applic.main > .main--header {
-    border-bottom: 1px solid #e6e6e6;
-    background: #fafafa; }
-
-  .applic.main > .main--inner {
-    ${$.css.apply('--stance--relative')} 
-    ${$.css.apply('--layout--sizing--content-box')} 
-    ${$.css.apply('--layout--vertical')} 
-    ${$.css.apply('--layout--flex')} }
+    .main--inner {
+      ${$.css.apply('--stance--relative')} 
+      ${$.css.apply('--layout--sizing--content-box')} 
+      ${$.css.apply('--layout--vertical')} 
+      ${$.css.apply('--layout--flex')} }
 
   </style>
 
@@ -50,7 +38,7 @@ export const model = ($) => html`
 
       <div class="applic bar-section align-start">
 
-        <applic-icon-button icon="${$.state.sheet.opened ? 'chevron_left' : 'menu'}" 
+        <applic-icon-button icon="${$.state.sheet.opened ? 'chevron_left' : 'notes'}" 
           applc-hint="${$.state.sheet.opened ? 'Hide navigation' : 'Show navigation'}" 
           applc-hint-align="bottom"
           @click="${() => { $.call('applic-wireframe:navigation-sheet:toggle') }}">
@@ -89,22 +77,7 @@ const template = {};
 
 template.aside = ($) => html`
   <style>
-    .applic.aside {
-      ${$.css.apply('--stance--absolute')} 
-      ${$.css.apply('--stance--pin--start')} 
-      ${$.css.apply('--layout--sizing--content-box')} 
-      ${$.css.apply('--layout--vertical')}
-      ${$.css.apply('--layout--flex-none')} 
-
-      width: 320px;
-      max-width: calc(100vw - 56px); }
-
-    .applic.aside > .aside--header,
-    .applic.aside > .main--header {
-      margin-top: -28px;
-      padding-top: 28px; }
-
-    .applic.aside > .aside--header {
+    .applic.aside--header {
       ${$.css.apply('--layout--sizing--content-box')} 
       ${$.css.apply('--layout--vertical')} 
       ${$.css.apply('--layout--flex-none')} 
@@ -112,11 +85,9 @@ template.aside = ($) => html`
       min-height: 96px;
 
       border-bottom: 1px solid #e6e6e6;
-      border-right: 1px solid #e6e6e6;
       background: #f4f4f4; }
 
-    .applic.aside > .aside--inner {
-      border-right: 1px solid #e6e6e6;
+    .applic.aside--inner {
       background: #fafafa; }
 
     .applic.name {
@@ -126,21 +97,19 @@ template.aside = ($) => html`
       ${$.css.apply('--layout--felx-none')} 
       ${$.css.apply('--typo--subtitle2')}
 
-      padding: 0 24px;
       height: 48px; }
 
   </style>
 
-  <applic-side-sheet 
-    applis-role="navigation-sheet" class="applic aside"
+  <applic-side-sheet applis-role="navigation-sheet"
     @sheet-changed="${() => { $.update() }}">
 
-    <div class="aside--header">
+    <div class="applic aside--header">
       <div class="flex-spacer"></div>
       <div class="applic name">${'Contrast Tool'.toUpperCase()}</div>
     </div>
 
-    <applic-scrollable class="aside--inner">
+    <applic-scrollable class="applic aside--inner">
 
       ${$.model.usercard($, {
   email: 'mihroy.rikkunbrouwers@gmail.com',

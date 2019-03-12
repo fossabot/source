@@ -11,22 +11,28 @@ import {html} from 'lit-html';
 export const model = ($) => html`
   <style>
     .applic.mount {
+      ${$.css.apply('--layout--sizing--content-box')} 
       ${$.css.apply('--stance--fixed')}
       ${$.css.apply('--stance--fit')}
       ${$.css.apply('--layout--vertical')}
       ${$.css.apply('--layout--overflow-none')} 
 
-      margin: 0px; 
-      padding: ${applic.standalone ? '30px' : '0px'} 0px 0px 0px;
+      /* margin: 100px 100px 100px 100px; 
+      margin-top: ${applic.standalone ? '130px' : '100px'};*/
 
-      opacity: 1; 
-      transition: opacity ease-in 200ms; 
+      margin: 0px 0px 0px 0px; 
+      margin-top: ${applic.standalone ? '30px' : '0px'};
+
+      transition: opacity 0ms;
+      opacity: 0; 
+
       background: #f4f4f4; 
-      background-image: none; } 
+      outline: 1px solid #d8d8d8;
+      outline: 1px solid #d8d8d8; } 
 
-    .applic.mount[unresolved]
-      transition: opacity ease-in 0ms;
-      opacity: 0; } 
+    .applic.mount:not([unresolved]) {
+      opacity: 1; 
+      transition: opacity 150ms cubic-bezier(0.4, 0.0, 1, 1); } 
 
     *[hidden] { display: none !important; }
   </style>
@@ -45,12 +51,15 @@ template.window = ($) => html`
     ${$.css.include('applic::button')}
 
     .applic.win-drag {
-      ${$.css.apply('--stance--fixed')}
+      ${$.css.apply('--stance--absolute')}
       ${$.css.apply('--stance--pin--top')} 
+      top: -30px;
+
       -webkit-user-select: none;
       -webkit-app-region: drag;
       
-      height: 12px; 
+      height: 30px; 
+      background: rgba(0,0,0, .1);
       z-index: 20; }
 
     .applic.win-edge > * {
@@ -59,17 +68,20 @@ template.window = ($) => html`
       background: #e6e6e6; }
 
     .applic.win-edge--top {
-      ${$.css.apply('--stance--fixed')}
-      ${$.css.apply('--stance--pin--top')} }
+      ${$.css.apply('--stance--absolute')}
+      ${$.css.apply('--stance--pin--top')} 
+      top: -30px;}
     .applic.win-edge--bottom {
-      ${$.css.apply('--stance--fixed')}
+      ${$.css.apply('--stance--absolute')}
       ${$.css.apply('--stance--pin--bottom')} }
     .applic.win-edge--start {
-      ${$.css.apply('--stance--fixed')}
-      ${$.css.apply('--stance--pin--start')} }
+      ${$.css.apply('--stance--absolute')}
+      ${$.css.apply('--stance--pin--start')}
+      top: -30px; }
     .applic.win-edge--end {
-      ${$.css.apply('--stance--fixed')}
-      ${$.css.apply('--stance--pin--end')} }
+      ${$.css.apply('--stance--absolute')}
+      ${$.css.apply('--stance--pin--end')} 
+      top: -30px;}
 
     .applic.win-controls {
       ${$.css.apply('--layout--flex-none')}
@@ -80,32 +92,34 @@ template.window = ($) => html`
       background: #212022; }
       
     .applic.win-controls.align-start {
-      ${$.css.apply('--stance--fixed')}
-      ${$.css.apply('--stance--pin--top-start')} }
+      ${$.css.apply('--stance--absolute')}
+      ${$.css.apply('--stance--pin--top-start')}
+      top: -30px; }
     .applic.win-controls.align-end {
-      ${$.css.apply('--stance--fixed')}
-      ${$.css.apply('--stance--pin--top-end')} }
+      ${$.css.apply('--stance--absolute')}
+      ${$.css.apply('--stance--pin--top-end')}
+      top: -30px; }
 
   </style>
   
   <div class="applic win-drag"></div>
   
   <div class="applic win-controls align-start">
-    <button class="applic button dense">
-      <i class="applic icon dense">arrow_back</i>
-    </button>
+    <applic-button dense>
+      <applic-icon name="arrow_back" size="dense"></applic-button>
+    </applic-button>
   </div>
   
   <div class="applic win-controls align-end">
-    <button class="applic button dense">
-      <i class="applic icon dense">remove</i>
-    </button>
-    <button class="applic button dense">
-      <i class="applic icon dense">crop_square</i>
-    </button>
-    <button class="applic button dense">
-      <i class="applic icon dense">close</i>
-    </button>
+    <applic-button dense>
+      <applic-icon name="remove" size="dense"></applic-button>
+    </applic-button>
+    <applic-button dense>
+      <applic-icon name="crop_square" size="dense"></applic-button>
+    </applic-button>
+    <applic-button dense>
+      <applic-icon name="close" size="dense"></applic-button>
+    </applic-button>
   </div>
 
   <div class="applic win-edge">

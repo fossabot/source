@@ -155,8 +155,8 @@ class ApplicScrollable extends LitElement {
     const x = ($_wrap.clientWidth - xSize) / 100 * Math.floor(($_wrap.scrollLeft / xLimit || 0) * 100);
     const y = ($_wrap.clientHeight - ySize) / 100 * Math.floor(($_wrap.scrollTop / yLimit || 0) * 100);
 
-    this.scroll_x_active = $_wrap.scrollWidth != $_wrap.clientWidth;
-    this.scroll_y_active = $_wrap.scrollHeight != $_wrap.clientHeight;
+    this.scroll_x_active = $_wrap.scrollWidth > $_wrap.clientWidth;
+    this.scroll_y_active = $_wrap.scrollHeight > $_wrap.clientHeight;
     this.scroll_x = x;
     this.scroll_y = y;
     this.scroll_size_x = xSize;

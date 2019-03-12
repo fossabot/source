@@ -27,7 +27,12 @@ class ApplicBtn extends LitElement {
           ${applic.$.css.apply('--typo--button')} 
 
           height: 40px;
-          padding: 0 8px; }
+          padding: 0 16px; 
+        
+          cursor: pointer; }
+
+        :host([dense]) {
+          height: 30px; }
 
       </style>
 
