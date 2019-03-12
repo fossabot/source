@@ -43,7 +43,7 @@ class ApplicSideSheet extends LitElement {
           ${applic.$.css.apply('--stance--absolute')} 
           ${applic.$.css.apply('--layout--vertical')} 
           ${applic.$.css.apply('--layout--flex-none')} 
-          ${applic.$.css.apply(`--elevation--${this.open ? '12dp' : 'none'}`)} 
+          ${applic.$.css.apply(`--elevation--12dp`)} 
 
           height: calc(100%);
           width: calc(100% - 56px + 30px);
@@ -54,9 +54,9 @@ class ApplicSideSheet extends LitElement {
 
           overflow: hidden;
 
-          transform: translate(${this.open ? '-30px' : 'calc(-100% - 1px)'});
+          transform: translate(${this.open ? '-30px' : 'calc(-100% - 30px)'});
 
-          transition-property: transform, box-shadow;
+          transition-property: transform;
           transition-duration: ${this.open ? this.expandDur : this.collapseDur};
           transition-timing-function: ${this.open ? this.expandTmf : this.collapseTmf};
 
@@ -65,10 +65,9 @@ class ApplicSideSheet extends LitElement {
 
       </style>
 
-      <div class="_scrim" @touchstart="${this.collapse}" @click="${this.collapse}"></div>
-      <div class="_card">
-        <slot></slot>
-      </div>
+      <div class="_scrim"></div>
+      <div class="_card"><slot></slot></div>
+
     `;
   }
   constructor() {
@@ -78,6 +77,10 @@ class ApplicSideSheet extends LitElement {
   }
 
   firstUpdated() {
+    const $_scrim = this.shadowRoot.querySelector('._scrim');
+    $_scrim.addEventListener('touchstart', this.collapse.bind(this), {passive: true})
+    $_scrim.addEventListener('mousedown', this.collapse.bind(this), {passive: true})
+
     this.expandDur = '200ms';
     this.expandTmf = 'cubic-bezier(0.4, 0.0, 1, 1)';
     this.collapseDur = '150ms';

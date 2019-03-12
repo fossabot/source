@@ -7,9 +7,7 @@ The complete set of contributors may be found at https://contrast-tool.github.io
 */
 
 import {mixins as typo} from './mixin.typography.js';
-
 import {mixins as elevation} from './mixin.elevation.js';
-
 import {mixins as layout} from './mixin.layout.js';
 import {mixins as stance} from './mixin.stance.js';
 
@@ -22,7 +20,6 @@ const addMixins = (object, template) => {
 };
 
 addMixins(typo);
-
 addMixins(elevation);
 addMixins(layout);
 addMixins(stance);

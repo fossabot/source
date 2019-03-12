@@ -19,6 +19,8 @@ export const model = ($) => html`
   <style>
 
     .main--header {
+      ${$.css.apply('--layout--sizing--border-box')} 
+
       border-bottom: 1px solid #e6e6e6;
       background: #fafafa; }
 
@@ -64,15 +66,20 @@ export const model = ($) => html`
     </div>
   </div>
 
+  
   <applic-fab icon="add" pin="end"
     applc-hint="New Card"
     applc-hint-align="start">
   </applic-fab>
 
-  ${true ? template.emty($, {
-    label: 'No cards', icon: 'view_comfy',
-    description: 'The cards you added will appear here.'
-  }) : ''}
+  <applic-scrollable>
+
+    ${true ? template.emty($, {
+      label: 'No cards', icon: 'view_comfy',
+      description: 'The cards you added will appear here.'
+    }) : ''}
+
+  </applic-scrollable>
 `;
 
 const handlers = {};
@@ -81,7 +88,7 @@ const template = {};
 template.aside = ($) => html`
   <style>
     .applic.aside--header {
-      ${$.css.apply('--layout--sizing--content-box')} 
+      ${$.css.apply('--layout--sizing--border-box')} 
       ${$.css.apply('--layout--vertical')} 
       ${$.css.apply('--layout--flex-none')} 
 
@@ -100,7 +107,8 @@ template.aside = ($) => html`
       ${$.css.apply('--layout--felx-none')} 
       ${$.css.apply('--typo--subtitle2')}
 
-      height: 48px; }
+      height: 48px;
+      padding: 0px 24px; }
 
   </style>
 
@@ -114,34 +122,49 @@ template.aside = ($) => html`
 
     <applic-scrollable class="applic aside--inner">
 
-      ${$.model.usercard($, {
-  email: 'mihroy.rikkunbrouwers@gmail.com',
-  label: 'Last sync on 03/03/2019 1:38pm'
-})}
+      <applic-list>
+    
+        <applic-list-action>
+          <span>rikkunbrouwers@gmail.com(default)</span>
+          <span slot="detail">Last synced on 03/03/2019 1:39 pm</span>
+        </applic-list-action> 
 
-      <div class="applic menu-list">
-        <button class="applic menu-list-item button">
-          <i class="applic icon">folder</i>
-          <div>Brainstorming</div>
-        </button>
-        <button class="applic menu-list-item button">
-          <i class="applic icon">folder</i>
-          <div>Work</div>
-        </button>
-        <button class="applic menu-list-item button">
-          <i class="applic icon">folder</i>
-          <div>Work</div>
-        </button>
-        <button class="applic menu-list-item button">
-          <i class="applic icon">folder</i>
-          <div>Uncategorized</div>
-        </button>
+        <applic-list-action>
+          <span>mihroy.rikkunbrouwers@gmail.com</span>
+          <span slot="detail">Last synced on 03/03/2019 1:38 pm</span>
+        </applic-list-action> 
 
-        <button class="applic menu-list-item button">
-          <i class="applic icon">edit</i>
-          <div>Manage Categories</div>
-        </button>
-        </div>
+        <hr>
+  
+        <applic-list-item>
+          <applic-icon slot="graphic" name="folder_open" size="dense"></applic-icon>
+          <span>Brainstorming</span>
+          <span slot="meta" aria-hidden="true">42</span>
+        </applic-list-item>
+        <applic-list-item>
+          <applic-icon slot="graphic" name="folder_open" size="dense"></applic-icon>
+          <span>Work</span>
+          <span slot="meta" aria-hidden="true">0</span>
+        </applic-list-item>
+        <applic-list-item>
+          <applic-icon slot="graphic" name="folder_open" size="dense"></applic-icon>
+          <span>Eryn</span>
+          <span slot="meta" aria-hidden="true">7</span>
+        </applic-list-item>
+        <applic-list-item>
+          <applic-icon slot="graphic" name="folder_open" size="dense"></applic-icon>
+          <span>Uncategorized</span>
+          <span slot="meta" aria-hidden="true">32</span>
+        </applic-list-item>
+
+        <applic-list-item>
+          <applic-icon slot="graphic" name="edit" size="dense"></applic-icon>
+          <span>Manage Categories</span>
+          <span slot="meta" aria-hidden="true"></span>
+        </applic-list-item>
+
+      </applic-list>
+
 
     </applic-scrollable>
   </applic-side-sheet>
@@ -150,12 +173,13 @@ template.aside = ($) => html`
 template.emty = ($, params) => html`
   <style>
     .applic.emty {
+      ${$.css.apply('--stance--absolute')} 
+      ${$.css.apply('--stance--fit')} 
       ${$.css.apply('--layout--sizing--content-box')} 
       ${$.css.apply('--layout--vertical')} 
-      ${$.css.apply('--layout--center')} 
-      ${$.css.apply('--layout--flex-none')}  
+      ${$.css.apply('--layout--center-center')} 
 
-      padding: calc(50vh - 128px) 0 0; 
+      margin: -56px 0px 0px;
       pointer-events: none; }
     
     .applic.emty > .emty--label {

@@ -22,9 +22,13 @@ The complete set of contributors may be found at https://mihroy.github.io/emote-
 	<meta name="viewport" content="width=device-width, minimum-scale=1.0, maximum-scale=1.0, user-scalable=no">
 
 	<script> 
-		self.applic = { 
-			created: Date.now(), standalone: false,
-			develop: -1 != location.search.indexOf('develop=true')
+		self.applic = {
+			created: Date.now(), 
+			dev: {
+				standalone: -1 != location.search.indexOf('standalone=true'),
+				develop: -1 != location.search.indexOf('develop=true'),
+				overflow: -1 != location.search.indexOf('overflow=true')
+			}
 		} 
 	</script>
 

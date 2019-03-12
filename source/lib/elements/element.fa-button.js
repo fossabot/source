@@ -27,6 +27,7 @@ class ApplicFABtn extends LitElement {
           ${applic.$.css.apply('--layout--center-center')} 
           ${applic.$.css.apply('--layout--flex-none')} 
 
+          ${applic.$.css.apply(`--elevation--2dp`)} 
           ${applic.$.css.apply('--typo--button')} 
 
           height: var(--fab-size);

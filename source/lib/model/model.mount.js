@@ -17,18 +17,32 @@ export const model = ($) => html`
       ${$.css.apply('--layout--vertical')}
       ${$.css.apply('--layout--overflow-none')} 
 
-      /* margin: 100px 100px 100px 100px; 
-      margin-top: ${applic.standalone ? '130px' : '100px'};*/
-
-      margin: 0px 0px 0px 0px; 
-      margin-top: ${applic.standalone ? '30px' : '0px'};
+      ${applic.dev.overflow ? `
+        margin: 78px 112px 48px 112px;
+        margin-top: ${applic.dev.standalone ? '130px' : '100px'}
+      ` : `
+        margin: 0px 0px 0px 0px;
+        margin-top: ${applic.dev.standalone ? '30px' : '0px'};
+      `}
 
       transition: opacity 0ms;
       opacity: 0; 
 
-      background: #f4f4f4; 
-      outline: 1px solid #d8d8d8;
-      outline: 1px solid #d8d8d8; } 
+      background: #f4f4f4; } 
+
+    ${applic.dev.overflow ? `
+      .applic.mount:after {
+        ${$.css.apply('--stance--absolute')}
+        ${$.css.apply('--stance--fit')}
+        top: -${applic.dev.standalone ? '30px' : '0px'}; 
+        
+        z-index: 20; 
+        content: '';
+
+        outline: 900px solid rgba(255,50,50,.14);
+        pointer-events: none; }
+
+    ` : ``}
 
     .applic.mount:not([unresolved]) {
       opacity: 1; 
@@ -37,7 +51,7 @@ export const model = ($) => html`
     *[hidden] { display: none !important; }
   </style>
 
-  ${applic.standalone ? template.window($) : ''}
+  ${applic.dev.standalone ? template.window($) : ''}
 
   ${$.model.body($)}
   ${$.model.overlay($)}
@@ -62,26 +76,33 @@ template.window = ($) => html`
       background: rgba(0,0,0, .1);
       z-index: 20; }
 
+    .applic.win-edge {
+      ${$.css.apply('--stance--absolute')}
+      ${$.css.apply('--stance--fit')}
+      top: -30px;
+
+      z-index: 20; 
+      pointer-events: none; }
+
     .applic.win-edge > * {
       min-width: 1px;
       min-height: 1px;
-      background: #e6e6e6; }
+      background: rgba(0,0,0,.12); 
+
+      pointer-events: all; }
 
     .applic.win-edge--top {
       ${$.css.apply('--stance--absolute')}
-      ${$.css.apply('--stance--pin--top')} 
-      top: -30px;}
+      ${$.css.apply('--stance--pin--top')} }
     .applic.win-edge--bottom {
       ${$.css.apply('--stance--absolute')}
       ${$.css.apply('--stance--pin--bottom')} }
     .applic.win-edge--start {
       ${$.css.apply('--stance--absolute')}
-      ${$.css.apply('--stance--pin--start')}
-      top: -30px; }
+      ${$.css.apply('--stance--pin--start')} }
     .applic.win-edge--end {
       ${$.css.apply('--stance--absolute')}
-      ${$.css.apply('--stance--pin--end')} 
-      top: -30px;}
+      ${$.css.apply('--stance--pin--end')} }
 
     .applic.win-controls {
       ${$.css.apply('--layout--flex-none')}

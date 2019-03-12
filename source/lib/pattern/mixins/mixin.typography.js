@@ -26,7 +26,7 @@ export const mixins = {
 
   '--typo--nowrap': () => `
       white-space: nowrap;
-      overflow-x: hidden;
+      overflow: hidden;
       text-overflow: ellipsis;
   `,
 
