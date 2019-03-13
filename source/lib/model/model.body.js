@@ -48,7 +48,8 @@ export const model = ($) => html`
 
       <div class="applic bar-section align-end">
 
-        <applic-button>Export</applic-button>
+        <applic-button tune="accent">Edit</applic-button>
+        <applic-button tune="accent">Precision</applic-button>
 
         <applic-icon-button icon="search" tune="accent">
         </applic-icon-button>

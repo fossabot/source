@@ -57,13 +57,12 @@ class ApplicListCollection extends LitElement {
           color: #acacac; 
         
           transform: scaleY( ${this.open ? '1' : '-1'});
-          transition: transform 0.2s ease-out;
+          transition: transform 200ms cubic-bezier(0.4, 0.0, 0.2, 1);
         }
 
         ._collapsible {
           max-height: ${this.open ? this.$collapsible.scrollHeight : '0'}px;
           overflow: hidden;
-          transition: max-height 0.2s ease-out;
 
           opacity: ${this.open ? '1' : '0'};
 

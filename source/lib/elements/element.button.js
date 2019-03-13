@@ -24,15 +24,24 @@ class ApplicBtn extends LitElement {
           ${applic.$.css.apply('--layout--center-center')} 
           ${applic.$.css.apply('--layout--flex-none')} 
 
-          ${applic.$.css.apply('--typo--button')} 
-
+          ${applic.$.css.apply('--typo')} 
+          font-size: 12px;
+          line-height: 1;
+          font-weight: 500;
+          letter-spacing: -0.9px;
+          text-decoration: none;
+          text-transform: uppercase;
+          
           height: 40px;
-          padding: 0 16px; 
+          padding: 0 10px; 
         
           cursor: pointer; }
 
         :host([dense]) {
           height: 30px; }
+
+        :host([tune="accent"]) {
+          color: #ff9569; }
 
       </style>
 
