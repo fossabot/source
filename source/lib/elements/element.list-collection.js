@@ -59,7 +59,7 @@ class ApplicListCollection extends LitElement {
           transform: scaleY( ${this.open ? '1' : '-1'});
           transition: transform 0.2s ease-out;
         }
-        ${console.log(this.open)}
+
         ._collapsible {
           max-height: ${this.open ? this.$collapsible.scrollHeight : '0'}px;
           overflow: hidden;
@@ -70,8 +70,8 @@ class ApplicListCollection extends LitElement {
           transition: ${this.open ?
             `opacity 100ms 200ms cubic-bezier(0.4, 0.0, 1, 1),
             max-height 250ms 0ms cubic-bezier(0.4, 0.0, 0.2, 1)` :
-            `opacity 100ms 0ms  50ms cubic-bezier(0.0, 0.0, 0.2, 1),
-            max-height 200ms 200ms cubic-bezier(0.4, 0.0, 0.2, 1)`};
+            `opacity 100ms 50ms cubic-bezier(0.0, 0.0, 0.2, 1),
+            max-height 200ms 100ms cubic-bezier(0.4, 0.0, 0.2, 1)`};
         }
 
       </style>
@@ -108,7 +108,6 @@ class ApplicListCollection extends LitElement {
 
   updated() {
     Promise.resolve().then(() => {
-      console.log(this.open)
       this.$collapsible = this.shadowRoot.querySelector('._collapsible')
     })
 

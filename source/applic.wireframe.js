@@ -13,31 +13,42 @@ import './lib/elements/all-elements.js';
 import { model } from './lib/model/all-models.js';
 import { style } from './units/wireframe/wireframe.style.js';
 
-import { ResponsiveGrid } from './units/wireframe/responsive-grid.js';
-// import { WireframeOrder } from './units/wireframe/wireframe.order.js';
-// import { WireframeHints } from './units/wireframe/wireframe.hints.js';
-
-
 console.debug('applic-wireframe:loaded', `${Date.now() - applic.created}ms`);
-
 
 applic.$ = new class {
   constructor() {
     this.linked = false;
     this.state = { sheet: { open: false } };
 
+    this.mount = document.body;
+
     this.model = model;
     this.css = style.css;
     this.html = style.html;
 
-    this.brack = new ResponsiveGrid();
-    // this.hints = new WireframeHints();
-    // this.order = new WireframeOrder();
+    this._init();
+    this._resize();
 
-
-    this.init();
+    self.addEventListener('resize', this._resize.bind(this));
   }
 
+  _resize() {
+    const _width = this.mount.offsetWidth;
+
+    if (_width < 820) {
+      if (this.narrow === true) return;
+      this.narrow = true;
+
+      this['navigation-sheet'].collapse();
+      this['navigation-sheet'].persistent = false;
+    } else {
+      if (this.narrow === false) return;
+      this.narrow = false;
+
+      this['navigation-sheet'].expand();
+      this['navigation-sheet'].persistent = true;
+    };
+  }
 
   link() {
     console.debug('applic-wireframe:linked', `${Date.now() - applic.created}ms`);
@@ -57,8 +68,7 @@ applic.$ = new class {
     }
   }
 
-  init() {
-    this.mount = document.body;
+  _init() {
     this.mount.setAttribute('role', 'application');
     this.mount.setAttribute('class', 'applic mount');
 
@@ -68,7 +78,7 @@ applic.$ = new class {
         this.mount.removeAttribute('unresolved');
       }) 
     }
-
+    
     this.update(true);
     self.dispatchEvent(new Event('applic-wireframe:ready'));
   }
@@ -83,11 +93,11 @@ applic.$ = new class {
       // console.debug('applic-wireframe:render');
       render(model.mount(this), this.mount);
 
-      Promise.resolve().then(() => {
-        this['navigation-sheet'] = this.mount.querySelector('[applis-role="navigation-sheet"]')
+      // Promise.resolve().then(() => {
+      this['navigation-sheet'] = this.mount.querySelector('[applis-role="navigation-sheet"]')
       //   this.order.update();
       //   this.hints.update();
-      });
+      // });
     };
 
     if (first) console.debug('applic-wireframe:ready', `${Date.now() - applic.created}ms`);

@@ -40,7 +40,7 @@ export const model = ($) => html`
 
       <div class="applic bar-section align-start">
 
-        <applic-icon-button icon="${$.state.sheet.opened ? 'chevron_left' : 'notes'}" tune="accent"
+        <applic-icon-button icon="${$.state.sheet.opened ? 'chevron_left' : 'notes'}" tune="accent" size="narrow"
           @click="${() => { $.call('applic-wireframe:navigation-sheet:toggle') }}">
         </applic-icon-button>
 
@@ -130,44 +130,48 @@ template.aside = ($) => html`
       <applic-list>
 
         <applic-list-item>
-          <applic-icon slot="graphic" name="apps" size="dense"></applic-icon>
+          <applic-icon slot="graphic" name="folder_open" size="dense"></applic-icon>
           <span>Untitled</span>
-          <span slot="meta" aria-hidden="true">0</span>
+          <span slot="meta" aria-hidden="true">
+            <applic-icon name="cloud_off" size="dense"></applic-icon>
+          </span>
+        </applic-list-item>
+        <applic-list-item>
+          <applic-icon slot="graphic" name="folder_open" size="dense"></applic-icon>
+          <span>Untitled</span>
+          <span slot="meta" aria-hidden="true">
+            <applic-icon name="cloud_off" size="dense"></applic-icon>
+          </span>
         </applic-list-item>
 
         <div class="applic list-divider"></div>
 
-        <applic-list-collection>
-          <span slot="label">Pinned</span>
-        
-          <applic-list-item>
-            <applic-icon slot="graphic" name="apps" size="dense"></applic-icon>
-            <span>Untitled</span>
-            <span slot="meta" aria-hidden="true">42</span>
-          </applic-list-item>
-
-        </applic-list-collection>
+        <applic-list-item>
+          <applic-icon slot="graphic" name="folder_special" size="dense"></applic-icon>
+          <span>Untitled</span>
+          <span slot="meta" aria-hidden="true">18</span>
+        </applic-list-item>
 
         <applic-list-collection>
-          <span slot="label">All Folders</span>
+          <span slot="label">More Folders</span>
           
           <applic-list-item>
-            <applic-icon slot="graphic" name="apps" size="dense"></applic-icon>
+            <applic-icon slot="graphic" name="folder" size="dense"></applic-icon>
             <span>Brainstorming</span>
             <span slot="meta" aria-hidden="true">42</span>
           </applic-list-item>
           <applic-list-item>
-            <applic-icon slot="graphic" name="apps" size="dense"></applic-icon>
+            <applic-icon slot="graphic" name="folder" size="dense"></applic-icon>
             <span>Work</span>
             <span slot="meta" aria-hidden="true">0</span>
           </applic-list-item>
           <applic-list-item>
-            <applic-icon slot="graphic" name="apps" size="dense"></applic-icon>
+            <applic-icon slot="graphic" name="folder" size="dense"></applic-icon>
             <span>Eryn</span>
             <span slot="meta" aria-hidden="true">7</span>
           </applic-list-item>
           <applic-list-item>
-            <applic-icon slot="graphic" name="apps" size="dense"></applic-icon>
+            <applic-icon slot="graphic" name="folder" size="dense"></applic-icon>
             <span>Uncategorized</span>
             <span slot="meta" aria-hidden="true">32</span>
           </applic-list-item>

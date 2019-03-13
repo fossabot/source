@@ -11,8 +11,8 @@ import { LitElement, html } from 'lit-element';
 class ApplicSideSheet extends LitElement {
   static get properties() {
     return {
-      open: false,
-
+      open: true,
+      persistent: true,
     };
   }
 
@@ -31,9 +31,9 @@ class ApplicSideSheet extends LitElement {
           content: ""; 
           background: rgba(0,0,0,.2);
    
-          opacity: ${this.open ? '1' : '0'};
-          pointer-events: ${this.open ? 'all' : 'none'};
-          transition: ${this.open ?
+          opacity: ${!this.persistent && this.open ? '1' : '0'};
+          pointer-events: ${!this.persistent && this.open ? 'all' : 'none'};
+          transition: ${!this.persistent && this.open ?
             `all ${this.expandDur} ${this.expandTmf}` :
             `all ${this.collapseDur} 50ms ${this.collapseTmf}`};
         }
@@ -43,7 +43,7 @@ class ApplicSideSheet extends LitElement {
           ${applic.$.css.apply('--stance--absolute')} 
           ${applic.$.css.apply('--layout--vertical')} 
           ${applic.$.css.apply('--layout--flex-none')} 
-          ${applic.$.css.apply(`--elevation--12dp`)} 
+          ${applic.$.css.apply(`--elevation--${this.persistent ? 'none' : '12dp'}`)} 
 
           height: calc(100%);
           width: calc(100% - 56px + 30px);
@@ -54,14 +54,18 @@ class ApplicSideSheet extends LitElement {
 
           overflow: hidden;
 
-          transform: translate(${this.open ? '-30px' : 'calc(-100% - 30px)'});
+          ${!this.persistent ? `
+            transform: translate(${this.open ? '-30px' : 'calc(-100% - 30px)'});
 
-          transition-property: transform;
-          transition-duration: ${this.open ? this.expandDur : this.collapseDur};
-          transition-timing-function: ${this.open ? this.expandTmf : this.collapseTmf};
+            transition-property: transform;
+            transition-duration: ${this.open ? this.expandDur : this.collapseDur};
+            transition-timing-function: ${this.open ? this.expandTmf : this.collapseTmf};
+          `: `
+            border-right: 1px solid #e6e6e6;
+            transform: translate(calc(-100% - 0px));
+          `}
 
-          background: #f4f4f4;
-        }
+          background: #fafafa; }
 
       </style>
 
@@ -82,7 +86,7 @@ class ApplicSideSheet extends LitElement {
     $_scrim.addEventListener('mousedown', this.collapse.bind(this), {passive: true})
 
     this.expandDur = '200ms';
-    this.expandTmf = 'cubic-bezier(0.4, 0.0, 1, 1)';
+    this.expandTmf = 'cubic-bezier(0.0, 0.0, 0.2, 1)';
     this.collapseDur = '150ms';
     this.collapseTmf = 'cubic-bezier(0.4, 0.0, 1, 1)';
 
@@ -96,10 +100,13 @@ class ApplicSideSheet extends LitElement {
   updated() {
     this.open ? this.setAttribute('opened', '') : this.removeAttribute('opened');
 
-    // this.parentElement.style.marginLeft = this.open ? '320px' : '0px';
-    // this.parentElement.style.transitionProperty = 'margin';
-    // this.parentElement.style.transitionDuration = this.open ? this._expand_dur : this._collapse_dur;
-    // this.parentElement.style.transitionTimingFunction = this.open ? this._expand_tmf : this._collapse_tmf;
+    if (this.persistent && this.open) {
+      this.parentElement.style.paddingLeft = `${320 + 30}px`;
+      // this.parentElement.style.transition = `padding ${this.expandDur} ${this.expandTmf}`;
+    } else {
+      this.parentElement.style.paddingLeft = '0px';
+      // this.parentElement.style.transition = `padding ${this.collapseDur} ${this.collapseTmf}`;
+    }
 
     this.dispatchEvent(new Event('sheet-changed'));
   }
