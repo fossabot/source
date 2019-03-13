@@ -30,7 +30,7 @@ class ApplicIcon extends LitElement {
           height: var(--icon-size);
           width: var(--icon-size);
                 
-          font-family: 'Material Icons';
+          font-family: 'Material Icons Sharp', 'Material Icons';
           font-weight: normal;
           font-style: normal;
           font-size: var(--icon-size);

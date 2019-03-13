@@ -146,14 +146,9 @@ template.aside = ($) => html`
 
         <div class="applic list-divider"></div>
 
-        <applic-list-item>
-          <applic-icon slot="graphic" name="folder_special" size="dense"></applic-icon>
-          <span>Untitled</span>
-          <span slot="meta" aria-hidden="true">18</span>
-        </applic-list-item>
 
         <applic-list-collection>
-          <span slot="label">More Folders</span>
+          <span slot="label">Collections</span>
           
           <applic-list-item>
             <applic-icon slot="graphic" name="folder" size="dense"></applic-icon>
@@ -177,9 +172,26 @@ template.aside = ($) => html`
           </applic-list-item>
 
           <applic-list-item>
-            <applic-icon slot="graphic" name="edit" size="dense"></applic-icon>
-            <span>Manage Collections</span>
-            <span slot="meta" aria-hidden="true"></span>
+            <applic-icon slot="graphic" name="delete" size="dense"></applic-icon>
+            <span>Bin</span>
+            <span slot="meta" aria-hidden="true">0</span>
+          </applic-list-item>
+
+        </applic-list-collection>
+
+        <applic-list-collection>
+          <span slot="label">Tags</span>
+          
+          <applic-list-item>
+            <applic-icon slot="graphic" name="label" size="dense"></applic-icon>
+            <span>Example</span>
+            <span slot="meta" aria-hidden="true">42</span>
+          </applic-list-item>
+
+          <applic-list-item>
+            <applic-icon slot="graphic" name="label" size="dense"></applic-icon>
+            <span>Brainstorming</span>
+            <span slot="meta" aria-hidden="true">42</span>
           </applic-list-item>
 
         </applic-list-collection>

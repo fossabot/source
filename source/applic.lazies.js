@@ -43,6 +43,8 @@ const _fetch = () => {
 };
 
 
-setTimeout(() => {Promise.resolve().then(() => {
+setTimeout(() => {
+  // Promise.resolve().then(() => {
   _fetch().then(() => {console.info('applic-lazies:loaded', `${Date.now() - applic.created}ms`)})
-})}, 0);
+  // })
+}, 100);

@@ -22,12 +22,12 @@ The complete set of contributors may be found at https://mihroy.github.io/emote-
 	<meta name="viewport" content="width=device-width, minimum-scale=1.0, maximum-scale=1.0, user-scalable=no">
 
 	<script> 
+		self.develop = -1 != location.search.indexOf('develop=true');
 		self.applic = {
 			created: Date.now(), 
 			dev: {
-				standalone: -1 != location.search.indexOf('standalone=true'),
-				develop: -1 != location.search.indexOf('develop=true'),
-				overflow: -1 != location.search.indexOf('overflow=true')
+				standalone: self.develop && -1 != location.search.indexOf('standalone=true'),
+				overflow: self.develop && -1 != location.search.indexOf('overflow=true')
 			}
 		} 
 	</script>
@@ -64,9 +64,9 @@ The complete set of contributors may be found at https://mihroy.github.io/emote-
 	<meta name="apple-mobile-web-app-capable" content="yes">
 	<meta name="apple-mobile-web-app-status-bar-style" content="black-translucent">
 
-	<link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Roboto:500,400,300">
-	<link rel="stylesheet" href="https://fonts.googleapis.com/icon?family=Material+Icons">
-
+	<link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Roboto:300,400,500|Material+Icons+Sharp">
+	
+</head>
 	<style>
 		body {
 			margin: 0px;
