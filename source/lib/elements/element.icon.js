@@ -22,7 +22,7 @@ class ApplicIcon extends LitElement {
           --icon-size: 24px;
           --icon-color: #bfbfbf;
 
-          ${applic.$.css.apply('--layout--sizing--border-box')} 
+          ${applic.$.css.apply('--layout--sizing--content-box')} 
           ${applic.$.css.apply('--layout--horizontal')} 
           ${applic.$.css.apply('--layout--center-center')} 
           ${applic.$.css.apply('--layout--flex-none')} 
@@ -44,7 +44,10 @@ class ApplicIcon extends LitElement {
           color: var(--icon-color); }
 
           
-        :host([size="dense"]) { --icon-size: 20px; }
+        :host([size="dense"]) { 
+          --icon-size: 20px;
+          margin: -4px;
+        }
         :host([size="huge"]) {--icon-size: 64px; }
 
       </style>

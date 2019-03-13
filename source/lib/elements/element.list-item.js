@@ -24,7 +24,7 @@ class ApplicListItem extends LitElement {
           ${applic.$.css.apply('--layout--center')} 
           ${applic.$.css.apply('--layout--flex-none')} 
         
-          padding: 0 20px 0 9px;
+          padding: 0 20px 0 20px;
           min-height: 38.25px;
         
           cursor: pointer; 
@@ -36,8 +36,9 @@ class ApplicListItem extends LitElement {
           ${applic.$.css.apply('--layout--center-center')} 
           ${applic.$.css.apply('--layout--flex-none')} 
 
-          height: 38.25px;
-          width: 48px; 
+          height: 28px;
+          width: 28px; 
+          margin: 0 10px 0 0;
         
           color: #acacac; }
 
@@ -76,7 +77,6 @@ class ApplicListItem extends LitElement {
           ${applic.$.css.apply('--layout--flex-none')} 
 
           ${applic.$.css.apply('--typo--overline')}
-          ${applic.$.css.apply('--typo--nowrap')} 
         
           color: #acacac; }
 

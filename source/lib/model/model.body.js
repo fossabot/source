@@ -132,17 +132,22 @@ template.aside = ($) => html`
 
         <applic-list-item>
           <applic-icon slot="graphic" name="folder_open" size="dense"></applic-icon>
-          <span>Untitled</span>
+          <span>Untitled Draft</span>
           <span slot="meta" aria-hidden="true">
             <applic-icon name="cloud_off" size="dense"></applic-icon>
           </span>
         </applic-list-item>
         <applic-list-item>
           <applic-icon slot="graphic" name="folder_open" size="dense"></applic-icon>
-          <span>Untitled</span>
+          <span>Untitled Draft</span>
           <span slot="meta" aria-hidden="true">
             <applic-icon name="cloud_off" size="dense"></applic-icon>
           </span>
+        </applic-list-item>
+        
+        <applic-list-item>
+          <applic-icon slot="graphic" name="add" size="dense"></applic-icon>
+          <span>New Draft</span>
         </applic-list-item>
 
         <div class="applic list-divider"></div>

@@ -10,8 +10,8 @@ import {html} from 'lit-html';
 
 export const model = ($) => html`
   <style>
-    body {
-      background: #eee; }
+    html {
+      background: #eeeeee; }
 
     .applic.mount {
       ${$.css.apply('--layout--sizing--content-box')} 
@@ -19,14 +19,8 @@ export const model = ($) => html`
       ${$.css.apply('--stance--fit')}
       ${$.css.apply('--layout--vertical')}
       ${$.css.apply('--layout--overflow-none')} 
-
-      ${applic.dev.overflow ? `
-        margin: 78px 112px 48px 112px;
-        margin-top: ${applic.dev.standalone ? '130px' : '100px'}
-      ` : `
-        margin: 0px 0px 0px 0px;
-        margin-top: ${applic.dev.standalone ? '30px' : '0px'};
-      `}
+   
+      margin: 0px 0px 0px 0px;
 
       transition: opacity 0ms;
       opacity: 0; 
@@ -34,6 +28,10 @@ export const model = ($) => html`
       background: #f4f4f4; } 
 
     ${applic.dev.overflow ? `
+      .applic.mount {
+        transform: scale(${(self.innerWidth - 120) / self.innerWidth});
+      }
+
       .applic.mount:after {
         ${$.css.apply('--stance--absolute')}
         ${$.css.apply('--stance--fit')}
@@ -42,7 +40,7 @@ export const model = ($) => html`
         z-index: 20; 
         content: '';
 
-        outline: 900px solid rgba(255,50,50,.14);
+        outline: 10px solid rgba(255,90,90,.2);
         pointer-events: none; }
 
     ` : ``}
@@ -67,6 +65,8 @@ template.window = ($) => html`
     ${$.css.include('applic::icon')}
     ${$.css.include('applic::button')}
 
+    .applic.mount { margin: 30px; }
+
     .applic.win-drag {
       ${$.css.apply('--stance--absolute')}
       ${$.css.apply('--stance--pin--top')} 
@@ -76,7 +76,7 @@ template.window = ($) => html`
       -webkit-app-region: drag;
       
       height: 30px; 
-      background: rgba(0,0,0, .1);
+      background: rgba(0,0,0, .4);
       z-index: 20; }
 
     .applic.win-edge {
@@ -112,8 +112,10 @@ template.window = ($) => html`
       ${$.css.apply('--layout--horizontal')}
       ${$.css.apply('--layout--center')}
 
-      z-index: 20;
-      background: #212022; }
+      z-index: 20; }
+      
+    .applic.win-controls applic-icon {
+      color: #ffffff; }
       
     .applic.win-controls.align-start {
       ${$.css.apply('--stance--absolute')}
@@ -130,19 +132,19 @@ template.window = ($) => html`
   
   <div class="applic win-controls align-start">
     <applic-button dense>
-      <applic-icon name="arrow_back" size="dense"></applic-button>
+      <applic-icon name="arrow_back" size="dense"></applic-icon>
     </applic-button>
   </div>
   
   <div class="applic win-controls align-end">
     <applic-button dense>
-      <applic-icon name="remove" size="dense"></applic-button>
+      <applic-icon name="remove" size="dense"></applic-icon>
     </applic-button>
     <applic-button dense>
-      <applic-icon name="crop_square" size="dense"></applic-button>
+      <applic-icon name="crop_square" size="dense"></applic-icon>
     </applic-button>
     <applic-button dense>
-      <applic-icon name="close" size="dense"></applic-button>
+      <applic-icon name="close" size="dense"></applic-icon>
     </applic-button>
   </div>
 

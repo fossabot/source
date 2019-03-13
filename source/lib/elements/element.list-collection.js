@@ -53,7 +53,7 @@ class ApplicListCollection extends LitElement {
           color: #979797; }
 
         ._expander_icon {
-          margin: 0px -4px 0px auto;
+          margin-left: auto !important; 
           color: #acacac; 
         
           transform: scaleY( ${this.open ? '1' : '-1'});
@@ -77,7 +77,7 @@ class ApplicListCollection extends LitElement {
 
       <div class="_expander">
         <slot name="label"></slot>
-        <applic-icon class="_expander_icon" name="expand_less" ></applic-icon>
+        <applic-icon class="_expander_icon" name="expand_less" size="dense"></applic-icon>
       </div>
       <div class="_collapsible">
         <slot></slot>
