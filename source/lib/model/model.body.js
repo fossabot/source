@@ -106,6 +106,7 @@ template.aside = ($) => html`
 
       padding: 0px 24px; }
 
+
   </style>
 
   <applic-side-sheet applis-role="navigation-sheet"
@@ -114,7 +115,7 @@ template.aside = ($) => html`
     <div class="applic aside--header bar">
       <div class="applic bar-row dense">
         <div class="applic bar-section align-end">
-          <applic-icon-button icon="settings" scheme=""></applic-icon-button> 
+          <!-- <applic-icon-button icon="settings" scheme=""></applic-icon-button> -->
         </div>
       </div>
       <div class="applic bar-row">
@@ -127,45 +128,57 @@ template.aside = ($) => html`
     <applic-scrollable class="applic aside--inner">
 
       <applic-list>
-    
-        <applic-list-action>
-          <span>rikkunbrouwers@gmail.com(default)</span>
-          <span slot="detail">Last synced on 03/03/2019 1:39 pm</span>
-        </applic-list-action> 
 
-        <applic-list-action>
-          <span>mihroy.rikkunbrouwers@gmail.com</span>
-          <span slot="detail">Last synced on 03/03/2019 1:38 pm</span>
-        </applic-list-action> 
-
-        <hr>
-  
         <applic-list-item>
           <applic-icon slot="graphic" name="apps" size="dense"></applic-icon>
-          <span>Brainstorming</span>
-          <span slot="meta" aria-hidden="true">42</span>
-        </applic-list-item>
-        <applic-list-item>
-          <applic-icon slot="graphic" name="apps" size="dense"></applic-icon>
-          <span>Work</span>
+          <span>Untitled</span>
           <span slot="meta" aria-hidden="true">0</span>
         </applic-list-item>
-        <applic-list-item>
-          <applic-icon slot="graphic" name="apps" size="dense"></applic-icon>
-          <span>Eryn</span>
-          <span slot="meta" aria-hidden="true">7</span>
-        </applic-list-item>
-        <applic-list-item>
-          <applic-icon slot="graphic" name="apps" size="dense"></applic-icon>
-          <span>Uncategorized</span>
-          <span slot="meta" aria-hidden="true">32</span>
-        </applic-list-item>
 
-        <applic-list-item>
-          <applic-icon slot="graphic" name="edit" size="dense"></applic-icon>
-          <span>Manage Categories</span>
-          <span slot="meta" aria-hidden="true"></span>
-        </applic-list-item>
+        <div class="applic list-divider"></div>
+
+        <applic-list-collection>
+          <span slot="label">Pinned</span>
+        
+          <applic-list-item>
+            <applic-icon slot="graphic" name="apps" size="dense"></applic-icon>
+            <span>Untitled</span>
+            <span slot="meta" aria-hidden="true">42</span>
+          </applic-list-item>
+
+        </applic-list-collection>
+
+        <applic-list-collection>
+          <span slot="label">All Folders</span>
+          
+          <applic-list-item>
+            <applic-icon slot="graphic" name="apps" size="dense"></applic-icon>
+            <span>Brainstorming</span>
+            <span slot="meta" aria-hidden="true">42</span>
+          </applic-list-item>
+          <applic-list-item>
+            <applic-icon slot="graphic" name="apps" size="dense"></applic-icon>
+            <span>Work</span>
+            <span slot="meta" aria-hidden="true">0</span>
+          </applic-list-item>
+          <applic-list-item>
+            <applic-icon slot="graphic" name="apps" size="dense"></applic-icon>
+            <span>Eryn</span>
+            <span slot="meta" aria-hidden="true">7</span>
+          </applic-list-item>
+          <applic-list-item>
+            <applic-icon slot="graphic" name="apps" size="dense"></applic-icon>
+            <span>Uncategorized</span>
+            <span slot="meta" aria-hidden="true">32</span>
+          </applic-list-item>
+
+          <applic-list-item>
+            <applic-icon slot="graphic" name="edit" size="dense"></applic-icon>
+            <span>Manage Collections</span>
+            <span slot="meta" aria-hidden="true"></span>
+          </applic-list-item>
+
+        </applic-list-collection>
 
       </applic-list>
 

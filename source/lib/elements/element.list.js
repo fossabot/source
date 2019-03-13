@@ -23,8 +23,15 @@ class ApplicList extends LitElement {
           ${applic.$.css.apply('--layout--vertical')} 
           ${applic.$.css.apply('--layout--flex-none')} 
         
-          padding: 16px 0; 
+          padding: 10px 0px; 
           width: 100%; }
+
+        ::slotted(.applic.list-divider) {
+          height: 1px;
+          background: #e6e6e6;
+
+          margin: 10px 20px;
+        }
 
       </style>
 

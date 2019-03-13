@@ -12,6 +12,7 @@ import './element.hint.js';
 import './element.icon-button.js';
 import './element.icon.js';
 import './element.list-action.js';
+import './element.list-collection.js';
 import './element.list-item.js';
 import './element.list.js';
 import './element.scrollable.js';
