@@ -36,29 +36,41 @@ export const model = ($) => html`
 
 
   <div class="main--header applic bar body--toolbar">
-    <div class="applic bar-row">
+      ${false ? html`
+        <div class="applic bar-row">
 
-      <div class="applic bar-section align-start">
+          <div class="applic bar-section align-start">
+            <applic-icon-button icon="close" tune="accent">
+            </applic-icon-button>
+          </div>
 
-        <applic-icon-button icon="${$.state.sheet.opened ? 'chevron_left' : 'notes'}" tune="accent" size="narrow"
-          @click="${() => { $.call('applic-wireframe:navigation-sheet:toggle') }}">
-        </applic-icon-button>
+          <div class="applic bar-section align-end">
+            <applic-button tune="accent">Remove</applic-button>
+            <applic-button tune="accent">Export</applic-button>
+          </div>
+        </div>
+      `: html`
+        <div class="applic bar-row">
 
-      </div>
+          <div class="applic bar-section align-start">
 
-      <div class="applic bar-section align-end">
+            <applic-icon-button icon="${$.state.sheet.opened ? 'chevron_left' : 'notes'}" tune="accent" size="narrow"
+              @click="${() => { $.call('applic-wireframe:navigation-sheet:toggle') }}">
+            </applic-icon-button>
 
-        <applic-button tune="accent">Edit</applic-button>
-        <applic-button tune="accent">Precision</applic-button>
+          </div>
 
-        <applic-icon-button icon="search" tune="accent">
-        </applic-icon-button>
+          <div class="applic bar-section align-end">
+            <applic-icon-button icon="search" tune="accent">
+            </applic-icon-button>
 
-        <applic-icon-button icon="more_vert" size="narrow" tune="accent">
-        </applic-icon-button>
+            <applic-icon-button icon="more_vert" size="narrow" tune="accent">
+            </applic-icon-button>
 
-      </div>
-    </div>
+          </div>
+        </div>
+      `}
+
   </div>
 
   
@@ -126,6 +138,7 @@ template.aside = ($) => html`
       </div>
     </div>
 
+    
     <applic-scrollable class="applic aside--inner">
 
       <applic-list>
@@ -133,16 +146,12 @@ template.aside = ($) => html`
         <applic-list-item>
           <applic-icon slot="graphic" name="folder_open" size="dense"></applic-icon>
           <span>Untitled Draft</span>
-          <span slot="meta" aria-hidden="true">
-            <applic-icon name="cloud_off" size="dense"></applic-icon>
-          </span>
+          <span slot="meta" aria-hidden="true">2</span>
         </applic-list-item>
         <applic-list-item>
           <applic-icon slot="graphic" name="folder_open" size="dense"></applic-icon>
           <span>Untitled Draft</span>
-          <span slot="meta" aria-hidden="true">
-            <applic-icon name="cloud_off" size="dense"></applic-icon>
-          </span>
+          <span slot="meta" aria-hidden="true">12</span>
         </applic-list-item>
         
         <applic-list-item>
@@ -150,60 +159,55 @@ template.aside = ($) => html`
           <span>New Draft</span>
         </applic-list-item>
 
-        <div class="applic list-divider"></div>
+        ${self.develop ? html`
 
+          <div class="applic list-divider"></div>
 
-        <applic-list-collection>
-          <span slot="label">Collections</span>
-          
-          <applic-list-item>
-            <applic-icon slot="graphic" name="folder" size="dense"></applic-icon>
-            <span>Brainstorming</span>
-            <span slot="meta" aria-hidden="true">42</span>
-          </applic-list-item>
-          <applic-list-item>
-            <applic-icon slot="graphic" name="folder" size="dense"></applic-icon>
-            <span>Work</span>
-            <span slot="meta" aria-hidden="true">0</span>
-          </applic-list-item>
-          <applic-list-item>
-            <applic-icon slot="graphic" name="folder" size="dense"></applic-icon>
-            <span>Eryn</span>
-            <span slot="meta" aria-hidden="true">7</span>
-          </applic-list-item>
-          <applic-list-item>
-            <applic-icon slot="graphic" name="folder" size="dense"></applic-icon>
-            <span>Uncategorized</span>
-            <span slot="meta" aria-hidden="true">32</span>
-          </applic-list-item>
+          <applic-list-collection>
+            <span slot="label">Collections</span>
+            
+            <applic-list-item>
+              <applic-icon slot="graphic" name="folder" size="dense"></applic-icon>
+              <span>Brainstorming</span>
+              <span slot="meta" aria-hidden="true">42</span>
+            </applic-list-item>
+            <applic-list-item>
+              <applic-icon slot="graphic" name="folder" size="dense"></applic-icon>
+              <span>Work</span>
+              <span slot="meta" aria-hidden="true">0</span>
+            </applic-list-item>
+            <applic-list-item>
+              <applic-icon slot="graphic" name="folder" size="dense"></applic-icon>
+              <span>Eryn</span>
+              <span slot="meta" aria-hidden="true">7</span>
+            </applic-list-item>
+            <applic-list-item>
+              <applic-icon slot="graphic" name="folder" size="dense"></applic-icon>
+              <span>Uncategorized</span>
+              <span slot="meta" aria-hidden="true">32</span>
+            </applic-list-item>
+            
+          </applic-list-collection>
 
-          <applic-list-item>
-            <applic-icon slot="graphic" name="delete" size="dense"></applic-icon>
-            <span>Bin</span>
-            <span slot="meta" aria-hidden="true">0</span>
-          </applic-list-item>
+          <applic-list-collection>
+            <span slot="label">Tags</span>
+            
+            <applic-list-item>
+              <applic-icon slot="graphic" name="label" size="dense"></applic-icon>
+              <span>Example</span>
+              <span slot="meta" aria-hidden="true">42</span>
+            </applic-list-item>
+            <applic-list-item>
+              <applic-icon slot="graphic" name="label" size="dense"></applic-icon>
+              <span>Brainstorming</span>
+              <span slot="meta" aria-hidden="true">42</span>
+            </applic-list-item>
 
-        </applic-list-collection>
-
-        <applic-list-collection>
-          <span slot="label">Tags</span>
-          
-          <applic-list-item>
-            <applic-icon slot="graphic" name="label" size="dense"></applic-icon>
-            <span>Example</span>
-            <span slot="meta" aria-hidden="true">42</span>
-          </applic-list-item>
-
-          <applic-list-item>
-            <applic-icon slot="graphic" name="label" size="dense"></applic-icon>
-            <span>Brainstorming</span>
-            <span slot="meta" aria-hidden="true">42</span>
-          </applic-list-item>
-
-        </applic-list-collection>
-
+          </applic-list-collection>
+        
+        `: ''}
+     
       </applic-list>
-
 
     </applic-scrollable>
   </applic-side-sheet>

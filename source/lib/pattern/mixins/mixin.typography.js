@@ -29,6 +29,18 @@ export const mixins = {
       overflow: hidden;
       text-overflow: ellipsis;
   `,
+  '--typo--noselect': () => `
+    -moz-user-select: none;
+    -webkit-user-select: none;
+    -ms-user-select: none;
+    user-select: none;
+  `,
+  '--typo--selectable ': () => `
+    -moz-user-select: none;
+    -webkit-user-select: none;
+    -ms-user-select: none;
+    user-select: none;
+  `,
 
 
   '--typo--headline1': (css) => `

@@ -36,18 +36,19 @@ class ApplicScrollable extends LitElement {
           overflow: -moz-scrollbars-none;
           overflow: scroll;
 
-          min-height: calc(100% + ${this.height}px);
-          max-height: calc(100% + ${this.height}px);
-          min-width: calc(100% + ${this.width}px); 
-          max-width: calc(100% + ${this.width}px); 
+          ${console.log('dom', `calc(100% + ${this._height}px)`)}
+          min-height: calc(100% + ${this._height}px);
+          max-height: calc(100% + ${this._height}px);
+          min-width: calc(100% + ${this._width}px); 
+          max-width: calc(100% + ${this._width}px); 
         
-          margin: 0 ${-this.width}px ${-this.height}px 0; }
+          margin: 0 ${-this._width}px ${-this._height}px 0; }
 
         ._wrap-inner {
           ${applic.$.css.apply('--layout--block')} 
           ${applic.$.css.apply('--layout--sizing--content-box')} 
 
-          padding: 0 ${this.width_add}px ${this.height_add}px 0; }
+          padding: 0 ${this._width_add}px ${this._height_add}px 0; }
 
 
 
@@ -63,7 +64,7 @@ class ApplicScrollable extends LitElement {
           
           width: ${this.scroll_size_x}px;
           height: 13px;
-          margin: 0px 0px ${this.width_add}px ${this.scroll_x}px; }
+          margin: 0px 0px ${this._width_add}px ${this.scroll_x}px; }
 
         ._scroll-bar._scroll-bar--y {
           ${applic.$.css.apply('--stance--pin--top-end')} 
@@ -124,6 +125,8 @@ class ApplicScrollable extends LitElement {
     $_wrap.addEventListener('scroll', this._update.bind(this));
     $_wrap.addEventListener('scroll', this._trigger.bind(this));
     $_wrap.addEventListener('mouseover', this._trigger.bind(this));
+
+    this._update();
   }
 
   _trigger() {
@@ -143,7 +146,6 @@ class ApplicScrollable extends LitElement {
   }
 
   async _update() {
-
     const $_wrap = this.shadowRoot.querySelector('._wrap');
 
     const xLimit = $_wrap.scrollWidth - $_wrap.clientWidth;
@@ -175,16 +177,19 @@ class ApplicScrollable extends LitElement {
     const $_wrap = this.shadowRoot.querySelector('._wrap');
 
     const _scrollbar_width = $_wrap.offsetWidth - $_wrap.clientWidth;
-    const _add = _scrollbar_width <= 1 ? 20 : 0;
+    const _add = _scrollbar_width <= 1 ? 20 : 20;
 
-    if (this.width == _scrollbar_width + _add) return;
+    if (this._width == _scrollbar_width + _add) return;
 
-    this.width = _scrollbar_width + _add;
-    this.width_add = _add;
-    this.height = _scrollbar_width;
-    this.height_add = 0;
+    this._width = _scrollbar_width + _add;
+    this._width_add = _add;
+    this._height = _scrollbar_width;
+    this._height_add = 0;
+
+    console.log(this._width, this._height)
 
     await this.updateComplete;
+
     this._update();
     this.requestUpdate();
   }

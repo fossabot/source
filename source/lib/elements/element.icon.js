@@ -26,6 +26,7 @@ class ApplicIcon extends LitElement {
           ${applic.$.css.apply('--layout--horizontal')} 
           ${applic.$.css.apply('--layout--center-center')} 
           ${applic.$.css.apply('--layout--flex-none')} 
+          ${applic.$.css.apply('--typo--noselect')} 
 
           height: var(--icon-size);
           width: var(--icon-size);

@@ -34,8 +34,8 @@ class ApplicSideSheet extends LitElement {
           opacity: ${!this.persistent && this.open ? '1' : '0'};
           pointer-events: ${!this.persistent && this.open ? 'all' : 'none'};
           transition: ${!this.persistent && this.open ?
-            `all ${this.expandDur} ${this.expandTmf}` :
-            `all ${this.collapseDur} 50ms ${this.collapseTmf}`};
+        `all ${this.expandDur} ${this.expandTmf}` :
+        `all ${this.collapseDur} 50ms ${this.collapseTmf}`};
         }
 
         ._card {
@@ -65,6 +65,7 @@ class ApplicSideSheet extends LitElement {
             transform: translate(calc(-100% - 0px));
           `}
 
+          pointer-events: ${this.open ? 'all' : 'none'};
           background: #fafafa; }
 
       </style>
@@ -82,8 +83,8 @@ class ApplicSideSheet extends LitElement {
 
   firstUpdated() {
     const $_scrim = this.shadowRoot.querySelector('._scrim');
-    $_scrim.addEventListener('touchstart', this.collapse.bind(this), {passive: true})
-    $_scrim.addEventListener('mousedown', this.collapse.bind(this), {passive: true})
+    $_scrim.addEventListener('touchstart', this.collapse.bind(this), { passive: true })
+    $_scrim.addEventListener('mousedown', this.collapse.bind(this), { passive: true })
 
     this.expandDur = '200ms';
     this.expandTmf = 'cubic-bezier(0.0, 0.0, 0.2, 1)';

@@ -10,8 +10,8 @@ import {html} from 'lit-html';
 
 export const model = ($) => html`
   <style>
-    html {
-      background: #eeeeee; }
+    html { background: #eeeeee; }
+    * { ${$.css.apply('--typo--noselect')} }
 
     .applic.mount {
       ${$.css.apply('--layout--sizing--content-box')} 
@@ -20,7 +20,13 @@ export const model = ($) => html`
       ${$.css.apply('--layout--vertical')}
       ${$.css.apply('--layout--overflow-none')} 
    
-      margin: 0px 0px 0px 0px;
+      ${applic.dev.overflow ? `
+        margin: 78px 112px 48px 112px;
+        margin-top: ${applic.dev.standalone ? '130px' : '100px'}
+      ` : `
+        margin: 0px 0px 0px 0px;
+        margin-top: ${applic.dev.standalone ? '30px' : '0px'};
+      `}
 
       transition: opacity 0ms;
       opacity: 0; 
@@ -76,7 +82,7 @@ template.window = ($) => html`
       -webkit-app-region: drag;
       
       height: 30px; 
-      background: rgba(0,0,0, .4);
+      background: rgba(0,0,0, .6);
       z-index: 20; }
 
     .applic.win-edge {

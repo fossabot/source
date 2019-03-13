@@ -25,6 +25,7 @@ class ApplicBtn extends LitElement {
           ${applic.$.css.apply('--layout--flex-none')} 
 
           ${applic.$.css.apply('--typo')} 
+
           font-size: 12px;
           line-height: 1;
           font-weight: 500;

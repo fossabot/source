@@ -39,7 +39,6 @@ class ApplicListCollection extends LitElement {
           height: 34px;
           padding: 10px 20px;
 
-          cursor: pointer;
         }
         ._expander ::slotted(*) {
           ${applic.$.css.apply('--typo')}
@@ -58,6 +57,8 @@ class ApplicListCollection extends LitElement {
         
           transform: scaleY( ${this.open ? '1' : '-1'});
           transition: transform 200ms cubic-bezier(0.4, 0.0, 0.2, 1);
+
+          cursor: pointer;
         }
 
         ._collapsible {
@@ -91,8 +92,6 @@ class ApplicListCollection extends LitElement {
   firstUpdated() {
     const $_expand = this.shadowRoot.querySelector('._expander');
     $_expand.addEventListener('click', this.toggle.bind(this));
-
-
   }
 
   toggle() {

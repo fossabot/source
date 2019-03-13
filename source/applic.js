@@ -8,6 +8,9 @@ The complete set of contributors may be found at https://contrast-tool.github.io
 
 import './lib/utils/polyfill.js'
 
+import './units/applic-event.js'
+import './units/applic-state.js'
+
 console.info('applic:loaded', `${Date.now() - applic.created}ms`);
 
 const init = () => {
