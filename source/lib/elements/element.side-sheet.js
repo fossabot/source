@@ -11,8 +11,8 @@ import { LitElement, html } from 'lit-element';
 class ApplicSideSheet extends LitElement {
   static get properties() {
     return {
-      open: true,
-      persistent: true,
+      open: { type: Boolean },
+      persistent: { type: Boolean },
     };
   }
 
@@ -23,6 +23,7 @@ class ApplicSideSheet extends LitElement {
 
         ._scrim {
           ${applic.$.css.apply('--stance--absolute')} 
+
           top: -50vh;
           right: -50vw;
           bottom: -50vh;
@@ -39,13 +40,14 @@ class ApplicSideSheet extends LitElement {
         }
 
         ._card {
-          ${applic.$.css.apply('--layout--sizing--content-box')} 
+          ${applic.$.css.apply('--layout--sizing--border-box')} 
           ${applic.$.css.apply('--stance--absolute')} 
+          ${applic.$.css.apply('--stance--pin--start')} 
           ${applic.$.css.apply('--layout--vertical')} 
           ${applic.$.css.apply('--layout--flex-none')} 
           ${applic.$.css.apply(`--elevation--${this.persistent ? 'none' : '12dp'}`)} 
 
-          height: calc(100%);
+          height: calc(100% + 60px + 30px);
           width: calc(100% - 56px + 30px);
           max-width: calc(320px + 30px);
 
@@ -55,16 +57,16 @@ class ApplicSideSheet extends LitElement {
           overflow: hidden;
 
           ${!this.persistent ? `
-            transform: translate(${this.open ? '-30px' : 'calc(-100% - 30px)'});
-
-            transition-property: transform;
-            transition-duration: ${this.open ? this.expandDur : this.collapseDur};
-            transition-timing-function: ${this.open ? this.expandTmf : this.collapseTmf};
+            margin-left: ${this.open ? '-30px' : 'calc(0px - (320px + 30px + 30px))'};
           `: `
+            margin-left: -30px;
             border-right: 1px solid #e6e6e6;
-            transform: translate(calc(-100% - 0px));
           `}
 
+          transition: margin ${ this.open ?
+            `${this.expandDur} ${this.expandTmf}` :
+            `${this.collapseDur} ${this.collapseTmf}`};
+          
           pointer-events: ${this.open ? 'all' : 'none'};
           background: #fafafa; }
 
@@ -99,17 +101,19 @@ class ApplicSideSheet extends LitElement {
   expand() { this.open = true; }
 
   updated() {
-    this.open ? this.setAttribute('opened', '') : this.removeAttribute('opened');
-
     if (this.persistent && this.open) {
-      this.parentElement.style.paddingLeft = `${320 + 30}px`;
-      // this.parentElement.style.transition = `padding ${this.expandDur} ${this.expandTmf}`;
+      this.parentElement.style.paddingLeft = `${this.shadowRoot.querySelector('._card').offsetWidth - 30}px`;
+      this.parentElement.style.transition = `padding ${this.expandDur} ${this.expandTmf}`;
     } else {
       this.parentElement.style.paddingLeft = '0px';
-      // this.parentElement.style.transition = `padding ${this.collapseDur} ${this.collapseTmf}`;
-    }
+      this.parentElement.style.transition = `padding ${this.collapseDur} ${this.collapseTmf}`;
+    };
 
-    this.dispatchEvent(new Event('sheet-changed'));
+    this.dispatchEvent(new CustomEvent('changed', {
+      detail: {
+        opened: this.open
+      }
+    }));
   }
 
   async _update() {

@@ -36,7 +36,6 @@ class ApplicScrollable extends LitElement {
           overflow: -moz-scrollbars-none;
           overflow: scroll;
 
-          ${console.log('dom', `calc(100% + ${this._height}px)`)}
           min-height: calc(100% + ${this._height}px);
           max-height: calc(100% + ${this._height}px);
           min-width: calc(100% + ${this._width}px); 
@@ -89,10 +88,12 @@ class ApplicScrollable extends LitElement {
           border-radius: 1.5px;
           background: rgba(0,0,0,0.23); }
 
+        ._scroll-bar[hide] {
+          pointer-events: none; }
+          
         ._scroll-bar[hide] > div {
           opacity: 0;
-          transition: opacity 125ms linear;
-        }
+          transition: opacity 125ms linear; }
 
       </style>
 
@@ -177,7 +178,7 @@ class ApplicScrollable extends LitElement {
     const $_wrap = this.shadowRoot.querySelector('._wrap');
 
     const _scrollbar_width = $_wrap.offsetWidth - $_wrap.clientWidth;
-    const _add = _scrollbar_width <= 1 ? 20 : 20;
+    const _add = _scrollbar_width <= 1 ? 30 : 0;
 
     if (this._width == _scrollbar_width + _add) return;
 
@@ -185,8 +186,6 @@ class ApplicScrollable extends LitElement {
     this._width_add = _add;
     this._height = _scrollbar_width;
     this._height_add = 0;
-
-    console.log(this._width, this._height)
 
     await this.updateComplete;
 

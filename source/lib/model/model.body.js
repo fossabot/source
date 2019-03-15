@@ -7,239 +7,43 @@ The complete set of contributors may be found at https://contrast-tool.github.io
 */
 
 import { html } from 'lit-html';
+// import { html } from 'lit-element';
 
-export const model = ($) => html`
-  <style>
-    ${$.css.include('applic::bar')}
-    ${$.css.include('applic::icon')}
-    ${$.css.include('applic::icon-button')}
-    ${$.css.include('applic::button')}
-    ${$.css.include('applic::typography')}
-  </style>
-  <style>
+export const model = function () {
+  return html`
+    <style>
+      ${this.css.include('applic::bar')}
 
-    .main--header {
-      ${$.css.apply('--layout--sizing--border-box')} 
+      ._body-header {
+        ${this.css.apply('--layout--sizing--border-box')} 
 
-      border-bottom: 1px solid #e6e6e6;
-      background: #fafafa; }
+        margin: -60px -30px 0 -30px;
+        padding: 60px 30px 0 30px;
 
-    .main--inner {
-      ${$.css.apply('--stance--relative')} 
-      ${$.css.apply('--layout--sizing--content-box')} 
-      ${$.css.apply('--layout--vertical')} 
-      ${$.css.apply('--layout--flex')} }
+        border-bottom: 1px solid #e6e6e6;
+        background: #fafafa; }
 
-  </style>
+    </style>  
 
-  ${template.aside($)}
-
-
-  <div class="main--header applic bar body--toolbar">
-      ${false ? html`
-        <div class="applic bar-row">
-
-          <div class="applic bar-section align-start">
-            <applic-icon-button icon="close" tune="accent">
-            </applic-icon-button>
-          </div>
-
-          <div class="applic bar-section align-end">
-            <applic-button tune="accent">Remove</applic-button>
-            <applic-button tune="accent">Export</applic-button>
-          </div>
-        </div>
-      `: html`
-        <div class="applic bar-row">
-
-          <div class="applic bar-section align-start">
-
-            <applic-icon-button icon="${$.state.sheet.opened ? 'chevron_left' : 'notes'}" tune="accent" size="narrow"
-              @click="${() => { $.call('applic-wireframe:navigation-sheet:toggle') }}">
-            </applic-icon-button>
-
-          </div>
-
-          <div class="applic bar-section align-end">
-            <applic-icon-button icon="search" tune="accent">
-            </applic-icon-button>
-
-            <applic-icon-button icon="more_vert" size="narrow" tune="accent">
-            </applic-icon-button>
-
-          </div>
-        </div>
-      `}
-
-  </div>
-
-  
-  <applic-fab icon="add" pin="end"
-    applc-hint="New Card"
-    applc-hint-align="start">
-  </applic-fab>
-
-  <applic-scrollable>
-
-    ${true ? template.emty($, {
-      label: 'No cards', icon: 'view_comfy',
-      description: 'The cards you added will appear here.'
-    }) : ''}
-
-  </applic-scrollable>
-`;
-
-const handlers = {};
-const template = {};
-
-template.aside = ($) => html`
-  <style>
-    .applic.aside--header {
-      border-bottom: 1px solid #e6e6e6;
-      background: #f4f4f4; }
-
-    .applic.aside--inner {
-      background: #fafafa; }
-
-    ._name {
-      ${$.css.apply('--layout--sizing--border-box')} 
-      ${$.css.apply('--layout--horizontal')} 
-      ${$.css.apply('--layout--center')} 
-      ${$.css.apply('--layout--felx-none')} 
-
-      ${$.css.apply('--typo')}
-
-      font-size: 13px;
-      line-height: 22px;
-      font-weight: 500;
-      letter-spacing: -0.18px;
-      text-transform: uppercase;
-      
-      color: #636364;
-
-      padding: 0px 24px; }
-
-
-  </style>
-
-  <applic-side-sheet applis-role="navigation-sheet"
-    @sheet-changed="${() => { $.update() }}">
-
-    <div class="applic aside--header bar">
-      <div class="applic bar-row dense">
-        <div class="applic bar-section align-end">
-          <!-- <applic-icon-button icon="settings" scheme=""></applic-icon-button> -->
-        </div>
-      </div>
+    <div class="_body-header applic bar">
       <div class="applic bar-row">
         <div class="applic bar-section align-start">
-          <span class="_name">Contrast Tool</span>
+          ${this.get('sheet.persistent') ? '': html`
+            <applic-icon-button icon="notes"
+              @click="${this.call('navigation:toggle')}">
+            </applic-icon-button>
+          `}            
+ 
         </div>
       </div>
     </div>
 
-    
-    <applic-scrollable class="applic aside--inner">
-
-      <applic-list>
-
-        <applic-list-item>
-          <applic-icon slot="graphic" name="folder_open" size="dense"></applic-icon>
-          <span>Untitled Draft</span>
-          <span slot="meta" aria-hidden="true">2</span>
-        </applic-list-item>
-        <applic-list-item>
-          <applic-icon slot="graphic" name="folder_open" size="dense"></applic-icon>
-          <span>Untitled Draft</span>
-          <span slot="meta" aria-hidden="true">12</span>
-        </applic-list-item>
-        
-        <applic-list-item>
-          <applic-icon slot="graphic" name="add" size="dense"></applic-icon>
-          <span>New Draft</span>
-        </applic-list-item>
-
-        ${self.develop ? html`
-
-          <div class="applic list-divider"></div>
-
-          <applic-list-collection>
-            <span slot="label">Collections</span>
-            
-            <applic-list-item>
-              <applic-icon slot="graphic" name="folder" size="dense"></applic-icon>
-              <span>Brainstorming</span>
-              <span slot="meta" aria-hidden="true">42</span>
-            </applic-list-item>
-            <applic-list-item>
-              <applic-icon slot="graphic" name="folder" size="dense"></applic-icon>
-              <span>Work</span>
-              <span slot="meta" aria-hidden="true">0</span>
-            </applic-list-item>
-            <applic-list-item>
-              <applic-icon slot="graphic" name="folder" size="dense"></applic-icon>
-              <span>Eryn</span>
-              <span slot="meta" aria-hidden="true">7</span>
-            </applic-list-item>
-            <applic-list-item>
-              <applic-icon slot="graphic" name="folder" size="dense"></applic-icon>
-              <span>Uncategorized</span>
-              <span slot="meta" aria-hidden="true">32</span>
-            </applic-list-item>
-            
-          </applic-list-collection>
-
-          <applic-list-collection>
-            <span slot="label">Tags</span>
-            
-            <applic-list-item>
-              <applic-icon slot="graphic" name="label" size="dense"></applic-icon>
-              <span>Example</span>
-              <span slot="meta" aria-hidden="true">42</span>
-            </applic-list-item>
-            <applic-list-item>
-              <applic-icon slot="graphic" name="label" size="dense"></applic-icon>
-              <span>Brainstorming</span>
-              <span slot="meta" aria-hidden="true">42</span>
-            </applic-list-item>
-
-          </applic-list-collection>
-        
-        `: ''}
-     
-      </applic-list>
+    <applic-scrollable class="_body">
+      <code>
+        ${JSON.stringify(this.state, '', 4)}
+      </code>
 
     </applic-scrollable>
-  </applic-side-sheet>
-`;
 
-template.emty = ($, params) => html`
-  <style>
-    .applic.emty {
-      ${$.css.apply('--stance--absolute')} 
-      ${$.css.apply('--stance--fit')} 
-      ${$.css.apply('--layout--sizing--content-box')} 
-      ${$.css.apply('--layout--vertical')} 
-      ${$.css.apply('--layout--center-center')} 
-
-      margin: -56px 0px 0px;
-      pointer-events: none; }
-    
-    .applic.emty > .emty--label {
-      ${$.css.apply('--typo--body1')} 
-      margin: 0 0 48px;
-      color: #b8b8b8; }
-
-    .applic.emty > .emty--description {
-      ${$.css.apply('--typo--body2')} 
-      color: #b8b8b8; }
-      
-  </style>
-
-  <div class="applic emty">
-    <applic-icon name="${params.icon}" size="huge">
-    </applic-icon>
-    <div class="emty--label">${params.label}</div>
-    <div class="emty--description">${params.description}</div>
-  </div>
-`;
+  `
+}

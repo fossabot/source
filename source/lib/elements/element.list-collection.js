@@ -68,10 +68,10 @@ class ApplicListCollection extends LitElement {
           opacity: ${this.open ? '1' : '0'};
 
           transition: ${this.open ?
-            `opacity 100ms 200ms cubic-bezier(0.4, 0.0, 1, 1),
+            `opacity 100ms 50ms cubic-bezier(0.4, 0.0, 1, 1),
             max-height 250ms 0ms cubic-bezier(0.4, 0.0, 0.2, 1)` :
-            `opacity 100ms 50ms cubic-bezier(0.0, 0.0, 0.2, 1),
-            max-height 200ms 100ms cubic-bezier(0.4, 0.0, 0.2, 1)`};
+            `opacity 100ms 0ms cubic-bezier(0.0, 0.0, 0.2, 1),
+            max-height 100ms 50ms cubic-bezier(0.4, 0.0, 0.2, 1)`};
         }
 
       </style>

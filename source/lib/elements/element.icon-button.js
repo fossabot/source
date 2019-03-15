@@ -11,7 +11,8 @@ import { LitElement, html } from 'lit-element';
 class ApplicIconBtn extends LitElement {
   static get properties() {
     return {
-      icon: ''
+      icon: '',
+      size: ''
     };
   }
 
@@ -33,6 +34,10 @@ class ApplicIconBtn extends LitElement {
           height: 40px;
           width: 28px; }
  
+        :host([size="dense"]) {
+          height: 28px;
+          width: 28px; }
+ 
         applic-icon { 
           color: #7a7a7a; }
 
@@ -41,7 +46,7 @@ class ApplicIconBtn extends LitElement {
         
       </style>
 
-      <applic-icon name="${this.icon}"></applic-icon>
+      <applic-icon name="${this.icon}" size="${this.size}"></applic-icon>
     `;
   }
   constructor() {

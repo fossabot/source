@@ -13,9 +13,6 @@ export const module = {
       ${css.apply('--layout--flex-none')}
       ${css.apply('--layout')}
       ${css.apply('--layout--vertical')}
-
-      margin: -60px -30px 0 -30px;
-      padding: 60px 30px 0 30px;
     }
 
     .flex-spacer {
