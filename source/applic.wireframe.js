@@ -19,43 +19,72 @@ console.debug('applic-wireframe:loaded', `${Date.now() - applic.created}ms`);
 class ApplicWireframe extends LitElement {
   static get properties() {
     return {
-      standalone: applic.dev.standalone || false,
-
-      unlinked: { type: Boolean, reflect: true, attribute: 'unresolved' },
-      state: { type: Object }
+      standalone: {
+        type: Object,
+        value: applic.dev.standalone || false
+      },
+      unlinked: { 
+        type: Boolean, 
+        reflect: true, 
+        attribute: 'unresolved' 
+      },
+      state: { 
+        type: Object 
+      }
     };
   }
 
   render() {
     return litHtml`
-      <style> *[hidden] { display: none !important; } </style>
-      ${this.model('mount')} <slot></slot>  
+      <style> 
+        *[hidden] { display: none !important; } 
+        * { ${this.css.apply('--typo--noselect')} }
+
+        :host {
+          ${this.css.apply('--layout--sizing--content-box')} 
+          ${this.css.apply('--layout--vertical')}
+          ${this.css.apply('--layout--flex')}
+      
+          transition: opacity 0ms;
+          opacity: 0; 
+
+          background: #f4f4f4; } 
+
+        :host(:not([unresolved])) {
+          opacity: 1; 
+          transition: opacity 150ms cubic-bezier(0.4, 0.0, 1, 1); } 
+
+      </style>
+
+      <slot></slot>  
     `;
   }
   renderInner() {
     return html`
       <style>
         * { ${this.css.apply('--typo--noselect')} }
+        *[skip], *[skip] * { transition: none !important; }
 
         body {
           ${this.css.apply('--layout--sizing--content-box')} 
           ${this.css.apply('--layout--vertical')}
-          ${this.css.apply('--stance--relative')}
+          ${this.css.apply('--stance--relative')} }
 
-          transform: scale(.8, .8);
-        }
+        ${applic.dev.overflow ? `
+          body { transform: scale(.8, .8); }
+          body:after {
+            ${this.css.apply('--stance--absolute')}
+            ${this.css.apply('--stance--fit')}
 
-        body:after {
-          ${this.css.apply('--stance--absolute')}
-          ${this.css.apply('--stance--fit')}
+            top: -${applic.dev.standalone ? '30px' : '0px'}; 
+            
+            z-index: 20; 
+            content: '';
 
-          top: -${applic.dev.standalone ? '30px' : '0px'}; 
-          
-          z-index: 20; 
-          content: '';
+            outline: 10px solid rgba(255,90,90,.2);
+            pointer-events: none; }
 
-          outline: 10px solid rgba(255,90,90,.2);
-          pointer-events: none; }
+        ` : ``}
 
       </style>
 
@@ -80,15 +109,14 @@ class ApplicWireframe extends LitElement {
     this.css = style.css;
     this.html = style.html;
 
+    document.body.setAttribute('skip', true)
+
     window.addEventListener('resize', this._resize.bind(this));
+    this._resize()
   }
 
   link() { console.debug('applic-wireframe:linked', `${Date.now() - applic.created}ms`) }
   firstUpdated() {
-    requestAnimationFrame(() => {
-      this._resize()
-    })
-
     console.debug('applic-wireframe:ready', `${Date.now() - applic.created}ms`);
 
     document.body.setAttribute('role', 'application');
@@ -101,8 +129,14 @@ class ApplicWireframe extends LitElement {
           this.unlinked = false;
         })
       })
+   
     }
 
+    Promise.resolve().then(() => {
+      requestAnimationFrame(() => {
+        document.body.removeAttribute('skip')
+      })
+    })
     self.dispatchEvent(new Event('applic-wireframe:ready'));
   }
 
@@ -124,7 +158,7 @@ class ApplicWireframe extends LitElement {
 
 
   async _resize() {
-    const _width = this.offsetWidth;
+    const _width = self.innerWidth;
     const _state = JSON.parse(JSON.stringify(this.state));
 
     if (_width > 820) { 
@@ -133,14 +167,6 @@ class ApplicWireframe extends LitElement {
     } else { 
       _state.narrow = true;
       _state.sheet.persistent = false; 
-    };
-
-    if (!_state.sheet.persistent && this.state.sheet.persistent) {
-      _state.sheet.opened = false;
-    };
-    
-    if (_state.sheet.persistent && !this.state.sheet.persistent) {
-      _state.sheet.opened = true;
     };
 
     this.state = _state;

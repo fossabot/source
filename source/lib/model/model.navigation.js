@@ -45,7 +45,7 @@ export const model = function() {
 
     <div class="_navigation-header applic bar">
       <div class="applic bar-row">
-        <div class="applic bar-section align-end">
+        <div class="applic bar-section align-start">
         ${this.get('narrow') ? '' : html`
           <applic-icon-button icon="${this.get('sheet.persistent') ? 'chevron_left' : 'chevron_right'}"
             @click="${this.call('navigation:toggle-persistence')}">

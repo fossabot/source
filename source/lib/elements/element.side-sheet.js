@@ -11,8 +11,8 @@ import { LitElement, html } from 'lit-element';
 class ApplicSideSheet extends LitElement {
   static get properties() {
     return {
-      open: { type: Boolean },
-      persistent: { type: Boolean },
+      open: { type: Boolean, value: false },
+      persistent: { type: Boolean, value: false },
     };
   }
 
@@ -64,8 +64,8 @@ class ApplicSideSheet extends LitElement {
           `}
 
           transition: margin ${ this.open ?
-            `${this.expandDur} ${this.expandTmf}` :
-            `${this.collapseDur} ${this.collapseTmf}`};
+        `${this.expandDur} ${this.expandTmf}` :
+        `${this.collapseDur} ${this.collapseTmf}`};
           
           pointer-events: ${this.open ? 'all' : 'none'};
           background: #fafafa; }
@@ -100,7 +100,15 @@ class ApplicSideSheet extends LitElement {
   collapse() { this.open = false; }
   expand() { this.open = true; }
 
-  updated() {
+  updated(last) {
+    console.log()
+    
+    if ([...last.keys()].length 
+      && -1 != [...last.keys()].indexOf('persistent') 
+      && last['persistent'] != this.persistent) {
+      this.open = this.persistent;
+    }
+
     if (this.persistent && this.open) {
       this.parentElement.style.paddingLeft = `${this.shadowRoot.querySelector('._card').offsetWidth - 30}px`;
       this.parentElement.style.transition = `padding ${this.expandDur} ${this.expandTmf}`;

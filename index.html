@@ -25,10 +25,7 @@ The complete set of contributors may be found at https://mihroy.github.io/emote-
 		self.develop = -1 != location.search.indexOf('develop=true');
 		self.applic = {
 			created: Date.now(), 
-			dev: {
-				standalone: self.develop && -1 != location.search.indexOf('standalone=true'),
-				overflow: self.develop && -1 != location.search.indexOf('overflow=true')
-			}
+			dev: { overflow: self.develop && -1 != location.search.indexOf('overflow=true') }
 		} 
 	</script>
 
