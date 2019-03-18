@@ -115,7 +115,7 @@ class ApplicSideSheet extends LitElement {
     } else {
       this.parentElement.style.paddingLeft = '0px';
       this.parentElement.style.transition = `padding ${this.collapseDur} ${this.collapseTmf}`;
-    };
+    }
 
     this.dispatchEvent(new CustomEvent('changed', {
       detail: {

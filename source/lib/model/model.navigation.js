@@ -62,7 +62,40 @@ export const model = function() {
       </div>
     </div>
 
-    <applic-scrollable class="_navigation">
+    <applic-scrollable class="_navigation"> 
+        <applic-list>
+          ${this.get('section').map((section) => html`
+            <applic-list-item>
+              <applic-icon name="folder_open" slot="graphic"></applic-icon>
+              <span>${section.nonce}</span>
+            </applic-list-item>
+          `)}
+
+          <applic-list-item
+            @click="${applic.newSection}">
+            <applic-icon name="add" slot="graphic"></applic-icon>
+            <span>Add Canvas</span>
+          </applic-list-item>
+
+          <div class="applic list-divider"></div>
+
+          <applic-list-item>
+            <applic-icon name="folder_shared" slot="graphic"></applic-icon>
+            <span>Showcase</span>
+          </applic-list-item>
+
+          <applic-list-collection>
+            <span slot="label">All Folders</span>
+
+            <applic-list-item>
+              <applic-icon name="folder_open" slot="graphic"></applic-icon>
+              <span>Add Canvas</span>
+              <span slot="meta">42</span>
+            </applic-list-item>
+
+          </applic-list-collection>
+
+        </applic-list>
      
     </applic-scrollable>
 

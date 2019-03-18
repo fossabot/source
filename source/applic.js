@@ -11,20 +11,35 @@ import './lib/utils/polyfill.js'
 import './units/applic-event.js'
 import './units/applic-state.js'
 
+import './units/behaviour/applic.behaviour.js'
+// lazy // import './units/processing/applic.processing.js'
+
 console.info('applic:loaded', `${Date.now() - applic.created}ms`);
 
-const init = () => {
-  applic.instance = new class {
-    constructor() {
-      console.debug('applic:ready', `${Date.now() - applic.created}ms`);
+new class {
+  constructor() {
+    if (!!applic.$) this._init();
+    else self.addEventListener('applic-wireframe:ready', this._init.bind(this));
+  }
 
-      Promise.resolve().then(() => {
-        applic.$.link();
-      });
-    }
-  };
+  _init() {
+    applic.dispatch('applic:init');
+    
+    Promise.resolve().then(() => {
+
+      console.debug('applic:ready', `${Date.now() - applic.created}ms`);
+      
+      applic.$.link();
+      applic.dispatch('applic:ready');
+    });
+  }
+
 };
 
-
-if (!!applic.$) init();
-else self.addEventListener('applic-wireframe:ready', init);
+applic.__proto__.nonce = () => {
+  let nonce = ''; const s = 'ABCDEFGHIJKLMNOPQRSTUVWXYZabcdefghijklmnopqrstuvwxyz0123456789';
+  for (let i = 0; i < 24; i++) {
+    nonce += s.charAt(Math.floor(Math.random() * s.length));
+  };
+  return nonce;
+};

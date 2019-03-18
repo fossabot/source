@@ -8,7 +8,7 @@ The complete set of contributors may be found at https://contrast-tool.github.io
 
 const __APPLIC_STATE__ = {};
 
-applic.get = (path) => {
+applic.__proto__.get = (path) => {
   let target = __APPLIC_STATE__;
   const i = path.split('.');
 
@@ -24,7 +24,7 @@ applic.get = (path) => {
   return target;
 };
 
-applic.set = (path, value) => {
+applic.__proto__.set = (path, value) => {
   let target = __APPLIC_STATE__;
   const i = path.split('.');
 

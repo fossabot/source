@@ -8,6 +8,7 @@ The complete set of contributors may be found at https://contrast-tool.github.io
 
 const lazies = [
   { type: '', uri: '/node_modules/dropbox/dist/Dropbox-sdk.min.js' },
+  { type: '', uri: '/source/units/processing/applic.processing.js' },
   // { type: 'module', uri: '/source/applic.lazies.js' }
 ];
 
@@ -17,23 +18,24 @@ const _fetch = () => {
     const node = document.createElement('script');
 
     if (!lazy) resolve();
-    console.debug('applic-lazies:fetch', `"${lazy.uri}"`)
+    console.debug('applic-lazy:fetch', `"${lazy.uri}"`)
 
     node.setAttribute('src', lazy.uri);
     node.setAttribute('type', lazy.type);
 
     node.onerror = (err) => {
-      console.error('applic-lazies:cancellation', `"${lazy.uri}"`)
+      console.error('applic-lazy:cancellation', `"${lazy.uri}"`)
       console.error(err.srcElement)
+
       lazies.push(lazy);
 
       setTimeout(async () => { 
         await _fetch(); 
         resolve() 
-      }, 2000);
+      }, 3000);
     };
     node.onload = async (evt) => {
-      console.debug('applic-lazies:ready', `"${lazy.uri}"`)
+      console.debug('applic-lazy:ready', `"${lazy.uri}"`)
       await _fetch();
       resolve()
     };
@@ -45,6 +47,9 @@ const _fetch = () => {
 
 setTimeout(() => {
   // Promise.resolve().then(() => {
-  _fetch().then(() => {console.info('applic-lazies:loaded', `${Date.now() - applic.created}ms`)})
+  _fetch()
+    .then(() => { console.info('applic-lazies:loaded', `${Date.now() - applic.created}ms`) })
+    .then(() => { console.debug('applic-lazies:ready', `${Date.now() - applic.created}ms`) });
+
   // })
 }, 100);

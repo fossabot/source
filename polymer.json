@@ -5,15 +5,17 @@
     "./index.html",
   "fragments": [
     "./source/applic.js",
-    "./source/applic.lazies.js" ],
+    "./source/applic.lazies.js",
+    
+    "./source/units/processing/applic.processing.js" ],
 
   "sources": [
     "./static/**/*" ],
 
   "extraDependencies": [
     "./404.html", "./oauth2/index.html", "./favicon.ico",
-    "node_modules/@webcomponents/webcomponentsjs/**/*.js",
-    "node_modules/dropbox/dist/Dropbox-sdk.min.js" ],
+    "./node_modules/@webcomponents/webcomponentsjs/**/*.js",
+    "./node_modules/dropbox/dist/Dropbox-sdk.min.js" ],
 
   "lint": { "rules": [ "polymer-3" ] },
 

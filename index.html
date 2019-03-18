@@ -21,13 +21,9 @@ The complete set of contributors may be found at https://mihroy.github.io/emote-
 
 	<meta name="viewport" content="width=device-width, minimum-scale=1.0, maximum-scale=1.0, user-scalable=no">
 
-	<script> 
-		self.develop = -1 != location.search.indexOf('develop=true');
-		self.applic = {
-			created: Date.now(), 
-			dev: { overflow: self.develop && -1 != location.search.indexOf('overflow=true') }
-		} 
-	</script>
+	<script> self.applic = new class{ constructor() {
+		this.created = Date.now()
+	} }; </script>
 
 	<meta itemprop="name" content="Contrast Tool">
 	<meta itemprop="description" content="An interactive viewer to compare and export your web graphics.">
@@ -59,12 +55,20 @@ The complete set of contributors may be found at https://mihroy.github.io/emote-
 
 	<link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Roboto:300,400,500|Material+Icons+Sharp">
 	
-	<style> body { background: #f4f4f4; }	</style>
+	<style>	
+		body { 
+			height: 100vh; 
+			margin: 0px; 
+
+			overflow: hidden; 
+			background: #eeeeee; }	
+			
+	</style>
 
 	<script>
 		self.addEventListener('load', async () => { 
 			if (!('serviceWorker' in navigator)) return;
-			applic.sw = await navigator.serviceWorker.register('service-worker.js');
+			applic.__proto__.sw = await navigator.serviceWorker.register('service-worker.js');
 			self.onerror = (err) => { applic.sw.unregister(); console.info('Service worker has been unregister.'); }
 		});
 	</script>
@@ -75,12 +79,36 @@ The complete set of contributors may be found at https://mihroy.github.io/emote-
 	<script type="module" src="/source/applic.js"></script>
 	<script type="module" src="/source/applic.lazies.js"></script>
 
-	<style>
-		body { height: 100vh; margin: 0px; overflow: hidden; }
-		body { background: #eeeeee; }
-	</style>
-</head>
+	<script>
+		const _active = (nonce) => { return -1 != location.search.indexOf(`${nonce}=true`) };
 
-<body><!-- Build with ❤ using Polymer's lit-element & the Dropbox CLI --></body>
+		self.develop = _active('develop')
+		self.applic.__proto__.dev = { 
+			overflow: self.develop && _active('overflow'),
+		}
+
+	</script>
+
+</head>
+<body>
+	<!-- Build with ❤ using lit-html, lit-element & the Dropbox CLI -->
+
+	<noscript>	
+		<style>
+			._noScript {
+				font-family: Roboto, sans-serif;
+				font-weight: 300; 
+
+				padding: 30px; }
+
+		</style>
+		<div class="_noScript">
+			<span>Please enable JavaScript to view this application.</span>
+		</div>
+
+	</noscript>
+
+	
+</body>
 
 </html>

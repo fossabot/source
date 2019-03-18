@@ -24,14 +24,7 @@ export const model = function () {
         background: #fafafa; }
 
       ._body {
-        ${this.css.apply('--layout--sizing--content-box')} 
-        ${this.css.apply('--layout--felx')} 
-
-        width: 100%;
-        background: #f4f4f4;
-
-        margin: 0px -30px -30px -30px;
-        padding: 0px 30px 30px 30px; }
+        background: #f4f4f4; }
 
     </style>  
 

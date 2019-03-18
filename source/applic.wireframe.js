@@ -23,13 +23,13 @@ class ApplicWireframe extends LitElement {
         type: Object,
         value: applic.dev.standalone || false
       },
-      unlinked: { 
-        type: Boolean, 
-        reflect: true, 
-        attribute: 'unresolved' 
+      unlinked: {
+        type: Boolean,
+        reflect: true,
+        attribute: 'unresolved'
       },
-      state: { 
-        type: Object 
+      state: {
+        type: Object
       }
     };
   }
@@ -56,21 +56,22 @@ class ApplicWireframe extends LitElement {
 
       </style>
 
-      <slot></slot>  
+      <slot></slot>
+
     `;
   }
   renderInner() {
     return html`
       <style>
         * { ${this.css.apply('--typo--noselect')} }
-        *[skip], *[skip] * { transition: none !important; }
+        [skip], [skip] * { transition: none !important; }
 
         body {
           ${this.css.apply('--layout--sizing--content-box')} 
           ${this.css.apply('--layout--vertical')}
           ${this.css.apply('--stance--relative')} }
 
-        ${applic.dev.overflow ? `
+        ${!applic.dev.overflow ? '' : `
           body { transform: scale(.8, .8); }
           body:after {
             ${this.css.apply('--stance--absolute')}
@@ -84,10 +85,9 @@ class ApplicWireframe extends LitElement {
             outline: 10px solid rgba(255,90,90,.2);
             pointer-events: none; }
 
-        ` : ``}
+        `}
 
       </style>
-
 
       <applic-side-sheet applic-role="navigation"
         ?open="${this.get('sheet.opened')}"
@@ -103,40 +103,70 @@ class ApplicWireframe extends LitElement {
 
   constructor() {
     super();
+
     this.unlinked = Date.now() - applic.created > 220;
-    this.state = { sheet: {} };
+    this.state = { sheet: {}, section: [] };
 
     this.css = style.css;
     this.html = style.html;
 
-    document.body.setAttribute('skip', true)
+    document.body.setAttribute('skip', true);
 
     window.addEventListener('resize', this._resize.bind(this));
     this._resize()
   }
 
-  link() { console.debug('applic-wireframe:linked', `${Date.now() - applic.created}ms`) }
+  link() {
+    console.debug('applic-wireframe:linked', `${Date.now() - applic.created}ms`)
+
+    applic.on('applic-state:changed', this._update.bind(this));
+    Promise.resolve(this._update.bind(this))
+
+  }
+
+  async _update() {
+    const _sections = applic.get('section');
+    const _state = JSON.parse(JSON.stringify(this.state));
+
+    _state.section = [];
+
+
+    for (const _nonce of Object.keys(_sections)) {
+      const _section = _sections[_nonce];
+
+      _state.section.push({
+        nonce: _section.nonce,
+        grafics: _section.grafics()
+      });
+    };
+
+
+
+    this.state = _state;
+
+    await this.updateComplete;
+    this.requestUpdate();
+  }
+
   firstUpdated() {
     console.debug('applic-wireframe:ready', `${Date.now() - applic.created}ms`);
 
     document.body.setAttribute('role', 'application');
 
     if (this.unlinked) {
-     
-
       Promise.resolve().then(() => {
         requestAnimationFrame(() => {
           this.unlinked = false;
-        })
-      })
-   
-    }
+        });
+      });
+    };
 
     Promise.resolve().then(() => {
       requestAnimationFrame(() => {
         document.body.removeAttribute('skip')
       })
-    })
+    });
+
     self.dispatchEvent(new Event('applic-wireframe:ready'));
   }
 
@@ -147,26 +177,44 @@ class ApplicWireframe extends LitElement {
         if (evt.detail.opened == undefined) return;
         this.set('sheet.opened', evt.detail.opened);
         break;
-    
+
     }
   }
 
   updated() {
-    // console.debug('applic-wireframe:updated')
-    render(this.renderInner(), this)
+    if (this.rendering) return;
+    this.rendering = true;
+
+    const apply = () => {
+      this.rendering = false;
+      
+      console.debug('applic-wireframe:updated')
+      render(this.renderInner(), this)
+    };
+    
+    console.debug('applic-wireframe:updated-req')
+
+    requestAnimationFrame(() => {
+      Promise.resolve().then(apply.bind(this))
+    });
   }
+  // updated() {
+
+  //   console.debug('applic-wireframe:updated')
+  //   render(this.renderInner(), this)
+  // }
 
 
   async _resize() {
     const _width = self.innerWidth;
     const _state = JSON.parse(JSON.stringify(this.state));
 
-    if (_width > 820) { 
+    if (_width > 820) {
       _state.narrow = false;
-      _state.sheet.persistent = true; 
-    } else { 
+      _state.sheet.persistent = true;
+    } else {
       _state.narrow = true;
-      _state.sheet.persistent = false; 
+      _state.sheet.persistent = false;
     };
 
     this.state = _state;
@@ -174,8 +222,8 @@ class ApplicWireframe extends LitElement {
     await this.updateComplete;
     this.requestUpdate();
   }
- 
-  model(_nonce) { 
+
+  model(_nonce) {
     return model[_nonce].bind(this)();
   }
   call(_action) {
@@ -183,10 +231,10 @@ class ApplicWireframe extends LitElement {
       switch (_action) {
         case 'navigation:toggle':
           this.set('sheet.opened', !this.get('sheet.opened'))
-        break;
+          break;
         case 'navigation:toggle-persistence':
           this.set('sheet.persistent', !this.get('sheet.persistent'))
-        break;
+          break;
       }
     };
   }

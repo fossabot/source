@@ -6,12 +6,3 @@ The complete set of authors may be found at https://contrast-tool.github.io/stat
 The complete set of contributors may be found at https://contrast-tool.github.io/static/CONTRIBUTORS.md
 */
 
-applic.__proto__.dispatch = (nonce, params) => {
-  self.dispatchEvent(new CustomEvent(nonce, { detail: params }));
-};
-
-applic.__proto__.on = (nonce, callback, params = { passive: true }) => {
-  self.addEventListener(nonce, (evt) => {
-    callback(evt.detail);
-  }, params);
-};
