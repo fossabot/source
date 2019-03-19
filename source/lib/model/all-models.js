@@ -7,16 +7,12 @@ The complete set of contributors may be found at https://contrast-tool.github.io
 */
 
 import { model as body } from './model.body.js';
-// import { model as hint } from './model.hint.js';
+import { model as bodyInner } from './model.body-inner.js';
 import { model as navigation } from './model.navigation.js';
-// import { model as overlay } from './model.overlay.js';
-// import { model as usercard } from './model.usercard.js';
 
 
 export const model = {
   navigation,
-  // overlay,
   body,
-  // hint,
-  // usercard,
+  bodyInner
 };

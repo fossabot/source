@@ -12,9 +12,9 @@
     "lit-html": "^0.14.0"
   },
   "devDependencies": {
-    "owc-dev-server": "^0.2.0",
+    "@webcomponents/webcomponentsjs": "^2.2.7",
     "dropbox": "^4.0.16",
-    "@webcomponents/webcomponentsjs": "^2.2.7"
+    "owc-dev-server": "^0.2.1"
   },
   "scripts": {
     "start": "owc-dev-server",

@@ -7,7 +7,6 @@ The complete set of contributors may be found at https://contrast-tool.github.io
 */
 
 import {html} from 'lit-html';
-// import { html } from 'lit-element';
 
 export const model = function() {
   return html`
@@ -46,11 +45,7 @@ export const model = function() {
     <div class="_navigation-header applic bar">
       <div class="applic bar-row">
         <div class="applic bar-section align-start">
-        ${this.get('narrow') ? '' : html`
-          <applic-icon-button icon="${this.get('sheet.persistent') ? 'chevron_left' : 'chevron_right'}"
-            @click="${this.call('navigation:toggle-persistence')}">
-          </applic-icon-button>
-        `}
+    
 
         </div>
 
@@ -64,18 +59,19 @@ export const model = function() {
 
     <applic-scrollable class="_navigation"> 
         <applic-list>
-          ${this.get('section').map((section) => html`
-            <applic-list-item>
-              <applic-icon name="folder_open" slot="graphic"></applic-icon>
-              <span>${section.nonce}</span>
-            </applic-list-item>
-          `)}
 
           <applic-list-item
             @click="${applic.newSection}">
             <applic-icon name="add" slot="graphic"></applic-icon>
             <span>Add Canvas</span>
           </applic-list-item>
+
+          ${this.get('section').map((section) => html`
+            <applic-list-item>
+              <applic-icon name="folder_open" slot="graphic"></applic-icon>
+              <span>${section.nonce}</span>
+            </applic-list-item>
+          `)}
 
           <div class="applic list-divider"></div>
 

@@ -192,8 +192,6 @@ class ApplicWireframe extends LitElement {
       render(this.renderInner(), this)
     };
     
-    console.debug('applic-wireframe:updated-req')
-
     requestAnimationFrame(() => {
       Promise.resolve().then(apply.bind(this))
     });
