@@ -11,10 +11,7 @@ import { LitElement, html } from 'lit-element';
 class ApplicImage extends LitElement {
   static get properties() {
     return {
-      uri: {
-        type: String,
-        value: ''
-      }
+      uri: { type: String }
     };
   }
 
@@ -31,17 +28,23 @@ class ApplicImage extends LitElement {
         img {
           height: 100%;
           width: 100%;
+
+          object-fit: contain;
+          overflow: hidden;
         }
 
       </style>
           
-      <img src="${this.uri}">
+      ${!!this.uri && this.uri != '' ? html`<img src="${this.uri}">`: ''}
+      
     `;
   }
 
   constructor() {
     super();
   }
+
+  updated() { }
 
 }
 

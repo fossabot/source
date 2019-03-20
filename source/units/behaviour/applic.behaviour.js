@@ -64,7 +64,9 @@ const ApplicSection = class {
     const _insection = [];
 
     for (const _nonce of Object.keys(_grafics)) {
-      _insection.push(_grafics[_nonce]);
+      if(_grafics[_nonce].section == this.nonce) {
+        _insection.push(_grafics[_nonce]);
+      }
     };
 
     return _insection;

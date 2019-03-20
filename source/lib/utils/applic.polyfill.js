@@ -16,11 +16,7 @@ if (!HTMLCanvasElement.prototype.toBlob) {
       const canvas = this;
       setTimeout(function() {
         const binStr = atob(canvas.toDataURL(type, quality).split(',')[1]);
-
-
         const len = binStr.length;
-
-
         const arr = new Uint8Array(len);
 
         for (let i = 0; i < len; i++) {
