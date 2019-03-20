@@ -25,9 +25,9 @@ new class {
 
     if (!_sections || !Object.keys(_sections).length)
       return applic.newSection();
-    
+
   }
-  
+
 }
 
 
@@ -47,25 +47,26 @@ applic.newSection = () => {
 }
 
 
-applic.newGrafic = (_params) => {
-  const _grafic = new ApplicGrafic(_params);
-  applic.set(`grafic.${_grafic.nonce}`, _grafic);
+applic.newgraphic = (_params) => {
+  const _graphic = new Applicgraphic(_params);
+  applic.set(`graphic.${_graphic.nonce}`, _graphic);
 }
 
 
 const ApplicSection = class {
   constructor() {
     this.nonce = applic.utils.nonce();
+    this.name = 'Untitled draft'
 
   }
 
-  grafics() {
-    const _grafics = applic.get('grafic') || {};
+  graphics() {
+    const _graphics = applic.get('graphic') || {};
     const _insection = [];
 
-    for (const _nonce of Object.keys(_grafics)) {
-      if(_grafics[_nonce].section == this.nonce) {
-        _insection.push(_grafics[_nonce]);
+    for (const _nonce of Object.keys(_graphics)) {
+      if (_graphics[_nonce].section == this.nonce) {
+        _insection.push(_graphics[_nonce]);
       }
     };
 
@@ -74,7 +75,7 @@ const ApplicSection = class {
 
 }
 
-const ApplicGrafic = class {
+const Applicgraphic = class {
   constructor(_params) {
     this.nonce = applic.utils.nonce();
     this.section = _params.section;
@@ -82,26 +83,29 @@ const ApplicGrafic = class {
     this.blob = _params.blob;
     this.uri = '';
 
-    console.debug('applic-fs:create-grafic', this.blob.name)
+    console.debug('applic-fs:create-graphic', this.blob.name)
     this._resolveBlob();
   }
 
   _changed() {
     applic.utils.buffer(() => {
-      console.debug('applic-fs:cached-grafic', this.blob.name)
+      console.debug('applic-fs:cached-graphic', this.blob.name)
       applic.dispatch('applic:changed');
     });
   }
 
   _resolveBlob(_blob) {
-    const _reader = new FileReader();
-    
-    _reader.addEventListener("load", () => {
-      this.uri = _reader.result;
-      this._changed();
-    }, false);
+    new Promise((resolve) => {
+      const _reader = new FileReader();
 
-    _reader.readAsDataURL(this.blob);
+      _reader.addEventListener("load", () => {
+        this.uri = _reader.result;
+        this._changed();
+        resolve()
+      }, false);
+
+      _reader.readAsDataURL(this.blob);
+    })
   }
 
 }

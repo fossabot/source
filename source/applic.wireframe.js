@@ -137,32 +137,32 @@ class ApplicWireframe extends LitElement {
 
     _state.section = [];
 
-
     for (const _nonce of Object.keys(_sections)) {
       const _section = _sections[_nonce];
-
-      _state.section.push({
-        nonce: _section.nonce,
-        active: _section.active,
-
-        show: () => {
-          applic.openSection(_section.nonce);
-        },
-
-        grafics: (() => {
-          const _grafics = _section.grafics();
+      const _graphics = (() => {
+          const _graphics = _section.graphics();
           const _map = []
 
-          for (const _nonce of Object.keys(_grafics)) {
-            const _grafic = _grafics[_nonce];
+          for (const _nonce of Object.keys(_graphics)) {
+            const _graphic = _graphics[_nonce];
             _map.push({
-              nonce: _grafic.nonce,
-              uri: _grafic.uri
+              nonce: _graphic.nonce,
+              uri: _graphic.uri
             });
           };
 
           return _map.length ? _map : false;
-        })()
+      })()
+
+      console.log(_graphics[0])
+      
+      _state.section.push({
+        name: _section.name, graphic: _graphics[0] || false,
+
+        active: _section.active,
+        show: applic.openSection.bind(null, _section.nonce),
+
+        graphics: _graphics
       });
     };
 
@@ -325,7 +325,7 @@ const dropHandler = (evt) => {
   })()
 
   const _register = (_file) => {
-    applic.newGrafic({
+    applic.newgraphic({
       blob: _file,
       section: _section.nonce
     })

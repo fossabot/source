@@ -51,7 +51,7 @@ export const model = function () {
         height: 36px; 
         padding: 0px 4px; }
 
-      ._grid-item--grafic {
+      ._grid-item--graphic {
         ${this.css.apply('--layout--sizing--border-box')}
         ${this.css.apply('--layout--flex-none')}
         ${this.css.apply('--layout--vertical')}
@@ -81,7 +81,7 @@ export const model = function () {
 
 
 
-      ._grid-item--grafic {
+      ._grid-item--graphic {
         background-color: #fafafa;
         background-image: 
           linear-gradient(45deg, #eaeaea 25%, transparent 25%), 
@@ -91,7 +91,7 @@ export const model = function () {
         background-position: 0 0, 0 4px, 4px -4px, -4px 0px;
         background-size: 8px 8px; }
 
-      ._grid-item--grafic {
+      ._grid-item--graphic {
         background: #f4f4f4; }
 
       ._grid-item--inner {
@@ -108,7 +108,7 @@ export const model = function () {
         ${this.css.apply('--layout--vertical')}
         ${this.css.apply('--layout--center-center')} }
 
-      ._emty--grafic {
+      ._emty--graphic {
         margin-top: -64px; }
 
       ._emty--info {
@@ -125,12 +125,12 @@ export const model = function () {
   
 
     ${this.get('section').map((_section) => !_section.active ? '' : html`
-      ${_section.grafics ? html`
+      ${_section.graphics ? html`
         <div class="_grid">
-          ${_section.grafics.map((_grafic) => html`
+          ${_section.graphics.map((_graphic) => html`
             <div class="_grid-item">
               <div class="_grid-item--titel">Image</div>
-              <applic-image uri="${_grafic.uri}" class="_grid-item--grafic"></applic-image>
+              <applic-image uri="${_graphic.uri}" class="_grid-item--graphic"></applic-image>
 
               <div class="_grid-item--detail">
                 <span>Modified: 1:13 pm</span>
@@ -142,7 +142,7 @@ export const model = function () {
         </div>
       ` : html`
         <div class="_emty">
-          <applic-icon class="_emty--grafic" name="view_module" size="huge"></applic-icon>
+          <applic-icon class="_emty--graphic" name="view_module" size="huge"></applic-icon>
           <span class="_emty--info">No modules</span>
         </div>
       `}

@@ -39,24 +39,6 @@ export const model = function() {
         color: #636364;
 
         padding: 0px 8px 0 24px; }
-        
-      ._navigation--grafic {
-        ${this.css.apply('--layout--horizontal')} 
-        ${this.css.apply('--layout--center')} 
-        ${this.css.apply('--layout--flex')} 
-
-        overflow: hidden;
-      }
-     
-
-      ._navigation--grafic-icon {
-        ${this.css.apply('--layout--horizontal')} 
-        ${this.css.apply('--layout--center-center')} 
-
-        height: 28px;
-        width: 28px;
-
-        overflow: hidden; }
 
     </style>  
 
@@ -76,14 +58,10 @@ export const model = function() {
           ${this.get('section').map((_section) => html`
             <applic-list-item ?active="${_section.active}"
               @click="${_section.show}">
-              <span>
-                <span class="_navigation--grafic">
-                  ${!_section.grafics ? html`Draft` : _section.grafics.map(_grafic => html`
-                    <applic-image uri="${_grafic.uri}" class="_navigation--grafic-icon"></applic-image>
-                  `)}
-                </span>
-              </span>
-              <span slot="meta">${_section.grafics.length}</span>
+              <applic-image slot="graphic" uri="${_section.graphics ? _section.graphics[0].uri : ''}">
+              </applic-image>
+              <span>${_section.name}</span>
+              <span slot="meta">${_section.graphics.length}</span>
             </applic-list-item>
           `)}
 
