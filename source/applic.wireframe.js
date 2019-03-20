@@ -47,14 +47,16 @@ class ApplicWireframe extends LitElement {
 
         :host(:not([unresolved])) {
           opacity: 1; 
-          transition: opacity 150ms cubic-bezier(0.4, 0.0, 1, 1); } 
+          transition: opacity 100ms cubic-bezier(0.4, 0.0, 1, 1); } 
 
         ._wrap {
+          ${this.css.apply('--layout--sizing--border-box')} 
+
           ${this.css.apply('--stance--relative')}
           ${this.css.apply('--layout--vertical')}
           ${this.css.apply('--layout--flex-none')}
+
           height: 100%;
-          width: 100%;
         }
 
       </style>
@@ -144,11 +146,23 @@ class ApplicWireframe extends LitElement {
         active: _section.active,
 
         show: () => {
-          console.log('show')
           applic.openSection(_section.nonce);
         },
-        
-        grafics: _section.grafics()
+
+        grafics: (() => {
+          const _grafics = _section.grafics();
+          const _map = []
+
+          for (const _nonce of Object.keys(_grafics)) {
+            const _grafic = _grafics[_nonce];
+            _map.push({
+              nonce: _grafic.nonce
+
+            });
+          };
+
+          return _map.length ? _map : false;
+        })()
       });
     };
 
@@ -165,11 +179,9 @@ class ApplicWireframe extends LitElement {
 
     document.body.setAttribute('role', 'application');
 
-    console.log('unresolved', this.unresolved)
     if (this.unresolved) {
       Promise.resolve().then(() => {
         setTimeout(() => {
-          console.log('unresolved', this.unresolved)
           this.unresolved = false;
         }, 0);
       });
@@ -195,11 +207,11 @@ class ApplicWireframe extends LitElement {
 
     const apply = () => {
       this.rendering = false;
-      
+
       console.debug('applic-wireframe:updated')
       render(this.renderInner(), this)
     };
-    
+
     requestAnimationFrame(() => {
       Promise.resolve().then(apply.bind(this))
     });

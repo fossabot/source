@@ -110,8 +110,6 @@ class ApplicSideSheet extends LitElement {
       this.open = this.persistent;
     }
 
-    console.log(this.offsetParent)
-
     if (this.persistent && this.open) {
       this.offsetParent.style.paddingLeft = `${this.shadowRoot.querySelector('._card').offsetWidth - 30}px`;
       this.offsetParent.style.transition = `padding ${this.expandDur} ${this.expandTmf}`;

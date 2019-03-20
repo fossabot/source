@@ -25,7 +25,6 @@ new class {
 
     if (!_sections || !Object.keys(_sections).length)
       return applic.newSection();
-
     
   }
   

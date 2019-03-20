@@ -101,26 +101,52 @@ export const model = function () {
 
         padding: 10px 20px; }
 
+      ._emty {
+        ${this.css.apply('--stance--absolute')}
+        ${this.css.apply('--stance--fit')}
+        ${this.css.apply('--layout--sizing--border-box')}
+        ${this.css.apply('--layout--vertical')}
+        ${this.css.apply('--layout--center-center')} }
+
+      ._emty--grafic {
+        margin-top: -64px; }
+
+      ._emty--info {
+        ${this.css.apply('--typo')}
+        font-size: 13px;
+        line-height: 1;
+        font-weight: 400;
+        letter-spacing: -0.14px;
+        color: #b8b8b8; }
+
     </style>
    
 
   
 
     ${this.get('section').map((_section) => !_section.active ? '' : html`
-      <div class="_grid">
-        ${_section.grafics.map((_grafic) => html`
-          <div class="_grid-item">
-            <div class="_grid-item--titel">Image</div>
-            <div class="_grid-item--grafic"></div>
+      ${_section.grafics ? html`
+        <div class="_grid">
+          ${_section.grafics.map((_grafic) => html`
+            <div class="_grid-item">
+              <div class="_grid-item--titel">Image</div>
+              <div class="_grid-item--grafic"></div>
 
-            <div class="_grid-item--detail">
-              <span>Modified: 1:13 pm</span>
-              <span>Created: 1:13 pm</span>
+              <div class="_grid-item--detail">
+                <span>Modified: 1:13 pm</span>
+                <span>Created: 1:13 pm</span>
+              </div>
+
             </div>
+          `)}
+        </div>
+      ` : html`
+        <div class="_emty">
+          <applic-icon class="_emty--grafic" name="view_module" size="huge"></applic-icon>
+          <span class="_emty--info">No modules</span>
+        </div>
+      `}
 
-          </div>
-        `)}
-      </div>
     `)}
     
   `

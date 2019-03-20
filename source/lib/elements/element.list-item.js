@@ -36,11 +36,12 @@ class ApplicListItem extends LitElement {
           ${applic.$.css.apply('--layout--center-center')} 
           ${applic.$.css.apply('--layout--flex-none')} 
 
+          color: #acacac; }
+
+        ._graphic ::slotted(*) {
           height: 28px;
           width: 28px; 
-          margin: 0 10px 0 0;
-        
-          color: #acacac; }
+          margin: 0 10px 0 0; }
 
         :host(:hover){
           background: #f3f3f3; 

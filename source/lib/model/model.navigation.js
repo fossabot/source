@@ -71,9 +71,12 @@ export const model = function() {
               ?active="${_section.active}"
               @click="${_section.show}">
 
-              <applic-icon name="folder_open" slot="graphic"></applic-icon>
-              <span>${_section.nonce}</span>
-              
+              <span>
+                ${!_section.grafics ? html`Emty` : _section.grafics.map(_grafic => html`
+                  <span>${_grafic.nonce}</span>
+                `)}
+              </span>
+
             </applic-list-item>
           `)}
 
