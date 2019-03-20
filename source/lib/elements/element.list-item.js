@@ -26,7 +26,8 @@ class ApplicListItem extends LitElement {
         
           padding: 0 20px 0 20px;
           min-height: 38.25px;
-        
+          max-width: 100%;
+
           cursor: pointer; 
           border-radius: 2px;}
 
@@ -53,9 +54,28 @@ class ApplicListItem extends LitElement {
 
 
         ._text {
+          ${applic.$.css.apply('--stance--relative')} 
           ${applic.$.css.apply('--layout--sizing--border-box')} 
           ${applic.$.css.apply('--layout--vertical')} 
-          ${applic.$.css.apply('--layout--flex')} }
+          ${applic.$.css.apply('--layout--flex')} 
+
+          max-width: 100%;
+          overflow: hidden;
+        }
+        ._text:after {
+          content: ''; z-index: 1;
+          ${applic.$.css.apply('--stance--absolute')} 
+          ${applic.$.css.apply('--stance--pin--end')} 
+
+          width: 40px;
+          background: linear-gradient(to right, transparent, #fafafa 100%);
+        }
+        :host(:hover) ._text:after {
+          background: linear-gradient(to right, transparent, #f3f3f3 100%); }
+
+        :host(:active) ._text:after {
+          background: linear-gradient(to right, transparent, #ececec 100%); }
+
 
         ._text > ._text-primary {
           ${applic.$.css.apply('--typo')}
@@ -81,7 +101,8 @@ class ApplicListItem extends LitElement {
           ${applic.$.css.apply('--layout--flex-none')} 
 
           ${applic.$.css.apply('--typo--overline')}
-        
+
+          margin-left: 10px;
           color: #acacac; }
 
       </style>

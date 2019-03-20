@@ -65,6 +65,33 @@ const ApplicSection = class {
         nonce: 'test_0',
         uri: '/static/img/example/mihroyKnow.png'
       }, {
+      //   nonce: 'test_1',
+      //   uri: '/static/img/example/mihroyAhhh.png'
+      // }, {
+      //   nonce: 'test_1',
+      //   uri: '/static/img/example/mihroyAhhh.png'
+      // }, {
+      //   nonce: 'test_1',
+      //   uri: '/static/img/example/mihroyAhhh.png'
+      // }, {
+      //   nonce: 'test_1',
+      //   uri: '/static/img/example/mihroyAhhh.png'
+      // }, {
+      //   nonce: 'test_1',
+      //   uri: '/static/img/example/mihroyAhhh.png'
+      // }, {
+      //   nonce: 'test_1',
+      //   uri: '/static/img/example/mihroyAhhh.png'
+      // }, {
+      //   nonce: 'test_1',
+      //   uri: '/static/img/example/mihroyAhhh.png'
+      // }, {
+      //   nonce: 'test_1',
+      //   uri: '/static/img/example/mihroyAhhh.png'
+      // }, {
+      //   nonce: 'test_1',
+      //   uri: '/static/img/example/mihroyAhhh.png'
+      // }, {
         nonce: 'test_1',
         uri: '/static/img/example/mihroyAhhh.png'
       }

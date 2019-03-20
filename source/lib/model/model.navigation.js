@@ -42,7 +42,12 @@ export const model = function() {
         
       ._navigation--grafic {
         ${this.css.apply('--layout--horizontal')} 
-        ${this.css.apply('--layout--center')} }
+        ${this.css.apply('--layout--center')} 
+        ${this.css.apply('--layout--flex')} 
+
+        overflow: hidden;
+      }
+     
 
       ._navigation--grafic-icon {
         ${this.css.apply('--layout--horizontal')} 
@@ -51,18 +56,13 @@ export const model = function() {
         height: 28px;
         width: 28px;
 
-        background: #f4f4f4; 
         overflow: hidden; }
 
     </style>  
 
     <div class="_navigation-header applic bar">
       <div class="applic bar-row">
-        <div class="applic bar-section align-start">
-    
-
-        </div>
-
+        <div class="applic bar-section align-start"></div>
       </div>
       <div class="applic bar-row">
         <div class="applic bar-section align-start">
@@ -74,17 +74,16 @@ export const model = function() {
     <applic-scrollable class="_navigation"> 
         <applic-list>
           ${this.get('section').map((_section) => html`
-            <applic-list-item 
-              ?active="${_section.active}"
+            <applic-list-item ?active="${_section.active}"
               @click="${_section.show}">
-
-              <span class="_navigation--grafic">
-                ${!_section.grafics ? html`Emty` : _section.grafics.map(_grafic => html`
-                  <applic-image uri="${_grafic.uri}" class="_navigation--grafic-icon"></applic-image>
-                `)}
+              <span>
+                <span class="_navigation--grafic">
+                  ${!_section.grafics ? html`Emty` : _section.grafics.map(_grafic => html`
+                    <applic-image uri="${_grafic.uri}" class="_navigation--grafic-icon"></applic-image>
+                  `)}
+                </span>
               </span>
               <span slot="meta">${_section.grafics.length}</span>
-
             </applic-list-item>
           `)}
 
