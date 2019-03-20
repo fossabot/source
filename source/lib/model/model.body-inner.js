@@ -13,32 +13,73 @@ export const model = function () {
   return html`
     <style>
       ._grid {
-        ${this.css.apply('--layout--vertical')}
+        ${this.css.apply('--layout--horizontal')}
+        ${this.css.apply('--layout--wrap')}
 
-        margin: 10px 0px;
-        padding: 0px 0px; }
+        ${this.css.apply('--layout--sizing--border-box')}
+
+        width: 100%;
+
+        margin: 0px 0px;
+        padding: 4px; }
 
       ._grid-item {
         ${this.css.apply('--layout--sizing--border-box')}
-        ${this.css.apply('--layout--horizontal')}
+        ${this.css.apply('--layout--vertical')}
         ${this.css.apply('--layout--flex-none')}
 
-        margin: 0px 0px 10px 0px;
-        padding: 10px 20px;
+        margin: 4px;
+        padding: 0px 12px;
 
-        border-top: 1px solid #d6d6d6;
-        border-bottom: 1px solid #d6d6d6;
-        background: #ffffff; 
+        border: 1px solid #d6d6d6;
+        border-radius: 6px;
+        background: #ffffff; }
 
-        overflow: hidden; }
+      ._grid-item--titel {
+        ${this.css.apply('--layout--sizing--border-box')}
+        ${this.css.apply('--layout--flex-none')}
+        ${this.css.apply('--layout--horizontal')}
+        ${this.css.apply('--layout--center')}
+
+        ${this.css.apply('--typo')}
+        font-size: 13px;
+        line-height: 20px;
+        font-weight: 400;
+        letter-spacing: 0.06px;
+        color: #252525;
+
+        height: 36px; 
+        padding: 0px 4px; }
 
       ._grid-item--grafic {
         ${this.css.apply('--layout--sizing--border-box')}
         ${this.css.apply('--layout--flex-none')}
         ${this.css.apply('--layout--vertical')}
 
-        height: 96px;
-        width: 96px; }
+        height: 144px;
+        width: 144px; }
+
+      ._grid-item--detail {
+        ${this.css.apply('--layout--sizing--border-box')}
+        ${this.css.apply('--layout--flex-none')}
+        ${this.css.apply('--layout--vertical')}
+      
+        ${applic.$.css.apply('--typo--caption')}
+        ${applic.$.css.apply('--typo--nowrap')} 
+        
+        ${this.css.apply('--typo')}
+        font-size: 9px;
+        line-height: 12px;
+        font-weight: 400;
+        letter-spacing: -0.14px;
+        color: #909090;
+
+        border-top: 1px solid #d6d6d6;
+
+        margin: 10px 0px 0px;
+        padding: 6px 4px; }
+
+
 
       ._grid-item--grafic {
         background-color: #fafafa;
@@ -58,7 +99,6 @@ export const model = function () {
         ${this.css.apply('--layout--flex')}
         ${this.css.apply('--layout--vertical')}
 
-        width: 320px;
         padding: 10px 20px; }
 
     </style>
@@ -68,21 +108,17 @@ export const model = function () {
 
     ${this.get('section').map((_section) => !_section.active ? '' : html`
       <div class="_grid">
-        ${_section.nonce}
         ${_section.grafics.map((_grafic) => html`
-
           <div class="_grid-item">
-            <div class="_grid-item--grafic">
+            <div class="_grid-item--titel">Image</div>
+            <div class="_grid-item--grafic"></div>
 
-            </div>
-
-            <div class="_grid-item--inner">
-              <span>${_grafic.nonce}</span>
-
+            <div class="_grid-item--detail">
+              <span>Modified: 1:13 pm</span>
+              <span>Created: 1:13 pm</span>
             </div>
 
           </div>
-
         `)}
       </div>
     `)}
