@@ -102,7 +102,7 @@ class ApplicListItem extends LitElement {
 
           ${applic.$.css.apply('--typo--overline')}
 
-          margin-left: 10px;
+          margin-left: 4px;
           color: #acacac; }
 
       </style>

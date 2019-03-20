@@ -313,21 +313,34 @@ const dropMove = (evt) => {
 const dropHandler = (evt) => {
   evt.preventDefault();
 
-  console.log('dropHandler')
+  const _section = (() => {
+    let _target; const _sections = applic.get('section')
+    for (const _nonce of Object.keys(_sections)) {
+      if (_sections[_nonce].active) {
+        _target = _sections[_nonce];
+      }
+    };
+
+    return _target;
+  })()
+
+  const _register = (_file) => {
+    applic.newGrafic({
+      blob: _file,
+      section: _section.nonce
+    })
+   
+  };
 
   if (evt.dataTransfer.items) {
-    // Use DataTransferItemList interface to access the file(s)
-    for (var i = 0; i < evt.dataTransfer.items.length; i++) {
-      // If dropped items aren't files, reject them
+    for (let i = 0; i < evt.dataTransfer.items.length; i++) {
       if (evt.dataTransfer.items[i].kind === 'file') {
-        var file = evt.dataTransfer.items[i].getAsFile();
-        console.log('... file[' + i + '].name = ' + file.name);
+        _register(evt.dataTransfer.items[i].getAsFile());
       }
     }
   } else {
-    // Use DataTransfer interface to access the file(s)
-    for (var i = 0; i < evt.dataTransfer.files.length; i++) {
-      console.log('... file[' + i + '].name = ' + evt.dataTransfer.files[i].name);
+    for (let i = 0; i < evt.dataTransfer.files.length; i++) {
+      _register(evt.dataTransfer.files[i]);
     }
   }
 

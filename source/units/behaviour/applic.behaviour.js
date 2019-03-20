@@ -46,8 +46,9 @@ applic.newSection = () => {
   applic.openSection(_section.nonce)
 }
 
-applic.newGrafic = () => {
-  const _grafic = new ApplicGrafic();
+
+applic.newGrafic = (_params) => {
+  const _grafic = new ApplicGrafic(_params);
   applic.set(`grafic.${_grafic.nonce}`, _grafic);
 }
 
@@ -60,42 +61,7 @@ const ApplicSection = class {
 
   grafics() {
     const _grafics = applic.get('grafic') || {};
-    const _insection = [
-      {
-        nonce: 'test_0',
-        uri: '/static/img/example/mihroyKnow.png'
-      }, {
-      //   nonce: 'test_1',
-      //   uri: '/static/img/example/mihroyAhhh.png'
-      // }, {
-      //   nonce: 'test_1',
-      //   uri: '/static/img/example/mihroyAhhh.png'
-      // }, {
-      //   nonce: 'test_1',
-      //   uri: '/static/img/example/mihroyAhhh.png'
-      // }, {
-      //   nonce: 'test_1',
-      //   uri: '/static/img/example/mihroyAhhh.png'
-      // }, {
-      //   nonce: 'test_1',
-      //   uri: '/static/img/example/mihroyAhhh.png'
-      // }, {
-      //   nonce: 'test_1',
-      //   uri: '/static/img/example/mihroyAhhh.png'
-      // }, {
-      //   nonce: 'test_1',
-      //   uri: '/static/img/example/mihroyAhhh.png'
-      // }, {
-      //   nonce: 'test_1',
-      //   uri: '/static/img/example/mihroyAhhh.png'
-      // }, {
-      //   nonce: 'test_1',
-      //   uri: '/static/img/example/mihroyAhhh.png'
-      // }, {
-        nonce: 'test_1',
-        uri: '/static/img/example/mihroyAhhh.png'
-      }
-    ];
+    const _insection = [];
 
     for (const _nonce of Object.keys(_grafics)) {
       _insection.push(_grafics[_nonce]);
@@ -107,9 +73,33 @@ const ApplicSection = class {
 }
 
 const ApplicGrafic = class {
-  constructor() {
+  constructor(_params) {
     this.nonce = applic.utils.nonce();
+    this.section = _params.section;
 
+    this.blob = _params.blob;
+    this.uri = '';
+
+    console.debug('applic-fs:create-grafic', this.blob.name)
+    this._resolveBlob();
+  }
+
+  _changed() {
+    applic.utils.buffer(() => {
+      console.debug('applic-fs:cached-grafic', this.blob.name)
+      applic.dispatch('applic:changed');
+    });
+  }
+
+  _resolveBlob(_blob) {
+    const _reader = new FileReader();
+    
+    _reader.addEventListener("load", () => {
+      this.uri = _reader.result;
+      this._changed();
+    }, false);
+
+    _reader.readAsDataURL(this.blob);
   }
 
 }

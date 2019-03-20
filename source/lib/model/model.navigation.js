@@ -78,7 +78,7 @@ export const model = function() {
               @click="${_section.show}">
               <span>
                 <span class="_navigation--grafic">
-                  ${!_section.grafics ? html`Emty` : _section.grafics.map(_grafic => html`
+                  ${!_section.grafics ? html`Draft` : _section.grafics.map(_grafic => html`
                     <applic-image uri="${_grafic.uri}" class="_navigation--grafic-icon"></applic-image>
                   `)}
                 </span>
