@@ -61,9 +61,12 @@ class ApplicListItem extends LitElement {
 
           font-size: 12px;
           line-height: 20px;
-          font-weight: 400; /* 500 active */
+          font-weight: 400;
           letter-spacing: 0.06px;
           color: #646464; }
+
+        :host([active]) ._text > ._text-primary {
+          font-weight: 600; }
 
         ._text > ._text-secondary {
           ${applic.$.css.apply('--typo--caption')}

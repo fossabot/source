@@ -22,19 +22,29 @@ new class {
 
   _updateSections() {
     const _sections = applic.get('section') || {};
-    // console.log('_sections', _sections)
 
     if (!_sections || !Object.keys(_sections).length)
       return applic.newSection();
 
+    
   }
   
 }
 
 
+applic.openSection = (_target) => {
+  const _sections = applic.get('section');
+  for (const _nonce in _sections) {
+    _sections[_nonce].active = _nonce == _target;
+  };
+
+  applic.dispatch('applic:changed');
+}
+
 applic.newSection = () => {
   const _section = new ApplicSection();
   applic.set(`section.${_section.nonce}`, _section);
+  applic.openSection(_section.nonce)
 }
 
 applic.newGrafic = () => {
@@ -45,13 +55,17 @@ applic.newGrafic = () => {
 
 const ApplicSection = class {
   constructor() {
-    this.nonce = applic.nonce();
+    this.nonce = applic.utils.nonce();
 
   }
 
   grafics() {
     const _grafics = applic.get('grafic') || {};
-    const _insection = [];
+    const _insection = [{
+      nonce: 'test_0'
+    }, {
+      nonce: 'test_1'
+    }];
 
     for (const _nonce of Object.keys(_grafics)) {
       _insection.push(_grafics[_nonce]);
@@ -64,7 +78,7 @@ const ApplicSection = class {
 
 const ApplicGrafic = class {
   constructor() {
-    this.nonce = applic.nonce();
+    this.nonce = applic.utils.nonce();
 
   }
 

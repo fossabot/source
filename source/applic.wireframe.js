@@ -19,10 +19,6 @@ console.debug('applic-wireframe:loaded', `${Date.now() - applic.created}ms`);
 class ApplicWireframe extends LitElement {
   static get properties() {
     return {
-      standalone: {
-        type: Object,
-        value: applic.dev.standalone || false
-      },
       unlinked: {
         type: Boolean,
         reflect: true,
@@ -71,14 +67,12 @@ class ApplicWireframe extends LitElement {
           ${this.css.apply('--layout--vertical')}
           ${this.css.apply('--stance--relative')} }
 
-        ${!applic.dev.overflow ? '' : `
+        ${!applic.develop || !applic.develop.overflow ? '' : html`
           body { transform: scale(.8, .8); }
           body:after {
             ${this.css.apply('--stance--absolute')}
             ${this.css.apply('--stance--fit')}
 
-            top: -${applic.dev.standalone ? '30px' : '0px'}; 
-            
             z-index: 20; 
             content: '';
 
@@ -120,8 +114,9 @@ class ApplicWireframe extends LitElement {
     console.debug('applic-wireframe:linked', `${Date.now() - applic.created}ms`)
 
     applic.on('applic-state:changed', this._update.bind(this));
-    Promise.resolve(this._update.bind(this))
+    applic.on('applic:changed', this._update.bind(this));
 
+    Promise.resolve(this._update.bind(this))
   }
 
   async _update() {
@@ -136,6 +131,13 @@ class ApplicWireframe extends LitElement {
 
       _state.section.push({
         nonce: _section.nonce,
+        active: _section.active,
+
+        show: () => {
+          console.log('show')
+          applic.openSection(_section.nonce);
+        },
+        
         grafics: _section.grafics()
       });
     };
@@ -281,3 +283,39 @@ customElements.define('applic-wireframe', ApplicWireframe);
 
 applic.$ = new ApplicWireframe();
 document.body.appendChild(applic.$, document.body.firstElementChild);
+
+
+
+
+
+const dropMove = (evt) => {
+  evt.preventDefault();
+  return false;
+}
+const dropHandler = (evt) => {
+  evt.preventDefault();
+
+  console.log('dropHandler')
+
+  if (evt.dataTransfer.items) {
+    // Use DataTransferItemList interface to access the file(s)
+    for (var i = 0; i < evt.dataTransfer.items.length; i++) {
+      // If dropped items aren't files, reject them
+      if (evt.dataTransfer.items[i].kind === 'file') {
+        var file = evt.dataTransfer.items[i].getAsFile();
+        console.log('... file[' + i + '].name = ' + file.name);
+      }
+    }
+  } else {
+    // Use DataTransfer interface to access the file(s)
+    for (var i = 0; i < evt.dataTransfer.files.length; i++) {
+      console.log('... file[' + i + '].name = ' + evt.dataTransfer.files[i].name);
+    }
+  }
+
+  return false;
+}
+
+self.addEventListener('dragover', dropMove)
+self.addEventListener('dragleave', dropMove)
+self.addEventListener('drop', dropHandler)

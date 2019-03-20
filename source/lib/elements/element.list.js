@@ -28,7 +28,7 @@ class ApplicList extends LitElement {
 
         ::slotted(.applic.list-divider) {
           height: 1px;
-          background: #e6e6e6;
+          background: #d6d6d6;
 
           margin: 10px 20px;
         }

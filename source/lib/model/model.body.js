@@ -19,11 +19,11 @@ export const model = function () {
         margin: -60px -30px 0 -30px;
         padding: 60px 30px 0 30px;
 
-        border-bottom: 1px solid #e6e6e6;
+        border-bottom: 1px solid #d6d6d6;
         background: #fafafa; }
 
       ._body {
-        background: #f4f4f4; }
+        background: #e8e8e8; }
 
     </style>  
 
@@ -57,7 +57,7 @@ export const model = function () {
         ${this.css.apply('--stance--pin--bottom-end')}  
         
 
-        border: 1px solid #e6e6e6;
+        border: 1px solid #d6d6d6;
         border-radius: 6px;
         background: #fafafa; 
 

@@ -60,7 +60,7 @@ class ApplicSideSheet extends LitElement {
             margin-left: ${this.open ? '-30px' : 'calc(0px - (320px + 30px + 30px))'};
           `: `
             margin-left: -30px;
-            border-right: 1px solid #e6e6e6;
+            border-right: 1px solid #d6d6d6;
           `}
 
           transition: margin ${ this.open ?

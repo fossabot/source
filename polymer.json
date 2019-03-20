@@ -1,8 +1,7 @@
 {
-  "entrypoint": 
-    "./index.html",
-  "shell": 
-    "./index.html",
+  "entrypoint": "./index.html",
+  "shell":      "./index.html",
+  
   "fragments": [
     "./source/applic.js",
     "./source/applic.lazies.js",

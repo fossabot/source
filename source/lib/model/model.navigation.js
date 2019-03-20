@@ -19,7 +19,7 @@ export const model = function() {
         margin: -60px 0 0 -30px;
         padding: 60px 0 0 30px;
 
-        border-bottom: 1px solid #e6e6e6;
+        border-bottom: 1px solid #d6d6d6;
         background: #f4f4f4; }
 
       ._name {
@@ -66,10 +66,14 @@ export const model = function() {
             <span>Add Canvas</span>
           </applic-list-item>
 
-          ${this.get('section').map((section) => html`
-            <applic-list-item>
+          ${this.get('section').map((_section) => html`
+            <applic-list-item 
+              ?active="${_section.active}"
+              @click="${_section.show}">
+
               <applic-icon name="folder_open" slot="graphic"></applic-icon>
-              <span>${section.nonce}</span>
+              <span>${_section.nonce}</span>
+              
             </applic-list-item>
           `)}
 

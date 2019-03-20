@@ -13,21 +13,23 @@ export const model = function () {
   return html`
     <style>
       ._grid {
-        ${this.css.apply('--layout--horizontal')}
-        ${this.css.apply('--layout--wrap')}
+        ${this.css.apply('--layout--vertical')}
 
-        margin: 0px 0px;
-        padding: 0px 20px 0px 0px;
-      }
+        margin: 10px 0px;
+        padding: 0px 0px; }
 
       ._grid-item {
         ${this.css.apply('--layout--sizing--border-box')}
         ${this.css.apply('--layout--horizontal')}
         ${this.css.apply('--layout--flex-none')}
 
-        margin: 0px 0px 20px 20px;
-        border: 1px solid #e6e6e6;
-        border-radius: 6px;
+        margin: 0px 0px 10px 0px;
+        padding: 10px 20px;
+
+        border-top: 1px solid #d6d6d6;
+        border-bottom: 1px solid #d6d6d6;
+        background: #ffffff; 
+
         overflow: hidden; }
 
       ._grid-item--grafic {
@@ -35,8 +37,8 @@ export const model = function () {
         ${this.css.apply('--layout--flex-none')}
         ${this.css.apply('--layout--vertical')}
 
-        height: 128px;
-        width: 128px; }
+        height: 96px;
+        width: 96px; }
 
       ._grid-item--grafic {
         background-color: #fafafa;
@@ -45,8 +47,11 @@ export const model = function () {
           linear-gradient(-45deg, #eaeaea 25%, transparent 25%), 
           linear-gradient(45deg, transparent 75%, #eaeaea 75%), 
           linear-gradient(-45deg, transparent 75%, #eaeaea 75%);
-        background-position: 0 0, 0 8px, 8px -8px, -8px 0px;
-        background-size: 16px 16px; }
+        background-position: 0 0, 0 4px, 4px -4px, -4px 0px;
+        background-size: 8px 8px; }
+
+      ._grid-item--grafic {
+        background: #f4f4f4; }
 
       ._grid-item--inner {
         ${this.css.apply('--layout--sizing--border-box')}
@@ -54,26 +59,17 @@ export const model = function () {
         ${this.css.apply('--layout--vertical')}
 
         width: 320px;
-
-        padding: 10px 20px;
-
-        border-left: 1px solid #e6e6e6;
-        background: #fafafa; }
+        padding: 10px 20px; }
 
     </style>
    
 
   
 
-    ${this.get('section').map((section) => html`
-      <div class="applic bar">
-        <div class="applic bar-row">
-
-        </div>
-      </div>
-
+    ${this.get('section').map((_section) => !_section.active ? '' : html`
       <div class="_grid">
-        ${this.get('section').map((section) => html`
+        ${_section.nonce}
+        ${_section.grafics.map((_grafic) => html`
 
           <div class="_grid-item">
             <div class="_grid-item--grafic">
@@ -81,7 +77,7 @@ export const model = function () {
             </div>
 
             <div class="_grid-item--inner">
-              <span>${section.nonce}</span>
+              <span>${_grafic.nonce}</span>
 
             </div>
 

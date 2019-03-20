@@ -2,12 +2,15 @@
   "dir": "ltr",
   "lang": "en-NL",
   
-  "name": "Contrast Tool", "short_name": "Contrast Tool",
+  "name": "Contrast Tool", "short_name": "C-Tool",
   "description": "An interactive viewer to compare and export your chat graphics.",
 
   "start_url": "/",
-  "display": "standalone",
 
+  "display": "fullscreen",
+  "orientation": "any",
+
+  "theme_color": "#fafafa",
   "background_color": "#fafafa",
 
   "icons": [{
