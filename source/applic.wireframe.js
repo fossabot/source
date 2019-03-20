@@ -156,8 +156,8 @@ class ApplicWireframe extends LitElement {
           for (const _nonce of Object.keys(_grafics)) {
             const _grafic = _grafics[_nonce];
             _map.push({
-              nonce: _grafic.nonce
-
+              nonce: _grafic.nonce,
+              uri: _grafic.uri
             });
           };
 

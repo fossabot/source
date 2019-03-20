@@ -40,6 +40,20 @@ export const model = function() {
 
         padding: 0px 8px 0 24px; }
         
+      ._navigation--grafic {
+        ${this.css.apply('--layout--horizontal')} 
+        ${this.css.apply('--layout--center')} }
+
+      ._navigation--grafic-icon {
+        ${this.css.apply('--layout--horizontal')} 
+        ${this.css.apply('--layout--center-center')} 
+
+        height: 28px;
+        width: 28px;
+
+        background: #f4f4f4; 
+        overflow: hidden; }
+
     </style>  
 
     <div class="_navigation-header applic bar">
@@ -59,26 +73,26 @@ export const model = function() {
 
     <applic-scrollable class="_navigation"> 
         <applic-list>
+          ${this.get('section').map((_section) => html`
+            <applic-list-item 
+              ?active="${_section.active}"
+              @click="${_section.show}">
+
+              <span class="_navigation--grafic">
+                ${!_section.grafics ? html`Emty` : _section.grafics.map(_grafic => html`
+                  <applic-image uri="${_grafic.uri}" class="_navigation--grafic-icon"></applic-image>
+                `)}
+              </span>
+              <span slot="meta">${_section.grafics.length}</span>
+
+            </applic-list-item>
+          `)}
 
           <applic-list-item
             @click="${applic.newSection}">
             <applic-icon name="add" slot="graphic"></applic-icon>
             <span>Add Canvas</span>
           </applic-list-item>
-
-          ${this.get('section').map((_section) => html`
-            <applic-list-item 
-              ?active="${_section.active}"
-              @click="${_section.show}">
-
-              <span>
-                ${!_section.grafics ? html`Emty` : _section.grafics.map(_grafic => html`
-                  <span>${_grafic.nonce}</span>
-                `)}
-              </span>
-
-            </applic-list-item>
-          `)}
 
           <div class="applic list-divider"></div>
 

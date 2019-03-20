@@ -7,10 +7,10 @@ The complete set of contributors may be found at https://contrast-tool.github.io
 */
 
 import './element.button.js';
-import './element.fa-button.js';
 import './element.hint.js';
 import './element.icon-button.js';
 import './element.icon.js';
+import './element.image.js';
 import './element.list-action.js';
 import './element.list-collection.js';
 import './element.list-item.js';

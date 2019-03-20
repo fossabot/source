@@ -19,13 +19,15 @@ class ApplicScrollable extends LitElement {
           ${applic.$.css.apply('--layout--center')} 
           ${applic.$.css.apply('--layout--flex-none')} 
 
-          max-height: 100%;
-          max-width: 100%;
+          height: 36px;
+          min-width: 36px;
 
           overflow: hidden; }
 
+
       </style>
 
+      <slot></slot>
     `;
   }
   constructor() {
@@ -35,27 +37,29 @@ class ApplicScrollable extends LitElement {
   }
 
   firstUpdated() {
-    this.parentElement.addEventListener('mouseover', this._trigger.bind(this));
-    this.parentElement.addEventListener('movseleave', this._spleep.bind(this));
+    // this.parentElement.addEventListener('mouseover', this._trigger.bind(this));
+    // this.parentElement.addEventListener('movseleave', this._spleep.bind(this));
   }
 
   _trigger() {
-    if (!this.scroll_show) {
-      this.show = true;
-      this.requestUpdate();
-    };
+    // if (!this.scroll_show) {
+    //   this.show = true;
+    //   this.requestUpdate();
+    // };
 
-    this._spleep();
+    // this._spleep();
   }
   _spleep() {
-    clearTimeout(this._sleepTimer)
-    this._sleepTimer = setTimeout(() => {
-      this.show = false;
-      this.requestUpdate();
-    }, 100);
+    // clearTimeout(this._sleepTimer)
+    // this._sleepTimer = setTimeout(() => {
+    //   this.show = false;
+    //   this.requestUpdate();
+    // }, 100);
   }
 
   async _update() {
+    console.log(this)
+    
     await this.updateComplete;
     this.requestUpdate();
   }

@@ -34,10 +34,12 @@ export const model = function () {
           ${this.get('narrow') ? html`
             <applic-icon-button icon="notes"
               @click="${this.call('navigation:toggle')}">
+              <applic-hint>Toggle navigation</applic-hint>
             </applic-icon-button>
           ` : html`
             <applic-icon-button icon="${this.get('sheet.persistent') ? 'chevron_left' : 'notes'}"
               @click="${this.call('navigation:toggle-persistence')}">
+              <applic-hint>${this.get('sheet.persistent') ? 'Hide' : 'Show'}} navigation</applic-hint>
             </applic-icon-button>
           `}
 

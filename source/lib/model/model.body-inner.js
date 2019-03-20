@@ -130,7 +130,7 @@ export const model = function () {
           ${_section.grafics.map((_grafic) => html`
             <div class="_grid-item">
               <div class="_grid-item--titel">Image</div>
-              <div class="_grid-item--grafic"></div>
+              <applic-image uri="${_grafic.uri}" class="_grid-item--grafic"></applic-image>
 
               <div class="_grid-item--detail">
                 <span>Modified: 1:13 pm</span>

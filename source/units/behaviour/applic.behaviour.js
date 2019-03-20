@@ -60,11 +60,15 @@ const ApplicSection = class {
 
   grafics() {
     const _grafics = applic.get('grafic') || {};
-    const _insection = [{
-      nonce: 'test_0'
-    }, {
-      nonce: 'test_1'
-    }];
+    const _insection = [
+      {
+        nonce: 'test_0',
+        uri: '/static/img/example/mihroyKnow.png'
+      }, {
+        nonce: 'test_1',
+        uri: '/static/img/example/mihroyAhhh.png'
+      }
+    ];
 
     for (const _nonce of Object.keys(_grafics)) {
       _insection.push(_grafics[_nonce]);
