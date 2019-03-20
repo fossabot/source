@@ -23,6 +23,7 @@ export const model = function () {
         background: #fafafa; }
 
       ._body {
+        z-index: 1;
         background: #e8e8e8; }
 
     </style>  

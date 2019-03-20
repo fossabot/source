@@ -19,10 +19,9 @@ console.debug('applic-wireframe:loaded', `${Date.now() - applic.created}ms`);
 class ApplicWireframe extends LitElement {
   static get properties() {
     return {
-      unlinked: {
+      unresolved: {
         type: Boolean,
-        reflect: true,
-        attribute: 'unresolved'
+        reflect: true
       },
       state: {
         type: Object
@@ -50,9 +49,19 @@ class ApplicWireframe extends LitElement {
           opacity: 1; 
           transition: opacity 150ms cubic-bezier(0.4, 0.0, 1, 1); } 
 
+        ._wrap {
+          ${this.css.apply('--stance--relative')}
+          ${this.css.apply('--layout--vertical')}
+          ${this.css.apply('--layout--flex-none')}
+          height: 100%;
+          width: 100%;
+        }
+
       </style>
 
-      <slot></slot>
+      <div class="_wrap">
+        <slot></slot>
+      </div>
 
     `;
   }
@@ -60,12 +69,14 @@ class ApplicWireframe extends LitElement {
     return html`
       <style>
         * { ${this.css.apply('--typo--noselect')} }
-        [skip], [skip] * { transition: none !important; }
 
         body {
           ${this.css.apply('--layout--sizing--content-box')} 
           ${this.css.apply('--layout--vertical')}
-          ${this.css.apply('--stance--relative')} }
+          ${this.css.apply('--stance--fixed')}
+          ${this.css.apply('--stance--fit')} 
+        
+          margin: 0px; }
 
         ${!applic.develop || !applic.develop.overflow ? '' : html`
           body { transform: scale(.8, .8); }
@@ -90,21 +101,20 @@ class ApplicWireframe extends LitElement {
 
         ${this.model('navigation')}
       </applic-side-sheet>
-        
+
       ${this.model('body')}
+
     `;
   }
 
   constructor() {
     super();
 
-    this.unlinked = Date.now() - applic.created > 220;
+    this.unresolved = Date.now() - applic.created > 220;
     this.state = { sheet: {}, section: [] };
 
     this.css = style.css;
     this.html = style.html;
-
-    document.body.setAttribute('skip', true);
 
     window.addEventListener('resize', this._resize.bind(this));
     this._resize()
@@ -155,19 +165,15 @@ class ApplicWireframe extends LitElement {
 
     document.body.setAttribute('role', 'application');
 
-    if (this.unlinked) {
+    console.log('unresolved', this.unresolved)
+    if (this.unresolved) {
       Promise.resolve().then(() => {
-        requestAnimationFrame(() => {
-          this.unlinked = false;
-        });
+        setTimeout(() => {
+          console.log('unresolved', this.unresolved)
+          this.unresolved = false;
+        }, 0);
       });
     };
-
-    Promise.resolve().then(() => {
-      requestAnimationFrame(() => {
-        document.body.removeAttribute('skip')
-      })
-    });
 
     self.dispatchEvent(new Event('applic-wireframe:ready'));
   }

@@ -19,9 +19,10 @@ class ApplicSideSheet extends LitElement {
   render() {
     return html`
       <style>
-        :host { z-index: 2; }
 
         ._scrim {
+          z-index: 2;
+          
           ${applic.$.css.apply('--stance--absolute')} 
 
           top: -50vh;
@@ -40,6 +41,8 @@ class ApplicSideSheet extends LitElement {
         }
 
         ._card {
+          z-index: 2;
+
           ${applic.$.css.apply('--layout--sizing--border-box')} 
           ${applic.$.css.apply('--stance--absolute')} 
           ${applic.$.css.apply('--stance--pin--start')} 
@@ -101,20 +104,20 @@ class ApplicSideSheet extends LitElement {
   expand() { this.open = true; }
 
   updated(last) {
-    console.log()
-    
     if ([...last.keys()].length 
       && -1 != [...last.keys()].indexOf('persistent') 
       && last['persistent'] != this.persistent) {
       this.open = this.persistent;
     }
 
+    console.log(this.offsetParent)
+
     if (this.persistent && this.open) {
-      this.parentElement.style.paddingLeft = `${this.shadowRoot.querySelector('._card').offsetWidth - 30}px`;
-      this.parentElement.style.transition = `padding ${this.expandDur} ${this.expandTmf}`;
+      this.offsetParent.style.paddingLeft = `${this.shadowRoot.querySelector('._card').offsetWidth - 30}px`;
+      this.offsetParent.style.transition = `padding ${this.expandDur} ${this.expandTmf}`;
     } else {
-      this.parentElement.style.paddingLeft = '0px';
-      this.parentElement.style.transition = `padding ${this.collapseDur} ${this.collapseTmf}`;
+      this.offsetParent.style.paddingLeft = '0px';
+      this.offsetParent.style.transition = `padding ${this.collapseDur} ${this.collapseTmf}`;
     }
 
     this.dispatchEvent(new CustomEvent('changed', {
