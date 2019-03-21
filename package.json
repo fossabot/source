@@ -19,5 +19,11 @@
   "scripts": {
     "start": "owc-dev-server",
     "build": "polymer build && polymer serve ./build/esm-bundled/"
+  },
+  "resolutions": {
+    "lit-html": "1.0.0",
+    "debug": "4.1.1",
+    "statuses": "1.5.0",
+    "ms": "2.1.1"
   }
 }
