@@ -55,7 +55,19 @@ The complete set of contributors may be found at https://mihroy.github.io/contra
 
 	<link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Roboto:300,400,600|Material+Icons+Sharp">
 	
-	<style> body { background: #efefef; } </style>
+	<style> 
+		body { 
+			margin: 0; 
+			background: #efefef; } 
+		
+		noscript {
+			display: block;
+			font-family: Roboto, sans-serif;
+			font-weight: 300; 
+
+			padding: 10px 20px; }
+
+	</style>
 
 	<script>
 		self.addEventListener('load', async () => { 
@@ -82,28 +94,11 @@ The complete set of contributors may be found at https://mihroy.github.io/contra
 
 		};
 
-	</script>
+	</script> 
 
 </head>
-<body>
-	<!-- Build with ❤ using lit-html, lit-element & the Dropbox CLI -->
-
-	<noscript>	
-		<style>
-			._noScript {
-				font-family: Roboto, sans-serif;
-				font-weight: 300; 
-
-				padding: 30px; }
-
-		</style>
-		<div class="_noScript">
-			<span>Please enable JavaScript to view this application.</span>
-		</div>
-
-	</noscript>
-
-	
+<body> <!-- Build with ❤ using lit-html, lit-element & the Dropbox CLI -->
+	<noscript> Please enable JavaScript to view this application.</noscript>
 </body>
 
 </html>

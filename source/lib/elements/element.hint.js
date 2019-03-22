@@ -58,7 +58,7 @@ class ApplicScrollable extends LitElement {
   }
 
   async _update() {
-    console.log(this)
+    // console.log(this)
     
     await this.updateComplete;
     this.requestUpdate();

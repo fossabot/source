@@ -31,6 +31,10 @@ new class {
 }
 
 
+applic.chatchFiles = (_params) => {
+  console.log(_params)
+}
+
 applic.openSection = (_target) => {
   const _sections = applic.get('section');
   for (const _nonce in _sections) {

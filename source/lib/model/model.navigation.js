@@ -58,7 +58,8 @@ export const model = function() {
           ${this.get('section').map((_section) => html`
             <applic-list-item ?active="${_section.active}"
               @click="${_section.show}">
-              <applic-image slot="graphic" uri="${_section.graphics ? _section.graphics[0].uri : ''}">
+              <applic-image slot="graphic" aspect="1:1" 
+                uri="${_section.graphics ? _section.graphics[0].uri : ''}">
               </applic-image>
               <span>${_section.name}</span>
               <span slot="meta">${_section.graphics.length}</span>
@@ -73,18 +74,31 @@ export const model = function() {
 
           <div class="applic list-divider"></div>
 
-          <applic-list-item>
-            <applic-icon name="folder_shared" slot="graphic"></applic-icon>
-            <span>Showcase</span>
-          </applic-list-item>
-
+     
           <applic-list-collection>
-            <span slot="label">All Folders</span>
+            <span slot="label">All Collections</span>
 
             <applic-list-item>
-              <applic-icon name="folder_open" slot="graphic"></applic-icon>
-              <span>Add Canvas</span>
-              <span slot="meta">42</span>
+              <applic-icon name="folder_shared" slot="graphic"></applic-icon>
+              <span>Showcase</span>
+              <span slot="meta">733</span>
+            </applic-list-item>
+
+            <applic-list-item>
+              <applic-icon name="folder" slot="graphic"></applic-icon>
+              <span>Brainstorming</span>
+              <span slot="meta">0</span>
+            </applic-list-item>
+
+            <applic-list-item>
+              <applic-icon name="folder" slot="graphic"></applic-icon>
+              <span>Uncategorized</span>
+              <span slot="meta">10</span>
+            </applic-list-item>
+
+            <applic-list-item>
+              <applic-icon name="edit" slot="graphic"></applic-icon>
+              <span>Manage collections</span>
             </applic-list-item>
 
           </applic-list-collection>

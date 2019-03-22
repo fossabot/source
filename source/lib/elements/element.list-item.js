@@ -39,7 +39,7 @@ class ApplicListItem extends LitElement {
 
           color: #acacac; }
 
-        ._graphic ::slotted(*) {
+        ._graphic {
           height: 28px;
           width: 28px; 
           margin: 0 10px 0 0; }

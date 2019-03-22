@@ -10,12 +10,10 @@ import { html } from 'lit-html';
 // import { html } from 'lit-element';
 
 export const model = function () {
-  return html`
+   return html`
     <style>
-      ._grid {
-        ${this.css.apply('--layout--horizontal')}
-        ${this.css.apply('--layout--wrap')}
-
+      ._aside.grid {
+        ${this.css.apply('--layout--vertical')}
         ${this.css.apply('--layout--sizing--border-box')}
 
         width: 100%;
@@ -23,19 +21,15 @@ export const model = function () {
         margin: 0px 0px;
         padding: 4px; }
 
-      ._grid-item {
+      ._aside.grid-item {
         ${this.css.apply('--layout--sizing--border-box')}
         ${this.css.apply('--layout--vertical')}
         ${this.css.apply('--layout--flex-none')}
 
         margin: 4px;
-        padding: 0px 12px;
+        padding: 0px 12px; }
 
-        border: 1px solid #d6d6d6;
-        border-radius: 6px;
-        background: #ffffff; }
-
-      ._grid-item--titel {
+      ._aside.grid-item--titel {
         ${this.css.apply('--layout--sizing--border-box')}
         ${this.css.apply('--layout--flex-none')}
         ${this.css.apply('--layout--horizontal')}
@@ -51,15 +45,15 @@ export const model = function () {
         height: 36px; 
         padding: 0px 4px; }
 
-      ._grid-item--graphic {
+      ._aside.grid-item--graphic {
         ${this.css.apply('--layout--sizing--border-box')}
         ${this.css.apply('--layout--flex-none')}
         ${this.css.apply('--layout--vertical')}
 
         height: 144px;
-        width: 144px; }
+        width: 100%; }
 
-      ._grid-item--detail {
+      ._aside.grid-item--detail {
         ${this.css.apply('--layout--sizing--border-box')}
         ${this.css.apply('--layout--flex-none')}
         ${this.css.apply('--layout--vertical')}
@@ -79,9 +73,7 @@ export const model = function () {
         margin: 10px 0px 0px;
         padding: 6px 4px; }
 
-
-
-      ._grid-item--graphic {
+      ._aside.grid-item--graphic {
         background-color: #fafafa;
         background-image: 
           linear-gradient(45deg, #eaeaea 25%, transparent 25%), 
@@ -91,27 +83,26 @@ export const model = function () {
         background-position: 0 0, 0 4px, 4px -4px, -4px 0px;
         background-size: 8px 8px; }
 
-      ._grid-item--graphic {
+      ._aside.grid-item--graphic {
         background: #f4f4f4; }
 
-      ._grid-item--inner {
+      ._aside.grid-item--inner {
         ${this.css.apply('--layout--sizing--border-box')}
         ${this.css.apply('--layout--flex')}
         ${this.css.apply('--layout--vertical')}
 
         padding: 10px 20px; }
 
-      ._emty {
+      ._aside.emty {
         ${this.css.apply('--stance--absolute')}
-        ${this.css.apply('--stance--fit')}
+        ${this.css.apply('--stance--pin--bottom')}
         ${this.css.apply('--layout--sizing--border-box')}
         ${this.css.apply('--layout--vertical')}
-        ${this.css.apply('--layout--center-center')} }
+        ${this.css.apply('--layout--center')} 
 
-      ._emty--graphic {
-        margin: -64px 0px 20px; }
+        padding: 20px 0px; }
 
-      ._emty--info {
+      ._aside.emty--info {
         ${this.css.apply('--typo')}
         font-size: 13px;
         line-height: 1;
@@ -126,13 +117,13 @@ export const model = function () {
 
     ${this.get('section').map((_section) => !_section.active ? '' : html`
       ${_section.graphics ? html`
-        <div class="_grid">
+        <div class="_aside grid">
           ${_section.graphics.map((_graphic) => html`
-            <div class="_grid-item">
-              <div class="_grid-item--titel">Image</div>
-              <applic-image uri="${_graphic.uri}" class="_grid-item--graphic"></applic-image>
+            <div class="_aside grid-item">
+              <div class="_aside grid-item--titel">Image</div>
+              <applic-image uri="${_graphic.uri}" aspect="1:1" class="_aside grid-item--graphic"></applic-image>
 
-              <div class="_grid-item--detail">
+              <div class="_aside grid-item--detail">
                 <span>Modified: 1:13 pm</span>
                 <span>Created: 1:13 pm</span>
               </div>
@@ -141,9 +132,8 @@ export const model = function () {
           `)}
         </div>
       ` : html`
-        <div class="_emty">
-          <applic-icon class="_emty--graphic" name="view_comfy" size="huge"></applic-icon>
-          <span class="_emty--info">No modules</span>
+        <div class="_aside emty">
+          <span class="_aside emty--info">Interact with a graphic to see details</span>
         </div>
       `}
 

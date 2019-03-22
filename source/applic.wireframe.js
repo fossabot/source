@@ -154,8 +154,6 @@ class ApplicWireframe extends LitElement {
           return _map.length ? _map : false;
       })()
 
-      console.log(_graphics[0])
-      
       _state.section.push({
         name: _section.name, graphic: _graphics[0] || false,
 
@@ -164,6 +162,15 @@ class ApplicWireframe extends LitElement {
 
         graphics: _graphics
       });
+
+      _state.selector = {
+   
+      };
+
+      _state.preview = {
+   
+      };
+
     };
 
 
@@ -208,7 +215,7 @@ class ApplicWireframe extends LitElement {
     const apply = () => {
       this.rendering = false;
 
-      console.debug('applic-wireframe:updated')
+      // console.debug('applic-wireframe:updated')
       render(this.renderInner(), this)
     };
 
@@ -304,8 +311,6 @@ document.body.appendChild(applic.$, document.body.firstElementChild);
 
 
 
-
-
 const dropMove = (evt) => {
   evt.preventDefault();
   return false;
@@ -313,36 +318,56 @@ const dropMove = (evt) => {
 const dropHandler = (evt) => {
   evt.preventDefault();
 
-  const _section = (() => {
-    let _target; const _sections = applic.get('section')
-    for (const _nonce of Object.keys(_sections)) {
-      if (_sections[_nonce].active) {
-        _target = _sections[_nonce];
+  console.log(applic.$.state)
+
+  const _params = {
+    transfer: (() => {
+      if (!evt.dataTransfer.items ) return false;
+      const _list = []; for (const _file of evt.dataTransfer.items) { 
+        if (_file.kind === 'file') _list.push(_file)
       }
-    };
-
-    return _target;
-  })()
-
-  const _register = (_file) => {
-    applic.newgraphic({
-      blob: _file,
-      section: _section.nonce
-    })
-   
-  };
-
-  if (evt.dataTransfer.items) {
-    for (let i = 0; i < evt.dataTransfer.items.length; i++) {
-      if (evt.dataTransfer.items[i].kind === 'file') {
-        _register(evt.dataTransfer.items[i].getAsFile());
-      }
-    }
-  } else {
-    for (let i = 0; i < evt.dataTransfer.files.length; i++) {
-      _register(evt.dataTransfer.files[i]);
-    }
+      return _list;
+    })(),
+    files: (() => {
+      if (evt.dataTransfer.items) return false;
+      const _list = []; for (const _file of evt.dataTransfer.files) { _list.push(_file) }
+      return _list;
+    })()
   }
+
+  if (!applic.chatchFiles) return;
+  applic.chatchFiles(_params)
+
+  // const _section = (() => {
+  //   let _target; const _sections = applic.get('section')
+  //   for (const _nonce of Object.keys(_sections)) {
+  //     if (_sections[_nonce].active) {
+  //       _target = _sections[_nonce];
+  //     }
+  //   };
+
+  //   return _target;
+  // })()
+
+  // const _register = (_file) => {
+  //   applic.newgraphic({
+  //     blob: _file,
+  //     section: _section.nonce
+  //   })
+   
+  // };
+
+  // if (evt.dataTransfer.items) {
+  //   for (let i = 0; i < evt.dataTransfer.items.length; i++) {
+  //     if (evt.dataTransfer.items[i].kind === 'file') {
+  //       _register(evt.dataTransfer.items[i].getAsFile());
+  //     }
+  //   }
+  // } else {
+  //   for (let i = 0; i < evt.dataTransfer.files.length; i++) {
+  //     _register(evt.dataTransfer.files[i]);
+  //   }
+  // }
 
   return false;
 }

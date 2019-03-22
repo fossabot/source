@@ -23,7 +23,37 @@ export const model = function () {
         background: #fafafa; }
 
       ._body {
+        ${this.css.apply('--layout--horizontal')} 
+        ${this.css.apply('--layout--flex')} 
+
         background: #efefef; }
+
+      ._body-inner {
+        ${this.css.apply('--layout--vertical')} 
+        ${this.css.apply('--layout--flex')} }
+
+      ._body-aside {
+        ${this.css.apply('--layout--vertical')} 
+        ${this.css.apply('--layout--flex-none')} 
+
+        width: 320px; 
+
+        border-left: 1px solid #d6d6d6;
+        background: #fafafa; }
+
+      ._tools {
+        ${this.css.apply('--stance--absolute')}  
+        ${this.css.apply('--stance--pin--bottom-end')}  
+        
+
+        border: 1px solid #d6d6d6;
+        border-radius: 6px;
+        background: #fafafa; 
+
+        height: ;
+
+        margin: 20px;
+        padding: 0px 4px; }
 
     </style>  
 
@@ -47,40 +77,30 @@ export const model = function () {
       </div>
     </div>
 
-    <applic-scrollable class="_body">
-      ${this.model('bodyInner')}
 
-    </applic-scrollable>
+    <div class="_body">
+      <applic-scrollable class="_body-inner">
+        ${this.model('bodyInner')}
 
 
-    <style>
-      ._tools {
-        ${this.css.apply('--stance--absolute')}  
-        ${this.css.apply('--stance--pin--bottom-end')}  
-        
-
-        border: 1px solid #d6d6d6;
-        border-radius: 6px;
-        background: #fafafa; 
-
-        height: ;
-
-        margin: 20px;
-        padding: 0px 4px;
-      }
-
-    </style>
-
-    <div class="_tools">
-      <div class="applic bar-row dense">
-        <div class="applic bar-section">
-
-          <applic-icon-button icon="get_app" size="denses">
-          </applic-icon-button>
-    
+        <div class="_tools">
+          <div class="applic bar-row dense">
+            <div class="applic bar-section">
+              <applic-icon-button icon="get_app" size="denses"></applic-icon-button>
+            </div>
+          </div>
         </div>
-      </div>
+
+      </applic-scrollable>
+      
+      <applic-scrollable class="_body-aside">
+        ${this.model('bodyAside')}
+
+      </applic-scrollable>
     </div>
 
+
+
+ 
   `
 }

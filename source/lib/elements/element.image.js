@@ -11,7 +11,8 @@ import { LitElement, html } from 'lit-element';
 class ApplicImage extends LitElement {
   static get properties() {
     return {
-      uri: { type: String }
+      uri: { type: String },
+      aspect: { type: String }
     };
   }
 
@@ -19,19 +20,27 @@ class ApplicImage extends LitElement {
     return html`
       <style>
         :host {
+          ${applic.$.css.apply('--stance--relative')} 
           ${applic.$.css.apply('--layout--sizing--content-box')} 
           ${applic.$.css.apply('--layout--horizontal')} 
           ${applic.$.css.apply('--layout--center-center')} 
           ${applic.$.css.apply('--layout--flex-none')} 
-          ${applic.$.css.apply('--typo--noselect')} }
+        
+          width: 100%; }
 
+        :host([aspect="1:1"]) {
+          padding-bottom: 100%;
+        }
+   
         img {
+          ${applic.$.css.apply('--stance--absolute')} 
+          ${applic.$.css.apply('--stance--fit')} 
+          
           height: 100%;
           width: 100%;
-
-          object-fit: contain;
-          overflow: hidden;
-        }
+          object-fit: cover;
+          overflow: hidden; 
+          pointer-events: none; }
 
       </style>
           
