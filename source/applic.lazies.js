@@ -7,40 +7,52 @@ The complete set of contributors may be found at https://contrast-tool.github.io
 */
 
 const lazies = [
-  { type: '', uri: '/node_modules/dropbox/dist/Dropbox-sdk.min.js' },
-  { type: '', uri: '/source/units/processing/applic.processing.js' },
-  // { type: 'module', uri: '/source/applic.lazies.js' }
+  { nonce: 'dropbox', type: 'browser', 
+    uri: '/node_modules/dropbox/dist/Dropbox-sdk.min.js' },
+  { nonce: 'processing', type: 'module', 
+    uri: '/source/units/processing/applic.processing.js' },
 ];
 
 const _fetch = () => {
-  return new Promise((resolve) => {
+  return new Promise(async (resolve) => {
     const lazy = lazies.shift();
-    const node = document.createElement('script');
-
     if (!lazy) resolve();
+
     console.debug('applic-lazy:fetch', `"${lazy.uri}"`)
 
-    node.setAttribute('src', lazy.uri);
-    node.setAttribute('type', lazy.type);
+    if (lazy.type == 'browser') {
 
-    node.onerror = (err) => {
-      console.error('applic-lazy:cancellation', `"${lazy.uri}"`)
-      console.error(err.srcElement)
+      const node = document.createElement('script');
 
-      lazies.push(lazy);
+      node.setAttribute('src', lazy.uri);
+      node.setAttribute('type', lazy.type);
 
-      setTimeout(async () => { 
-        await _fetch(); 
-        resolve() 
-      }, 3000);
-    };
-    node.onload = async (evt) => {
-      console.debug('applic-lazy:ready', `"${lazy.uri}"`)
-      await _fetch();
-      resolve()
-    };
+      node.onerror = (err) => {
+        lazies.push(lazy); console.error('applic-lazy:cancellation', `"${lazy.uri}"`)
+        setTimeout(async () => { await _fetch(); resolve() }, 3000);
+      };
+      
+      node.onload = async (evt) => {
+        console.debug('applic-lazy:ready', `"${lazy.uri}"`)
+        await _fetch(); resolve()
+      };
 
-    document.head.appendChild(node);
+      document.head.appendChild(node);
+    } else {
+      import(`${lazy.uri}`)
+        .then(async (_m) => {
+          console.debug('applic-lazy:ready', `"${lazy.uri}"`)
+          applic.lazies[lazy.nonce] = _m;
+          await _fetch();
+          resolve();
+        })
+        .catch(async () => {
+          console.error('applic-lazy:cancellation', `"${lazy.uri}"`)
+          lazies.push(lazy); 
+          setTimeout(async () => { await _fetch(); resolve() }, 3000);
+        });
+    }
+
   })
 };
 
@@ -52,4 +64,4 @@ setTimeout(() => {
     .then(() => { console.debug('applic-lazies:ready', `${Date.now() - applic.created}ms`) });
 
   // })
-}, 100);
+}, 300);

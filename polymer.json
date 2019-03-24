@@ -12,7 +12,7 @@
     "./static/**/*" ],
 
   "extraDependencies": [
-    "./404.html", "./oauth2/index.html", "./favicon.ico",
+    "./404.html", "./favicon.ico",
     "./node_modules/@webcomponents/webcomponentsjs/**/*.js",
     "./node_modules/dropbox/dist/Dropbox-sdk.min.js" ],
 

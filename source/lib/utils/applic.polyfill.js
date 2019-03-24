@@ -30,7 +30,7 @@ if (!HTMLCanvasElement.prototype.toBlob) {
 };
 
 if (Object.keys(polyfills).length) {
-  console.group('polyfill');
+  console.group('applic-polyfill');
   polyfills.map(poly => { console.log(poly) })
   console.groupEnd();
 };

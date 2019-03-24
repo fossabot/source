@@ -77,11 +77,23 @@ The complete set of contributors may be found at https://mihroy.github.io/contra
 		});
 	</script>
 
-	<script src="/node_modules/@webcomponents/webcomponentsjs/webcomponents-loader.js"></script>
+	<script src="node_modules/@webcomponents/webcomponentsjs/webcomponents-loader.js"></script>
+	<script>
+		WebComponents.waitFor(() => {
+			return new Promise(async (resolve) => {
+				await import('/source/applic.wireframe.js');
+				await import('/source/applic.js');
+				await import('/source/applic.lazies.js');
 
+				resolve();
+			})
+		});
+	</script>
+
+	<!-- <script src="/node_modules/@webcomponents/webcomponentsjs/webcomponents-loader.js"></script>
 	<script type="module" src="/source/applic.wireframe.js"></script>
 	<script type="module" src="/source/applic.js"></script>
-	<script type="module" src="/source/applic.lazies.js"></script>
+	<script type="module" src="/source/applic.lazies.js"></script> -->
 
 	<script>
 		const _active = (nonce) => { return -1 != location.search.indexOf(`${nonce}=true`) };

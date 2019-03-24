@@ -47,7 +47,12 @@ class ApplicWireframe extends LitElement {
 
         :host(:not([unresolved])) {
           opacity: 1; 
-          transition: opacity 100ms cubic-bezier(0.4, 0.0, 1, 1); } 
+          transition: opacity 100ms 0ms cubic-bezier(0.4, 0.0, 1, 1); } 
+
+        :host([unresolved]) {
+          opacity: 0; 
+          transition: opacity 100ms 0ms cubic-bezier(0.4, 0.0, 1, 1); } 
+  
 
         ._wrap {
           ${this.css.apply('--layout--sizing--border-box')} 
@@ -112,14 +117,23 @@ class ApplicWireframe extends LitElement {
   constructor() {
     super();
 
-    this.unresolved = Date.now() - applic.created > 220;
+    this.cached = Date.now() - applic.created > 220;
+    this.unresolved = this.cached;
     this.state = { sheet: {}, section: [] };
 
     this.css = style.css;
     this.html = style.html;
 
-    window.addEventListener('resize', this._resize.bind(this));
+    self.addEventListener('beforeunload', this.unload.bind(this), true);
+
+    self.addEventListener('resize', this._resize.bind(this));
     this._resize()
+  }
+
+  unload() {
+    if (this.cached) return;
+    this.setAttribute('unresolved', '');
+    setTimeout(this.removeAttribute.bind(null, 'unresolved'), 3000);
   }
 
   link() {
@@ -140,18 +154,18 @@ class ApplicWireframe extends LitElement {
     for (const _nonce of Object.keys(_sections)) {
       const _section = _sections[_nonce];
       const _graphics = (() => {
-          const _graphics = _section.graphics();
-          const _map = []
+        const _graphics = _section.graphics();
+        const _map = []
 
-          for (const _nonce of Object.keys(_graphics)) {
-            const _graphic = _graphics[_nonce];
-            _map.push({
-              nonce: _graphic.nonce,
-              uri: _graphic.uri
-            });
-          };
+        for (const _nonce of Object.keys(_graphics)) {
+          const _graphic = _graphics[_nonce];
+          _map.push({
+            nonce: _graphic.nonce,
+            uri: _graphic.uri
+          });
+        };
 
-          return _map.length ? _map : false;
+        return _map.length ? _map : false;
       })()
 
       _state.section.push({
@@ -164,11 +178,11 @@ class ApplicWireframe extends LitElement {
       });
 
       _state.selector = {
-   
+
       };
 
       _state.preview = {
-   
+
       };
 
     };
@@ -322,8 +336,8 @@ const dropHandler = (evt) => {
 
   const _params = {
     transfer: (() => {
-      if (!evt.dataTransfer.items ) return false;
-      const _list = []; for (const _file of evt.dataTransfer.items) { 
+      if (!evt.dataTransfer.items) return false;
+      const _list = []; for (const _file of evt.dataTransfer.items) {
         if (_file.kind === 'file') _list.push(_file)
       }
       return _list;
@@ -354,7 +368,7 @@ const dropHandler = (evt) => {
   //     blob: _file,
   //     section: _section.nonce
   //   })
-   
+
   // };
 
   // if (evt.dataTransfer.items) {

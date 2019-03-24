@@ -14,7 +14,12 @@ new class {
 
   }
 
-  _init() { }
+  _init() { 
+    applic.set('', {
+      
+    })
+
+  }
 
   _update() {
     this._updateSections();
