@@ -6,17 +6,23 @@ The complete set of authors may be found at https://contrast-tool.github.io/stat
 The complete set of contributors may be found at https://contrast-tool.github.io/static/CONTRIBUTORS.md
 */
 
+applic.lazies = {};
+
 const lazies = [
-  { nonce: 'dropbox', type: 'browser', 
-    uri: '/node_modules/dropbox/dist/Dropbox-sdk.min.js' },
-  { nonce: 'processing', type: 'module', 
-    uri: '/source/units/processing/applic.processing.js' },
+  {
+    nonce: 'dropbox', type: 'browser',
+    uri: '/node_modules/dropbox/dist/Dropbox-sdk.min.js'
+  },
+  {
+    nonce: 'processing', type: 'module',
+    uri: '/source/units/processing/applic.processing.js'
+  },
 ];
 
 const _fetch = () => {
   return new Promise(async (resolve) => {
     const lazy = lazies.shift();
-    if (!lazy) resolve();
+    if (!lazy) return resolve();
 
     console.debug('applic-lazy:fetch', `"${lazy.uri}"`)
 
@@ -25,32 +31,29 @@ const _fetch = () => {
       const node = document.createElement('script');
 
       node.setAttribute('src', lazy.uri);
-      node.setAttribute('type', lazy.type);
-
-      node.onerror = (err) => {
-        lazies.push(lazy); console.error('applic-lazy:cancellation', `"${lazy.uri}"`)
-        setTimeout(async () => { await _fetch(); resolve() }, 3000);
-      };
-      
       node.onload = async (evt) => {
         console.debug('applic-lazy:ready', `"${lazy.uri}"`)
         await _fetch(); resolve()
       };
+      node.onerror = (err) => {
+        lazies.push(lazy); console.error('applic-lazy:cancellation', `"${lazy.uri}"`)
+        setTimeout(async () => { await _fetch(); resolve() }, 3000);
+      };
 
       document.head.appendChild(node);
     } else {
-      import(`${lazy.uri}`)
-        .then(async (_m) => {
+      try {
+        import(`${lazy.uri}`).then(async (_m) => {
           console.debug('applic-lazy:ready', `"${lazy.uri}"`)
           applic.lazies[lazy.nonce] = _m;
           await _fetch();
           resolve();
         })
-        .catch(async () => {
-          console.error('applic-lazy:cancellation', `"${lazy.uri}"`)
-          lazies.push(lazy); 
-          setTimeout(async () => { await _fetch(); resolve() }, 3000);
-        });
+      } catch (error) {
+        lazies.push(lazy); console.error('applic-lazy:cancellation', `"${lazy.uri}"`)
+        setTimeout(async () => { await _fetch(); resolve() }, 3000);
+      }
+
     }
 
   })

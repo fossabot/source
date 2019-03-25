@@ -13,7 +13,7 @@ import './units/applic-event.js'
 import './units/applic-state.js'
 
 import './units/behaviour/applic.behaviour.js'
-// lazy // import './units/processing/applic.processing.js'
+// is lazy // import './units/processing/applic.processing.js'
 
 console.info('applic:loaded', `${Date.now() - applic.created}ms`);
 
