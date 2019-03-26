@@ -16,18 +16,3 @@ import './units/behaviour/applic.behaviour.js'
 // is lazy // import './units/processing/applic.processing.js'
 
 console.info('applic:loaded', `${Date.now() - applic.created}ms`);
-
-new class {
-  constructor() {
-    applic.dispatch('applic:init');
-
-    console.debug('applic:ready', `${Date.now() - applic.created}ms`);
-
-
-    applic.dispatch('applic:ready');
-
-    if (applic.$) { applic.$.link() }
-    else setTimeout(applic.$.link, 200);
-  }
-
-};

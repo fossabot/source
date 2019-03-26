@@ -11,13 +11,13 @@ import { cssModules } from '../../lib/pattern/modules/all-modules.js';
 
 const _getMixin = (_nonce) => {
   if (!cssMixins[_nonce]) return `/* ${_nonce} is not defined */`
-  else return cssMixins[_nonce](style.css)
+  else return cssMixins[_nonce](css)
     .replace(/\s{2,}/g, ' ');
 };
 
 const _getModule = (_nonce) => {
   if (!cssModules[_nonce]) return `/* ${_nonce} is not defined */`
-  else return cssModules[_nonce](style.css)
+  else return cssModules[_nonce](css)
     .replace(/\s{2,}/g, ' ');
 };
 
@@ -74,11 +74,6 @@ const index = (string) => {
   INDEX[string] = _ciph();
 };
 
-export const style = {
-  html: { class: _htmlClass },
-  css: {
-    class: _cssClass,
-    apply: _getMixin,
-    include: _getModule
-  }
-};
+
+self.html = { class: _htmlClass }
+self.css = { class: _cssClass, apply: _getMixin, include: _getModule }
