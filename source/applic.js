@@ -22,9 +22,12 @@ new class {
     applic.dispatch('applic:init');
 
     console.debug('applic:ready', `${Date.now() - applic.created}ms`);
-    
-    applic.$.link();
+
+
     applic.dispatch('applic:ready');
+
+    if (applic.$) { applic.$.link() }
+    else setTimeout(applic.$.link, 200);
   }
 
 };

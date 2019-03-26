@@ -188,7 +188,7 @@ class ApplicWireframe extends LitElement {
     };
 
 
-
+    if (JSON.stringify(this.state) == JSON.stringify(_state)) return;
     this.state = _state;
 
     await this.updateComplete;
@@ -294,7 +294,7 @@ class ApplicWireframe extends LitElement {
 
     if (value === null) {
       delete obj[key];
-    } else if (obj[key] != value) {
+    } else {
       obj[key] = value;
     };
 
