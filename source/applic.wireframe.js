@@ -229,7 +229,7 @@ class ApplicWireframe extends LitElement {
     const apply = () => {
       this.rendering = false;
 
-      // console.debug('applic-wireframe:updated')
+      console.debug('applic-wireframe:renderd')
       render(this.renderInner(), this)
     };
 
@@ -248,7 +248,7 @@ class ApplicWireframe extends LitElement {
     const _width = self.innerWidth;
     const _state = JSON.parse(JSON.stringify(this.state));
 
-    if (_width > 820) {
+    if (_width > 1440) {
       _state.narrow = false;
       _state.sheet.persistent = true;
     } else {
@@ -332,9 +332,9 @@ const dropMove = (evt) => {
 const dropHandler = (evt) => {
   evt.preventDefault();
 
-  console.log(applic.$.state)
-
+  const _section = applic.getActive('section');
   const _params = {
+    section: _section,
     transfer: (() => {
       if (!evt.dataTransfer.items) return false;
       const _list = []; for (const _file of evt.dataTransfer.items) {
@@ -343,45 +343,15 @@ const dropHandler = (evt) => {
       return _list;
     })(),
     files: (() => {
-      if (evt.dataTransfer.items) return false;
+      // if (evt.dataTransfer.items) return false;
       const _list = []; for (const _file of evt.dataTransfer.files) { _list.push(_file) }
       return _list;
     })()
   }
 
-  if (!applic.chatchFiles) return;
-  applic.chatchFiles(_params)
-
-  // const _section = (() => {
-  //   let _target; const _sections = applic.get('section')
-  //   for (const _nonce of Object.keys(_sections)) {
-  //     if (_sections[_nonce].active) {
-  //       _target = _sections[_nonce];
-  //     }
-  //   };
-
-  //   return _target;
-  // })()
-
-  // const _register = (_file) => {
-  //   applic.newgraphic({
-  //     blob: _file,
-  //     section: _section.nonce
-  //   })
-
-  // };
-
-  // if (evt.dataTransfer.items) {
-  //   for (let i = 0; i < evt.dataTransfer.items.length; i++) {
-  //     if (evt.dataTransfer.items[i].kind === 'file') {
-  //       _register(evt.dataTransfer.items[i].getAsFile());
-  //     }
-  //   }
-  // } else {
-  //   for (let i = 0; i < evt.dataTransfer.files.length; i++) {
-  //     _register(evt.dataTransfer.files[i]);
-  //   }
-  // }
+  /** FIXME: Add lazy handler */
+  if (!applic.chatchTransfer) return console.error('applic.chatchTransfer', 'not ready');
+  applic.chatchTransfer(_params)
 
   return false;
 }

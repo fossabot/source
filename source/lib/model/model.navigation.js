@@ -72,6 +72,7 @@ export const model = function() {
             <span>Add Canvas</span>
           </applic-list-item>
 
+<!--
           <div class="applic list-divider"></div>
 
      
@@ -102,7 +103,7 @@ export const model = function() {
             </applic-list-item>
 
           </applic-list-collection>
-
+-->
         </applic-list>
      
     </applic-scrollable>
