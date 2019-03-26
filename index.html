@@ -97,15 +97,7 @@ The complete set of contributors may be found at https://mihroy.github.io/contra
 
 	<script>
 		const _active = (nonce) => { return -1 != location.search.indexOf(`${nonce}=true`) };
-
-		if (_active('develop')) {
-			self.applic.__proto__.develop = { 
-				overflow: self.develop && _active('overflow'),
-				
-			}
-
-		};
-
+		if (_active('develop')) { self.applic.__proto__.develop = { overflow: self.develop && _active('overflow') } };
 	</script> 
 
 </head>
