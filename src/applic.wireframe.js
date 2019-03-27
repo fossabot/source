@@ -6,13 +6,15 @@ The complete set of authors may be found at https://contrast-tool.github.io/stat
 The complete set of contributors may be found at https://contrast-tool.github.io/static/CONTRIBUTORS.md
 */
 
-import { render, html } from 'lit-html';
-import { model } from './lib/model/all-models.js';
 
-import './lib/elements/all-elements.js';
+import './units/wireframe/wireframe.mount.js'
 
-import './units/wireframe/wireframe.element.js';
-import './units/wireframe/wireframe.style.js';
+
+
+Promise.resolve().then(async () => {
+   await import('./applic.js');
+   await import('./applic.lazies.js');
+})
 
 console.debug('applic-wireframe:loaded', `${Date.now() - applic.created}ms`);
 
@@ -23,9 +25,23 @@ self.dispatchEvent(new CustomEvent('', {}))
 
 
 const drop = {};
-drop.move = (_event) => { _event.preventDefault(); return false; };
+drop.move = (_event) => { _event.preventDefault(); };
 drop.release = (_event) => {
-   applic.import.transfer(_event.dataTransfer);
+   (async () => {
+      const _importer = applic.newImport({
+
+      });
+      
+      const _traverse = applic.import.transfer({
+         files: Array.from(_event.dataTransfer.files),
+         items: Array.from(_event.dataTransfer.items)
+      });
+
+      _traverse.updated = () => {
+         console.log('updated', _traverse)
+      }
+
+   })()
 
    _event.dropEffect = 'copy';
    _event.preventDefault(); return false;

@@ -6,11 +6,7 @@ The complete set of authors may be found at https://contrast-tool.github.io/stat
 The complete set of contributors may be found at https://contrast-tool.github.io/static/CONTRIBUTORS.md
 */
 
-
-const polyfills = [];
-
 if (!HTMLCanvasElement.prototype.toBlob) {
-  polyfills.push('HTMLCanvasElement.prototype.toBlob');
   Object.defineProperty(HTMLCanvasElement.prototype, 'toBlob', {
     value: function(callback, type, quality) {
       const canvas = this;
@@ -27,10 +23,4 @@ if (!HTMLCanvasElement.prototype.toBlob) {
       });
     },
   });
-};
-
-if (Object.keys(polyfills).length) {
-  console.group('applic-polyfill');
-  polyfills.map(poly => { console.log(poly) })
-  console.groupEnd();
 };

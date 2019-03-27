@@ -8,22 +8,15 @@ The complete set of contributors may be found at https://contrast-tool.github.io
 
 applic.lazies = {};
 
-const _fetch = () => {
-  return new Promise(async (resolve) => {
-    applic.lazies['processing'] = await import('/source/units/processing/applic.processing.js');
-
-    resolve();
-  })
-};
 
 
-setTimeout(() => {
-  // Promise.resolve().then(() => {
-  _fetch()
-    .then(() => { console.info('applic-lazies:loaded', `${Date.now() - applic.created}ms`) })
-    .then(() => { console.debug('applic-lazies:ready', `${Date.now() - applic.created}ms`) });
 
-  // })
+
+setTimeout(async () => {
+  await import('/src/units/processing/applic.processing.js');
+
+  console.info('applic-lazies:loaded', `${Date.now() - applic.created}ms`)
+  console.debug('applic-lazies:ready', `${Date.now() - applic.created}ms`)
 }, 300);
 
 // const lazies = [

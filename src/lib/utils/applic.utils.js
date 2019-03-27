@@ -33,6 +33,13 @@ applic.__proto__.utils.pick = (object, key, value) => {
   return picks;
 };
 
+applic.__proto__.utils.arrayify = (obj) => {
+  const _list = []; 
+  for (const _nonce in obj) {
+    _list.push(obj[_nonce])
+  };
+  return _list;
+};
 
 applic.__proto__.utils.object = {};
 /**
@@ -55,6 +62,7 @@ applic.__proto__.utils.object.concat = (obj0, obj1) => {
 
   return obj1;
 };
+
 
 applic.__proto__.utils.object.set = (obj, path, value) => {
   if (!obj) return null;

@@ -1,5 +1,5 @@
-build
-node_modules
-*.old*
+node_modules/
+build/
 yarn.lock
 package-lock.json
+*.old*

@@ -1,108 +1,100 @@
-<!DOCTYPE html>
-<!--!
+<!--
 @license
 Copyright (c) 2019 The Contrast Tool Authors. All rights reserved.
 This code may only be used under the BSD style license found at https://contrast-tool.github.io/static/LICENSE.md
 The complete set of authors may be found at https://contrast-tool.github.io/static/AUTHORS.md
 The complete set of contributors may be found at https://mihroy.github.io/contrast-tool/static/CONTRIBUTORS.md
 -->
+
+<!doctype html>
 <html lang="en-NL" dir="ltr">
 
 <head>
-	<base href="/">
-	<title>Contrast Tool</title>
+	<meta charset="utf-8">
+	<meta name="viewport" content="width=device-width, minimum-scale=1, initial-scale=1, user-scalable=no">
 
-	<meta name="description" content="An interactive viewer to compare and export your web graphics.">
+	<title>Contrast Tool</title>
+	<meta name="description" content="An interactive viewer to test, compare and export your chat graphics.">
 	<meta name="author" content="Rikkun Brouwers">
 
-	<meta charset="utf-8">
-	<meta name="google" content="notranslate">
-	<meta name="google-site-verification" content="d0XZavN80gjJJtY4t5AKzcm3PfXBsLIM_7MTepJaI0c" />
+	<!--
+		The `<base>` tag below is present to support two advanced deployment options:
+		1) Differential serving. 2) Serving from a non-root path.
 
-	<meta name="viewport" content="width=device-width, minimum-scale=1.0, maximum-scale=1.0, user-scalable=no">
+		Instead of manually editing the `<base>` tag yourself, you should generally either:
+		a) Add a `basePath` property to the build configuration in your `polymer.json`.
+		b) Use the `--base-path` command-line option for `polymer build`.
 
-	<script> self.applic = new class{ constructor() {
-		this.created = Date.now()
-	} }; </script>
+		Note: If you intend to serve from a non-root path, see [polymer-root-path] below.
+	-->
+	<base href="/">
 
-	<meta itemprop="name" content="Contrast Tool">
-	<meta itemprop="description" content="An interactive viewer to compare and export your web graphics.">
-	<meta itemprop="image" content="https://contrast-tool.github.io/static/img/share.png">
+	<link rel="icon" href="images/favicon.ico">
 
-	<meta name="theme-color" content="#fafafa">
-	<link rel="manifest" href="/static/manifest.json">
+	<!-- See https://goo.gl/OOhYW5 -->
+	<link rel="manifest" href="manifest.json">
 
-	<meta property="og:type" content="website">
-	<meta property="og:title" content="Contrast Tool">
-	<meta property="og:image" content="https://contrast-tool.github.io/static/img/share.png">
-	<meta property="og:description" content="An interactive viewer to compare and export your web graphics.">
-	<meta property="og:site_name" content="Contrast Tool">
-	<meta property="og:url" content="https://contrast-tool.github.io/">
+	<!-- See https://goo.gl/qRE0vM -->
+	<meta name="theme-color" content="#3f51b5">
 
-	<meta name="twitter:card" content="summary_large_image">
-
-	<link rel="icon" type="image/x-icon" href="favicon.ico">
-	<link rel="icon" sizes="192x192" href="/static/img/mobile/192x192.png">
-	<link rel="shortcut icon" href="/static/img/mobile/72x72.png">
-	<link rel="apple-touch-icon" href="/static/img/mobile/72x72.png">
-	<link rel="apple-touch-icon" sizes="72x72" href="/static/img/mobile/72x72.png">
-	<link rel="apple-touch-icon" sizes="144x144" href="/static/img/mobile/144x144.png">
-	<link rel="apple-touch-icon" sizes="180x180" href="/static/img/mobile/180x180.png">
-
+	<!-- Add to homescreen for Chrome on Android. Fallback for manifest.json -->
 	<meta name="mobile-web-app-capable" content="yes">
+	<meta name="application-name" content="Contrast Tool">
+
+	<!-- Add to homescreen for Safari on iOS -->
 	<meta name="apple-mobile-web-app-capable" content="yes">
 	<meta name="apple-mobile-web-app-status-bar-style" content="black-translucent">
+	<meta name="apple-mobile-web-app-title" content="Contrast Tool">
 
-	<link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Roboto:300,400,600|Material+Icons+Sharp">
-	
-	<style> 
-		body { 
-			margin: 0; 
-			background: #efefef; } 
-		
-		noscript {
-			display: block;
-			font-family: Roboto, sans-serif;
-			font-weight: 300; 
+	<!-- Homescreen icons -->
+	<link rel="apple-touch-icon" href="images/manifest/icon-48x48.png">
+	<link rel="apple-touch-icon" sizes="72x72" href="images/manifest/icon-72x72.png">
+	<link rel="apple-touch-icon" sizes="96x96" href="images/manifest/icon-96x96.png">
+	<link rel="apple-touch-icon" sizes="144x144" href="images/manifest/icon-144x144.png">
+	<link rel="apple-touch-icon" sizes="192x192" href="images/manifest/icon-192x192.png">
 
-			padding: 10px 20px; }
-
-	</style>
+	<!-- Tile icon for Windows 8 (144x144 + tile color) -->
+	<meta name="msapplication-TileImage" content="images/manifest/icon-144x144.png">
+	<meta name="msapplication-TileColor" content="#3f51b5">
+	<meta name="msapplication-tap-highlight" content="no">
 
 	<script>
-		self.addEventListener('load', async () => { 
-			if (!('serviceWorker' in navigator)) return;
-			applic.__proto__.sw = await navigator.serviceWorker.register('service-worker.js');
-			self.onerror = (err) => { applic.sw.unregister(); console.info('Service worker has been unregister.'); }
-		});
+		self.applic = new class {
+			constructor() {
+				this.rootPath = '/';
+				this.created = Date.now();
+			}
+		};
+
+		if ('serviceWorker' in navigator) {
+			self.addEventListener('load', function () {
+				navigator.serviceWorker.register('service-worker.js', {
+					scope: applic.rootPath
+				});
+			});
+		}
 	</script>
 
 	<script src="node_modules/@webcomponents/webcomponentsjs/webcomponents-loader.js"></script>
-	<!-- <script type="module">
-		WebComponents.waitFor(() => {
-			return new Promise(async (resolve) => {
-				await import('/source/applic.wireframe.js');
-				await import('/source/applic.js');
-				await import('/source/applic.lazies.js');
+	<script type="module" src="src/applic.wireframe.js"></script>
 
-				resolve();
-			})
-		});
-	</script> -->
-
-	<!-- <script src="/node_modules/@webcomponents/webcomponentsjs/webcomponents-bundle.js"></script> -->
-	<script type="module" src="/source/applic.wireframe.js"></script>
-	<script type="module" src="/source/applic.js"></script>
-	<!-- <script type="module" src="/source/applic.lazies.js"></script> -->
-
-	<script>
-		const _active = (nonce) => { return -1 != location.search.indexOf(`${nonce}=true`) };
-		if (_active('develop')) { self.applic.__proto__.develop = { overflow: self.develop && _active('overflow') } };
-	</script> 
-
+	<style>
+		body {
+			margin: 0;
+			font-family: "Roboto", "Noto", sans-serif;
+			line-height: 1.5;
+			min-height: 100vh;
+			background-color: #eeeeee;
+		}
+	</style>
 </head>
-<body> <!-- Build with ❤ using lit-html, lit-element & the Dropbox CLI -->
-	<noscript> Please enable JavaScript to view this application.</noscript>
+
+<body>
+	<applic-mount></applic-mount>
+	<noscript>
+		Please enable JavaScript to view this application.
+	</noscript>
+	<!-- Build with ❤ using Polymer 3 & the Dropbox CLI -->
 </body>
 
 </html>

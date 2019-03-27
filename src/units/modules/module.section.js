@@ -6,19 +6,12 @@ The complete set of authors may be found at https://contrast-tool.github.io/stat
 The complete set of contributors may be found at https://contrast-tool.github.io/static/CONTRIBUTORS.md
 */
 
-const MODULE_STATE = {};
+const SECTION_STATE = {};
 
 applic.section = {}
 applic.section.updated = () => { };
 
-applic.section.get = () => {
-   const _list = []; 
-   for (const _nonce in MODULE_STATE) {
-      _list.push(MODULE_STATE[_nonce])
-   };
-   return _list;
-}
-
+applic.section.get = () => { return applic.utils.arrayify(SECTION_STATE) }
 applic.section.new = () => {
    _register(new class {
       constructor() {
@@ -31,6 +24,6 @@ applic.section.new = () => {
 
 
 const _register = (_class) => {
-   MODULE_STATE[_class.nonce] = _class;
+   SECTION_STATE[_class.nonce] = _class;
    applic.section.updated();
 }

@@ -6,19 +6,12 @@ The complete set of authors may be found at https://contrast-tool.github.io/stat
 The complete set of contributors may be found at https://contrast-tool.github.io/static/CONTRIBUTORS.md
 */
 
-const MODULE_STATE = {};
+const GRAPHIC_STATE = {};
 
 applic.graphic = {}
 applic.graphic.updated = () => { };
 
-applic.graphic.get = () => {
-   const _list = [];
-   for (const _nonce in MODULE_STATE) {
-      _list.push(MODULE_STATE[_nonce])
-   };
-   return _list;
-}
-
+applic.graphic.get = () => { return applic.utils.arrayify(GRAPHIC_STATE) }
 applic.graphic.new = () => {
    return new class {
       constructor(_params) {

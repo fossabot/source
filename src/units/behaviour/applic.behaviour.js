@@ -11,6 +11,8 @@ import './applic.import.js';
 import '../modules/module.graphic.js';
 import '../modules/module.section.js';
 
+console.log('applic.behaviour.js')
+
 new class {
   constructor() {
     applic.graphic.updated = this.updated.bind(this);
@@ -34,7 +36,7 @@ new class {
   _debug() {
     
     if (1 > this.sections.length) {
-      console.debug('applic:debug', '"No sections"')
+      console.debug('applic:debug', '"no sections"')
       applic.section.new(); return false; 
     };
 
@@ -42,12 +44,28 @@ new class {
     return true;
   }
  
+
 }
 
 
 applic.__proto__.call = (_type) => {
   console.log(_type);
 
+};
+
+applic.__proto__.newImport = (_type) => {
+  return new class {
+    constructor() {
+      console.log(_type);
+
+    }
+
+    add() {}
+
+    done() {
+      delete this;
+    }
+  }
 };
 
 
