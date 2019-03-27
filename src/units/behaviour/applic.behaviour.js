@@ -11,12 +11,12 @@ import './applic.import.js';
 import '../modules/module.graphic.js';
 import '../modules/module.section.js';
 
-console.log('applic.behaviour.js')
+console.info('applic:loaded', `${Date.now() - applic.created}ms`);
 
 new class {
   constructor() {
-    applic.graphic.updated = this.updated.bind(this);
-    applic.section.updated = this.updated.bind(this);
+    applic.graphic.__proto__.updated = this.updated.bind(this);
+    applic.section.__proto__.updated = this.updated.bind(this);
 
     applic.utils.buffer(this.updated.bind(this))
 

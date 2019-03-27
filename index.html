@@ -61,8 +61,8 @@ The complete set of contributors may be found at https://mihroy.github.io/contra
 	<script>
 		self.applic = new class {
 			constructor() {
-				this.rootPath = '/';
-				this.created = Date.now();
+				this.__proto__.rootPath = '/';
+				this.__proto__.created = Date.now();
 			}
 		};
 

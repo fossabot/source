@@ -3,16 +3,18 @@
   "shell":      "./index.html",
   
   "fragments": [
-    "./source/applic.js",
-    "./source/applic.lazies.js",
+    "./src/applic.js",
+    "./src/applic.lazies.js",
     
-    "./source/units/processing/applic.processing.js" ],
+    "./src/units/processing/applic.processing.js" ],
 
   "sources": [
-    "./static/**/*" ],
+    "./images/**/*",
+    "./lib/**/*" ],
 
   "extraDependencies": [
-    "./404.html", "./favicon.ico",
+    "./404.html", 
+    "./manifest.json",
     "./node_modules/@webcomponents/webcomponentsjs/**/*.js",
     "./node_modules/dropbox/dist/Dropbox-sdk.min.js" ],
 
@@ -22,6 +24,10 @@
   "npm": true,
 
   "builds": [{
+      "preset": "es6-bundled",
+      "addServiceWorker": true,
+      "addPushManifest": false
+    }, {
     "name": "esm-bundled",
     "browserCapabilities": [ "es2015", "modules" ],
     "js": { "minify": true, "compile": true },

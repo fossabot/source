@@ -18,13 +18,13 @@ applic.import.toBlobUri = (_file) => {
 };
 
 
-applic.import.transfer = (_transfer, _params) => {
+applic.import.transfer = (_transfer) => {
    return new class {
       constructor() {
          this.updated = () => { };
 
          console.debug('applic-import:transfer')
-         console.log(_transfer, _params)
+         console.log(_transfer)
 
       }
    }

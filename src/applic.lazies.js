@@ -6,7 +6,7 @@ The complete set of authors may be found at https://contrast-tool.github.io/stat
 The complete set of contributors may be found at https://contrast-tool.github.io/static/CONTRIBUTORS.md
 */
 
-applic.lazies = {};
+applic.__proto__.lazies = {};
 
 
 

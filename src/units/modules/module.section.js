@@ -8,8 +8,8 @@ The complete set of contributors may be found at https://contrast-tool.github.io
 
 const SECTION_STATE = {};
 
-applic.section = {}
-applic.section.updated = () => { };
+applic.section = new class { }
+applic.section.__proto__.updated = () => { };
 
 applic.section.get = () => { return applic.utils.arrayify(SECTION_STATE) }
 applic.section.new = () => {

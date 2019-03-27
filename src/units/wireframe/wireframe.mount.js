@@ -25,8 +25,13 @@ class ApplicMount extends PolymerElement {
 
       </style>
 
-      Hello World!
     `;
+  }
+
+  constructor() {
+    super();
+
+    applic.on('applic:updated', this._update.bind(this))
   }
 
   static get properties() {
@@ -35,6 +40,10 @@ class ApplicMount extends PolymerElement {
 
   static get observers() {
     return [ ];
+  }
+
+  _update() {
+    console.log('_update')
   }
 
 }

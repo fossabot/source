@@ -6,10 +6,15 @@ The complete set of authors may be found at https://contrast-tool.github.io/stat
 The complete set of contributors may be found at https://contrast-tool.github.io/static/CONTRIBUTORS.md
 */
 
+import './lib/utils/applic.utils.js'
+import './lib/utils/applic.polyfill.js'
+
+import './units/applic-event.js'
+import './units/applic-state.js'
 
 import './units/wireframe/wireframe.mount.js'
 
-
+applic.__proto__.$ = document.querySelector('applic-mount');
 
 Promise.resolve().then(async () => {
    await import('./applic.js');
@@ -19,9 +24,6 @@ Promise.resolve().then(async () => {
 console.debug('applic-wireframe:loaded', `${Date.now() - applic.created}ms`);
 
 
-
-
-self.dispatchEvent(new CustomEvent('', {}))
 
 
 const drop = {};

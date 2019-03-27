@@ -8,8 +8,8 @@ The complete set of contributors may be found at https://contrast-tool.github.io
 
 const GRAPHIC_STATE = {};
 
-applic.graphic = {}
-applic.graphic.updated = () => { };
+applic.graphic = new class { }
+applic.graphic.__proto__.updated = () => { };
 
 applic.graphic.get = () => { return applic.utils.arrayify(GRAPHIC_STATE) }
 applic.graphic.new = () => {
@@ -21,12 +21,12 @@ applic.graphic.new = () => {
          this.blob = _params.blob;
          this.uri = _params.blob.uri;
 
-         console.debug('applic-fs:create-graphic', this.blob.name)
+         console.debug('applic-fs:create-graphic', this.nonce)
       }
 
       _changed() {
          applic.utils.buffer(() => {
-            console.debug('applic-fs:cached-graphic', this.blob.name)
+            console.debug('applic-fs:cached-graphic', this.nonce)
 
          });
       }
