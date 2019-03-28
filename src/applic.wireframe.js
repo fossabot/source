@@ -30,19 +30,26 @@ const drop = {};
 drop.move = (_event) => { _event.preventDefault(); };
 drop.release = (_event) => {
    (async () => {
+      const _transfer = _event.dataTransfer;
+
       const _importer = applic.newImport({
 
       });
       
-      const _traverse = applic.import.transfer({
-         files: Array.from(_event.dataTransfer.files),
-         items: Array.from(_event.dataTransfer.items)
+      const _traverse = applic.import.traverse({
+         types: ['image/png', 'image/svg', 'image/gif'],
+
+         files: !_transfer.files ? false : Array.from(_transfer.files),
+         items: !_transfer.items ? false : Array.from(_transfer.items)
       });
 
-      _traverse.updated = () => {
-         console.log('updated', _traverse)
+      _traverse.onRegistered = (_params) => {
+         _importer.add(_params.blob);
       }
-
+      _traverse.onResolved = () => {
+         _importer.resolved();
+      }
+      
    })()
 
    _event.dropEffect = 'copy';

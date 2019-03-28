@@ -6,18 +6,10 @@ The complete set of authors may be found at https://contrast-tool.github.io/stat
 The complete set of contributors may be found at https://contrast-tool.github.io/static/CONTRIBUTORS.md
 */
 
-applic.__proto__.lazies = {};
+import '/src/units/processing/applic.processing.js';
 
-
-
-
-
-setTimeout(async () => {
-  await import('/src/units/processing/applic.processing.js');
-
-  console.info('applic-lazies:loaded', `${Date.now() - applic.created}ms`)
-  console.debug('applic-lazies:ready', `${Date.now() - applic.created}ms`)
-}, 300);
+console.info('applic-lazies:loaded', `${Date.now() - applic.created}ms`)
+console.debug('applic-lazies:ready', `${Date.now() - applic.created}ms`)
 
 // const lazies = [
 //   {

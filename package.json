@@ -1,4 +1,5 @@
 {
+  "flat": true,
   "name": "contrast-tool",
   "version": "2.0.0-concept.0",
   "author": "The Contrast Tool Authors",

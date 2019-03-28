@@ -53,17 +53,18 @@ applic.__proto__.call = (_type) => {
 
 };
 
-applic.__proto__.newImport = (_type) => {
+applic.__proto__.newImport = (_params) => {
   return new class {
     constructor() {
-      console.log(_type);
-
+      console.log('importer-created', _params)
     }
 
-    add() {}
+    add(_params) {
+      console.log('importer-register', _params)
+    }
 
-    done() {
-      delete this;
+    resolved() {
+      console.log('importer-resolved')
     }
   }
 };
