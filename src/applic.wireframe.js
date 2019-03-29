@@ -46,8 +46,9 @@ drop.release = (_event) => {
       _traverse.onRegistered = (_params) => {
          _importer.add(_params.blob);
       }
+
       _traverse.onResolved = () => {
-         _importer.resolved();
+         _importer.resolved()
       }
       
    })()
