@@ -31,13 +31,15 @@ applic.import.traverse = (_params) => {
          // console.debug('applic-import:traverse-new', _params)
 
          Promise.resolve().then(() => {
-            if (_params.items) (async () => {
-               await this._traverse({ items: _params.items })
-               this._resolve();
-            })()
-            else {
+            if (_params.items) {
+               (async () => {
+                  await this._traverse({ items: _params.items });
+                  this._resolve();
+               })()
+
+            } else {
                console.debug('applic-import:traverse-files-only');
-               this._resolveFiles({ files: _params.files })
+               this._resolveFiles({ files: _params.files });
             };
 
          });
@@ -56,28 +58,27 @@ applic.import.traverse = (_params) => {
                };
             };
 
-            for (const _entry of _iteration.entries) {
-               if (_entry.isFile) {
-                  this._register(await new Promise((resolve) => {
-                     _entry.file((_file) => {
-                        resolve(_file);
-                     });
-                  }));
-               }
-               else if (_entry.isDirectory && _iteration.depth < 5) {
-                  await new Promise((resolve) => {
-                     _entry.createReader().readEntries(async (_entries) => {
-                        await this._traverse({
-                           entries: _entries,
-                           depth: ++_iteration.depth
+               for (const _entry of _iteration.entries) {
+                  if (_entry.isFile) {
+                     this._register(await new Promise((resolve) => {
+                        _entry.file((_file) => {
+                           resolve(_file);
                         });
+                     }));
+                  }
+                  else if (_entry.isDirectory && _iteration.depth < 5) {
+                     await new Promise((resolve) => {
+                        _entry.createReader().readEntries(async (_entries) => {
+                           await this._traverse({
+                              entries: _entries,
+                              depth: ++_iteration.depth
+                           });
 
-                        resolve()
-                     })
-                  });
-               } else { }
-            };
-
+                           resolve()
+                        })
+                     });
+                  } else { }
+               };
 
             resolve()
          })

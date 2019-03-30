@@ -37,7 +37,7 @@ drop.release = (_event) => {
       });
       
       const _traverse = applic.import.traverse({
-         types: ['image/png', 'image/svg', 'image/gif'],
+         types: ['image/png', 'image/svg', 'image/gif', 'image/jpeg'],
 
          files: !_transfer.files ? false : Array.from(_transfer.files),
          items: !_transfer.items ? false : Array.from(_transfer.items)
