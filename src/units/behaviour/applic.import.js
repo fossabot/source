@@ -35,7 +35,7 @@ applic.import.traverse = (_params) => {
             if (_params.items) {
                (async () => {
                   await this._traverse({ items: _params.items });
-                  this._resolve();
+                  applic.utils.buffer(this._resolve.bind(this));
                })()
 
             } else {
@@ -59,27 +59,30 @@ applic.import.traverse = (_params) => {
                };
             };
 
-               for (const _entry of _iteration.entries) {
-                  if (_entry.isFile) {
-                     this._register(await new Promise((resolve) => {
-                        _entry.file((_file) => {
-                           resolve(_file);
-                        });
-                     }));
-                  }
-                  else if (_entry.isDirectory && _iteration.depth < 5) {
-                     await new Promise((resolve) => {
-                        _entry.createReader().readEntries(async (_entries) => {
-                           await this._traverse({
-                              entries: _entries,
-                              depth: ++_iteration.depth
-                           });
-
-                           resolve()
-                        })
+            
+            for (const _entry of _iteration.entries) {
+               if (!_entry) return;
+               
+               if (_entry.isFile) {
+                  this._register(await new Promise((resolve) => {
+                     _entry.file((_file) => {
+                        resolve(_file);
                      });
-                  } else { }
-               };
+                  }));
+               }
+               else if (_entry.isDirectory && _iteration.depth < 5) {
+                  await new Promise((resolve) => {
+                     _entry.createReader().readEntries(async (_entries) => {
+                        await this._traverse({
+                           entries: _entries,
+                           depth: ++_iteration.depth
+                        });
+
+                        resolve()
+                     })
+                  });
+               } else { }
+            };
 
             resolve()
          })
@@ -94,13 +97,13 @@ applic.import.traverse = (_params) => {
 
          const _nonce = applic.utils.nonce();
          this.blobs[_nonce] = {
-            file: _file, 
+            file: _file,
             nonce: _nonce,
             detail: {
                name: escape(_file.name),
                type: escape(_file.type),
                lastModified: new Date(_file.lastModified)
-            }   
+            }
          };
 
          this.onRegistered({ blob: this.blobs[_nonce] });
@@ -108,14 +111,9 @@ applic.import.traverse = (_params) => {
 
       async _resolve() {
          for (const _nonce in this.blobs) {
-            const _blob = this.blobs[_nonce];
-
-            _blob.uri = await _toBlobUri(_blob.file);
-            // _blob.file = false;
-
+            this.blobs[_nonce].uri = await _toBlobUri(this.blobs[_nonce].file);
             this.onChanged({ blob: this.blobs[_nonce] });
          };
-
 
          this.onResolved();
       }

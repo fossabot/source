@@ -39,13 +39,23 @@ class ApplicMount extends PolymerElement {
 
       <h4>section</h4>
       <dom-repeat items="{{section}}" as="node">
-        <template><button>[[node.nonce]]</button></template>
+        <template>
+          <div section-nonce$="[[node.nonce]]">
+            [[node.nonce]]
+            <button on-click="selectSection">select</button>
+            <button on-click="removeSection">remove</button>
+          </div>
+        </template>
       </dom-repeat>
 
       <h4>graphic</h4>
       <dom-repeat items="{{graphic}}" as="node">
         <template>
-          <div>
+          <div graphic-nonce$="[[node.nonce]]">
+            <span>[[node.blob]]</span>
+            <img src$="[[node.uri]]">
+            <button on-click="removeGraphic">remove</button>
+            <br>
             [[node.nonce]]
           </div>
         </template>
@@ -60,14 +70,49 @@ class ApplicMount extends PolymerElement {
     applic.on('applic:updated', this._update.bind(this))
   }
 
+  selectSection(_event) {
+    applic.call('section:show', {
+      nonce: this._findAttribute(_event.target, 'section-nonce')
+    })
+  }
+  removeSection(_event) {
+    applic.call('section:remove', {
+      nonce: this._findAttribute(_event.target, 'section-nonce')
+    })
+  }
+  removeGraphic(_event) {
+    applic.call('graphic:remove', {
+      nonce: this._findAttribute(_event.target, 'graphic-nonce')
+    })
+  }
+
+  _findAttribute(_node, _attribute) {
+    while(_node) {
+      if (_node.hasAttribute(_attribute)) break;
+      _node = _node.parentElement;
+    };
+    return _node ? _node.getAttribute(_attribute) : null;
+  }
 
 
   _update() {
-    this.section = applic.section.get('*');
-    this.graphic = applic.graphic.get('*');
+    if (this._render) return;
+    this._render = true;
 
-    console.log(this.graphic)
-    // console.log('applic-wireframe:mount-update')
+    applic.utils.buffer(() => {
+      this._set('section', applic.section.get('*'))
+      this._set('graphic', applic.graphic.get('*'))
+
+
+      // console.log('applic-wireframe:mount-update')
+
+      this._render = false;
+    });
+  }
+
+  _set(_path, _value) {
+    this.set(_path, null)
+    Promise.resolve().then(this.set.bind(this, _path, _value) )
   }
 
 }

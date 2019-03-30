@@ -11,7 +11,23 @@ const GRAPHIC_STATE = {};
 applic.graphic = new class { }
 applic.graphic.__proto__.updated = () => { };
 
-applic.graphic.get = () => { return applic.utils.arrayify(GRAPHIC_STATE) };
+applic.graphic.get = (_nonce) => { 
+   if ('*' == _nonce) {
+      return applic.utils.arrayify(GRAPHIC_STATE) 
+   } else {
+      return GRAPHIC_STATE[_nonce] || false
+   }
+};
+
+applic.graphic.remove = (_nonce) => {
+   if (!GRAPHIC_STATE[_nonce]) return;
+   delete GRAPHIC_STATE[_nonce];
+
+   applic.utils.buffer(() => {
+      applic.dispatch('applic:updated');
+   })
+}
+
 applic.graphic.new = (_params) => {
    return new class ApplicGraphic {
       constructor() {

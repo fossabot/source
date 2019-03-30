@@ -48,9 +48,14 @@ new class {
 }
 
 
-applic.__proto__.call = (_type) => {
-  console.log(_type);
-
+applic.__proto__.call = (_type, _params) => {
+  // console.log(_type, _params);
+  switch (_type) {
+    case 'graphic:remove':
+      applic.graphic.remove(_params.nonce)
+      break;
+  
+  }
 };
 
 applic.__proto__.newImport = (_params) => {
@@ -59,7 +64,7 @@ applic.__proto__.newImport = (_params) => {
       this.graphic = {};
       this.section = null;
 
-      console.log('importer-created', _params)
+      // console.log('importer-created', _params)
     }
 
     add(_blob) {
@@ -76,7 +81,7 @@ applic.__proto__.newImport = (_params) => {
     }
 
     resolved() {
-      console.log('importer-resolved')
+      // console.log('importer-resolved')
     }
   }
 };
