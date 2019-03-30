@@ -28,18 +28,24 @@ applic.import.traverse = (_params) => {
          this.onRegistered = () => { };
          this.onChanged = () => { };
          this.onResolved = () => { };
+         this.onInvalid = () => { };
 
          // console.debug('applic-import:traverse-new', _params)
 
          Promise.resolve().then(() => {
-            if (_params.items) {
+            let _files = 0; for (const _file of _params.files) {
+               if (_file.type && '' != _file.type) _files++
+            };
+
+            if (_files < _params.files.length && _params.items) {
+               // console.debug('applic-import:traverse-deep-search');
                (async () => {
                   await this._traverse({ items: _params.items });
                   applic.utils.buffer(this._resolve.bind(this));
                })()
 
             } else {
-               console.debug('applic-import:traverse-files-only');
+               // console.debug('applic-import:traverse-files-only');
                this._resolveFiles({ files: _params.files });
             };
 
@@ -59,10 +65,10 @@ applic.import.traverse = (_params) => {
                };
             };
 
-            
+
             for (const _entry of _iteration.entries) {
                if (!_entry) return;
-               
+
                if (_entry.isFile) {
                   this._register(await new Promise((resolve) => {
                      _entry.file((_file) => {
@@ -90,23 +96,24 @@ applic.import.traverse = (_params) => {
 
 
       _register(_file) {
-         if (-1 == this.types.indexOf(_file.type)) {
-            console.debug('applic-import:traverse-invalid-type', _file.type);
-            return;
-         };
-
          const _nonce = applic.utils.nonce();
-         this.blobs[_nonce] = {
-            file: _file,
-            nonce: _nonce,
-            detail: {
-               name: escape(_file.name),
-               type: escape(_file.type),
-               lastModified: new Date(_file.lastModified)
-            }
-         };
 
-         this.onRegistered({ blob: this.blobs[_nonce] });
+         if (-1 == this.types.indexOf(_file.type)) {
+            this.onInvalid({ type: _file.type, name: _file.name });
+            
+         } else {
+            this.blobs[_nonce] = {
+               file: _file,
+               nonce: _nonce,
+               detail: {
+                  name: escape(_file.name),
+                  type: escape(_file.type),
+                  lastModified: new Date(_file.lastModified)
+               }
+            };
+
+            this.onRegistered({ blob: this.blobs[_nonce] });
+         }
       }
 
       async _resolve() {

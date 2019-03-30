@@ -57,6 +57,10 @@ drop.release = (_event) => {
          _importer.resolved()
       };
 
+      _traverse.onInvalid = (_params) => {
+         console.error('applic-import:traverse-invalid-type', _params);
+      };
+
    })()
 
    _event.dropEffect = 'copy';

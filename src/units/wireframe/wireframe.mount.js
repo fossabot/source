@@ -30,7 +30,7 @@ class ApplicMount extends PolymerElement {
 
   static get template() {
     return html`
-       ${model('wireframe:mount')}
+      ${model('wireframe:mount')}
       ${model('wireframe:body')}
     `
   }
