@@ -1,4 +1,6 @@
 {
+  "basePath": "/",
+
   "entrypoint": "./index.html",
   "shell":      "./index.html",
   
