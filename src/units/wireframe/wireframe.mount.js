@@ -8,11 +8,23 @@ The complete set of contributors may be found at https://contrast-tool.github.io
 
 import { PolymerElement, html } from '@polymer/polymer/polymer-element.js';
 import { setPassiveTouchGestures, setRootPath } from '@polymer/polymer/lib/utils/settings.js';
+import { } from '@polymer/polymer/lib/elements/dom-repeat.js';
 
 setPassiveTouchGestures(true);
 setRootPath(applic.rootPath);
 
 class ApplicMount extends PolymerElement {
+  static get properties() {
+    return {
+      section: Array,
+      graphic: Array,
+    };
+  }
+
+  static get observers() {
+    return [];
+  }
+
   static get template() {
     return html`
       <style>
@@ -25,6 +37,20 @@ class ApplicMount extends PolymerElement {
 
       </style>
 
+      <h4>section</h4>
+      <dom-repeat items="{{section}}" as="node">
+        <template><button>[[node.nonce]]</button></template>
+      </dom-repeat>
+
+      <h4>graphic</h4>
+      <dom-repeat items="{{graphic}}" as="node">
+        <template>
+          <div>
+            [[node.nonce]]
+          </div>
+        </template>
+      </dom-repeat>
+
     `;
   }
 
@@ -34,16 +60,14 @@ class ApplicMount extends PolymerElement {
     applic.on('applic:updated', this._update.bind(this))
   }
 
-  static get properties() {
-    return { };
-  }
 
-  static get observers() {
-    return [ ];
-  }
 
   _update() {
-    console.log('_update')
+    this.section = applic.section.get('*');
+    this.graphic = applic.graphic.get('*');
+
+    console.log(this.graphic)
+    // console.log('applic-wireframe:mount-update')
   }
 
 }

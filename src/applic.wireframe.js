@@ -14,7 +14,10 @@ import './units/applic-state.js'
 
 import './units/wireframe/wireframe.mount.js'
 
-applic.__proto__.$ = document.querySelector('applic-mount');
+applic.__proto__.$ = document.querySelector('applic-mount') || document.createElement('applic-mount');
+document.body.appendChild(applic.$);
+
+
 
 Promise.resolve().then(async () => {
    await import('./applic.js');
@@ -22,7 +25,6 @@ Promise.resolve().then(async () => {
 })
 
 console.debug('applic-wireframe:loaded', `${Date.now() - applic.created}ms`);
-
 
 
 
@@ -35,7 +37,7 @@ drop.release = (_event) => {
       const _importer = applic.newImport({
 
       });
-      
+
       const _traverse = applic.import.traverse({
          types: ['image/png', 'image/svg', 'image/gif'],
 
@@ -45,16 +47,16 @@ drop.release = (_event) => {
 
       _traverse.onRegistered = (_params) => {
          _importer.add(_params.blob);
-      }
+      };
 
       _traverse.onChanged = (_params) => {
          _importer.update(_params.blob);
-      }
+      };
 
       _traverse.onResolved = () => {
          _importer.resolved()
-      }
-      
+      };
+
    })()
 
    _event.dropEffect = 'copy';

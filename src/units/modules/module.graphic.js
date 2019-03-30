@@ -11,24 +11,43 @@ const GRAPHIC_STATE = {};
 applic.graphic = new class { }
 applic.graphic.__proto__.updated = () => { };
 
-applic.graphic.get = () => { return applic.utils.arrayify(GRAPHIC_STATE) }
-applic.graphic.new = () => {
-   return new class {
-      constructor(_params) {
+applic.graphic.get = () => { return applic.utils.arrayify(GRAPHIC_STATE) };
+applic.graphic.new = (_params) => {
+   return new class ApplicGraphic {
+      constructor() {
          this.nonce = applic.utils.nonce();
          this.section = _params.section;
 
          this.blob = _params.blob;
-         this.uri = _params.blob.uri;
+         GRAPHIC_STATE[this.nonce] = this;
 
-         console.debug('applic-fs:create-graphic', this.nonce)
+         console.debug('applic-fs:cached-graphic', {
+            graphic: this,
+            section: this.section
+         })
+         
+         applic.dispatch('applic:updated');
+      }
+
+      update(_params) {
+         if (_params.section) this.section = _params.section;
+         if (_params.blob) this.blob = _params.blob;
+
+         this._changed();
       }
 
       _changed() {
-         applic.utils.buffer(() => {
-            console.debug('applic-fs:cached-graphic', this.nonce)
+         this.uri = this.uri || this.blob.uri || false;
 
+         applic.utils.buffer(() => {
+            console.debug('applic-fs:update-graphic', {
+               graphic: this,
+               section: this.section
+            })
+
+            applic.dispatch('applic:updated');
          });
+
       }
 
    }

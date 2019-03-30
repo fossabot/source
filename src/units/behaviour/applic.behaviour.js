@@ -34,16 +34,16 @@ new class {
   }
 
   _debug() {
-    
+
     if (1 > this.sections.length) {
       console.debug('applic:debug', '"no sections"')
-      applic.section.new(); return false; 
+      applic.section.new(); return false;
     };
 
 
     return true;
   }
- 
+
 
 }
 
@@ -56,15 +56,23 @@ applic.__proto__.call = (_type) => {
 applic.__proto__.newImport = (_params) => {
   return new class {
     constructor() {
+      this.graphic = {};
+      this.section = null;
+
       console.log('importer-created', _params)
     }
 
-    add(_params) {
-      console.log('importer-register', _params)
+    add(_blob) {
+      this.graphic[_blob.nonce] = applic.graphic.new({
+        section: this.section,
+        blob: _blob
+      })
     }
 
-    update(_params) {
-      console.log('importer-update', _params)
+    update(_blob) {
+      this.graphic[_blob.nonce].update({
+        blob: _blob
+      })
     }
 
     resolved() {

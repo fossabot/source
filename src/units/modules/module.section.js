@@ -11,9 +11,9 @@ const SECTION_STATE = {};
 applic.section = new class { }
 applic.section.__proto__.updated = () => { };
 
-applic.section.get = () => { return applic.utils.arrayify(SECTION_STATE) }
+applic.section.get = () => { return applic.utils.arrayify(SECTION_STATE) };
 applic.section.new = () => {
-   _register(new class {
+   _register(new class ApplicSection {
       constructor() {
          this.nonce = applic.utils.nonce();
 

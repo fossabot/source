@@ -94,7 +94,9 @@ applic.import.traverse = (_params) => {
 
          const _nonce = applic.utils.nonce();
          this.blobs[_nonce] = {
-            file: _file, detail: {
+            file: _file, 
+            nonce: _nonce,
+            detail: {
                name: escape(_file.name),
                type: escape(_file.type),
                lastModified: new Date(_file.lastModified)
