@@ -26,6 +26,7 @@ applic.import.traverse = (_params) => {
          this.blobs = {};
 
          this.onRegistered = () => { };
+         this.onChanged = () => { };
          this.onResolved = () => { };
 
          // console.debug('applic-import:traverse-new', _params)
@@ -84,34 +85,8 @@ applic.import.traverse = (_params) => {
          })
       }
 
-      traverse_directory() {
-         let reader = entry.createReader();
 
-         return new Promise((resolve_directory) => {
-            const iteration_attempts = [];
-
-            (function read_entries() {
-               reader.readEntries((entries) => {
-                  if (!entries.length) {
-                     resolve_directory(Promise.all(iteration_attempts));
-                  } else {
-                     iteration_attempts.push(Promise.all(entries.map((entry) => {
-                        if (entry.isFile) {
-                           return entry;
-                        } else {
-                           return traverse_directory(entry);
-                        }
-                     })));
-                     read_entries();
-                  }
-               }, errorHandler);
-            })();
-
-         });
-      }
-
-
-      async _register(_file) {
+      _register(_file) {
          if (-1 == this.types.indexOf(_file.type)) {
             console.debug('applic-import:traverse-invalid-type', _file.type);
             return;
@@ -119,16 +94,27 @@ applic.import.traverse = (_params) => {
 
          const _nonce = applic.utils.nonce();
          this.blobs[_nonce] = {
-            detail: {
+            file: _file, detail: {
                name: escape(_file.name),
                type: escape(_file.type),
                lastModified: new Date(_file.lastModified)
-            },
-            uri: await _toBlobUri(_file)
+            }   
          };
+
          this.onRegistered({ blob: this.blobs[_nonce] });
       }
-      _resolve() {
+
+      async _resolve() {
+         for (const _nonce in this.blobs) {
+            const _blob = this.blobs[_nonce];
+
+            _blob.uri = await _toBlobUri(_blob.file);
+            // _blob.file = false;
+
+            this.onChanged({ blob: this.blobs[_nonce] });
+         };
+
+
          this.onResolved();
       }
 

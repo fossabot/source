@@ -37,7 +37,7 @@ drop.release = (_event) => {
       });
       
       const _traverse = applic.import.traverse({
-         types: ['image/png', 'image/svg', 'image/gif', 'image/jpeg'],
+         types: ['image/png', 'image/svg', 'image/gif'],
 
          files: !_transfer.files ? false : Array.from(_transfer.files),
          items: !_transfer.items ? false : Array.from(_transfer.items)
@@ -45,6 +45,10 @@ drop.release = (_event) => {
 
       _traverse.onRegistered = (_params) => {
          _importer.add(_params.blob);
+      }
+
+      _traverse.onChanged = (_params) => {
+         _importer.update(_params.blob);
       }
 
       _traverse.onResolved = () => {

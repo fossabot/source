@@ -63,6 +63,10 @@ applic.__proto__.newImport = (_params) => {
       console.log('importer-register', _params)
     }
 
+    update(_params) {
+      console.log('importer-update', _params)
+    }
+
     resolved() {
       console.log('importer-resolved')
     }
