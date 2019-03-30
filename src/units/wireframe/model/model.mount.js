@@ -6,9 +6,15 @@ The complete set of authors may be found at https://contrast-tool.github.io/docs
 The complete set of contributors may be found at https://contrast-tool.github.io/docs/CONTRIBUTORS.md
 */
 
-import { model as body } from './model.body.js';
-import { model as bodyAside } from './model.body-aside.js';
-import { model as bodyInner } from './model.body-inner.js';
-import { model as navigation } from './model.navigation.js';
+// import { html } from 'lit-html';
+import { html } from '@polymer/polymer/polymer-element.js';
 
-export const model = { navigation, body, bodyAside, bodyInner};
+export const model = html`
+  <style>
+    :host {
+            
+    }
+
+  </style>
+
+`;

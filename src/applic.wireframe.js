@@ -12,6 +12,7 @@ import './lib/utils/applic.polyfill.js'
 import './units/applic-event.js'
 import './units/applic-state.js'
 
+import './units/wireframe/wireframe.style.js'
 import './units/wireframe/wireframe.mount.js'
 
 applic.__proto__.$ = document.querySelector('applic-mount') || document.createElement('applic-mount');
@@ -25,7 +26,6 @@ Promise.resolve().then(async () => {
 })
 
 console.debug('applic-wireframe:loaded', `${Date.now() - applic.created}ms`);
-
 
 
 const drop = {};
