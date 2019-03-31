@@ -58,6 +58,18 @@ The complete set of contributors may be found at https://contrast-tool.github.io
 	<meta name="msapplication-TileColor" content="#3f51b5">
 	<meta name="msapplication-tap-highlight" content="no">
 
+	<style>
+		body {
+			margin: 0;
+			height: 100vh;
+			background-color: #eeeeee; }
+	
+		body {
+			opacity: 1 !important;
+			transition: none !important; }
+
+	</style>
+
 	<script>
 		self.applic = new class {
 			constructor() {
@@ -80,24 +92,18 @@ The complete set of contributors may be found at https://contrast-tool.github.io
 
 	</script>
 
-	<script src="node_modules/@webcomponents/webcomponentsjs/webcomponents-bundle.js" defer></script>
+	<script src="node_modules/@webcomponents/webcomponentsjs/webcomponents-bundle.js"></script>
 	<!-- <script src="node_modules/@webcomponents/webcomponentsjs/webcomponents-loader.js"></script> -->
 	<script type="module" src="src/applic.wireframe.js"></script>
 
-	<style>
-		body {
-			margin: 0;
-			height: 100vh;
-			background-color: #eeeeee;
-		}
-	</style>
+	<script type="module" src="src/applic.js"></script>
+	<script type="module" src="src/applic.lazies.js"></script>
 
 </head>
 
 <body>
 	<applic-mount></applic-mount>
 	<noscript>Please enable JavaScript to view this application.</noscript>
-	<!-- Build with ❤ using Polymer 3 & the Dropbox CLI -->
 </body>
 
 </html>
