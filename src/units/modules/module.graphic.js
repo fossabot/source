@@ -35,12 +35,15 @@ applic.graphic.new = (_params) => {
          this.section = _params.section;
 
          this.blob = _params.blob;
+         this.detail = _params.blob.detail;
+
+
          GRAPHIC_STATE[this.nonce] = this;
 
-         console.debug('applic-fs:cached-graphic', {
-            graphic: this,
-            section: this.section
-         })
+         // console.debug('applic-fs:cached-graphic', {
+         //    graphic: this,
+         //    section: this.section
+         // })
          
          applic.dispatch('applic:updated');
       }
@@ -55,11 +58,12 @@ applic.graphic.new = (_params) => {
       _changed() {
          this.uri = this.uri || this.blob.uri || false;
 
+
          applic.utils.buffer(() => {
-            console.debug('applic-fs:update-graphic', {
-               graphic: this,
-               section: this.section
-            })
+            // console.debug('applic-fs:update-graphic', {
+            //    graphic: this,
+            //    section: this.section
+            // })
 
             applic.dispatch('applic:updated');
          });

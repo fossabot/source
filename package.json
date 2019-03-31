@@ -11,10 +11,11 @@
     "lint": "polymer lint"
   },
   "dependencies": {
+    "@polymer/polymer": "^3.0.0",
+    "@webcomponents/webcomponentsjs": "^2.2.7",
     "dropbox": "^4.0.16",
     "jszip": "^3.2.0",
-    "@polymer/polymer": "^3.0.0",
-    "@webcomponents/webcomponentsjs": "^2.2.7"
+    "lit-element": "^2.1.0"
   },
   "devDependencies": {
     "polymer-cli": "^1.7.1",

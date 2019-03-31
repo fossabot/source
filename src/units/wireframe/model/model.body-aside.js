@@ -13,8 +13,8 @@ export const model = function () {
    return html`
     <style>
       ._aside.grid {
-        ${this.css.apply('--layout--vertical')}
-        ${this.css.apply('--layout--sizing--border-box')}
+        ${css.apply('--layout--vertical')}
+        ${css.apply('--layout--sizing--border-box')}
 
         width: 100%;
 
@@ -22,20 +22,20 @@ export const model = function () {
         padding: 4px; }
 
       ._aside.grid-item {
-        ${this.css.apply('--layout--sizing--border-box')}
-        ${this.css.apply('--layout--vertical')}
-        ${this.css.apply('--layout--flex-none')}
+        ${css.apply('--layout--sizing--border-box')}
+        ${css.apply('--layout--vertical')}
+        ${css.apply('--layout--flex-none')}
 
         margin: 4px;
         padding: 0px 12px; }
 
       ._aside.grid-item--titel {
-        ${this.css.apply('--layout--sizing--border-box')}
-        ${this.css.apply('--layout--flex-none')}
-        ${this.css.apply('--layout--horizontal')}
-        ${this.css.apply('--layout--center')}
+        ${css.apply('--layout--sizing--border-box')}
+        ${css.apply('--layout--flex-none')}
+        ${css.apply('--layout--horizontal')}
+        ${css.apply('--layout--center')}
 
-        ${this.css.apply('--typo')}
+        ${css.apply('--typo')}
         font-size: 13px;
         line-height: 20px;
         font-weight: 400;
@@ -46,22 +46,22 @@ export const model = function () {
         padding: 0px 4px; }
 
       ._aside.grid-item--graphic {
-        ${this.css.apply('--layout--sizing--border-box')}
-        ${this.css.apply('--layout--flex-none')}
-        ${this.css.apply('--layout--vertical')}
+        ${css.apply('--layout--sizing--border-box')}
+        ${css.apply('--layout--flex-none')}
+        ${css.apply('--layout--vertical')}
 
         height: 144px;
         width: 100%; }
 
       ._aside.grid-item--detail {
-        ${this.css.apply('--layout--sizing--border-box')}
-        ${this.css.apply('--layout--flex-none')}
-        ${this.css.apply('--layout--vertical')}
+        ${css.apply('--layout--sizing--border-box')}
+        ${css.apply('--layout--flex-none')}
+        ${css.apply('--layout--vertical')}
       
         ${applic.$.css.apply('--typo--caption')}
         ${applic.$.css.apply('--typo--nowrap')} 
         
-        ${this.css.apply('--typo')}
+        ${css.apply('--typo')}
         font-size: 9px;
         line-height: 12px;
         font-weight: 400;
@@ -87,23 +87,23 @@ export const model = function () {
         background: #f4f4f4; }
 
       ._aside.grid-item--inner {
-        ${this.css.apply('--layout--sizing--border-box')}
-        ${this.css.apply('--layout--flex')}
-        ${this.css.apply('--layout--vertical')}
+        ${css.apply('--layout--sizing--border-box')}
+        ${css.apply('--layout--flex')}
+        ${css.apply('--layout--vertical')}
 
         padding: 10px 20px; }
 
       ._aside.emty {
-        ${this.css.apply('--stance--absolute')}
-        ${this.css.apply('--stance--pin--bottom')}
-        ${this.css.apply('--layout--sizing--border-box')}
-        ${this.css.apply('--layout--vertical')}
-        ${this.css.apply('--layout--center')} 
+        ${css.apply('--stance--absolute')}
+        ${css.apply('--stance--pin--bottom')}
+        ${css.apply('--layout--sizing--border-box')}
+        ${css.apply('--layout--vertical')}
+        ${css.apply('--layout--center')} 
 
         padding: 20px 0px; }
 
       ._aside.emty--info {
-        ${this.css.apply('--typo')}
+        ${css.apply('--typo')}
         font-size: 13px;
         line-height: 1;
         font-weight: 400;

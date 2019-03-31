@@ -11,10 +11,10 @@ import {html} from 'lit-html';
 export const model = function() {
   return html`
     <style>
-      ${this.css.include('applic::bar')}
+      ${css.include('applic::bar')}
 
       ._navigation-header {
-        ${this.css.apply('--layout--sizing--border-box')} 
+        ${css.apply('--layout--sizing--border-box')} 
 
         margin: -60px 0 0 -30px;
         padding: 60px 0 0 30px;
@@ -23,12 +23,12 @@ export const model = function() {
         background: #f4f4f4; }
 
       ._name {
-        ${this.css.apply('--layout--sizing--border-box')} 
-        ${this.css.apply('--layout--horizontal')} 
-        ${this.css.apply('--layout--center')} 
-        ${this.css.apply('--layout--felx-none')} 
+        ${css.apply('--layout--sizing--border-box')} 
+        ${css.apply('--layout--horizontal')} 
+        ${css.apply('--layout--center')} 
+        ${css.apply('--layout--felx-none')} 
 
-        ${this.css.apply('--typo')}
+        ${css.apply('--typo')}
 
         font-size: 13px;
         line-height: 22px;

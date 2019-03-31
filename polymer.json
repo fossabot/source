@@ -26,10 +26,6 @@
   "npm": true,
 
   "builds": [{
-      "preset": "es5-bundled",
-      "addServiceWorker": true,
-      "addPushManifest": false
-    }, {
       "preset": "es6-bundled",
       "addServiceWorker": true,
       "addPushManifest": false

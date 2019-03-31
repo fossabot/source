@@ -10,27 +10,15 @@ import { cssMixins } from '../../lib/pattern/mixins/all-mixins.js';
 import { cssModules } from '../../lib/pattern/modules/all-modules.js';
 
 const _getMixin = (_nonce) => {
-  const _temp = document.createElement('template');
-
-  _temp.innerHTML = (() => {
-    if (!cssMixins[_nonce]) return `/* ${_nonce} is not defined */`
-    else return cssMixins[_nonce](css)
+  if (!cssMixins[_nonce]) return `/* ${_nonce} is not defined */`
+  else return cssMixins[_nonce](css)
     .replace(/\s{2,}/g, ' ');
-  })()
-
-  return _temp;
 };
 
 const _getModule = (_nonce) => {
-  const _temp = document.createElement('template');
-
-  _temp.innerHTML = (() => {
-    if (!cssModules[_nonce]) return `/* ${_nonce} is not defined */`
-    else return cssModules[_nonce](css)
-      .replace(/\s{2,}/g, ' ');
-  })()
-
-  return _temp;
+  if (!cssModules[_nonce]) return `/* ${_nonce} is not defined */`
+  else return cssModules[_nonce](css)
+    .replace(/\s{2,}/g, ' ');
 };
 
-self.css = { apply: _getMixin, include: _getModule }
+export const css = { apply: _getMixin, include: _getModule}

@@ -28,7 +28,7 @@ applic.import.traverse = (_params) => {
          this.onRegistered = () => { };
          this.onChanged = () => { };
          this.onResolved = () => { };
-         this.onInvalid = () => { };
+         this.onRejected = () => { };
 
          // console.debug('applic-import:traverse-new', _params)
 
@@ -99,8 +99,8 @@ applic.import.traverse = (_params) => {
          const _nonce = applic.utils.nonce();
 
          if (-1 == this.types.indexOf(_file.type)) {
-            this.onInvalid({ type: _file.type, name: _file.name });
-            
+            this.onRejected({ type: _file.type, name: escape(_file.name) });
+
          } else {
             this.blobs[_nonce] = {
                file: _file,

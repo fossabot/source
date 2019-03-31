@@ -6,40 +6,50 @@ The complete set of authors may be found at https://contrast-tool.github.io/docs
 The complete set of contributors may be found at https://contrast-tool.github.io/docs/CONTRIBUTORS.md
 */
 
-import { PolymerElement, html } from '@polymer/polymer/polymer-element.js';
-import { setPassiveTouchGestures, setRootPath } from '@polymer/polymer/lib/utils/settings.js';
-
-import '@polymer/polymer/lib/elements/dom-repeat.js';
+import { LitElement, html } from 'lit-element';
 
 import { model } from './model/all-models.js';
+import { css } from './wireframe.style.js'
 
-setPassiveTouchGestures(true);
-setRootPath(applic.rootPath);
-
-class ApplicMount extends PolymerElement {
-  static get properties() {
-    return {
-      section: Array,
-      graphic: Array,
-    };
-  }
-
-  static get observers() {
-    return [];
-  }
-
-  static get template() {
+class ApplicMount extends LitElement {
+  render() {
     return html`
-      ${model('wireframe:mount')}
-      ${model('wireframe:body')}
-    `
+      <style>
+        :host {
+          ${this.css.apply('--stance--fixed')}
+          ${this.css.apply('--stance--fit')}
+
+          ${this.css.apply('--layout--vertical')}
+          
+        }
+
+      </style>
+
+      ${this.model('wireframe:body')}
+    `;
   }
 
   constructor() {
     super();
 
+    this.css = css;
+    this.model = (_nonce) => {
+      return model[_nonce] ? (model[_nonce].bind(this))() : `<!-- ${_nonce} -->`;
+    };
+
+
+    this.section = [];
+    this.graphic = [];
+
     applic.on('applic:updated', this._update.bind(this))
   }
+  
+
+
+  firstUpdated() { 
+    console.log('firstUpdated')
+  }
+
 
   _selectSection(_event) {
     applic.call('section:show', {
@@ -85,10 +95,12 @@ class ApplicMount extends PolymerElement {
   }
 
   _set(_path, _value) {
-    this.set(_path, null)
-    Promise.resolve().then(this.set.bind(this, _path, _value))
+    this[_path] = _value;
+    this.requestUpdate();
+    // this.set(_path, null)
+    // Promise.resolve().then(this.set.bind(this, _path, _value))
   }
 
 }
 
-self.customElements.define('applic-mount', ApplicMount);
+customElements.define('applic-mount', ApplicMount);

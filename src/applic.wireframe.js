@@ -12,18 +12,25 @@ import './lib/utils/applic.polyfill.js'
 import './units/applic-event.js'
 import './units/applic-state.js'
 
-import './units/wireframe/wireframe.style.js'
 import './units/wireframe/wireframe.mount.js'
 
-applic.__proto__.$ = document.querySelector('applic-mount') || document.createElement('applic-mount');
-document.body.appendChild(applic.$);
-
-
-
-Promise.resolve().then(async () => {
+applic.utils.buffer(async () => {
    await import('./applic.js');
    await import('./applic.lazies.js');
 })
+
+
+
+applic.$ = document.querySelector('applic-mount');
+
+// applic.$ = document.createElement('applic-mount');
+// document.body.appendChild(applic.$);
+
+for (const _node of document.body.children) {
+  if (applic.$ != _node) _node.parentNode.removeChild(_node);
+};
+
+
 
 console.debug('applic-wireframe:loaded', `${Date.now() - applic.created}ms`);
 
@@ -39,6 +46,11 @@ drop.release = (_event) => {
       });
 
       const _traverse = applic.import.traverse({
+         /**
+          * All image-types work technically. BUT I DO NOT WANT PEOPLE JUST DOWNLOAD
+          * IMAGES FROM GOOGLE AND MAKE EMOTES OUT OF THEM. So I limit it to the most
+          * common file types from people that actually create proper emotes.
+          */
          types: ['image/png', 'image/svg', 'image/gif'],
 
          files: !_transfer.files ? false : Array.from(_transfer.files),
@@ -57,8 +69,8 @@ drop.release = (_event) => {
          _importer.resolved()
       };
 
-      _traverse.onInvalid = (_params) => {
-         console.error('applic-import:traverse-invalid-type', _params);
+      _traverse.onRejected = (_params) => {
+         console.warn('[Import rejected]', `File type '${_params.type}' of '${_params.name}' is not supported`);
       };
 
    })()
@@ -67,6 +79,6 @@ drop.release = (_event) => {
    _event.preventDefault(); return false;
 };
 
-self.addEventListener('dragover', drop.move)
-self.addEventListener('dragleave', drop.move)
-self.addEventListener('drop', drop.release)
+applic.$.addEventListener('dragover', drop.move)
+applic.$.addEventListener('dragleave', drop.move)
+applic.$.addEventListener('drop', drop.release)
