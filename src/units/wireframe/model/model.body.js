@@ -76,18 +76,25 @@ export const model = function () {
       <applic-scrollable class="_body-inner">
         <h4>section</h4>
         ${this.section.map(_section => html`
-          <div section-nonce$="[[node.nonce]]">
-            [[node.nonce]]
-            <button on-click="_selectSection">select</button>
-            <button on-click="_removeSection">remove</button>
+          <div>
+            ${_section.nonce}
+            <button @click="${this.call('section:select', { nonce: _section.nonce })}">
+              select
+            </button>
+            <button @click="${this.call('section:remove', { nonce: _section.nonce })}">
+              remove
+            </button>
           </div>
         `)}
+
+        <button @click="${this.call('section:create')}">remove</button>
     
 
         <h4>graphic</h4>
         ${this.graphic.map(_graphic => html`
           <div graphic-nonce="${_graphic.nonce}">
-            <button @click="${this._removeGraphic}">remove
+            <button @click="${this.call('graphic:remove', { nonce: _graphic.nonce })}">
+              remove
             </button><br>
 
             <img src="${_graphic.uri}" style="height: 82px; width: 82px;"><br>

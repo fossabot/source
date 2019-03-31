@@ -48,15 +48,7 @@ new class {
 }
 
 
-applic.__proto__.call = (_type, _params) => {
-  // console.log(_type, _params);
-  switch (_type) {
-    case 'graphic:remove':
-      applic.graphic.remove(_params.nonce)
-      break;
-  
-  }
-};
+
 
 applic.__proto__.newImport = (_params) => {
   return new class {

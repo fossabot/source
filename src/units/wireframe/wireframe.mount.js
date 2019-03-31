@@ -43,38 +43,30 @@ class ApplicMount extends LitElement {
 
     applic.on('applic:updated', this._update.bind(this))
   }
-  
+
+  firstUpdated() { }
 
 
-  firstUpdated() { 
-    console.log('firstUpdated')
-  }
+  call(_type, _params) {
+    return () => {
+      switch (_type) {
+        case 'section:select':
+          applic.section.select(_params.nonce)
+          break;
+        case 'section:remove':
+          applic.section.remove(_params.nonce)
+          break;
+        case 'section:create':
+          applic.section.create()
+          break;
 
+        case 'graphic:remove':
+          applic.graphic.remove(_params.nonce)
+          break;
 
-  _selectSection(_event) {
-    applic.call('section:show', {
-      nonce: this._findAttribute(_event.target, 'section-nonce')
-    })
-  }
-  _removeSection(_event) {
-    applic.call('section:remove', {
-      nonce: this._findAttribute(_event.target, 'section-nonce')
-    })
-  }
-  _removeGraphic(_event) {
-    applic.call('graphic:remove', {
-      nonce: this._findAttribute(_event.target, 'graphic-nonce')
-    })
-  }
-
-  _findAttribute(_node, _attribute) {
-    while (_node) {
-      if (_node.hasAttribute(_attribute)) break;
-      _node = _node.parentElement;
-    };
-    return _node ? _node.getAttribute(_attribute) : null;
-  }
-
+      }
+    }
+  };
 
   _update() {
     if (this._render) return;

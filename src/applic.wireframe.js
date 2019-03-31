@@ -14,25 +14,15 @@ import './units/applic-state.js'
 
 import './units/wireframe/wireframe.mount.js'
 
+console.debug('applic-wireframe:loaded', `${Date.now() - applic.created}ms`);
+
+
 applic.utils.buffer(async () => {
    await import('./applic.js');
    await import('./applic.lazies.js');
 })
 
-
-
 applic.$ = document.querySelector('applic-mount');
-
-// applic.$ = document.createElement('applic-mount');
-// document.body.appendChild(applic.$);
-
-for (const _node of document.body.children) {
-  if (applic.$ != _node) _node.parentNode.removeChild(_node);
-};
-
-
-
-console.debug('applic-wireframe:loaded', `${Date.now() - applic.created}ms`);
 
 
 const drop = {};
