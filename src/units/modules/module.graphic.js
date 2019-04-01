@@ -19,6 +19,11 @@ applic.graphic.get = (_nonce) => {
    }
 };
 
+applic.graphic.select = (_nonce) => {
+   if (!GRAPHIC_STATE[_nonce]) return;
+   
+}
+
 applic.graphic.remove = (_nonce) => {
    if (!GRAPHIC_STATE[_nonce]) return;
    delete GRAPHIC_STATE[_nonce];
@@ -28,7 +33,7 @@ applic.graphic.remove = (_nonce) => {
    })
 }
 
-applic.graphic.new = (_params) => {
+applic.graphic.create = (_params) => {
    return new class ApplicGraphic {
       constructor() {
          this.nonce = applic.utils.nonce();

@@ -14,7 +14,6 @@ import './units/applic-state.js'
 
 import './units/wireframe/wireframe.mount.js'
 
-console.debug('applic-wireframe:loaded', `${Date.now() - applic.created}ms`);
 
 
 applic.utils.buffer(async () => {

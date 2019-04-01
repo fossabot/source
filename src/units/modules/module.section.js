@@ -12,7 +12,16 @@ applic.section = new class { }
 applic.section.__proto__.updated = () => { };
 
 applic.section.get = () => { return applic.utils.arrayify(SECTION_STATE) };
-applic.section.new = () => {
+
+applic.section.select = () => {
+
+};
+
+applic.section.remove = () => {
+
+};
+
+applic.section.create = () => {
    _register(new class ApplicSection {
       constructor() {
          this.nonce = applic.utils.nonce();
@@ -20,10 +29,10 @@ applic.section.new = () => {
       }
 
    });
-}
+};
 
 
 const _register = (_class) => {
    SECTION_STATE[_class.nonce] = _class;
    applic.section.updated();
-}
+};

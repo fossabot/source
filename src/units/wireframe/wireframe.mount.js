@@ -11,6 +11,8 @@ import { LitElement, html } from 'lit-element';
 import { model } from './model/all-models.js';
 import { css } from './wireframe.style.js'
 
+console.debug('applic-wireframe:loaded', `${Date.now() - applic.created}ms`);
+
 class ApplicMount extends LitElement {
   render() {
     return html`
@@ -37,14 +39,15 @@ class ApplicMount extends LitElement {
       return model[_nonce] ? (model[_nonce].bind(this))() : `<!-- ${_nonce} -->`;
     };
 
-
     this.section = [];
     this.graphic = [];
 
     applic.on('applic:updated', this._update.bind(this))
   }
 
-  firstUpdated() { }
+  firstUpdated() {
+    console.debug("applic-wireframe:ready", `${Date.now() - applic.created}ms`);
+  }
 
 
   call(_type, _params) {
@@ -96,3 +99,4 @@ class ApplicMount extends LitElement {
 }
 
 customElements.define('applic-mount', ApplicMount);
+console.debug('applic-wireframe:registered', `${Date.now() - applic.created}ms`);
