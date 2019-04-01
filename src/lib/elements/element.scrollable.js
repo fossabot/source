@@ -24,13 +24,14 @@ class ApplicScrollable extends LitElement {
           overflow: hidden; }
 
         :host([flex-none]) { 
-          ${applic.$.css.apply('--layout-flex--none')} 
+          ${applic.$.css.apply('--layout--flex--none')} 
         }
         
         
         ._wrap {
           ${applic.$.css.apply('--layout--block')} 
           ${applic.$.css.apply('--layout--sizing--border-box')} 
+          ${applic.$.css.apply('--layout--flex')} 
 
           -webkit-overflow-scrolling: touch;
           overflow: -moz-scrollbars-none;

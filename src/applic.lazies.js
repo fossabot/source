@@ -7,12 +7,12 @@ The complete set of contributors may be found at https://contrast-tool.github.io
 */
 
 
-Promise.resolve().then(async () => {
-   await import('./units/processing/applic.processing.js');
+// Promise.resolve().then(async () => {
+//    await import('./units/processing/applic.processing.js');
 
-   console.info('applic-lazies:loaded', `${Date.now() - applic.created}ms`)
-   console.debug('applic-lazies:ready', `${Date.now() - applic.created}ms`)
-});
+//    console.info('applic-lazies:loaded', `${Date.now() - applic.created}ms`)
+//    console.debug('applic-lazies:ready', `${Date.now() - applic.created}ms`)
+// });
 
 
 // const lazies = [

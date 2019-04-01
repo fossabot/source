@@ -30,7 +30,7 @@ new class {
 
     if (this._debug()) {
       applic.dispatch('applic:updated', this)
-      console.debug('applic:updated')
+      // console.debug('applic:updated')
     }
   }
 

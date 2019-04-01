@@ -36,9 +36,6 @@ applic.section.create = () => {
    });
 };
 
-
-
-
 const _register = (_class) => {
    SECTION_STATE[_class.nonce] = _class;
    applic.section.updated();
