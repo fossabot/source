@@ -25,7 +25,6 @@ applic.section.select = (_nonce) => {
       SECTION_STATE[applic.section.active].active = false;      
    };
 
-   
    SECTION_STATE[_nonce].active = true; 
    
    applic.section.active = _nonce;
@@ -35,6 +34,11 @@ applic.section.select = (_nonce) => {
 applic.section.remove = (_nonce) => {
    if (!SECTION_STATE[_nonce]) return;
    delete SECTION_STATE[_nonce];
+
+   if (applic.section.active == _nonce ) {
+      const _first = applic.section.get('*')[0];
+      if (_first) applic.section.select(_first.nonce);
+   }
 
    applic.utils.buffer(applic.dispatch.bind(null, 'applic:changed'));
 };
@@ -48,9 +52,8 @@ applic.section.create = () => {
          this.active = false;
 
          SECTION_STATE[this.nonce] = this;
-         
+
          applic.section.select(this.nonce);
-         console.log('applic.section.register')
          applic.utils.buffer(applic.dispatch.bind(null, 'applic:changed'));
       }
 
