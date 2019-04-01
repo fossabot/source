@@ -10,8 +10,6 @@ The complete set of contributors may be found at https://contrast-tool.github.io
 <html lang="en-NL" dir="ltr">
 
 <head>
-	<script> console.debug('--- page loaded ---') </script>
-
 	<meta charset="utf-8">
 	<meta name="viewport" content="width=device-width, minimum-scale=1, initial-scale=1, user-scalable=no">
 
@@ -60,6 +58,8 @@ The complete set of contributors may be found at https://contrast-tool.github.io
 	<meta name="msapplication-TileColor" content="#f57b67">
 	<meta name="msapplication-tap-highlight" content="no">
 
+	<link rel="stylesheet"
+		href="https://fonts.googleapis.com/css?family=Roboto:300,400,500|Material+Icons+Sharp">
 	<style>
 		body {
 			margin: 0;
@@ -73,20 +73,53 @@ The complete set of contributors may be found at https://contrast-tool.github.io
 	</style>
 
 	<script>
-		
-
+		// Web applic
 		self.applic = new class {
 			constructor() {
 				this.__proto__.rootPath = '/';
 				this.__proto__.created = Date.now();
 				this.__proto__.rendered = false;
 			}
-
 		};
 
+		// A2HS support
+		if (window.navigator.standalone === true || window.matchMedia('(display-mode: standalone)').matches) { 
+			console.info('A2HS is active'); 
+			// I have no idea if it's possible to trigger opening the app.
+			// https://developers.google.com/web/fundamentals/app-install-banners/
+		} else {
+			self.addEventListener('beforeinstallprompt', (_event) => {
+				applic.deferredPrompt = _event;  console.info('A2HS is available');
+				applic.deferredPrompt.preventDefault();
+
+				applic.deferredInstall = () => {
+					applic.deferredPrompt.prompt().catch((_error) => console.error );
+					applic.deferredPrompt.userChoice.then((_result) => {
+						if (_result.outcome === 'accepted') {
+							console.info('User accepted the A2HS prompt');
+						} else {
+							console.info('User dismissed the A2HS prompt');
+						};
+
+						applic.utils.buffer(() => {
+							applic.deferredPrompt = null;
+							applic.deferredInstall = () => { };
+						})
+					});
+				};
+
+				// TODO: Add an in-applic install prompt.
+				setTimeout(() => {
+					applic.deferredInstall();
+				}, 1000 * 2)
+			});
+		}
+
+		// ServiceWorker
 		if ('serviceWorker' in navigator) {
-			self.addEventListener('load', function () {
-				navigator.serviceWorker.register('service-worker.js', { scope: applic.rootPath });
+			self.addEventListener('load', () => {	
+				navigator.serviceWorker.register('service-worker.js', { scope: applic.rootPath })
+					.then((_sw) => { applic.__proto__.sw = _sw})
 			});
 		};
 
@@ -95,7 +128,7 @@ The complete set of contributors may be found at https://contrast-tool.github.io
 
 
 	<script src="node_modules/@webcomponents/webcomponentsjs/webcomponents-bundle.js"></script>
-	<!-- <script src="node_modules/@webcomponents/webcomponentsjs/webcomponents-loader.js"></script> -->
+
 	<script type="module" src="src/applic.wireframe.js"></script>
 
 	<script type="module" src="src/applic.js"></script>
@@ -108,10 +141,8 @@ The complete set of contributors may be found at https://contrast-tool.github.io
 	<noscript>Please enable JavaScript to view this application.</noscript>
 
 	<script>
-		requestAnimationFrame(() => {
-			self.applic.__proto__.rendered = true;
-			console.debug('--- first frame ---');
-		});
+		requestAnimationFrame(() => { self.applic.__proto__.rendered = true; });
+		requestAnimationFrame(() => { console.debug('--- first frame ---'); });
 	</script>
 </body>
 

@@ -34,20 +34,11 @@ class ApplicScrollable extends LitElement {
 
           -webkit-overflow-scrolling: touch;
           overflow: -moz-scrollbars-none;
-          overflow: scroll;
-
-          min-height: calc(100% + ${this._height}px);
-          max-height: calc(100% + ${this._height}px);
-          min-width: calc(100% + ${this._width}px); 
-          max-width: calc(100% + ${this._width}px); 
-        
-          margin: 0 ${-this._width}px ${-this._height}px 0; }
+          overflow: scroll; }
 
         ._wrap-inner {
           ${applic.$.css.apply('--layout--block')} 
-          ${applic.$.css.apply('--layout--sizing--content-box')} 
-
-          padding: 0 ${this._width_add}px ${this._height_add}px 0; }
+          ${applic.$.css.apply('--layout--sizing--content-box')} }
 
 
 
@@ -56,8 +47,8 @@ class ApplicScrollable extends LitElement {
           ${applic.$.css.apply('--stance--absolute')} 
           ${applic.$.css.apply('--layout--vertical')} 
 
-          padding: 5px;
-       }
+          padding: 5px; }
+
        ._scroll-bar._scroll-bar--x {
           ${applic.$.css.apply('--stance--pin--bottom-start')} 
           
@@ -107,12 +98,12 @@ class ApplicScrollable extends LitElement {
       <div ?hide="${!this.scroll_show || !this.scroll_y_active}" class="_scroll-bar _scroll-bar--y"><div></div></div>
     `;
   }
+
   constructor() {
     super();
 
     window.addEventListener('resize', this._reset.bind(this));
     window.addEventListener('resize', this._update.bind(this));
-
 
   }
 
@@ -148,6 +139,7 @@ class ApplicScrollable extends LitElement {
 
   async _update() {
     const $_wrap = this.shadowRoot.querySelector('._wrap');
+    const $_wrapInner = this.shadowRoot.querySelector('._wrap-inner');
 
     const xLimit = $_wrap.scrollWidth - $_wrap.clientWidth;
     const yLimit = $_wrap.scrollHeight - $_wrap.clientHeight;
@@ -170,6 +162,14 @@ class ApplicScrollable extends LitElement {
 
     await this.updateComplete;
     this.requestUpdate();
+
+    $_wrap.style.minHeight = `calc(100% + ${this._height}px)`;
+    $_wrap.style.maxHeight = `calc(100% + ${this._height}px)`;
+    $_wrap.style.minWidth = `calc(100% + ${this._width}px)`; 
+    $_wrap.style.maxWidth = `calc(100% + ${this._width}px)`; 
+    $_wrap.style.margin = `0 ${-this._width}px ${-this._height}px 0`; 
+
+    $_wrapInner.style.padding = `0 ${this._width_add}px ${this._height_add}px 0`
   }
 
 

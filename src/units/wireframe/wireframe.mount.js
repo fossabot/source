@@ -23,12 +23,12 @@ class ApplicMount extends LitElement {
 
           ${this.css.apply('--layout--vertical')}
 
-          transition: opacity ease-in 200ms;
+          transition: opacity 120ms cubic-bezier(0.4, 0.0, 1, 1);
         }
 
         :host([unresolved]) {
           opacity: 0; 
-          transition: opacity ease-in 0ms 0ms;
+          transition: opacity 0ms 0ms;
         } 
 
       </style>
@@ -58,7 +58,7 @@ class ApplicMount extends LitElement {
   firstUpdated() {
     if (this.hasAttribute('unresolved')) applic.utils.buffer(() =>{
       this.removeAttribute('unresolved');
-      
+
     })
 
 

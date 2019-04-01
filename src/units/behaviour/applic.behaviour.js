@@ -60,7 +60,7 @@ applic.__proto__.newImport = (_params) => {
     }
 
     add(_blob) {
-      this.graphic[_blob.nonce] = applic.graphic.new({
+      this.graphic[_blob.nonce] = applic.graphic.create({
         section: this.section,
         blob: _blob
       })

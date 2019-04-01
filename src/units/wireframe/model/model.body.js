@@ -87,7 +87,7 @@ export const model = function () {
           </div>
         `)}
 
-        <button @click="${this.call('section:create')}">remove</button>
+        <button @click="${this.call('section:create')}">create</button>
     
 
         <h4>graphic</h4>
@@ -112,6 +112,16 @@ export const model = function () {
           </div>
         </div>
 
+
+        ${self.opener != self ? '' : html`
+          <a href="#" @click="${() => { 
+            var conf = confirm("Are you sure, you want to close this tab?");
+            if (conf == true) {
+              close();
+            }
+              // applic.utils.window('/', 1440, 840);
+          }}">Open in Popup</a>
+        `}
       </applic-scrollable>
       
       <applic-scrollable class="_body-aside">

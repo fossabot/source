@@ -6,8 +6,9 @@ The complete set of authors may be found at https://contrast-tool.github.io/docs
 The complete set of contributors may be found at https://contrast-tool.github.io/docs/CONTRIBUTORS.md
 */
 
+
 Promise.resolve().then(async () => {
-   await import('/src/units/processing/applic.processing.js');
+   await import('./units/processing/applic.processing.js');
 
    console.info('applic-lazies:loaded', `${Date.now() - applic.created}ms`)
    console.debug('applic-lazies:ready', `${Date.now() - applic.created}ms`)
