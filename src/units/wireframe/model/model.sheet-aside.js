@@ -47,11 +47,13 @@ export const model = function () {
       <div class="applic bar-row">
         <div class="applic bar-section align-start"></div>
       </div>
+
       <div class="applic bar-row">
         <div class="applic bar-section align-start">
           <span class="_name">Contrast Tool</span>
         </div>
       </div>
+
     </div>
 
     <applic-scrollable class="_navigation"> 
@@ -69,7 +71,6 @@ export const model = function () {
           </applic-list-item>
         `)}
         
-
         <applic-list-item @click="${this.call('section:create')}">
           <applic-icon name="add" slot="graphic"></applic-icon>
           <span>New Collection</span>

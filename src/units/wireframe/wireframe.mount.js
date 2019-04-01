@@ -33,13 +33,35 @@ class ApplicMount extends LitElement {
           transition: opacity 0ms 0ms;
         } 
 
+        ._sheet-wrap {
+          ${this.css.apply('--stance--relative')}
+          ${this.css.apply('--layout--horizontal')}
+
+          height: 100%;
+          width: 100%; } 
+
+        ._sheet-wrap applic-side-side { z-index: 1; }
+
+        ._body-wrap {
+          
+
+          ${this.css.apply('--stance--relative')}
+          ${this.css.apply('--layout--vertical')} 
+          ${this.css.apply('--layout--flex')} } 
+
       </style>
 
-      <applic-side-sheet open>
-        ${this.model('wireframe:sheet-aside')}
-      </applic-side-sheet>
+      <div class="_sheet-wrap">
+        <applic-side-sheet open persistent>
+          ${this.model('wireframe:sheet-aside')}
+        </applic-side-sheet>
 
-      ${this.model('wireframe:body')}
+        <div class="_body-wrap">
+          ${this.model('wireframe:body')}
+        </div>
+      </div>
+
+
     `;
   }
 
