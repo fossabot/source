@@ -26,10 +26,15 @@
   "npm": true,
 
   "builds": [{
-      "preset": "es6-bundled",
-      "addServiceWorker": true,
-      "addPushManifest": false
-    }, {
+    "name": "es6-bundled",
+    "browserCapabilities": [ "es2015" ],
+    "js": { "minify": true, "compile": true },
+    "css": { "minify": true, "compile": true },
+    "html": { "minify": true, "compile": true },
+    "bundle": true,
+    "addServiceWorker": true,
+    "addPushManifest": false
+  }, {
     "name": "esm-bundled",
     "browserCapabilities": [ "es2015", "modules" ],
     "js": { "minify": true, "compile": true },
