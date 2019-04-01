@@ -51,17 +51,11 @@ class ApplicScrollable extends LitElement {
 
        ._scroll-bar._scroll-bar--x {
           ${applic.$.css.apply('--stance--pin--bottom-start')} 
-          
-          width: ${this.scroll_size_x}px;
-          height: 13px;
-          margin: 0px 0px ${this._width_add}px ${this.scroll_x}px; }
+          height: 13px; }
 
         ._scroll-bar._scroll-bar--y {
           ${applic.$.css.apply('--stance--pin--top-end')} 
-          
-          width: 13px;
-          height: ${this.scroll_size_y}px;
-          margin: ${this.scroll_y}px 0px 0px; }
+          width: 13px; }
 
  
 
@@ -140,6 +134,8 @@ class ApplicScrollable extends LitElement {
   async _update() {
     const $_wrap = this.shadowRoot.querySelector('._wrap');
     const $_wrapInner = this.shadowRoot.querySelector('._wrap-inner');
+    const $_scrollX = this.shadowRoot.querySelector('._scroll-bar._scroll-bar--x');
+    const $_scrollY = this.shadowRoot.querySelector('._scroll-bar._scroll-bar--y');
 
     const xLimit = $_wrap.scrollWidth - $_wrap.clientWidth;
     const yLimit = $_wrap.scrollHeight - $_wrap.clientHeight;
@@ -162,6 +158,14 @@ class ApplicScrollable extends LitElement {
 
     await this.updateComplete;
     this.requestUpdate();
+
+    // ._scroll-bar._scroll-bar--x {
+    $_scrollX.style.width = `${this.scroll_size_x}px`;
+    $_scrollX.style.margin = `0px 0px ${this._width_add}px ${this.scroll_x}px`;
+    
+    // ._scroll-bar._scroll-bar--y {
+    $_scrollY.style.height = `${this.scroll_size_y}px`;
+    $_scrollY.style.margin = `${this.scroll_y}px 0px 0px`;
 
     $_wrap.style.minHeight = `calc(100% + ${this._height}px)`;
     $_wrap.style.maxHeight = `calc(100% + ${this._height}px)`;
