@@ -19,6 +19,7 @@ new class {
     applic.section.__proto__.updated = this.updated.bind(this);
 
     applic.utils.buffer(this.updated.bind(this))
+    applic.on('applic:changed', this.updated.bind(this));
 
     console.debug('applic:ready', `${Date.now() - applic.created}ms`);
   }

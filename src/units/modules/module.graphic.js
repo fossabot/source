@@ -21,7 +21,7 @@ applic.graphic.get = (_nonce) => {
 
 applic.graphic.select = (_nonce) => {
    if (!GRAPHIC_STATE[_nonce]) return;
-   
+
 }
 
 applic.graphic.remove = (_nonce) => {
@@ -29,7 +29,7 @@ applic.graphic.remove = (_nonce) => {
    delete GRAPHIC_STATE[_nonce];
 
    applic.utils.buffer(() => {
-      applic.dispatch('applic:updated');
+      applic.dispatch('applic:changed');
    })
 }
 
@@ -50,7 +50,7 @@ applic.graphic.create = (_params) => {
          //    section: this.section
          // })
          
-         applic.dispatch('applic:updated');
+         applic.dispatch('applic:changed');
       }
 
       update(_params) {
@@ -70,7 +70,7 @@ applic.graphic.create = (_params) => {
             //    section: this.section
             // })
 
-            applic.dispatch('applic:updated');
+            applic.dispatch('applic:changed');
          });
 
       }

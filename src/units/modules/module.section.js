@@ -17,8 +17,13 @@ applic.section.select = () => {
 
 };
 
-applic.section.remove = () => {
+applic.section.remove = (_nonce) => {
+   if (!SECTION_STATE[_nonce]) return;
+   delete SECTION_STATE[_nonce];
 
+   applic.utils.buffer(() => {
+      applic.dispatch('applic:changed');
+   })
 };
 
 applic.section.create = () => {
