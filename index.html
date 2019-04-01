@@ -10,102 +10,60 @@ The complete set of contributors may be found at https://contrast-tool.github.io
 <html lang="en-NL" dir="ltr">
 
 <head>
-	<meta charset="utf-8">
-	<meta name="viewport" content="width=device-width, minimum-scale=1, initial-scale=1, user-scalable=no">
-
-	<title>Contrast Tool</title>
-	<meta name="description" content="An interactive viewer to test, compare and export your chat graphics.">
-	<meta name="author" content="Rikkun Brouwers">
-
-	<!--
-		The `<base>` tag below is present to support two advanced deployment options:
-		1) Differential serving. 2) Serving from a non-root path.
-
-		Instead of manually editing the `<base>` tag yourself, you should generally either:
-		a) Add a `basePath` property to the build configuration in your `polymer.json`.
-		b) Use the `--base-path` command-line option for `polymer build`.
-
-		Note: If you intend to serve from a non-root path, see [polymer-root-path] below.
-	-->
 	<base href="/">
-
-	<link rel="icon" href="images/favicon.ico">
-
-	<!-- See https://goo.gl/OOhYW5 -->
-	<link rel="manifest" href="manifest.json">
-
-	<!-- See https://goo.gl/qRE0vM -->
-	<meta name="theme-color" content="#f57b67">
-
-	<!-- Add to homescreen for Chrome on Android. Fallback for manifest.json -->
-	<meta name="mobile-web-app-capable" content="yes">
-	<meta name="application-name" content="Contrast Tool">
-
-	<!-- Add to homescreen for Safari on iOS -->
-	<meta name="apple-mobile-web-app-capable" content="yes">
-	<meta name="apple-mobile-web-app-status-bar-style" content="black-translucent">
-	<meta name="apple-mobile-web-app-title" content="Contrast Tool">
-
-	<!-- -->
-	<meta itemprop="name" content="Contrast Tool">
-	<meta itemprop="description" content="An interactive viewer to test, compare and export your chat graphics.">
-	<meta itemprop="image" content="images/contrasttool-share.png">
+	<title>Contrast Tool</title>
 	
-	<!-- Open Graph markup -->
+	<meta name="description" content="An interactive viewer to compare and export your web graphics.">
+	<meta name="author" content="Rikkun Brouwers">
+	
+	<meta charset="utf-8">
+	<meta name="google" content="notranslate">
+	<meta name="google-site-verification" content="d0XZavN80gjJJtY4t5AKzcm3PfXBsLIM_7MTepJaI0c" />
+	
+	<meta name="viewport" content="width=device-width, minimum-scale=1.0, maximum-scale=1.0, user-scalable=no">
+	
+	<script>
+		self.applic = new class { constructor() {
+			this.__proto__.rootPath = '/';
+			this.__proto__.created = Date.now();
+			this.__proto__.rendered = false;
+		}};
+	</script>
+	
+	<meta itemprop="name" content="Contrast Tool">
+	<meta itemprop="description" content="An interactive viewer to compare and export your web graphics.">
+	<meta itemprop="image" content="https://contrast-tool.github.io/images/share.png">
+	
+	<meta name="theme-color" content="#fafafa">
+	<link rel="manifest" href="manifest.json">
+	
 	<meta property="og:type" content="website">
 	<meta property="og:title" content="Contrast Tool">
-	<meta property="og:image" content="images/contrasttool-share.png">
-	<meta property="og:description" content="An interactive viewer to test, compare and export your chat graphics.">
+	<meta property="og:image" content="https://contrast-tool.github.io/images/share.png">
+	<meta property="og:description" content="An interactive viewer to compare and export your web graphics.">
 	<meta property="og:site_name" content="Contrast Tool">
-	<meta property="og:url" content="https://contrast-tool.github.io">
-
-	<!-- Twitter card -->
+	<meta property="og:url" content="https://contrast-tool.github.io/">
+	
 	<meta name="twitter:card" content="summary_large_image">
-	<meta name="twitter:site" content="@RikkunBrouwers">
-	<meta name="twitter:description" content="An interactive viewer to test, compare and export your chat graphics.">
-	<meta name="twitter:image" content="images/contrasttool-share.png">
 	
-	<!-- Homescreen icons -->
-	<link rel="apple-touch-icon" href="images/manifest/icon-48x48.png">
+	<link rel="icon" type="image/x-icon" href="favicon.ico">
+	<link rel="icon" sizes="192x192" href="images/manifest/icon-192x192.png">
+	<link rel="shortcut icon" href="images/manifest/icon-72x72.png">
+	<link rel="apple-touch-icon" href="images/manifest/icon-72x72.png">
 	<link rel="apple-touch-icon" sizes="72x72" href="images/manifest/icon-72x72.png">
-	<link rel="apple-touch-icon" sizes="96x96" href="images/manifest/icon-96x96.png">
 	<link rel="apple-touch-icon" sizes="144x144" href="images/manifest/icon-144x144.png">
-	<link rel="apple-touch-icon" sizes="192x192" href="images/manifest/icon-192x192.png">
-
-	<!-- Tile icon for Windows 8 (144x144 + tile color) -->
-	<meta name="msapplication-TileImage" content="images/manifest/icon-144x144.png">
-	<meta name="msapplication-TileColor" content="#f57b67">
-	<meta name="msapplication-tap-highlight" content="no">
-
-	<link rel="stylesheet"
-		href="https://fonts.googleapis.com/css?family=Roboto:300,400,500|Material+Icons+Sharp">
-	<style>
-		body {
-			margin: 0;
-			height: 100vh;
-			background-color: #eeeeee; }
+	<link rel="apple-touch-icon" sizes="180x180" href="images/manifest/icon-180x180.png">
 	
-		body {
-			opacity: 1 !important;
-			transition: none !important; }
-
-	</style>
+	<meta name="mobile-web-app-capable" content="yes">
+	<meta name="apple-mobile-web-app-capable" content="yes">
+	<meta name="apple-mobile-web-app-status-bar-style" content="black-translucent">
+	
+	<link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Roboto:300,400,500|Material+Icons+Sharp">
 
 	<script>
-		// Web applic
-		self.applic = new class {
-			constructor() {
-				this.__proto__.rootPath = '/';
-				this.__proto__.created = Date.now();
-				this.__proto__.rendered = false;
-			}
-		};
-
-		// A2HS support
+		// A2HS - https://developers.google.com/web/fundamentals/app-install-banners/
 		if (window.navigator.standalone === true || window.matchMedia('(display-mode: standalone)').matches) { 
 			console.info('A2HS is active'); 
-			// I have no idea if it's possible to trigger opening the app.
-			// https://developers.google.com/web/fundamentals/app-install-banners/
 		} else {
 			self.addEventListener('beforeinstallprompt', (_event) => {
 				applic.deferredPrompt = _event;  console.info('A2HS is available');
@@ -127,10 +85,8 @@ The complete set of contributors may be found at https://contrast-tool.github.io
 					});
 				};
 
-				// TODO: Add an in-applic install prompt.
-				setTimeout(() => {
-					applic.deferredInstall();
-				}, 1000 * 2)
+				// TODO: Add an in-app install prompt.
+				setTimeout(applic.deferredInstall, 1000 * 2)
 			});
 		}
 
@@ -144,12 +100,18 @@ The complete set of contributors may be found at https://contrast-tool.github.io
 
 	</script>
 
-
-
 	<script src="node_modules/@webcomponents/webcomponentsjs/webcomponents-bundle.js"></script>
 
+	<script>
+		self.applic = new class {
+			constructor() {
+				this.__proto__.rootPath = '/';
+				this.__proto__.created = Date.now();
+				this.__proto__.rendered = false;
+			}
+		};
+	</script>
 	<script type="module" src="src/applic.wireframe.js"></script>
-
 	<script type="module" src="src/applic.js"></script>
 	<script type="module" src="src/applic.lazies.js"></script>
 
