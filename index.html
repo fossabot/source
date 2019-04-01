@@ -10,6 +10,8 @@ The complete set of contributors may be found at https://contrast-tool.github.io
 <html lang="en-NL" dir="ltr">
 
 <head>
+	<script> console.debug('--- page loaded ---') </script>
+
 	<meta charset="utf-8">
 	<meta name="viewport" content="width=device-width, minimum-scale=1, initial-scale=1, user-scalable=no">
 
@@ -71,17 +73,13 @@ The complete set of contributors may be found at https://contrast-tool.github.io
 	</style>
 
 	<script>
-		console.debug('--- page loaded ---')
+		
 
 		self.applic = new class {
 			constructor() {
 				this.__proto__.rootPath = '/';
 				this.__proto__.created = Date.now();
 				this.__proto__.rendered = false;
-				// requestAnimationFrame(setTimeout.bind(null, () => { 
-				// 	console.debug('--- first frame ---')
-				// 	this.__proto__.rendered = true; 
-				// }, 10));
 			}
 
 		};
@@ -94,10 +92,7 @@ The complete set of contributors may be found at https://contrast-tool.github.io
 
 	</script>
 
-	<script defer async>
-		self.applic.__proto__.rendered = true;
-		console.debug('--- first frame ---')
-	</script>
+
 
 	<script src="node_modules/@webcomponents/webcomponentsjs/webcomponents-bundle.js"></script>
 	<!-- <script src="node_modules/@webcomponents/webcomponentsjs/webcomponents-loader.js"></script> -->
@@ -111,6 +106,13 @@ The complete set of contributors may be found at https://contrast-tool.github.io
 <body>
 	<applic-mount></applic-mount>
 	<noscript>Please enable JavaScript to view this application.</noscript>
+
+	<script>
+		requestAnimationFrame(() => {
+			self.applic.__proto__.rendered = true;
+			console.debug('--- first frame ---');
+		});
+	</script>
 </body>
 
 </html>
