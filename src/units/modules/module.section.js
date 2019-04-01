@@ -35,12 +35,14 @@ applic.section.remove = (_nonce) => {
    if (!SECTION_STATE[_nonce]) return;
    delete SECTION_STATE[_nonce];
 
-   if (applic.section.active == _nonce ) {
-      const _first = applic.section.get('*')[0];
-      if (_first) applic.section.select(_first.nonce);
-   }
-
-   applic.utils.buffer(applic.dispatch.bind(null, 'applic:changed'));
+   Promise.resolve().then(() => {
+      if (applic.section.active == _nonce ) {
+         let _first = applic.section.get('*')[0];
+         if (_first) applic.section.select(_first.nonce);
+      };
+      
+      applic.utils.buffer(applic.dispatch.bind(null, 'applic:changed'));
+   })
 };
 
 applic.section.create = () => {
