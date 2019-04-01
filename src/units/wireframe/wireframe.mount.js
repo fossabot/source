@@ -22,8 +22,14 @@ class ApplicMount extends LitElement {
           ${this.css.apply('--stance--fit')}
 
           ${this.css.apply('--layout--vertical')}
-          
+
+          transition: opacity ease-in 200ms;
         }
+
+        :host([unresolved]) {
+          opacity: 0; 
+          transition: opacity ease-in 0ms 0ms;
+        } 
 
       </style>
 
@@ -39,6 +45,10 @@ class ApplicMount extends LitElement {
       return model[_nonce] ? (model[_nonce].bind(this))() : `<!-- ${_nonce} -->`;
     };
 
+    if (applic.rendered) {
+      this.setAttribute('unresolved', '')
+    }
+
     this.section = [];
     this.graphic = [];
 
@@ -46,6 +56,12 @@ class ApplicMount extends LitElement {
   }
 
   firstUpdated() {
+    if (this.hasAttribute('unresolved')) applic.utils.buffer(() =>{
+      this.removeAttribute('unresolved');
+      
+    })
+
+
     console.debug("applic-wireframe:ready", `${Date.now() - applic.created}ms`);
   }
 
@@ -99,4 +115,3 @@ class ApplicMount extends LitElement {
 }
 
 customElements.define('applic-mount', ApplicMount);
-console.debug('applic-wireframe:registered', `${Date.now() - applic.created}ms`);
