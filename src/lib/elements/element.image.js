@@ -44,7 +44,7 @@ class ApplicImage extends LitElement {
           pointer-events: none; }
 
       </style>
-          
+
       ${!!this.uri && this.uri != '' ? html`<img src="${this.uri}">`: ''}
       
     `;

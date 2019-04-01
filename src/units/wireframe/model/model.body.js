@@ -57,25 +57,30 @@ export const model = function () {
 
     </style>  
 
+
     <div class="_body-header applic bar">
       <div class="applic bar-row">
         <div class="applic bar-section align-start">
 
-            <applic-icon-button icon="notes">
-              <applic-hint>Toggle navigation</applic-hint>
-            </applic-icon-button>
-       
-       
+          <applic-icon-button icon="notes">
+            <applic-hint>Toggle navigation</applic-hint>
+          </applic-icon-button>
 
         </div>
       </div>
     </div>
 
 
-
     <div class="_body">
-      <applic-scrollable class="_body-inner">
-        <h4>section</h4>
+      <applic-scrollable class="_body-inner">   
+        ${this.model('wireframe:body-inner')}
+
+        <div class="">
+        
+        </div>
+      </applic-scrollable>
+        
+      <applic-scrollable class="_body-aside">
         ${this.section.map(_section => html`
           <div>
             ${_section.nonce}
@@ -89,11 +94,7 @@ export const model = function () {
         `)}
 
         <button @click="${this.call('section:create')}">create</button>
-    
-        ${this.model('wireframe:body-inner')}
-      </applic-scrollable>
-        
-      <applic-scrollable class="_body-aside">
+
         ${this.model('wireframe:body-aside')}
       </applic-scrollable>
     </div>

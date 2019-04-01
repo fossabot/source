@@ -115,16 +115,23 @@ export const model = function () {
         padding: 10px 20px; }
 
       ._grid-item--action { 
-        margin: 0 -10px 0 0;
-      }
+        ${css.apply('--layout--horizontal')}
+        ${css.apply('--layout--center')}
 
+        margin: 0 -8px 0 0;
+      }
+      ._grid-item:not(:hover) ._grid-item--action { 
+        opacity: 0;
+      }
 
       ._emty {
         ${css.apply('--stance--absolute')}
         ${css.apply('--stance--fit')}
         ${css.apply('--layout--sizing--border-box')}
         ${css.apply('--layout--vertical')}
-        ${css.apply('--layout--center-center')} }
+        ${css.apply('--layout--center-center')} 
+      
+        margin-top: 56px; }
 
       ._emty--graphic {
         margin: -64px 0px 20px; }
@@ -137,32 +144,57 @@ export const model = function () {
         letter-spacing: -0.14px;
         color: #b8b8b8; }
 
+      ._emty--detail {
+        ${css.apply('--typo')}
+
+        margin-top: 56px;
+
+        font-size: 13px;
+        line-height: 1;
+        font-weight: 400;
+        letter-spacing: -0.14px;
+        color: #b8b8b8; }
+
     </style>
    
-    <div class="_grid">
-       ${this.graphic.map(_graphic => html`
-        <div class="_grid-item">
-          <div class="_grid-item--header">
-            <div class="_grid-item--titel">${_graphic.alias}</div>
 
-            <div class="_grid-item--action">
-              <applic-icon-button icon="close" size="dense"
-                @click="${this.call('graphic:remove', { nonce: _graphic.nonce })}">
-                <applic-hint>Remove ${_graphic.alias}</applic-hint>
-              </applic-icon-button>
+    ${0 < this.graphic.length ? html`
+      <div class="_grid">
+        ${this.graphic.map(_graphic => html`
+          <div class="_grid-item">
+            <div class="_grid-item--header">
+              <div class="_grid-item--titel">${_graphic.alias}</div>
+
+              <div class="_grid-item--action">
+                <applic-icon-button icon="close" size="dense"
+                  @click="${this.call('graphic:remove', { nonce: _graphic.nonce })}">
+                  <applic-hint>Remove "${_graphic.alias}"</applic-hint>
+                </applic-icon-button>
+              </div>
+
             </div>
+
+            <applic-graphic nonce="${_graphic.nonce}" class="_grid-item--graphic">
+            </applic-graphic>
+
+            <div class="_grid-item--detail">
+              <span>Imported: ${applic.utils.readable.date(_graphic.detail.created)}</span>
+              <span>Modified: ${applic.utils.readable.date(_graphic.detail.lastModified)}</span>
+
+            </div>
+        
           </div>
 
-          <applic-image uri="${_graphic.uri}" class="_grid-item--graphic"></applic-image>
+        `)}
 
-          <div class="_grid-item--detail">
-            <span>Imported: ${applic.utils.readable.date(_graphic.detail.created)}</span>
-            <span>Modified: ${applic.utils.readable.date(_graphic.detail.lastModified)}</span>
-          </div>
+      </div>
       
-        </div>
-      `)}
-    </div>
-    
+    ` : html`
+      <div class="_emty">
+        <applic-icon class="_emty--graphic" name="recent_actors" size="huge"></applic-icon>
+        <div class="_emty--info">No graphics</div>
+        <div class="_emty--detail">Drag .png, .svg, and .gif files here</div>
+      </div>
+    `}
   `
 }

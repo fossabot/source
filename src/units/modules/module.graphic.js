@@ -43,6 +43,8 @@ applic.graphic.create = (_params) => {
          this.detail = _params.blob.detail;
          this.section = _params.section;
 
+         this.uri = '';
+
 
          GRAPHIC_STATE[this.nonce] = this;
 
@@ -62,8 +64,7 @@ applic.graphic.create = (_params) => {
       }
 
       _changed() {
-         this.uri = this.uri || this.blob.uri || false;
-
+         // this.uri = this.uri || this.blob.uri || false;
 
          applic.utils.buffer(() => {
             // console.debug('applic-fs:update-graphic', {
