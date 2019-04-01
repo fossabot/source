@@ -19,6 +19,7 @@ class ApplicListItem extends LitElement {
     return html`
       <style>
         :host {
+          ${applic.$.css.apply('--stance--relative')} 
           ${applic.$.css.apply('--layout--sizing--border-box')} 
           ${applic.$.css.apply('--layout--horizontal')} 
           ${applic.$.css.apply('--layout--center')} 
@@ -62,20 +63,7 @@ class ApplicListItem extends LitElement {
           max-width: 100%;
           overflow: hidden;
         }
-        ._text:after {
-          content: ''; z-index: 1;
-          ${applic.$.css.apply('--stance--absolute')} 
-          ${applic.$.css.apply('--stance--pin--end')} 
-
-          width: 40px;
-          background: linear-gradient(to right, transparent, #fafafa 100%);
-        }
-        :host(:hover) ._text:after {
-          background: linear-gradient(to right, transparent, #f3f3f3 100%); }
-
-        :host(:active) ._text:after {
-          background: linear-gradient(to right, transparent, #ececec 100%); }
-
+   
 
         ._text > ._text-primary {
           ${applic.$.css.apply('--typo')}
@@ -105,6 +93,29 @@ class ApplicListItem extends LitElement {
           margin-left: 4px;
           color: #acacac; }
 
+        ._action {
+          ${applic.$.css.apply('--stance--absolute')} 
+          ${applic.$.css.apply('--stance--pin--end')} 
+
+          ${applic.$.css.apply('--layout--sizing--border-box')} 
+          ${applic.$.css.apply('--layout--horizontal')} 
+          ${applic.$.css.apply('--layout--center')} 
+          ${applic.$.css.apply('--layout--flex-none')} 
+        
+          padding: 0 10px 0 0; }
+
+      
+        :host(:not(:hover)) ._action {
+          opacity: 0;}
+        :host(:hover) ._action {
+          opacity: 1;}
+
+        :host(:not(:hover)) ._meta {
+          opacity: 1;}
+        :host(:hover) ._meta {
+          opacity: 0;}
+
+
       </style>
 
       <div class="_graphic"><slot name="graphic"></slot></div>
@@ -113,6 +124,7 @@ class ApplicListItem extends LitElement {
         <slot class="_text-secondary" name="detail"></slot>
       </div>
       <div class="_meta"><slot name="meta"></slot></div>
+      <div class="_action"><slot name="action"></slot></div>
     `;
   }
   constructor() {

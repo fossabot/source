@@ -64,8 +64,9 @@ export const model = function () {
 
             <applic-icon name="folder_open" slot="graphic"></applic-icon>
             <span>${_section.name}</span>
+            <span slot="meta">0</span>
 
-            <applic-icon-button icon="close" size="dense" slot="meta" @click="${this.call('section:remove', { nonce: _section.nonce })}">
+            <applic-icon-button icon="close" size="dense" slot="action" @click="${this.call('section:remove', { nonce: _section.nonce })}">
               <applic-hint>Close "${_section.name}"</applic-hint>
             </applic-icon-button>
           </applic-list-item>

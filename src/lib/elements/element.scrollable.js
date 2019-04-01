@@ -129,7 +129,7 @@ class ApplicScrollable extends LitElement {
     this._sleepTimer = setTimeout(() => {
       this.scroll_show = false;
       this.requestUpdate();
-    }, 2000);
+    }, 1000);
   }
 
   async _update() {
