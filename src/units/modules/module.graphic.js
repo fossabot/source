@@ -37,10 +37,11 @@ applic.graphic.create = (_params) => {
    return new class ApplicGraphic {
       constructor() {
          this.nonce = applic.utils.nonce();
-         this.section = _params.section;
+         this.alias = applic.utils.alias();
 
          this.blob = _params.blob;
          this.detail = _params.blob.detail;
+         this.section = _params.section;
 
 
          GRAPHIC_STATE[this.nonce] = this;

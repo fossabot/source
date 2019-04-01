@@ -143,12 +143,12 @@ export const model = function () {
        ${this.graphic.map(_graphic => html`
         <div class="_grid-item">
           <div class="_grid-item--header">
-            <div class="_grid-item--titel">${_graphic.detail.name}</div>
+            <div class="_grid-item--titel">${_graphic.alias}</div>
 
             <div class="_grid-item--action">
               <applic-icon-button icon="close" size="dense"
                 @click="${this.call('graphic:remove', { nonce: _graphic.nonce })}">
-                <applic-hint>Remove ${_graphic.detail.name}</applic-hint>
+                <applic-hint>Remove ${_graphic.alias}</applic-hint>
               </applic-icon-button>
             </div>
           </div>
@@ -156,8 +156,8 @@ export const model = function () {
           <applic-image uri="${_graphic.uri}" class="_grid-item--graphic"></applic-image>
 
           <div class="_grid-item--detail">
+            <span>Imported: ${applic.utils.readable.date(_graphic.detail.created)}</span>
             <span>Modified: ${applic.utils.readable.date(_graphic.detail.lastModified)}</span>
-            <span>Created: ${applic.utils.readable.date(_graphic.detail.created)}</span>
           </div>
       
         </div>

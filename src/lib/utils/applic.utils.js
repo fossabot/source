@@ -12,9 +12,6 @@ applic.__proto__.utils.readable = {};
 applic.__proto__.utils.readable.date = (_date) => {
   let _string = '', _today = new Date() - _date <= 12 * 60 * 60 * 1000;
 
-  console.log(_today)
- 
-
   if (_today) {
     let hours = _date.getHours() > 12 ? _date.getHours() - 12 : _date.getHours();
     hours = hours < 10 ? "0" + hours : hours;
@@ -28,20 +25,8 @@ applic.__proto__.utils.readable.date = (_date) => {
     const _year = 1900 + _date.getYear();
 
     _string += `${_date.getDate()} ${_month} ${_year}`;
-  }
+  };
   
-
-
-   // getDate()
-  // getDay()
-  // getFullYear()
-  // getHours()
-  // getMilliseconds()	
-  // getMinutes()
-  // getMonth()
-  // getSeconds()
-  // getTime()
-
   return _string;
 };
 
@@ -185,11 +170,13 @@ applic.__proto__.utils.node.bounds = ($node) => {
  */
 applic.__proto__.utils.nonce = () => {
   return Math.random().toString(16).substring(2, 15) + Math.random().toString(16).substring(2, 15);
-  // let nonce = ''; const s = 'ABCDEFGHIJKLMNOPQRSTUVWXYZabcdefghijklmnopqrstuvwxyz0123456789';
-  // for (let i = 0; i < 24; i++) {
-  //   nonce += s.charAt(Math.floor(Math.random() * s.length));
-  // };
-  // return nonce;
+};
+
+/**
+ * @return {string}
+ */
+applic.__proto__.utils.alias = () => {
+  return `${Math.random().toString(16).substring(2, 8)}`.toUpperCase();
 };
 
 /**
