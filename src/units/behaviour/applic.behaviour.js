@@ -25,8 +25,8 @@ new class {
   }
 
   updated() {
-    this.sections = applic.section.get();
-    this.graphics = applic.graphic.get();
+    this.sections = applic.section.get('*');
+    this.graphics = applic.graphic.get('*');
 
     if (this._debug()) {
       applic.dispatch('applic:updated', this)
@@ -35,9 +35,8 @@ new class {
   }
 
   _debug() {
-
     if (1 > this.sections.length) {
-      console.debug('applic:debug', '"no sections"')
+      console.debug('[Solved]', 'No collections')
       applic.section.create(); return false;
     };
 

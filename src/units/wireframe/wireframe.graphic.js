@@ -23,8 +23,8 @@ class ApplicGraphic extends LitElement {
       <style>
         applic-image {
           height: 100%; 
-          width: 100%; 
-        }
+          width: 100%; }
+
       </style>
 
       ${this._frameUri != '' ? html`

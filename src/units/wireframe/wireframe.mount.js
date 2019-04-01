@@ -35,6 +35,10 @@ class ApplicMount extends LitElement {
 
       </style>
 
+      <applic-side-sheet open>
+        ${this.model('wireframe:sheet-aside')}
+      </applic-side-sheet>
+
       ${this.model('wireframe:body')}
     `;
   }

@@ -34,7 +34,7 @@ The complete set of contributors may be found at https://contrast-tool.github.io
 	<meta itemprop="description" content="An interactive viewer to compare and export your web graphics.">
 	<meta itemprop="image" content="https://contrast-tool.github.io/images/share.png">
 	
-	<meta name="theme-color" content="#23272A">
+	<meta name="theme-color" content="#2C2F33">
 	<link rel="manifest" href="manifest.json">
 	
 	<meta property="og:type" content="website">
@@ -70,12 +70,14 @@ The complete set of contributors may be found at https://contrast-tool.github.io
 				applic.deferredPrompt.preventDefault();
 
 				applic.deferredInstall = () => {
+					if (!applic.deferredPrompt) return;
+
 					applic.deferredPrompt.prompt().catch((_error) => console.error );
 					applic.deferredPrompt.userChoice.then((_result) => {
 						if (_result.outcome === 'accepted') {
-							console.info('User accepted the A2HS prompt');
+							console.debug('User accepted the A2HS prompt');
 						} else {
-							console.info('User dismissed the A2HS prompt');
+							console.debug('User dismissed the A2HS prompt');
 						};
 
 						applic.utils.buffer(() => {

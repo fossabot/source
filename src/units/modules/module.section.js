@@ -9,34 +9,51 @@ The complete set of contributors may be found at https://contrast-tool.github.io
 const SECTION_STATE = {};
 
 applic.section = new class { }
-applic.section.__proto__.updated = () => { };
+applic.section.active = null;
 
-applic.section.get = () => { return applic.utils.arrayify(SECTION_STATE) };
+applic.section.get = (_nonce) => {
+   if ('*' == _nonce) {
+      return applic.utils.arrayify(SECTION_STATE)
+   } else {
+      return SECTION_STATE[_nonce] || false
+   }
+};
 
-applic.section.select = () => {
+applic.section.select = (_nonce) => {
+   if (applic.section.active == _nonce || !SECTION_STATE[_nonce]) return;
+   if (SECTION_STATE[applic.section.active]) {
+      SECTION_STATE[applic.section.active].active = false;      
+   };
 
+   
+   SECTION_STATE[_nonce].active = true; 
+   
+   applic.section.active = _nonce;
+   applic.utils.buffer(applic.dispatch.bind(null, 'applic:changed'));
 };
 
 applic.section.remove = (_nonce) => {
    if (!SECTION_STATE[_nonce]) return;
    delete SECTION_STATE[_nonce];
 
-   applic.utils.buffer(() => {
-      applic.dispatch('applic:changed');
-   })
+   applic.utils.buffer(applic.dispatch.bind(null, 'applic:changed'));
 };
 
 applic.section.create = () => {
-   _register(new class ApplicSection {
+   new class ApplicSection {
       constructor() {
          this.nonce = applic.utils.nonce();
 
+         this.name = 'Untitled';
+         this.active = false;
+
+         SECTION_STATE[this.nonce] = this;
+         
+         applic.section.select(this.nonce);
+         console.log('applic.section.register')
+         applic.utils.buffer(applic.dispatch.bind(null, 'applic:changed'));
       }
 
-   });
-};
+   };
 
-const _register = (_class) => {
-   SECTION_STATE[_class.nonce] = _class;
-   applic.section.updated();
 };

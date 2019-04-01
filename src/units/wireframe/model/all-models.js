@@ -10,11 +10,12 @@ import { model as body } from './model.body.js';
 
 import { model as bodyAside } from './model.body-aside.js';
 import { model as bodyInner } from './model.body-inner.js';
-// import { model as navigation } from './model.navigation.js';
+import { model as navAside } from './model.sheet-aside.js';
 
 
 export const model = {
    'wireframe:body': body,
    'wireframe:body-aside': bodyAside,
    'wireframe:body-inner': bodyInner,
+   'wireframe:sheet-aside': navAside,
 };

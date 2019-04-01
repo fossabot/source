@@ -81,19 +81,7 @@ export const model = function () {
       </applic-scrollable>
         
       <applic-scrollable class="_body-aside">
-        ${this.section.map(_section => html`
-          <div>
-            ${_section.nonce}
-            <button @click="${this.call('section:select', { nonce: _section.nonce })}">
-              select
-            </button>
-            <button @click="${this.call('section:remove', { nonce: _section.nonce })}">
-              remove
-            </button>
-          </div>
-        `)}
 
-        <button @click="${this.call('section:create')}">create</button>
 
         ${this.model('wireframe:body-aside')}
       </applic-scrollable>
