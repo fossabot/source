@@ -108,7 +108,8 @@ applic.import.traverse = (_params) => {
                detail: {
                   name: escape(_file.name),
                   type: escape(_file.type),
-                  lastModified: new Date(_file.lastModified)
+                  lastModified: new Date(_file.lastModified),
+                  created: new Date()
                }
             };
 

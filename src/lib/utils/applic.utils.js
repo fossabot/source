@@ -8,6 +8,43 @@ The complete set of contributors may be found at https://contrast-tool.github.io
 
 applic.__proto__.utils = {};
 
+applic.__proto__.utils.readable = {};
+applic.__proto__.utils.readable.date = (_date) => {
+  let _string = '', _today = new Date() - _date <= 12 * 60 * 60 * 1000;
+
+  console.log(_today)
+ 
+
+  if (_today) {
+    let hours = _date.getHours() > 12 ? _date.getHours() - 12 : _date.getHours();
+    hours = hours < 10 ? "0" + hours : hours;
+
+    const am_pm = _date.getHours() >= 12 ? 'pm' : 'am';
+    const minutes = _date.getMinutes() < 10 ? '0' + _date.getMinutes() : _date.getMinutes();
+    
+    _string += `Today ${hours}:${minutes} ${am_pm}`;
+  } else {
+    const _month = _date.toLocaleString('en-us', { month: 'short' });
+    const _year = 1900 + _date.getYear();
+
+    _string += `${_date.getDate()} ${_month} ${_year}`;
+  }
+  
+
+
+   // getDate()
+  // getDay()
+  // getFullYear()
+  // getHours()
+  // getMilliseconds()	
+  // getMinutes()
+  // getMonth()
+  // getSeconds()
+  // getTime()
+
+  return _string;
+};
+
 applic.__proto__.utils.buffer = (callback) => {
   Promise.resolve().then(() => {
     setTimeout(callback);

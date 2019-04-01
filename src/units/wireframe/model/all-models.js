@@ -8,14 +8,13 @@ The complete set of contributors may be found at https://contrast-tool.github.io
 
 import { model as body } from './model.body.js';
 
-// import { model as bodyAside } from './model.body-aside.js';
-// import { model as bodyInner } from './model.body-inner.js';
+import { model as bodyAside } from './model.body-aside.js';
+import { model as bodyInner } from './model.body-inner.js';
 // import { model as navigation } from './model.navigation.js';
 
 
 export const model = {
    'wireframe:body': body,
-   // navigation, 
-   // bodyAside, 
-   // bodyInner
+   'wireframe:body-aside': bodyAside,
+   'wireframe:body-inner': bodyInner,
 };

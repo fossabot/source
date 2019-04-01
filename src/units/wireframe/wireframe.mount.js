@@ -59,8 +59,7 @@ class ApplicMount extends LitElement {
     if (this.hasAttribute('unresolved')) applic.utils.buffer(() =>{
       this.removeAttribute('unresolved');
 
-    })
-
+    });
 
     console.debug("applic-wireframe:ready", `${Date.now() - applic.created}ms`);
   }

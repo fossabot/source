@@ -7,7 +7,7 @@ The complete set of contributors may be found at https://contrast-tool.github.io
 */
 
 import { html } from 'lit-html';
-// import { html } from 'lit-element';
+import { css } from '../wireframe.style.js';
 
 export const model = function () {
   return html`
@@ -24,6 +24,7 @@ export const model = function () {
         padding: 4px; }
 
       ._grid-item {
+        ${css.apply('--stance--relative')}
         ${css.apply('--layout--sizing--border-box')}
         ${css.apply('--layout--vertical')}
         ${css.apply('--layout--flex-none')}
@@ -35,21 +36,30 @@ export const model = function () {
         border-radius: 6px;
         background: #ffffff; }
 
-      ._grid-item--titel {
+      ._grid-item--header {
         ${css.apply('--layout--sizing--border-box')}
         ${css.apply('--layout--flex-none')}
         ${css.apply('--layout--horizontal')}
         ${css.apply('--layout--center')}
 
+        height: 36px; 
+        width: 144px;
+        padding: 0px 4px; }
+
+      ._grid-item--titel {
+        ${css.apply('--layout--sizing--border-box')}
+        ${css.apply('--layout--flex')}
+        ${css.apply('--layout--horizontal')}
+        ${css.apply('--layout--center')}
+
         ${css.apply('--typo')}
+        ${css.apply('--typo--nowrap')}
+
         font-size: 13px;
         line-height: 20px;
         font-weight: 400;
         letter-spacing: 0.06px;
-        color: #252525;
-
-        height: 36px; 
-        padding: 0px 4px; }
+        color: #252525; }
 
       ._grid-item--graphic {
         ${css.apply('--layout--sizing--border-box')}
@@ -64,10 +74,12 @@ export const model = function () {
         ${css.apply('--layout--flex-none')}
         ${css.apply('--layout--vertical')}
       
-        ${applic.$.css.apply('--typo--caption')}
-        ${applic.$.css.apply('--typo--nowrap')} 
+        ${css.apply('--typo--caption')}
+        ${css.apply('--typo--nowrap')} 
         
         ${css.apply('--typo')}
+        ${css.apply('--typo--nowrap')}
+
         font-size: 9px;
         line-height: 12px;
         font-weight: 400;
@@ -76,6 +88,7 @@ export const model = function () {
 
         border-top: 1px solid #d6d6d6;
 
+        width: 144px;
         margin: 10px 0px 0px;
         padding: 6px 4px; }
 
@@ -101,6 +114,11 @@ export const model = function () {
 
         padding: 10px 20px; }
 
+      ._grid-item--action { 
+        margin: 0 -10px 0 0;
+      }
+
+
       ._emty {
         ${css.apply('--stance--absolute')}
         ${css.apply('--stance--fit')}
@@ -121,33 +139,30 @@ export const model = function () {
 
     </style>
    
+    <div class="_grid">
+       ${this.graphic.map(_graphic => html`
+        <div class="_grid-item">
+          <div class="_grid-item--header">
+            <div class="_grid-item--titel">${_graphic.detail.name}</div>
 
-  
-
-    ${this.get('section').map((_section) => !_section.active ? '' : html`
-      ${_section.graphics ? html`
-        <div class="_grid">
-          ${_section.graphics.map((_graphic) => html`
-            <div class="_grid-item">
-              <div class="_grid-item--titel">Image</div>
-              <applic-image uri="${_graphic.uri}" class="_grid-item--graphic"></applic-image>
-
-              <div class="_grid-item--detail">
-                <span>Modified: 1:13 pm</span>
-                <span>Created: 1:13 pm</span>
-              </div>
-
+            <div class="_grid-item--action">
+              <applic-icon-button icon="close" size="dense"
+                @click="${this.call('graphic:remove', { nonce: _graphic.nonce })}">
+                <applic-hint>Remove ${_graphic.detail.name}</applic-hint>
+              </applic-icon-button>
             </div>
-          `)}
-        </div>
-      ` : html`
-        <div class="_emty">
-          <applic-icon class="_emty--graphic" name="view_comfy" size="huge"></applic-icon>
-          <span class="_emty--info">No modules</span>
-        </div>
-      `}
+          </div>
 
-    `)}
+          <applic-image uri="${_graphic.uri}" class="_grid-item--graphic"></applic-image>
+
+          <div class="_grid-item--detail">
+            <span>Modified: ${applic.utils.readable.date(_graphic.detail.lastModified)}</span>
+            <span>Created: ${applic.utils.readable.date(_graphic.detail.created)}</span>
+          </div>
+      
+        </div>
+      `)}
+    </div>
     
   `
 }

@@ -7,11 +7,98 @@ The complete set of contributors may be found at https://contrast-tool.github.io
 */
 
 import { html } from 'lit-element';
-import { css } from '../wireframe.style.js'
+import { css } from '../wireframe.style.js';
 
 export const model = function () {
   return html`
-   
+    <style>
+      ${css.include('applic::bar')}
+
+      ._body-header {
+        ${css.apply('--layout--sizing--border-box')} 
+
+        margin: -60px -30px 0 -30px;
+        padding: 60px 30px 0 30px;
+
+        border-bottom: 1px solid #d6d6d6;
+        background: #fafafa; }
+
+      ._body {
+        ${css.apply('--layout--horizontal')} 
+        ${css.apply('--layout--flex')} 
+
+        background: #efefef; }
+
+      ._body-inner {
+        ${css.apply('--layout--vertical')} 
+        ${css.apply('--layout--flex')} }
+
+      ._body-aside {
+        ${css.apply('--layout--vertical')} 
+        ${css.apply('--layout--flex-none')} 
+
+        width: 320px; 
+
+        border-left: 1px solid #d6d6d6;
+        background: #fafafa; }
+
+      ._tools {
+        ${css.apply('--stance--absolute')}  
+        ${css.apply('--stance--pin--bottom-end')}  
+        
+        border: 1px solid #d6d6d6;
+        border-radius: 6px;
+        background: #fafafa; 
+
+        height: ;
+
+        margin: 20px;
+        padding: 0px 4px; }
+
+    </style>  
+
+    <div class="_body-header applic bar">
+      <div class="applic bar-row">
+        <div class="applic bar-section align-start">
+
+            <applic-icon-button icon="notes">
+              <applic-hint>Toggle navigation</applic-hint>
+            </applic-icon-button>
+       
+       
+
+        </div>
+      </div>
+    </div>
+
+
+
+    <div class="_body">
+      <applic-scrollable class="_body-inner">
+        <h4>section</h4>
+        ${this.section.map(_section => html`
+          <div>
+            ${_section.nonce}
+            <button @click="${this.call('section:select', { nonce: _section.nonce })}">
+              select
+            </button>
+            <button @click="${this.call('section:remove', { nonce: _section.nonce })}">
+              remove
+            </button>
+          </div>
+        `)}
+
+        <button @click="${this.call('section:create')}">create</button>
+    
+        ${this.model('wireframe:body-inner')}
+      </applic-scrollable>
+        
+      <applic-scrollable class="_body-aside">
+        ${this.model('wireframe:body-aside')}
+      </applic-scrollable>
+    </div>
+
+
 
   `;
 }

@@ -7,7 +7,7 @@ The complete set of contributors may be found at https://contrast-tool.github.io
 */
 
 import { html } from 'lit-html';
-// import { html } from 'lit-element';
+import { css } from '../wireframe.style.js';
 
 export const model = function () {
    return html`
@@ -58,8 +58,8 @@ export const model = function () {
         ${css.apply('--layout--flex-none')}
         ${css.apply('--layout--vertical')}
       
-        ${applic.$.css.apply('--typo--caption')}
-        ${applic.$.css.apply('--typo--nowrap')} 
+        ${css.apply('--typo--caption')}
+        ${css.apply('--typo--nowrap')} 
         
         ${css.apply('--typo')}
         font-size: 9px;
@@ -112,32 +112,20 @@ export const model = function () {
 
     </style>
    
+    <div class="_aside grid">
+      ${this.graphic.map(_graphic => html`
+        <div class="_aside grid-item">
+          <div class="_aside grid-item--titel">Image</div>
+          <applic-image uri="${_graphic.uri}" aspect="1:1" class="_aside grid-item--graphic"></applic-image>
 
-  
+          <div class="_aside grid-item--detail">
+            <span>Modified: 1:13 pm</span>
+            <span>Created: 1:13 pm</span>
+          </div>
 
-    ${this.get('section').map((_section) => !_section.active ? '' : html`
-      ${_section.graphics ? html`
-        <div class="_aside grid">
-          ${_section.graphics.map((_graphic) => html`
-            <div class="_aside grid-item">
-              <div class="_aside grid-item--titel">Image</div>
-              <applic-image uri="${_graphic.uri}" aspect="1:1" class="_aside grid-item--graphic"></applic-image>
-
-              <div class="_aside grid-item--detail">
-                <span>Modified: 1:13 pm</span>
-                <span>Created: 1:13 pm</span>
-              </div>
-
-            </div>
-          `)}
         </div>
-      ` : html`
-        <div class="_aside emty">
-          <span class="_aside emty--info">Interact with a graphic to see details</span>
-        </div>
-      `}
-
-    `)}
+      `)}
+    </div>
     
   `
 }
