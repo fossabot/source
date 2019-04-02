@@ -51,6 +51,7 @@ class ApplicMount extends LitElement {
         applic-side-side {  }
 
         ._body-wrap {
+          z-index: 0;
           ${this.css.apply('--stance--relative')}
           ${this.css.apply('--layout--sizing--border-box')}
           ${this.css.apply('--layout--vertical')} 
@@ -71,6 +72,7 @@ class ApplicMount extends LitElement {
           ${this.css.apply('--layout--flex--none')} 
 
           height: 100%;
+          width: 100%;
         } 
 
         ._body-header {
