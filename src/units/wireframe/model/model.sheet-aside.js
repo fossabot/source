@@ -66,11 +66,9 @@ export const model = function () {
             <span>${_section.name}</span>
             <span slot="meta">0</span>
 
-            ${1 < this.section.length ? html`
-              <applic-icon-button icon="close" size="dense" slot="action" @click="${this.call('section:remove', { nonce: _section.nonce })}">
-                <applic-hint>Close "${_section.name}"</applic-hint>
-              </applic-icon-button>
-            `: ''}
+            <applic-icon-button icon="close" size="dense" slot="action" @click="${this.call('section:remove', { nonce: _section.nonce })}">
+              <applic-hint>Close "${_section.name}"</applic-hint>
+            </applic-icon-button>
           </applic-list-item>
         `)}
         

@@ -7,6 +7,7 @@ The complete set of contributors may be found at https://contrast-tool.github.io
 */
 
 import './applic.import.js';
+import './applic.location.js';
 
 import '../modules/module.graphic.js';
 import '../modules/module.section.js';
@@ -36,18 +37,14 @@ new class {
 
   _debug() {
     if (1 > this.sections.length) {
-      console.debug('[Error resolved]', 'No collections')
+      console.debug('[Solved]', 'No collections')
       applic.section.create(); return false;
     };
-
 
     return true;
   }
 
-
 }
-
-
 
 
 applic.__proto__.newImport = (_params) => {

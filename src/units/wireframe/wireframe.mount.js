@@ -43,8 +43,6 @@ class ApplicMount extends LitElement {
         ._sheet-wrap applic-side-side { z-index: 1; }
 
         ._body-wrap {
-          
-
           ${this.css.apply('--stance--relative')}
           ${this.css.apply('--layout--vertical')} 
           ${this.css.apply('--layout--flex')} } 

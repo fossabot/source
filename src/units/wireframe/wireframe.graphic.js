@@ -21,30 +21,34 @@ class ApplicGraphic extends LitElement {
   render() {
     return html`
       <style>
-        applic-image {
+        ._graphic {
           height: 100%; 
           width: 100%; }
 
       </style>
 
-      ${this._frameUri != '' ? html`
-        <applic-image uri="${this._frameUri || ''}" class="_grid-item--graphic"></applic-image>
-      `: ''}
+      <applic-image class="_graphic"></applic-image>
 
     `;
   }
 
   constructor() {
     super();
-
+    applic.on('applic:changed', this.updated.bind(this));
   }
 
   firstUpdated() {
   
   }
   updated() {
-    // console.log('grafic', this.nonce)
+    const _graphic = applic.graphic.get(this.nonce);
+    const _image = this.shadowRoot.querySelector('._graphic');
 
+    if (!_graphic) {
+      _image.setAttribute('uri', '');
+    } else {
+      _image.setAttribute('uri', _graphic.uri || _graphic.blob.uri || '');
+    }
   }
 
 }

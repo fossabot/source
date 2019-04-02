@@ -57,7 +57,6 @@ export const model = function () {
 
     </style>  
 
-
     <div class="_body-header applic bar">
       <div class="applic bar-row">
         <div class="applic bar-section align-start">
@@ -70,24 +69,17 @@ export const model = function () {
       </div>
     </div>
 
-
     <div class="_body">
       <applic-scrollable class="_body-inner">   
         ${this.model('wireframe:body-inner')}
 
-        <div class="">
-        
-        </div>
       </applic-scrollable>
         
       <applic-scrollable class="_body-aside">
-
-
         ${this.model('wireframe:body-aside')}
+
       </applic-scrollable>
     </div>
-
-
 
   `;
 }
