@@ -37,7 +37,7 @@ new class {
 
   _debug() {
     if (1 > this.sections.length) {
-      console.debug('[Solved]', 'No collections')
+      console.debug('applic:debug', `'No collections'`)
       applic.section.create(); return false;
     };
 

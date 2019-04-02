@@ -106,14 +106,13 @@ The complete set of contributors may be found at https://contrast-tool.github.io
 	<script src="node_modules/@webcomponents/webcomponentsjs/webcomponents-bundle.js"></script>
 
 	<script>
-		self.applic = new class {
-			constructor() {
-				this.__proto__.rootPath = '/';
-				this.__proto__.created = Date.now();
-				this.__proto__.rendered = false;
-			}
-		};
+		self.applic = new class { constructor() {
+			this.__proto__.rootPath = '/';
+			this.__proto__.created = Date.now();
+			this.__proto__.rendered = false;
+		}};
 	</script>
+	
 	<script type="module" src="src/applic.wireframe.js"></script>
 	<script type="module" src="src/applic.js"></script>
 	<script type="module" src="src/applic.lazies.js"></script>

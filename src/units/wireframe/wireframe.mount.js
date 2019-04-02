@@ -19,43 +19,92 @@ class ApplicMount extends LitElement {
   render() {
     return html`
       <style>
+        ${css.include('applic::bar')}
+
         :host {
           ${this.css.apply('--stance--fixed')}
           ${this.css.apply('--stance--fit')}
-
+          ${this.css.apply('--layout--sizing--border-box')}
           ${this.css.apply('--layout--vertical')}
 
           transition: opacity 120ms cubic-bezier(0.4, 0.0, 1, 1);
-        }
+          overflow: hidden; }
 
-        :host([unresolved]) {
-          opacity: 0; 
-          transition: opacity 0ms 0ms;
-        } 
+        :host([unresolved]) { opacity: 0; transition: opacity 0ms 0ms; } 
+
+/*
+        :host { margin: 60px 120px; overflow: visible !important; }  
+        :host:after {
+          z-index: 10000000000; content: ''; pointer-events: none;
+          
+          ${this.css.apply('--stance--absolute')}
+          ${this.css.apply('--stance--fit')}
+          height: 100&; outline: 20px solid rgba(255, 0, 0, .2); }  
+*/
 
         ._sheet-wrap {
           ${this.css.apply('--stance--relative')}
+          ${this.css.apply('--layout--sizing--border-box')}
           ${this.css.apply('--layout--horizontal')}
+          ${this.css.apply('--layout--flex')}   } 
 
-          height: 100%;
-          width: 100%; } 
-
-        ._sheet-wrap applic-side-side { z-index: 1; }
+        applic-side-side {  }
 
         ._body-wrap {
           ${this.css.apply('--stance--relative')}
+          ${this.css.apply('--layout--sizing--border-box')}
           ${this.css.apply('--layout--vertical')} 
           ${this.css.apply('--layout--flex')} } 
+
+        ._side-sheet { 
+          --side-sheet--width: 320px;
+          z-index: 4; }
+
+        ._body-side-sheet { 
+          --side-sheet--width: 280px;
+          z-index: 2; }
+
+        ._body-header {
+          z-index: 3;
+          
+          margin: -60px -30px 0 -30px;
+          padding: 60px 30px 0 30px;
+
+          border-bottom: 1px solid #d6d6d6;
+          background: #fafafa; }
 
       </style>
 
       <div class="_sheet-wrap">
-        <applic-side-sheet open persistent>
+        <applic-side-sheet class="_side-sheet" open persistent align="start">
           ${this.model('wireframe:sheet-aside')}
         </applic-side-sheet>
-
+   
         <div class="_body-wrap">
-          ${this.model('wireframe:body')}
+          <div class="_body-header applic bar">
+            <div class="applic bar-row">
+              <div class="applic bar-section align-start">
+
+                <applic-icon-button icon="notes">
+                  <applic-hint>Toggle navigation</applic-hint>
+                </applic-icon-button>
+
+              </div>
+            </div>
+          </div>
+
+          <div class="_sheet-wrap">
+            <applic-scrollable class="_body-inner">
+              ${this.model('wireframe:body-inner')}
+            </applic-scrollable>
+
+            <applic-side-sheet class="_body-side-sheet" open persistent align="end">              
+              <applic-scrollable class="_body-aside">
+                ${this.model('wireframe:body-aside')}
+              </applic-scrollable>
+            </applic-side-sheet>
+
+          </div>
         </div>
       </div>
 

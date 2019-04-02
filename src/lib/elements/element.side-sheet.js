@@ -11,6 +11,7 @@ import { LitElement, html } from 'lit-element';
 class ApplicSideSheet extends LitElement {
   static get properties() {
     return {
+      align: { type: String, value: 'start' },
       open: { type: Boolean, value: false },
       persistent: { type: Boolean, value: false },
     };
@@ -19,6 +20,9 @@ class ApplicSideSheet extends LitElement {
   render() {
     return html`
       <style>
+        :host {
+          --side-sheet--width: 320px;
+        }
 
         ._scrim {
           z-index: 2;
@@ -44,34 +48,43 @@ class ApplicSideSheet extends LitElement {
           z-index: 2;
 
           ${applic.$.css.apply('--layout--sizing--border-box')} 
-          ${applic.$.css.apply('--stance--absolute')} 
-          ${applic.$.css.apply('--stance--pin--start')} 
           ${applic.$.css.apply('--layout--vertical')} 
           ${applic.$.css.apply('--layout--flex-none')} 
-          ${applic.$.css.apply(`--elevation--${this.persistent ? 'none' : '12dp'}`)} 
 
-          height: calc(100% + 60px + 30px);
-          width: calc(100% - 56px + 30px);
-          max-width: calc(320px + 30px);
+          height: calc(100% + 60px);
+          width: calc(100% - 56px);
+          max-width: calc(var(--side-sheet--width) + 30px);
 
-          margin: -60px 0px -30px;
-          padding: 60px 0px 30px 30px;
+          margin: 0px;
+          padding: 0px;
 
           overflow: hidden;
 
-          ${!this.persistent ? `
-            margin-left: ${this.open ? '-30px' : 'calc(0px - (320px + 30px + 30px))'};
-          `: `
-            margin-left: -30px;
-            border-right: 1px solid #d6d6d6;
-          `}
-
-          transition: margin ${ this.open ?
-        `${this.expandDur} ${this.expandTmf}` :
-        `${this.collapseDur} ${this.collapseTmf}`};
-          
           pointer-events: ${this.open ? 'all' : 'none'};
           background: #fafafa; }
+
+
+        :host(:not([align="end"])) ._card {
+          ${applic.$.css.apply('--stance--absolute')} 
+          ${applic.$.css.apply('--stance--pin--start')} 
+
+          border-right: 1px solid #d6d6d6;
+          border-left: none;
+
+          margin: -30px 0 -30px -30px;
+          padding: 30px 0 30px 30px;
+        }
+
+        :host([align="end"]) ._card {
+          ${applic.$.css.apply('--stance--absolute')} 
+          ${applic.$.css.apply('--stance--pin--end')} 
+
+          border-right: none;
+          border-left: 1px solid #d6d6d6;
+
+          margin: -30px -30px -30px 0;
+          padding: 30px 30px 30px 0;
+        }
 
       </style>
 
@@ -104,25 +117,52 @@ class ApplicSideSheet extends LitElement {
   expand() { this.open = true; }
 
   updated(last) {
-    if ([...last.keys()].length 
-      && -1 != [...last.keys()].indexOf('persistent') 
-      && last['persistent'] != this.persistent) {
-      this.open = this.persistent;
-    }
+    const $_node = this.parentElement;
+    const $_card = this.shadowRoot.querySelector('._card');
 
-    if (this.persistent && this.open) {
-      this.offsetParent.style.paddingLeft = `${this.shadowRoot.querySelector('._card').offsetWidth - 30}px`;
-      this.offsetParent.style.transition = `padding ${this.expandDur} ${this.expandTmf}`;
+    const _width = $_card.offsetWidth - 30;
+
+    if (this.align != 'end') {
+      $_node.style.margin = `0px 0px 0px 0px`
+      $_node.style.padding = `0px 0px 0px ${_width}px`
     } else {
-      this.offsetParent.style.paddingLeft = '0px';
-      this.offsetParent.style.transition = `padding ${this.collapseDur} ${this.collapseTmf}`;
+      $_node.style.margin = `0px 0px 0px 0px`
+      $_node.style.padding = `0px ${_width}px 0px 0px`
     }
 
-    this.dispatchEvent(new CustomEvent('changed', {
-      detail: {
-        opened: this.open
-      }
-    }));
+    // if ([...last.keys()].length 
+    //   && -1 != [...last.keys()].indexOf('persistent') 
+    //   && last['persistent'] != this.persistent) {
+    //   this.open = this.persistent;
+    // }
+
+    // const $_card = this.shadowRoot.querySelector('._card');
+    // const _cardWidth = $_card.offsetWidth + 30;
+    // const _cardSide = this.align == 'start' ? 'marginLeft' : 'marginRight';
+    // const _bodySide = this.align == 'start' ? 'paddingLeft' : 'paddingRight';
+
+    
+
+    // if (!this.persistent && this.open) {
+    //   $_card.style[_cardSide] = `-30px`;
+    // } else {
+    //   $_card.style[_cardSide] = `-${_cardWidth - 30}px`;
+    // }
+
+
+    // if (this.persistent && this.open) {
+    //   this.offsetParent.style[_bodySide] = `${_cardWidth - 30}px`;
+    //   this.offsetParent.style.transition = `padding ${this.expandDur} ${this.expandTmf}`;
+    // } else {
+    //   this.offsetParent.style[_bodySide] = '0px';
+    //   this.offsetParent.style.transition = `padding ${this.collapseDur} ${this.collapseTmf}`;
+    // }
+
+    // this.dispatchEvent(new CustomEvent('changed', {
+    //   detail: {
+    //     opened: this.open
+    //   }
+    // }));
   }
 
   async _update() {
