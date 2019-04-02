@@ -41,6 +41,23 @@ export const model = function () {
 
         padding: 0px 8px 0 24px; }
 
+
+      ._tester-hint {
+        ${css.apply('--layout--sizing--border-box')} 
+        ${css.apply('--layout--vertical')} 
+
+        padding: 0 24px; }
+
+      ._tester-hint > * {
+        ${css.apply('--typo')}
+
+        margin: 0 0 16px 0;
+        font-size: 14px;
+        line-height: 1.3;
+        font-weight: 400;
+        letter-spacing: -0.14px;
+        color: #636364; }
+
     </style>  
 
     <div class="_navigation-header applic bar">
@@ -53,7 +70,6 @@ export const model = function () {
           <span class="_name">Contrast Tool</span>
         </div>
       </div>
-
     </div>
 
     <applic-scrollable class="_navigation"> 
@@ -76,8 +92,6 @@ export const model = function () {
           <applic-icon name="add" slot="graphic"></applic-icon>
           <span>New Collection</span>
         </applic-list-item>
-
-        <div class="applic list-divider"></div>
 
       </applic-list>
      
