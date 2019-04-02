@@ -141,7 +141,11 @@ class ApplicMount extends LitElement {
     this.graphic = [];
 
     applic.on('applic:updated', this._update.bind(this))
+
   }
+
+ 
+
 
   firstUpdated() {
     if (this.hasAttribute('unresolved')) applic.utils.buffer(() =>{

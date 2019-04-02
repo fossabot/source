@@ -25,6 +25,32 @@ applic.utils.buffer(async () => {
 applic.$ = document.querySelector('applic-mount');
 
 
+const size = {};
+size.get = () => {
+   const _width = self.innerWidth;
+   let _size;
+   
+   
+   
+   switch (true) {
+      case _width < 480: _size = 'narrow'; break;
+      case _width < 720: _size = 'dense'; break;
+      case _width < 1440: _size = 'wide'; break;
+      default: _size = 'full'; break;
+   }
+
+   return _size;
+};
+size.update = () => {
+   const _size = size.get();
+
+   console.log(_width)
+};
+
+self.addEventListener('resize', size.update);
+size.update();
+
+
 const drop = {};
 drop.move = (_event) => { _event.preventDefault(); };
 drop.release = (_event) => {
@@ -69,6 +95,6 @@ drop.release = (_event) => {
    _event.preventDefault(); return false;
 };
 
-applic.$.addEventListener('dragover', drop.move)
-applic.$.addEventListener('dragleave', drop.move)
-applic.$.addEventListener('drop', drop.release)
+self.addEventListener('dragover', drop.move);
+self.addEventListener('dragleave', drop.move);
+self.addEventListener('drop', drop.release);
