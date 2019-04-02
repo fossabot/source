@@ -64,6 +64,15 @@ class ApplicMount extends LitElement {
           --side-sheet--width: 280px;
           z-index: 2; }
 
+        ._body-main {  
+          ${this.css.apply('--stance--relative')}
+          ${this.css.apply('--layout--sizing--border-box')}
+          ${this.css.apply('--layout--vertical')} 
+          ${this.css.apply('--layout--flex--none')} 
+
+          height: 100%;
+        } 
+
         ._body-header {
           z-index: 3;
           
@@ -94,9 +103,11 @@ class ApplicMount extends LitElement {
           </div>
 
           <div class="_sheet-wrap">
-            <applic-scrollable class="_body-inner">
+            <div class="_body-main">
+              <applic-scrollable class="_body-inner">
               ${this.model('wireframe:body-inner')}
-            </applic-scrollable>
+              </applic-scrollable>
+            </div>
 
             <applic-side-sheet class="_body-side-sheet" open persistent align="end">              
               <applic-scrollable class="_body-aside">

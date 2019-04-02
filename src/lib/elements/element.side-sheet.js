@@ -49,7 +49,7 @@ class ApplicSideSheet extends LitElement {
 
           ${applic.$.css.apply('--layout--sizing--border-box')} 
           ${applic.$.css.apply('--layout--vertical')} 
-          ${applic.$.css.apply('--layout--flex-none')} 
+          ${applic.$.css.apply('--layout--flex--none')} 
 
           height: calc(100% + 60px);
           width: calc(100% - 56px);

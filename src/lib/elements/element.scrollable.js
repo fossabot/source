@@ -20,6 +20,7 @@ class ApplicScrollable extends LitElement {
 
           max-height: 100%;
           max-width: 100%;
+          width: 100%;
 
           overflow: hidden; }
 
