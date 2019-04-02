@@ -6,12 +6,16 @@ The complete set of authors may be found at https://contrast-tool.github.io/docs
 The complete set of contributors may be found at https://contrast-tool.github.io/docs/CONTRIBUTORS.md
 */
 
-import { model as bodyAside } from './model.body-aside.js';
-import { model as bodyInner } from './model.body-inner.js';
+import { model as mainAside } from './model.main-aside.js';
+import { model as mainInner } from './model.main-inner.js';
 import { model as navAside } from './model.sheet-aside.js';
 
+import { model as devOverlay } from './model.dev-overlay.js';
+
 export const model = {
-   'wireframe:body-aside': bodyAside,
-   'wireframe:body-inner': bodyInner,
-   'wireframe:sheet-aside': navAside,
+   'wireframe-main:aside': mainAside,
+   'wireframe-main:inner': mainInner,
+   'wireframe-sheet:nav': navAside,
+
+   'wireframe-dev:overlay': devOverlay,
 };

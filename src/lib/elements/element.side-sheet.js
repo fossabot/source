@@ -11,9 +11,24 @@ import { LitElement, html } from 'lit-element';
 class ApplicSideSheet extends LitElement {
   static get properties() {
     return {
-      align: { type: String, value: 'start' },
-      open: { type: Boolean, value: false },
-      persistent: { type: Boolean, value: false },
+      align: {
+        type: String,
+        value: 'start',
+        reflect: true
+      },
+
+      open: {
+        type: Boolean,
+        value: false,
+        reflect: true
+      },
+
+      persistent: {
+        type: Boolean,
+        value: false,
+        reflect: true
+      },
+
     };
   }
 
@@ -28,21 +43,19 @@ class ApplicSideSheet extends LitElement {
           z-index: 2;
           
           ${applic.$.css.apply('--stance--absolute')} 
-
-          top: -50vh;
-          right: -50vw;
-          bottom: -50vh;
-          left: -50vw;
+          top: -50vh; right: -50vw; bottom: -50vh; left: -50vw;
 
           content: ""; 
-          background: rgba(0,0,0,.2);
-   
-          opacity: ${!this.persistent && this.open ? '1' : '0'};
-          pointer-events: ${!this.persistent && this.open ? 'all' : 'none'};
-          transition: ${!this.persistent && this.open ?
-        `all ${this.expandDur} ${this.expandTmf}` :
-        `all ${this.collapseDur} 50ms ${this.collapseTmf}`};
-        }
+          background: rgba(0,0,0,.2); }
+
+        ._scrim:not([active]) {
+          opacity: 0; pointer-events: none;
+          transition: all ${this.collapseDur} 50ms ${this.collapseTmf}; }
+
+        ._scrim[active] {
+          opacity: 1; pointer-events: all;
+          transition: all ${this.expandDur} 10ms ${this.expandTmf}; }
+
 
         ._card {
           z-index: 2;
@@ -59,8 +72,6 @@ class ApplicSideSheet extends LitElement {
           padding: 0px;
 
           overflow: hidden;
-
-          pointer-events: ${this.open ? 'all' : 'none'};
           background: #fafafa; }
 
 
@@ -88,7 +99,7 @@ class ApplicSideSheet extends LitElement {
 
       </style>
 
-      <div class="_scrim"></div>
+      <div class="_scrim" ?active="${!this.persistent && this.open}"></div>
       <div class="_card"><slot></slot></div>
 
     `;
@@ -96,7 +107,7 @@ class ApplicSideSheet extends LitElement {
   constructor() {
     super();
 
-    window.addEventListener('resize', this._update.bind(this));
+    // window.addEventListener('resize', this._update.bind(this));
   }
 
   firstUpdated() {
@@ -117,18 +128,45 @@ class ApplicSideSheet extends LitElement {
   expand() { this.open = true; }
 
   updated(last) {
+    if (last.has('persistent')) {
+      this.open = this.persistent;
+    };
+
+
+
+    console.log('updated aside');
+
     const $_node = this.parentElement;
     const $_card = this.shadowRoot.querySelector('._card');
 
     const _width = $_card.offsetWidth - 30;
 
     if (this.align != 'end') {
-      $_node.style.margin = `0px 0px 0px 0px`
-      $_node.style.padding = `0px 0px 0px ${_width}px`
+      if (this.open) {
+        $_card.style.margin = `0px 0px 0px -${30}px`;
+      } else {
+        $_card.style.margin = `0px 0px 0px -${_width + 30}px`;
+      };
     } else {
-      $_node.style.margin = `0px 0px 0px 0px`
-      $_node.style.padding = `0px ${_width}px 0px 0px`
-    }
+      if (this.open) {
+        $_card.style.margin = `0px -${30}px 0px 0px`;
+      } else {
+        $_card.style.margin = `0px -${_width + 30}px 0px 0px`;
+      };
+    };
+
+    if (this.persistent && this.align != 'end') {
+      $_node.style.margin = `0px 0px 0px 0px`;
+      $_node.style.padding = `0px 0px 0px ${_width}px`;
+    } else if (this.persistent) {
+      $_node.style.margin = `0px 0px 0px 0px`;
+      $_node.style.padding = `0px ${_width}px 0px 0px`;
+    } else {
+      $_node.style.margin = `0px 0px 0px 0px`;
+      $_node.style.padding = `0px 0px 0px 0px`;
+    };
+
+
 
     // if ([...last.keys()].length 
     //   && -1 != [...last.keys()].indexOf('persistent') 
@@ -141,7 +179,7 @@ class ApplicSideSheet extends LitElement {
     // const _cardSide = this.align == 'start' ? 'marginLeft' : 'marginRight';
     // const _bodySide = this.align == 'start' ? 'paddingLeft' : 'paddingRight';
 
-    
+
 
     // if (!this.persistent && this.open) {
     //   $_card.style[_cardSide] = `-30px`;

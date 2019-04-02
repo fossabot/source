@@ -16,6 +16,19 @@ import './wireframe.graphic.js'
 console.debug('applic-wireframe:loaded', `${Date.now() - applic.created}ms`);
 
 class ApplicMount extends LitElement {
+  static get properties() {
+    return {
+      layout: {
+        type: Object, value: {
+          breakpoint: 0,
+          margin: { size: 0 },
+          gutter: { size: 0, count: 0 },
+          column: { size: 0, count: 0 },
+        }
+      },
+    };
+  }
+
   render() {
     return html`
       <style>
@@ -63,7 +76,7 @@ class ApplicMount extends LitElement {
 
         ._body-side-sheet { 
           --side-sheet--width: 280px;
-          z-index: 2; }
+          z-index: 4; }
 
         ._body-main {  
           ${this.css.apply('--stance--relative')}
@@ -87,8 +100,9 @@ class ApplicMount extends LitElement {
       </style>
 
       <div class="_sheet-wrap">
-        <applic-side-sheet class="_side-sheet" open persistent align="start">
-          ${this.model('wireframe:sheet-aside')}
+        <applic-side-sheet class="_side-sheet" align="start"
+          ?persistent="${this.layout.breakpoint >= 3}">
+          ${this.model('wireframe-sheet:nav')}
         </applic-side-sheet>
    
         <div class="_body-wrap">
@@ -107,13 +121,14 @@ class ApplicMount extends LitElement {
           <div class="_sheet-wrap">
             <div class="_body-main">
               <applic-scrollable class="_body-inner">
-              ${this.model('wireframe:body-inner')}
+              ${this.model('wireframe-main:inner')}
               </applic-scrollable>
             </div>
 
-            <applic-side-sheet class="_body-side-sheet" open persistent align="end">              
+            <applic-side-sheet class="_body-side-sheet" align="end"
+              ?persistent="${this.layout.breakpoint >= 2}">              
               <applic-scrollable class="_body-aside">
-                ${this.model('wireframe:body-aside')}
+                ${this.model('wireframe-main:aside')}
               </applic-scrollable>
             </applic-side-sheet>
 
@@ -154,6 +169,10 @@ class ApplicMount extends LitElement {
     });
 
     console.debug("applic-wireframe:ready", `${Date.now() - applic.created}ms`);
+  }
+
+  updated() {
+    console.log(this.layout)
   }
 
 

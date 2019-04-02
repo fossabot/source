@@ -26,25 +26,36 @@ applic.$ = document.querySelector('applic-mount');
 
 
 const size = {};
-size.get = () => {
-   const _width = self.innerWidth;
-   let _size;
-   
-   
-   
-   switch (true) {
-      case _width < 480: _size = 'narrow'; break;
-      case _width < 720: _size = 'dense'; break;
-      case _width < 1440: _size = 'wide'; break;
-      default: _size = 'full'; break;
-   }
-
-   return _size;
-};
 size.update = () => {
-   const _size = size.get();
+   const _breakpoint = (() => {
+      const _width = self.innerWidth;
+      let _size = 0;
 
-   console.log(_width)
+      if (_width > 480) _size++;
+      if (_width > 720) _size++;
+      if (_width > 1440) _size++;
+
+      return _size;
+   })();
+
+   const _layout = {
+      breakpoint: _breakpoint,
+      margin: { size: [16, 16, 24, 24][_breakpoint] },
+      gutter: { size: [16, 16, 24, 24][_breakpoint] },
+      column: {},
+   };
+
+   _layout.gutter.count = [4, 8, 12, 12][_breakpoint];
+   _layout.column.count = [4, 8, 12, 12][_breakpoint];
+
+   _layout.column.size = (((self.innerWidth - _layout.margin.size * 2)
+      + _layout.gutter.size) / _layout.gutter.count)
+      - _layout.gutter.size;
+
+   if (!applic.$.layout || applic.$.layout.column.size != _layout.column.size)  {
+      // console.log(applic.$.layout.column.size != _layout.column.size)
+      applic.$.layout = _layout;
+   };
 };
 
 self.addEventListener('resize', size.update);
@@ -95,6 +106,6 @@ drop.release = (_event) => {
    _event.preventDefault(); return false;
 };
 
-self.addEventListener('dragover', drop.move);
-self.addEventListener('dragleave', drop.move);
-self.addEventListener('drop', drop.release);
+applic.$.addEventListener('dragover', drop.move);
+applic.$.addEventListener('dragleave', drop.move);
+applic.$.addEventListener('drop', drop.release);
