@@ -33,7 +33,7 @@ size.update = () => {
 
       if (_width > 480) _size++;
       if (_width > 720) _size++;
-      if (_width > 1440) _size++;
+      if (_width > 1080) _size++;
 
       return _size;
    })();
