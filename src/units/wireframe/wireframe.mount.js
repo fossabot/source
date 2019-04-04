@@ -46,7 +46,6 @@ class ApplicMount extends LitElement {
         :host([unresolved]) { opacity: 0; transition: opacity 0ms 0ms; } 
 
         ._sheet-wrap {
-          z-index: -1; 
           ${this.css.apply('--stance--relative')}
           ${this.css.apply('--layout--sizing--border-box')}
           ${this.css.apply('--layout--horizontal')}
@@ -61,13 +60,9 @@ class ApplicMount extends LitElement {
           ${this.css.apply('--layout--vertical')} 
           ${this.css.apply('--layout--flex')} } 
 
-        ._side-sheet { 
-          --side-sheet--width: 320px;
-          z-index: 4; }
-
-        ._body-side-sheet { 
-          --side-sheet--width: 280px;
-          z-index: 4; }
+        ._side-sheet { z-index: 4; }
+        ._body-side-sheet {  }
+     
 
         ._body-main {  
           ${this.css.apply('--stance--relative')}
@@ -165,6 +160,29 @@ class ApplicMount extends LitElement {
   }
 
   updated() {
+    const _main = this.shadowRoot.querySelector('._body-wrap');
+    const _sheet = this.shadowRoot.querySelector('._side-sheet');
+    const _detail = this.shadowRoot.querySelector('._body-side-sheet');
+
+    _sheet.style.setProperty('--side-sheet--width', `calc(
+      ${this.layout.margin.size}px +
+      ${this.layout.column.size}px + 
+      ${this.layout.gutter.size}px +
+      ${this.layout.column.size}px  
+    )`)
+    _detail.style.setProperty('--side-sheet--width', `calc(
+      ${this.layout.margin.size}px + 
+      ${this.layout.column.size}px + 
+      ${this.layout.gutter.size}px +
+      ${this.layout.column.size}px
+    )`)
+
+    _main.style.setProperty('--side-sheet--margin-size', `${this.layout.margin.size}px`)
+    _main.style.setProperty('--side-sheet--column-size', `${this.layout.column.size}px`)
+    _main.style.setProperty('--side-sheet--gutter-size', `${this.layout.gutter.size}px`)
+
+    console.log(this.style)
+    
     // console.log(this.layout)
   }
 

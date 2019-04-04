@@ -21,7 +21,7 @@ export const model = function () {
         width: 100%;
 
         margin: 0px 0px;
-        padding: 4px; }
+        padding: calc(var(--side-sheet--gutter-size) / 2); }
 
       ._grid-item {
         ${css.apply('--stance--relative')}
@@ -29,7 +29,14 @@ export const model = function () {
         ${css.apply('--layout--vertical')}
         ${css.apply('--layout--flex-none')}
 
-        margin: 4px;
+        width: calc(
+          var(--side-sheet--column-size) +
+          var(--side-sheet--gutter-size) +
+          var(--side-sheet--column-size) -
+          0.1px
+        );
+
+        margin: calc(var(--side-sheet--gutter-size) / 2);
         padding: 0px 12px;
 
         border: 1px solid #d6d6d6;
@@ -43,7 +50,7 @@ export const model = function () {
         ${css.apply('--layout--center')}
 
         height: 36px; 
-        width: 144px;
+        width: 100%;
         padding: 0px 4px; }
 
       ._grid-item--titel {
@@ -66,8 +73,7 @@ export const model = function () {
         ${css.apply('--layout--flex-none')}
         ${css.apply('--layout--vertical')}
 
-        height: 144px;
-        width: 144px; }
+        width: 100%; }
 
       ._grid-item--detail {
         ${css.apply('--layout--sizing--border-box')}
@@ -88,7 +94,7 @@ export const model = function () {
 
         border-top: 1px solid #d6d6d6;
 
-        width: 144px;
+        width: 100%;
         margin: 10px 0px 0px;
         padding: 6px 4px; }
 

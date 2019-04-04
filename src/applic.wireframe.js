@@ -41,7 +41,7 @@ size.update = () => {
    const _layout = {
       breakpoint: _breakpoint,
       margin: { size: [16, 16, 24, 24][_breakpoint] },
-      gutter: { size: [16, 16, 24, 24][_breakpoint] },
+      gutter: { size: [8, 8, 16, 16][_breakpoint] },
       column: {},
    };
 

@@ -30,12 +30,9 @@ applic.__proto__.location = new class {
   _settings(_search) {
     const _params = {};
 
-    _search.replace(
-      new RegExp("([^?=&]+)(=([^&]*))?", "g"),
-      function ($0, $1, $2, $3) {
-        _params[$1] = $3;
-      }
-    );
+    _search.replace(new RegExp("([^?=&]+)(=([^&]*))?", "g"), (_0, _nonce, _2, _value) => { 
+      _params[_nonce] = _value; 
+    });
 
     return _params;
   }

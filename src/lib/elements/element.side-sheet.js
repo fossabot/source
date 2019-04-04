@@ -112,6 +112,7 @@ class ApplicSideSheet extends LitElement {
 
   firstUpdated() {
     const $_scrim = this.shadowRoot.querySelector('._scrim');
+    self.addEventListener('resize', this.updated.bind(this), { passive: true })
     $_scrim.addEventListener('touchstart', this.collapse.bind(this), { passive: true })
     $_scrim.addEventListener('mousedown', this.collapse.bind(this), { passive: true })
 
@@ -128,13 +129,9 @@ class ApplicSideSheet extends LitElement {
   expand() { this.open = true; }
 
   updated(last) {
-    if (last.has('persistent')) {
+    if (last && last.has && last.has('persistent')) {
       this.open = this.persistent;
     };
-
-
-
-    console.log('updated aside');
 
     const $_node = this.parentElement;
     const $_card = this.shadowRoot.querySelector('._card');
