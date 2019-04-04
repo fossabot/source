@@ -60,9 +60,6 @@ export const model = function () {
         ${css.apply('--layout--flex-none')}
         ${css.apply('--layout--vertical')}
       
-        ${css.apply('--typo--caption')}
-        ${css.apply('--typo--nowrap')} 
-        
         ${css.apply('--typo')}
         ${css.apply('--typo--nowrap')}
 

@@ -29,6 +29,8 @@ class ApplicGrid extends LitElement {
           ${css.apply('--layout--sizing--border-box')}
 
           width: 100%;
+          max-width: 100%;
+
           padding: calc(8px / 2); }
 
         ::slotted(*) {
@@ -36,6 +38,8 @@ class ApplicGrid extends LitElement {
           ${css.apply('--layout--flex--none')}
 
           width: var(--grid-item--width);
+          max-width: calc(100% - calc(8px / 2));
+
           margin: calc(8px / 2); }
 
       </style>
@@ -54,12 +58,11 @@ class ApplicGrid extends LitElement {
   
   }
   updated() {
-    let _width = this.scrollWidth, _colum = Math.round(_width / 200);
-
-    _width -= 8 + 0.2;
-
-    console.log(_width, _colum, _width / _colum)
-    this.style.setProperty('--grid-item--width', `calc(${_width / _colum}px - ${8}px)`)
+    Promise.resolve().then(() => {
+      let _width = this.scrollWidth, _colum = Math.round((_width / 180) - .5);
+      _width -= 8 + .5;
+      this.style.setProperty('--grid-item--width', `calc(${_width / _colum}px - ${8}px)`)
+    })
   }
 
 }

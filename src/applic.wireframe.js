@@ -23,42 +23,6 @@ applic.utils.buffer(async () => {
 applic.$ = document.querySelector('applic-mount');
 
 
-const size = {};
-size.update = () => {
-   const _breakpoint = (() => {
-      const _width = applic.$.offsetWidth;
-      let _size = 0;
-
-      if (_width > 480) _size++;
-      if (_width > 720) _size++;
-      if (_width > 1080) _size++;
-
-      return _size;
-   })();
-
-   const _layout = {
-      breakpoint: _breakpoint,
-      // margin: { size: [16, 16, 24, 24][_breakpoint] },
-      // gutter: { size: [8, 8, 16, 16][_breakpoint] },
-      // column: {},
-   };
-
-   // _layout.gutter.count = [4, 8, 12, 12][_breakpoint];
-   // _layout.column.count = [4, 8, 12, 12][_breakpoint];
-
-   // _layout.column.size = (((self.innerWidth - _layout.margin.size * 2)
-   //    + _layout.gutter.size) / _layout.gutter.count)
-   //    - _layout.gutter.size;
-
-   if (!applic.$.layout || applic.$.layout.breakpoint != _layout.breakpoint)  {
-      // console.log(applic.$.layout.column.size != _layout.column.size)
-      applic.$.layout = _layout;
-   };
-};
-
-self.addEventListener('resize', size.update);
-size.update(); applic.utils.buffer(size.update);
-
 const drop = {};
 drop.move = (_event) => { _event.preventDefault(); };
 drop.release = (_event) => {

@@ -19,13 +19,13 @@ class ApplicSideSheet extends LitElement {
 
       open: {
         type: Boolean,
-        value: false,
+        value: true,
         reflect: true
       },
 
       persistent: {
         type: Boolean,
-        value: false,
+        value: true,
         reflect: true
       },
 
@@ -107,19 +107,34 @@ class ApplicSideSheet extends LitElement {
   constructor() {
     super();
 
+    self.addEventListener('resize', this.updated.bind(this), { passive: true });
+
+    const $_scrim = this.shadowRoot.querySelector('._scrim');
+
+    // $_scrim.addEventListener('touchstart', this.collapse.bind(this), { passive: true });
+    // $_scrim.addEventListener('mousedown', this.collapse.bind(this), { passive: true });
+
+    // this.expandDur = '200ms';
+    // this.expandTmf = 'cubic-bezier(0.0, 0.0, 0.2, 1)';
+    // this.collapseDur = '150ms';
+    // this.collapseTmf = 'cubic-bezier(0.4, 0.0, 1, 1)';
+
+    // this.requestUpdate();
     // window.addEventListener('resize', this._update.bind(this));
   }
 
   firstUpdated() {
+    // self.addEventListener('resize', this.updated.bind(this), { passive: true });
+    
     const $_scrim = this.shadowRoot.querySelector('._scrim');
-    self.addEventListener('resize', this.updated.bind(this), { passive: true })
-    $_scrim.addEventListener('touchstart', this.collapse.bind(this), { passive: true })
-    $_scrim.addEventListener('mousedown', this.collapse.bind(this), { passive: true })
 
-    this.expandDur = '200ms';
-    this.expandTmf = 'cubic-bezier(0.0, 0.0, 0.2, 1)';
-    this.collapseDur = '150ms';
-    this.collapseTmf = 'cubic-bezier(0.4, 0.0, 1, 1)';
+    $_scrim.addEventListener('touchstart', this.collapse.bind(this), { passive: true });
+    $_scrim.addEventListener('mousedown', this.collapse.bind(this), { passive: true });
+
+    // this.expandDur = '200ms';
+    // this.expandTmf = 'cubic-bezier(0.0, 0.0, 0.2, 1)';
+    // this.collapseDur = '150ms';
+    // this.collapseTmf = 'cubic-bezier(0.4, 0.0, 1, 1)';
 
     this.requestUpdate();
   }

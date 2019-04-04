@@ -8,16 +8,16 @@ The complete set of contributors may be found at https://acontrast-tool.github.i
 
 applic.__proto__.location = new class {
   constructor() {
-    console.log()
-
     this._update();
   }
 
-  push(_path) { console.log('push', _path);
+  push(_path) { 
+    // console.log('push', _path);
     self.history.pushState({}, '', `/#${_path}`);
   }
 
-  replace(_path) { console.log('replace', _path);
+  replace(_path) { 
+    // console.log('replace', _path);
     self.history.replaceState({}, '', `/#${_path}`);
   }
 

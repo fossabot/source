@@ -72,7 +72,7 @@ export const model = function () {
       </div>
     </div>
 
-    <applic-scrollable class="_navigation"> 
+    <applic-scrollable class="_navigation" hide-on-startup> 
       <applic-list>
         ${this.section.map(_section => html`
           <applic-list-item ?active="${_section.active}"

@@ -20,12 +20,7 @@ class ApplicMount extends LitElement {
   static get properties() {
     return {
       layout: {
-        type: Object, value: {
-          breakpoint: 0,
-          margin: { size: 0 },
-          gutter: { size: 0, count: 0 },
-          column: { size: 0, count: 0 },
-        }
+        type: Object, value: { }
       },
     };
   }
@@ -44,7 +39,9 @@ class ApplicMount extends LitElement {
           transition: opacity 120ms cubic-bezier(0.4, 0.0, 1, 1);
           overflow: hidden; }
 
-        :host([unresolved]) { opacity: 0; transition: opacity 0ms 0ms; } 
+        :host([unresolved]) { opacity: 0; transition: opacity 0ms 0ms; }
+        :host(:not([startup])) [hide-on-startup] { opacity: 1; transition: opacity 120ms 20ms cubic-bezier(0.4, 0.0, 1, 1); }
+        :host([startup]) [hide-on-startup] { opacity: 0; transition: opacity 0ms 0ms;  }
 
         ._sheet-wrap {
           ${this.css.apply('--stance--relative')}
@@ -111,7 +108,7 @@ class ApplicMount extends LitElement {
           <div class="_sheet-wrap">
             <div class="_body-main">
               <applic-scrollable class="_body-inner">
-              ${this.model('wireframe-main:inner')}
+                ${this.model('wireframe-main:inner')}
               </applic-scrollable>
             </div>
 
@@ -140,24 +137,44 @@ class ApplicMount extends LitElement {
       return model[_nonce] ? (model[_nonce].bind(this))() : `<!-- ${_nonce} -->`;
     };
 
-    if (applic.rendered) {
-      this.setAttribute('unresolved', '')
-    }
+    if (applic.rendered) this.setAttribute('unresolved', '');
+    this.setAttribute('startup', '');
 
     this.section = [];
     this.graphic = [];
 
     applic.on('applic:updated', this._update.bind(this))
 
+    self.addEventListener('resize', this._resize.bind(this), { passive: true });
+    this._resize(); 
   }
+
+  _resize() {
+    const _breakpoint = (() => {
+      const _width = self.innerWidth;
+      let _size = 0;
+
+      if (_width > 480) _size++;
+      if (_width > 720) _size++;
+      if (_width > 1080) _size++;
+
+      return _size;
+    })();
+
+    const _layout = { breakpoint: _breakpoint };
+
+    if (!this.layout || this.layout.breakpoint != _layout.breakpoint) {
+      this.layout = _layout;
+    };
+  };
 
  
 
 
   firstUpdated() {
-    if (this.hasAttribute('unresolved')) applic.utils.buffer(() =>{
+    applic.utils.buffer(() => { 
+      this.removeAttribute('startup'); 
       this.removeAttribute('unresolved');
-
     });
 
     console.debug("applic-wireframe:ready", `${Date.now() - applic.created}ms`);
