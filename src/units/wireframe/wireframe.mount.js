@@ -45,17 +45,8 @@ class ApplicMount extends LitElement {
 
         :host([unresolved]) { opacity: 0; transition: opacity 0ms 0ms; } 
 
-/*
-        :host { margin: 60px 120px; overflow: visible !important; }  
-        :host:after {
-          z-index: 10000000000; content: ''; pointer-events: none;
-          
-          ${this.css.apply('--stance--absolute')}
-          ${this.css.apply('--stance--fit')}
-          height: 100&; outline: 20px solid rgba(255, 0, 0, .2); }  
-*/
-
         ._sheet-wrap {
+          z-index: -1; 
           ${this.css.apply('--stance--relative')}
           ${this.css.apply('--layout--sizing--border-box')}
           ${this.css.apply('--layout--horizontal')}
@@ -137,6 +128,8 @@ class ApplicMount extends LitElement {
       </div>
 
 
+      ${this.model('wireframe-overlay:dev')}
+
     `;
   }
 
@@ -172,7 +165,7 @@ class ApplicMount extends LitElement {
   }
 
   updated() {
-    console.log(this.layout)
+    // console.log(this.layout)
   }
 
 

@@ -28,7 +28,7 @@ applic.$ = document.querySelector('applic-mount');
 const size = {};
 size.update = () => {
    const _breakpoint = (() => {
-      const _width = self.innerWidth;
+      const _width = applic.$.offsetWidth;
       let _size = 0;
 
       if (_width > 480) _size++;
@@ -59,8 +59,7 @@ size.update = () => {
 };
 
 self.addEventListener('resize', size.update);
-size.update();
-
+size.update(); applic.utils.buffer(size.update);
 
 const drop = {};
 drop.move = (_event) => { _event.preventDefault(); };

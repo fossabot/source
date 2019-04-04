@@ -21,17 +21,37 @@ applic.__proto__.location = new class {
     self.history.replaceState({}, '', `/#${_path}`);
   }
 
-  _changed() {
-    console.log(this.path)
+  _location(_location) {
+    const _path = _location.split('/');
+    _path.shift();
+    _path.shift();
+    return _path;
+  }
+  _settings(_search) {
+    const _params = {};
+
+    _search.replace(
+      new RegExp("([^?=&]+)(=([^&]*))?", "g"),
+      function ($0, $1, $2, $3) {
+        _params[$1] = $3;
+      }
+    );
+
+    return _params;
   }
 
+  _changed() { }
+
   _update() {
-    this.path = self.location.hash.split('/');
+    const _location = self.location.href.replace(self.location.origin, '');
 
-    if (this.path.length < 2) {
-      this.replace('/')
+    this.params = this._settings(_location.split('?')[1] || '');
+    this.location = this._location(_location.split('?')[0] || '');
+
+    if (this.location.length < 2) {
+      return this.replace('/');
     };
-
+    
   }
 
 }

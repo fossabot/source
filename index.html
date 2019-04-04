@@ -44,7 +44,7 @@ The complete set of contributors may be found at https://contrast-tool.github.io
 	<meta property="og:site_name" content="Contrast Tool">
 	<meta property="og:url" content="https://contrast-tool.github.io/">
 	
-	<meta name="twitter:card" content="summary_large_image">
+	<!-- <meta name="twitter:card" content="summary_large_image"> -->
 	
 	<link rel="icon" type="image/x-icon" href="images/favicon.ico">
 	<link rel="icon" sizes="192x192" href="images/manifest/icon-192x192.png">
@@ -105,14 +105,6 @@ The complete set of contributors may be found at https://contrast-tool.github.io
 
 	<script src="node_modules/@webcomponents/webcomponentsjs/webcomponents-bundle.js"></script>
 
-	<script>
-		self.applic = new class { constructor() {
-			this.__proto__.rootPath = '/';
-			this.__proto__.created = Date.now();
-			this.__proto__.rendered = false;
-		}};
-	</script>
-	
 	<script type="module" src="src/applic.wireframe.js"></script>
 	<script type="module" src="src/applic.js"></script>
 	<script type="module" src="src/applic.lazies.js"></script>
@@ -122,11 +114,8 @@ The complete set of contributors may be found at https://contrast-tool.github.io
 <body>
 	<applic-mount></applic-mount>
 	<noscript>Please enable JavaScript to view this application.</noscript>
-
-	<script>
-		requestAnimationFrame(() => { self.applic.__proto__.rendered = true; });
-		requestAnimationFrame(() => { console.debug('--- first frame ---'); });
-	</script>
+	<script> requestAnimationFrame(() => { self.applic.__proto__.rendered = true; }); </script>
+	<script> requestAnimationFrame(() => { console.debug('--- first frame ---'); }); </script>
 </body>
 
 </html>

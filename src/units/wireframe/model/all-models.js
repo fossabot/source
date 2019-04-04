@@ -17,5 +17,5 @@ export const model = {
    'wireframe-main:inner': mainInner,
    'wireframe-sheet:nav': navAside,
 
-   'wireframe-dev:overlay': devOverlay,
+   'wireframe-overlay:dev': devOverlay,
 };

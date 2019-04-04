@@ -143,15 +143,15 @@ class ApplicSideSheet extends LitElement {
 
     if (this.align != 'end') {
       if (this.open) {
-        $_card.style.margin = `0px 0px 0px -${30}px`;
+        $_card.style.margin = `-${30}px 0px -${30}px -${30}px`;
       } else {
-        $_card.style.margin = `0px 0px 0px -${_width + 30}px`;
+        $_card.style.margin = `-${30}px 0px -${30}px -${_width + 30}px`;
       };
     } else {
       if (this.open) {
-        $_card.style.margin = `0px -${30}px 0px 0px`;
+        $_card.style.margin = `-${30}px -${30}px -${30}px 0px`;
       } else {
-        $_card.style.margin = `0px -${_width + 30}px 0px 0px`;
+        $_card.style.margin = `-${30}px -${_width + 30}px -${30}px 0px`;
       };
     };
 
