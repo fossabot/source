@@ -74,6 +74,8 @@ export const model = function () {
 
     <applic-scrollable class="_navigation" hide-on-startup> 
       <applic-list>
+        <span slot="label">test</span>
+      
         ${this.section.map(_section => html`
           <applic-list-item ?active="${_section.active}"
             @click="${this.call('section:select', { nonce: _section.nonce })}">

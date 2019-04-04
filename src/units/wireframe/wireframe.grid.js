@@ -23,15 +23,11 @@ class ApplicGrid extends LitElement {
       <style>
         :host {
           ${css.apply('--layout--sizing--border-box')}
-          ${css.apply('--layout--horizontal')}
-          ${css.apply('--layout--wrap')}
-
-          ${css.apply('--layout--sizing--border-box')}
+          ${css.apply('--layout--vertical')}
 
           width: 100%;
-          max-width: 100%;
-
-          padding: calc(8px / 2); }
+          max-width: 100%; 
+          margin: 10px 0 0; }
 
         ::slotted(*) {
           ${css.apply('--layout--sizing--border-box')}
@@ -42,9 +38,43 @@ class ApplicGrid extends LitElement {
 
           margin: calc(8px / 2); }
 
+        ._expander {
+          ${applic.$.css.apply('--layout--sizing--border-box')} 
+          ${applic.$.css.apply('--layout--horizontal')} 
+          ${applic.$.css.apply('--layout--center')} 
+          ${applic.$.css.apply('--layout--flex-none')} 
+
+          height: 34px;
+          padding: 10px 20px; }
+
+        ._expander ::slotted(*) {
+          ${applic.$.css.apply('--typo')}
+
+          font-size: 10px;
+          line-height: 22px;
+          font-weight: 500;
+          letter-spacing: -0.6px;
+          text-transform: uppercase;
+
+          color: #979797; }
+
+        ._list {
+          ${css.apply('--layout--sizing--border-box')}
+          ${css.apply('--layout--horizontal')}
+          ${css.apply('--layout--wrap')}
+
+          padding: calc(8px / 2);
+        }
+
       </style>
 
-      <slot></slot>
+      <div class="_expander">
+        <slot name="label"></slot>${this.open}
+      </div>
+
+      <div class="_list">
+        <slot></slot>
+      </div>
     `;
   }
 

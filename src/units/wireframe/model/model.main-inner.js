@@ -113,8 +113,10 @@ export const model = function () {
         ${css.apply('--layout--sizing--border-box')}
         ${css.apply('--layout--vertical')}
         ${css.apply('--layout--center-center')} 
-      
-        margin-top: 56px; }
+        
+        width: 100%;
+        margin-top: 56px; 
+        pointer-events: none; }
 
       ._emty--graphic {
         margin: -64px 0px 20px; }
@@ -138,11 +140,18 @@ export const model = function () {
         letter-spacing: -0.14px;
         color: #b8b8b8; }
 
+      ._grid {
+        ${css.apply('--stance--relative')}
+        min-height: 280px;
+        width: 100%;
+      }
+
     </style>
    
-
-    ${0 < this.graphic.length ? html`
-      <applic-gid>
+   
+    <applic-gid class="_grid">
+      <span slot="label">Label</span>
+      ${0 < this.graphic.length ? html`
         ${this.graphic.map(_graphic => html`
           <div class="_grid-item">
             <div class="_grid-item--header">
@@ -169,15 +178,16 @@ export const model = function () {
           </div>
 
         `)}
+      ` : html`
+        <div class="_emty">
+          <applic-icon class="_emty--graphic" name="recent_actors" size="huge"></applic-icon>
+          <div class="_emty--info">No graphics</div>
+          <div class="_emty--detail">Drag .png, .svg, and .gif files here</div>
+        </div>
+      `}
+    </applic-gid>
+          
 
-      </applic-gid>
-      
-    ` : html`
-      <div class="_emty">
-        <applic-icon class="_emty--graphic" name="recent_actors" size="huge"></applic-icon>
-        <div class="_emty--info">No graphics</div>
-        <div class="_emty--detail">Drag .png, .svg, and .gif files here</div>
-      </div>
-    `}
+    
   `
 }
