@@ -143,6 +143,7 @@ class ApplicMount extends LitElement {
     this.section = [];
     this.graphic = [];
 
+    // applic.on('applic:updated', this.requestUpdate.bind(this))
     applic.on('applic:updated', this._update.bind(this))
 
     self.addEventListener('resize', this._resize.bind(this), { passive: true });
@@ -164,7 +165,7 @@ class ApplicMount extends LitElement {
     if (!this.layout || this.layout.breakpoint != _breakpoint) {
       this.layout = { breakpoint: _breakpoint };
     };
-    
+
   };
 
  
@@ -206,29 +207,31 @@ class ApplicMount extends LitElement {
   };
 
   _update() {
-    if (this._render) return;
-    this._render = true;
-
-    applic.utils.buffer(() => {
-      this._set('section', applic.section.get('*'))
-      this._set('graphic', applic.graphic.get('*'))
-
-      // for (const _map of this.shadowRoot.querySelectorAll('dom-repeat')) {
-      //   if (_map.render) _map.render()
-      // }
-      // console.log('applic-wireframe:mount-update')
-
-      this._render = false;
-    });
-
-  }
-
-  _set(_path, _value) {
-    this[_path] = _value;
     this.requestUpdate();
-    // this.set(_path, null)
-    // Promise.resolve().then(this.set.bind(this, _path, _value))
+
+    // if (this._render) return;
+    // this._render = true;
+
+    // applic.utils.buffer(() => {
+    //   this._set('section', applic.section.get('*'))
+    //   this._set('graphic', applic.graphic.get('*'))
+
+    //   // for (const _map of this.shadowRoot.querySelectorAll('dom-repeat')) {
+    //   //   if (_map.render) _map.render()
+    //   // }
+    //   // console.log('applic-wireframe:mount-update')
+
+    //   this._render = false;
+    // });
+
   }
+
+  // _set(_path, _value) {
+  //   this[_path] = _value;
+  //   this.requestUpdate();
+  //   // this.set(_path, null)
+  //   // Promise.resolve().then(this.set.bind(this, _path, _value))
+  // }
 
 }
 

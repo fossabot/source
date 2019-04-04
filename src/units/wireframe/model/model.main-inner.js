@@ -142,35 +142,57 @@ export const model = function () {
 
       ._grid {
         ${css.apply('--stance--relative')}
-        min-height: 280px;
+        min-height: 180px;
         width: 100%;
-      }
-
-      [hidden] {
-        display: none !important;
       }
 
     </style>
 
-    ${(_section => html`
-      <applic-gid class="_grid">
-        <span slot="label">twitch:emote</span>
+    ${(_section => { return !_section ? '' : 
+      applic.graphic.types.map(_type => html`
+        <applic-gid class="_grid">
+          <span slot="label">${_type.nonce}</span>
+          ${(_graphics => {
+            return !_graphics ? html`
+                  No grafics for this type 
+                ` : _graphics.map(_graphic => html`
 
-        ${(_graphics => {
-          return !_graphics ? html`
-            No grafics for this type
-          ` : _graphics.map(_graphic => html`
+                  <div class="_grid-item" ?hidden="${_graphic.section != _section.nonce}">
+                    <div class="_grid-item--header">
+                      <div class="_grid-item--titel">${_graphic.alias}</div>
 
-            ${_graphic.nonce} ${_graphic.type} <br>
+                      <div class="_grid-item--action">
+                        <applic-icon-button icon="close" size="dense"
+                          @click="${this.call('graphic:remove', { nonce: _graphic.nonce })}">
+                          <applic-hint>Remove "${_graphic.alias}"</applic-hint>
+                        </applic-icon-button>
+                      </div>
 
-          `);
-        })(_section ? applic.graphic.get({ section: _section.nonce, type: 'twitch:emote' }) : false)}
-        
-      </applic-gid>
-            
-    `)(applic.section ? applic.section.get('~') : false)}
+                    </div>
 
-    ${'' /*(_section => html`
+                    <applic-graphic nonce="${_graphic.nonce}" class="_grid-item--graphic">
+                    </applic-graphic>
+
+                    <div class="_grid-item--detail">
+                      <span>Imported: ${applic.utils.readable.date(_graphic.detail.created)}</span>
+                      <span>Modified: ${applic.utils.readable.date(_graphic.detail.lastModified)}</span>
+
+                    </div>
+                
+                  </div>
+
+                `);
+          })(_section ? applic.graphic.get({ section: _section.nonce, type: _type.nonce }) : false)}
+        </applic-gid>
+      `)
+    }) (applic.section ? applic.section.get('~') : false)}
+
+
+
+
+
+    ${
+    '' /*(_section => html`
       <applic-gid class="_grid">
         <span slot="label">Label</span>
         ${0 < this.graphic.length ? html`
@@ -211,6 +233,6 @@ export const model = function () {
             
     `)(applic.section ? applic.section.get('~') : '') */}
 
-    
+
   `
 }

@@ -11,14 +11,23 @@ const GRAPHIC_STATE = {};
 applic.graphic = new class { }
 applic.graphic.__proto__.updated = () => { };
 
-applic.graphic.get = (_nonce) => { 
+applic.graphic.types = [{
+   nonce: 'twitch:emote'
+
+}, {
+   nonce: 'twitch:badge'
+
+}]
+
+
+applic.graphic.get = (_nonce) => {
    if ('*' == _nonce) {
-      return applic.utils.arrayify(GRAPHIC_STATE) 
+      return applic.utils.arrayify(GRAPHIC_STATE)
    } else if (typeof _nonce == 'object') {
       let _list = applic.utils.arrayify(GRAPHIC_STATE);
-      
+
       _list = _list.filter((_node) => {
-         let _match = true;  Object.keys(_nonce).forEach((_key) => {
+         let _match = true; Object.keys(_nonce).forEach((_key) => {
             if (_node[_key] != _nonce[_key]) _match = false;
          })
 
@@ -50,7 +59,7 @@ applic.graphic.create = (_params) => {
       constructor() {
          this.nonce = applic.utils.nonce();
          this.alias = applic.utils.alias();
-         
+
          this.blob = _params.blob;
          this.detail = _params.blob.detail;
 
@@ -67,7 +76,7 @@ applic.graphic.create = (_params) => {
          //    graphic: this,
          //    section: this.section
          // })
-         
+
          applic.dispatch('applic:changed');
       }
 

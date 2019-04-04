@@ -73,10 +73,9 @@ export const model = function () {
     </div>
 
     <applic-scrollable class="_navigation" hide-on-startup> 
-      <applic-list>
-        <span slot="label">test</span>
-      
-        ${this.section.map(_section => html`
+      <applic-list>  
+
+        ${(_sections => { return !_sections ? '' : _sections.map(_section => html`
           <applic-list-item ?active="${_section.active}"
             @click="${this.call('section:select', { nonce: _section.nonce })}">
 
@@ -88,8 +87,9 @@ export const model = function () {
               <applic-hint>Close "${_section.name}"</applic-hint>
             </applic-icon-button>
           </applic-list-item>
-        `)}
-        
+
+        `)})(applic.section ? applic.section.get('*') : false)}
+
         <applic-list-item @click="${this.call('section:create')}">
           <applic-icon name="add" slot="graphic"></applic-icon>
           <span>New Collection</span>
