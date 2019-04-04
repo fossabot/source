@@ -19,7 +19,7 @@ new class {
     applic.graphic.__proto__.updated = this.updated.bind(this);
     applic.section.__proto__.updated = this.updated.bind(this);
 
-    applic.utils.buffer(this.updated.bind(this))
+    applic.utils.buffer(this.updated.bind(this));
     applic.on('applic:changed', this.updated.bind(this));
 
     console.debug('applic:ready', `${Date.now() - applic.created}ms`);
@@ -30,9 +30,9 @@ new class {
     this.graphics = applic.graphic.get('*');
 
     if (this._debug()) {
-      applic.dispatch('applic:updated', this)
+      applic.dispatch('applic:updated', this);
       // console.debug('applic:updated')
-    }
+    };
   }
 
   _debug() {

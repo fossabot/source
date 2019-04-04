@@ -156,16 +156,15 @@ class ApplicMount extends LitElement {
 
       if (_width > 480) _size++;
       if (_width > 720) _size++;
-      if (_width > 1080) _size++;
+      if (_width > 1320) _size++;
 
       return _size;
     })();
 
-    const _layout = { breakpoint: _breakpoint };
-
-    if (!this.layout || this.layout.breakpoint != _layout.breakpoint) {
-      this.layout = _layout;
+    if (!this.layout || this.layout.breakpoint != _breakpoint) {
+      this.layout = { breakpoint: _breakpoint };
     };
+    
   };
 
  
