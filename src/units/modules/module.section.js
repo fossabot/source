@@ -14,6 +14,8 @@ applic.section.active = null;
 applic.section.get = (_nonce) => {
    if ('*' == _nonce) {
       return applic.utils.arrayify(SECTION_STATE)
+   } else if ('~' == _nonce) {
+      return SECTION_STATE[applic.section.active] || false
    } else {
       return SECTION_STATE[_nonce] || false
    }

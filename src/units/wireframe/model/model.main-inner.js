@@ -146,47 +146,54 @@ export const model = function () {
         width: 100%;
       }
 
-    </style>
-   
-   
-    <applic-gid class="_grid">
-      <span slot="label">Label</span>
-      ${0 < this.graphic.length ? html`
-        ${this.graphic.map(_graphic => html`
-          <div class="_grid-item">
-            <div class="_grid-item--header">
-              <div class="_grid-item--titel">${_graphic.alias}</div>
+      [hidden] {
+        display: none !important;
+      }
 
-              <div class="_grid-item--action">
-                <applic-icon-button icon="close" size="dense"
-                  @click="${this.call('graphic:remove', { nonce: _graphic.nonce })}">
-                  <applic-hint>Remove "${_graphic.alias}"</applic-hint>
-                </applic-icon-button>
+    </style>
+      
+
+    ${(_section => html`
+    
+      <applic-gid class="_grid">
+        <span slot="label">Label</span>
+        ${0 < this.graphic.length ? html`
+          ${this.graphic.map(_graphic => html`
+            <div class="_grid-item" ?hidden="${_graphic.section != _section.nonce}">
+              <div class="_grid-item--header">
+                <div class="_grid-item--titel">${_graphic.alias}</div>
+
+                <div class="_grid-item--action">
+                  <applic-icon-button icon="close" size="dense"
+                    @click="${this.call('graphic:remove', { nonce: _graphic.nonce })}">
+                    <applic-hint>Remove "${_graphic.alias}"</applic-hint>
+                  </applic-icon-button>
+                </div>
+
               </div>
 
-            </div>
+              <applic-graphic nonce="${_graphic.nonce}" class="_grid-item--graphic">
+              </applic-graphic>
 
-            <applic-graphic nonce="${_graphic.nonce}" class="_grid-item--graphic">
-            </applic-graphic>
+              <div class="_grid-item--detail">
+                <span>Imported: ${applic.utils.readable.date(_graphic.detail.created)}</span>
+                <span>Modified: ${applic.utils.readable.date(_graphic.detail.lastModified)}</span>
 
-            <div class="_grid-item--detail">
-              <span>Imported: ${applic.utils.readable.date(_graphic.detail.created)}</span>
-              <span>Modified: ${applic.utils.readable.date(_graphic.detail.lastModified)}</span>
-
-            </div>
-        
-          </div>
-
-        `)}
-      ` : html`
-        <div class="_emty">
-          <applic-icon class="_emty--graphic" name="recent_actors" size="huge"></applic-icon>
-          <div class="_emty--info">No graphics</div>
-          <div class="_emty--detail">Drag .png, .svg, and .gif files here</div>
-        </div>
-      `}
-    </applic-gid>
+              </div>
           
+            </div>
+
+          `)}
+        ` : html`
+          <div class="_emty">
+            <applic-icon class="_emty--graphic" name="recent_actors" size="huge"></applic-icon>
+            <div class="_emty--info">No graphics</div>
+            <div class="_emty--detail">Drag .png, .svg, and .gif files here</div>
+          </div>
+        `}
+      </applic-gid>
+            
+    `)(applic.section ? applic.section.get('~') : '')}
 
     
   `

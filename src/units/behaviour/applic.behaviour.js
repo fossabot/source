@@ -50,8 +50,10 @@ new class {
 applic.__proto__.newImport = (_params) => {
   return new class {
     constructor() {
+      if (!_params.section) throw 'Require section for import';
+
       this.graphic = {};
-      this.section = null;
+      this.section = _params.section;
 
       // console.log('importer-created', _params)
     }

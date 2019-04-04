@@ -30,7 +30,7 @@ drop.release = (_event) => {
       const _transfer = _event.dataTransfer;
 
       const _importer = applic.newImport({
-
+         section: applic.section.active
       });
 
       const _traverse = applic.import.traverse({
