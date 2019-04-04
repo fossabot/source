@@ -22,6 +22,7 @@ class ApplicGrid extends LitElement {
     return html`
       <style>
         :host {
+          ${css.apply('--layout--sizing--border-box')}
           ${css.apply('--layout--horizontal')}
           ${css.apply('--layout--wrap')}
 
@@ -29,8 +30,15 @@ class ApplicGrid extends LitElement {
 
           width: 100%;
 
-          margin: 0px 0px;
           padding: calc(8px / 2); 
+        }
+
+        ::slotted(*) {
+          ${css.apply('--layout--sizing--border-box')}
+          ${css.apply('--layout--flex--none')}
+
+          width: var(--grid-item--width);
+          margin: calc(8px / 2);
         }
 
       </style>
@@ -42,13 +50,19 @@ class ApplicGrid extends LitElement {
   constructor() {
     super();
     applic.on('applic:changed', this.updated.bind(this));
+    self.addEventListener('resize', this.updated.bind(this), { passive: true })
   }
 
   firstUpdated() {
   
   }
   updated() {
-   
+    let _width = this.scrollWidth, _colum = Math.round(_width / 200);
+
+    _width -= 8 + 0.2;
+
+    console.log(_width, _colum, _width / _colum)
+    this.style.setProperty('--grid-item--width', `calc(${_width / _colum}px - 8px)`)
   }
 
 }

@@ -16,12 +16,7 @@ export const model = function () {
         ${css.apply('--stance--relative')}
         ${css.apply('--layout--sizing--border-box')}
         ${css.apply('--layout--vertical')}
-        ${css.apply('--layout--flex')}
 
-        min-width: 180px;
-        max-width: 280px;
-
-        margin: calc(8px / 2);
         padding: 0px 12px;
 
         border: 1px solid #d6d6d6;
