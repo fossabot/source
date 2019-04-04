@@ -12,6 +12,7 @@ import { model } from './model/all-models.js';
 import { css } from './wireframe.style.js'
 
 import './wireframe.graphic.js'
+import './wireframe.grid.js'
 
 console.debug('applic-wireframe:loaded', `${Date.now() - applic.created}ms`);
 

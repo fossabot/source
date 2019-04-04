@@ -15,8 +15,6 @@ import './units/applic-state.js'
 import './lib/elements/all-elements.js'
 import './units/wireframe/wireframe.mount.js'
 
-
-
 applic.utils.buffer(async () => {
    await import('./applic.js');
    await import('./applic.lazies.js');

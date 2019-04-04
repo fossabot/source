@@ -12,17 +12,6 @@ import { css } from '../wireframe.style.js';
 export const model = function () {
   return html`
     <style>
-      ._grid {
-        ${css.apply('--layout--horizontal')}
-        ${css.apply('--layout--wrap')}
-
-        ${css.apply('--layout--sizing--border-box')}
-
-        width: 100%;
-
-        margin: 0px 0px;
-        padding: calc(8px / 2); }
-
       ._grid-item {
         ${css.apply('--stance--relative')}
         ${css.apply('--layout--sizing--border-box')}
@@ -161,7 +150,7 @@ export const model = function () {
    
 
     ${0 < this.graphic.length ? html`
-      <div class="_grid">
+      <applic-gid>
         ${this.graphic.map(_graphic => html`
           <div class="_grid-item">
             <div class="_grid-item--header">
@@ -189,7 +178,7 @@ export const model = function () {
 
         `)}
 
-      </div>
+      </applic-gid>
       
     ` : html`
       <div class="_emty">
