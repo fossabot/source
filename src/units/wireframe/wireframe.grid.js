@@ -27,16 +27,7 @@ class ApplicGrid extends LitElement {
 
           width: 100%;
           max-width: 100%; 
-          margin: 10px 0 0; }
-
-        ::slotted(*) {
-          ${css.apply('--layout--sizing--border-box')}
-          ${css.apply('--layout--flex--none')}
-
-          width: var(--grid-item--width);
-          max-width: calc(100% - calc(8px / 2));
-
-          margin: calc(8px / 2); }
+          margin: 0 0 0; }
 
         ._expander {
           ${applic.$.css.apply('--layout--sizing--border-box')} 
@@ -44,8 +35,8 @@ class ApplicGrid extends LitElement {
           ${applic.$.css.apply('--layout--center')} 
           ${applic.$.css.apply('--layout--flex-none')} 
 
-          height: 34px;
-          padding: 10px 20px; }
+          height: 48px;
+          padding: 0 20px; }
 
         ._expander ::slotted(*) {
           ${applic.$.css.apply('--typo')}
@@ -63,8 +54,18 @@ class ApplicGrid extends LitElement {
           ${css.apply('--layout--horizontal')}
           ${css.apply('--layout--wrap')}
 
-          padding: calc(8px / 2);
-        }
+          margin: -9px 0 0 0; 
+          padding: calc(8px / 2); }
+
+
+        ._list ::slotted(*) {
+          ${css.apply('--layout--sizing--border-box')}
+          ${css.apply('--layout--flex--none')}
+
+          width: var(--grid-item--width);
+          max-width: calc(100% - calc(8px / 2));
+
+          margin: calc(8px / 2); }
 
       </style>
 

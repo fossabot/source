@@ -151,10 +151,26 @@ export const model = function () {
       }
 
     </style>
-      
 
     ${(_section => html`
-    
+      <applic-gid class="_grid">
+        <span slot="label">twitch:emote</span>
+
+        ${(_graphics => {
+          return !_graphics ? html`
+            No grafics for this type
+          ` : _graphics.map(_graphic => html`
+
+            ${_graphic.nonce} ${_graphic.type} <br>
+
+          `);
+        })(_section ? applic.graphic.get({ section: _section.nonce, type: 'twitch:emote' }) : false)}
+        
+      </applic-gid>
+            
+    `)(applic.section ? applic.section.get('~') : false)}
+
+    ${'' /*(_section => html`
       <applic-gid class="_grid">
         <span slot="label">Label</span>
         ${0 < this.graphic.length ? html`
@@ -193,7 +209,7 @@ export const model = function () {
         `}
       </applic-gid>
             
-    `)(applic.section ? applic.section.get('~') : '')}
+    `)(applic.section ? applic.section.get('~') : '') */}
 
     
   `

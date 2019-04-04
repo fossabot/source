@@ -14,6 +14,18 @@ applic.graphic.__proto__.updated = () => { };
 applic.graphic.get = (_nonce) => { 
    if ('*' == _nonce) {
       return applic.utils.arrayify(GRAPHIC_STATE) 
+   } else if (typeof _nonce == 'object') {
+      let _list = applic.utils.arrayify(GRAPHIC_STATE);
+      
+      _list = _list.filter((_node) => {
+         let _match = true;  Object.keys(_nonce).forEach((_key) => {
+            if (_node[_key] != _nonce[_key]) _match = false;
+         })
+
+         return _match;
+      });
+
+      return _list;
    } else {
       return GRAPHIC_STATE[_nonce] || false
    }
@@ -38,10 +50,13 @@ applic.graphic.create = (_params) => {
       constructor() {
          this.nonce = applic.utils.nonce();
          this.alias = applic.utils.alias();
-
+         
          this.blob = _params.blob;
          this.detail = _params.blob.detail;
+
          this.section = _params.section;
+         this.type = 'twitch:emote'
+
 
          this.uri = '';
 
