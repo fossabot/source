@@ -23,7 +23,7 @@ export const model = function () {
     ` : ''}
 
 
-    ${_isActive('gutter') || _isActive('column') || _isActive('margin') ? html`
+    ${'' /*_isActive('gutter') || _isActive('column') || _isActive('margin') ? html`
       <style>
         ._layout {
           z-index: 10000000000;
@@ -45,7 +45,7 @@ export const model = function () {
           ${_drawColumn(this.layout)}
       </div>
     
-    ` : ''}
+        ` : '*/}
 
   `
 }
@@ -55,21 +55,21 @@ const _isActive = (_nonce) => {
   return applic.location && applic.location.params[_nonce] == 'true'|| false;
 }
 
-const _drawColumn = (_layout) => {
-  let _map = '';
+// const _drawColumn = (_layout) => {
+//   let _map = '';
 
-  const _addGutter = () => { _map += `<div class="_layout--gutter" style="min-width: ${_layout.gutter.size}px;"></div>`; }
-  const _addColumn = () => { _map += `<div class="_layout--column" style="min-width: ${_layout.column.size}px;"></div>`; }
-  const _addMargin = () => { _map += `<div class="_layout--margin" style="min-width: ${_layout.margin.size}px;"></div>`; }
+//   const _addGutter = () => { _map += `<div class="_layout--gutter" style="min-width: ${_layout.gutter.size}px;"></div>`; }
+//   const _addColumn = () => { _map += `<div class="_layout--column" style="min-width: ${_layout.column.size}px;"></div>`; }
+//   const _addMargin = () => { _map += `<div class="_layout--margin" style="min-width: ${_layout.margin.size}px;"></div>`; }
 
-  _addMargin();
-  for (let i = 0; i < _layout.column.count; i++) {
-    if (i != 0) _addGutter(); 
-    _addColumn();
-  };
-  _addMargin();
+//   _addMargin();
+//   for (let i = 0; i < _layout.column.count; i++) {
+//     if (i != 0) _addGutter(); 
+//     _addColumn();
+//   };
+//   _addMargin();
 
-  const _temp = document.createElement('template');
-  _temp.innerHTML = _map;
-  return _temp.content;
-}
+//   const _temp = document.createElement('template');
+//   _temp.innerHTML = _map;
+//   return _temp.content;
+// }

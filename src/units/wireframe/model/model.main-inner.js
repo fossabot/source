@@ -21,22 +21,18 @@ export const model = function () {
         width: 100%;
 
         margin: 0px 0px;
-        padding: calc(var(--side-sheet--gutter-size) / 2); }
+        padding: calc(8px / 2); }
 
       ._grid-item {
         ${css.apply('--stance--relative')}
         ${css.apply('--layout--sizing--border-box')}
         ${css.apply('--layout--vertical')}
-        ${css.apply('--layout--flex-none')}
+        ${css.apply('--layout--flex')}
 
-        width: calc(
-          var(--side-sheet--column-size) +
-          var(--side-sheet--gutter-size) +
-          var(--side-sheet--column-size) -
-          0.1px
-        );
+        min-width: 180px;
+        max-width: 280px;
 
-        margin: calc(var(--side-sheet--gutter-size) / 2);
+        margin: calc(8px / 2);
         padding: 0px 12px;
 
         border: 1px solid #d6d6d6;

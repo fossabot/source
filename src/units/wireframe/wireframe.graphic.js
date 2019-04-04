@@ -21,12 +21,7 @@ class ApplicGraphic extends LitElement {
   render() {
     return html`
       <style>
-        :host {
-        }
-
-        ._graphic {
-          width: 100%; }
-
+        ._graphic { width: 100%; }
       </style>
 
       <applic-image class="_graphic" aspect="1:1"></applic-image>

@@ -60,8 +60,11 @@ class ApplicMount extends LitElement {
           ${this.css.apply('--layout--vertical')} 
           ${this.css.apply('--layout--flex')} } 
 
-        ._side-sheet { z-index: 4; }
-        ._body-side-sheet {  }
+        ._side-sheet { 
+          --side-sheet--width: 320px;
+          z-index: 4; }
+        ._body-side-sheet {  
+          --side-sheet--width: 280px; }
      
 
         ._body-main {  
@@ -160,29 +163,6 @@ class ApplicMount extends LitElement {
   }
 
   updated() {
-    const _main = this.shadowRoot.querySelector('._body-wrap');
-    const _sheet = this.shadowRoot.querySelector('._side-sheet');
-    const _detail = this.shadowRoot.querySelector('._body-side-sheet');
-
-    _sheet.style.setProperty('--side-sheet--width', `calc(
-      ${this.layout.margin.size}px +
-      ${this.layout.column.size}px + 
-      ${this.layout.gutter.size}px +
-      ${this.layout.column.size}px  
-    )`)
-    _detail.style.setProperty('--side-sheet--width', `calc(
-      ${this.layout.margin.size}px + 
-      ${this.layout.column.size}px + 
-      ${this.layout.gutter.size}px +
-      ${this.layout.column.size}px
-    )`)
-
-    _main.style.setProperty('--side-sheet--margin-size', `${this.layout.margin.size}px`)
-    _main.style.setProperty('--side-sheet--column-size', `${this.layout.column.size}px`)
-    _main.style.setProperty('--side-sheet--gutter-size', `${this.layout.gutter.size}px`)
-
-    console.log(this.style)
-    
     // console.log(this.layout)
   }
 
