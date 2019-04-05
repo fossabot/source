@@ -20,7 +20,7 @@ class ApplicMount extends LitElement {
   static get properties() {
     return {
       layout: {
-        type: Object, value: { }
+        type: Object, value: {}
       },
     };
   }
@@ -147,7 +147,7 @@ class ApplicMount extends LitElement {
     applic.on('applic:updated', this._update.bind(this))
 
     self.addEventListener('resize', this._resize.bind(this), { passive: true });
-    this._resize(); 
+    this._resize();
   }
 
   _resize() {
@@ -168,16 +168,21 @@ class ApplicMount extends LitElement {
 
   };
 
- 
+
 
 
   firstUpdated() {
-    applic.utils.buffer(() => { 
-      this.removeAttribute('startup'); 
+    applic.utils.buffer(() => {
+      this.removeAttribute('startup');
       this.removeAttribute('unresolved');
     });
 
     console.debug("applic-wireframe:ready", `${Date.now() - applic.created}ms`);
+
+    applic.$.addEventListener('dragover', drop.move);
+    applic.$.addEventListener('dragleave', drop.move);
+    applic.$.addEventListener('drop', drop.release);
+
   }
 
   updated() {
@@ -202,6 +207,13 @@ class ApplicMount extends LitElement {
           applic.graphic.remove(_params.nonce)
           break;
 
+        case 'applic:import':
+          files.import(_params)
+          break;
+        case 'applic:import-folder':
+          files.importFolder(_params)
+          break;
+
       }
     }
   };
@@ -209,30 +221,118 @@ class ApplicMount extends LitElement {
   _update() {
     this.requestUpdate();
 
-    // if (this._render) return;
-    // this._render = true;
-
-    // applic.utils.buffer(() => {
-    //   this._set('section', applic.section.get('*'))
-    //   this._set('graphic', applic.graphic.get('*'))
-
-    //   // for (const _map of this.shadowRoot.querySelectorAll('dom-repeat')) {
-    //   //   if (_map.render) _map.render()
-    //   // }
-    //   // console.log('applic-wireframe:mount-update')
-
-    //   this._render = false;
-    // });
-
   }
-
-  // _set(_path, _value) {
-  //   this[_path] = _value;
-  //   this.requestUpdate();
-  //   // this.set(_path, null)
-  //   // Promise.resolve().then(this.set.bind(this, _path, _value))
-  // }
 
 }
 
 customElements.define('applic-mount', ApplicMount);
+
+
+
+const files = {};
+files.import = (_params) => {
+  console.log('files.import', _params)
+  const _import = _newImport();
+  _import.setAttribute('accept', 'image/x-png, image/png, image/gif, image/svg');
+  _import.click();
+};
+
+files.importFolder = (_params) => {
+  console.log('files.importFolder', _params)
+  const _import = _newImport();
+  _import.setAttribute('directory', '');
+  _import.setAttribute('webkitdirectory', '');  
+  _import.click();
+};
+
+files.change = async (_event) => {
+  console.log(_event)
+
+  const _transfer = _event.dataTransfer;
+
+  const _importer = applic.newImport({
+    section: applic.section.active
+  });
+
+  const _traverse = applic.import.traverse({
+    /**
+     * All image-types work technically. BUT I DO NOT WANT PEOPLE JUST DOWNLOAD
+     * IMAGES FROM GOOGLE AND MAKE EMOTES OUT OF THEM. So I limit it to the most
+     * common file types from people that actually create proper emotes.
+     */
+    types: ['image/png', 'image/svg', 'image/gif'],
+
+    files: !_transfer.files ? false : Array.from(_transfer.files),
+    items: !_transfer.items ? false : Array.from(_transfer.items)
+  });
+
+  _traverse.onRegistered = (_params) => {
+    _importer.add(_params.blob);
+  };
+
+  _traverse.onChanged = (_params) => {
+    _importer.update(_params.blob);
+  };
+
+  _traverse.onResolved = () => {
+    _importer.resolved()
+  };
+
+  _traverse.onRejected = (_params) => {
+    console.warn('[Import rejected]', `File type '${_params.type}' of '${_params.name}' is not supported`);
+  };
+
+};
+
+const _newImport = () => {
+  const _import = document.createElement('input');
+  _import.setAttribute('type', 'file');
+  _import.setAttribute('multiple', '');
+  _import.addEventListener('change', files.change)
+  return _import;
+};
+
+
+const drop = {};
+drop.move = (_event) => { _event.preventDefault(); };
+drop.release = (_event) => {
+  (async () => {
+    const _transfer = _event.dataTransfer;
+
+    const _importer = applic.newImport({
+      section: applic.section.active
+    });
+
+    const _traverse = applic.import.traverse({
+      /**
+       * All image-types work technically. BUT I DO NOT WANT PEOPLE JUST DOWNLOAD
+       * IMAGES FROM GOOGLE AND MAKE EMOTES OUT OF THEM. So I limit it to the most
+       * common file types from people that actually create proper emotes.
+       */
+      types: ['image/png', 'image/svg', 'image/gif'],
+
+      files: !_transfer.files ? false : Array.from(_transfer.files),
+      items: !_transfer.items ? false : Array.from(_transfer.items)
+    });
+
+    _traverse.onRegistered = (_params) => {
+      _importer.add(_params.blob);
+    };
+
+    _traverse.onChanged = (_params) => {
+      _importer.update(_params.blob);
+    };
+
+    _traverse.onResolved = () => {
+      _importer.resolved()
+    };
+
+    _traverse.onRejected = (_params) => {
+      console.warn('[Import rejected]', `File type '${_params.type}' of '${_params.name}' is not supported`);
+    };
+
+  })()
+
+  _event.dropEffect = 'copy';
+  _event.preventDefault(); return false;
+};

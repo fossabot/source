@@ -63,7 +63,7 @@ The complete set of contributors may be found at https://contrast-tool.github.io
 	
 	<script>
 		// A2HS - https://developers.google.com/web/fundamentals/app-install-banners/
-		if (window.navigator.standalone === true || window.matchMedia('(display-mode: standalone)').matches) { 
+		if (self.navigator.standalone === true || self.matchMedia('(display-mode: standalone)').matches) { 
 			console.info('A2HS is active'); 
 		} else {
 			self.addEventListener('beforeinstallprompt', (_event) => {

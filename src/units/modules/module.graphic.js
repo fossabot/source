@@ -12,11 +12,11 @@ applic.graphic = new class { }
 applic.graphic.__proto__.updated = () => { };
 
 applic.graphic.types = [{
-   nonce: 'twitch:emote'
-
+   nonce: 'twitch:emote',
+   name: 'Emote'
 }, {
-   nonce: 'twitch:badge'
-
+   nonce: 'twitch:badge',
+   name: 'Badge'
 }]
 
 

@@ -151,7 +151,15 @@ export const model = function () {
     ${(_section => { return !_section ? '' : 
       applic.graphic.types.map(_type => html`
         <applic-gid class="_grid">
-          <span slot="label">${_type.nonce}</span>
+          <span slot="label">${_type.name}</span>
+
+          <applic-button slot="action" 
+            @click="${this.call('applic:import', { section: _section.nonce, type: _type.nonce })}">Add File
+          </applic-button>
+          <applic-button slot="action" 
+            @click="${this.call('applic:import-folder', { section: _section.nonce, type: _type.nonce })}">Add Folder
+          </applic-button>
+
           ${(_graphics => {
             return !_graphics ? html`
                   No grafics for this type 

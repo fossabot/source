@@ -13,9 +13,7 @@ console.debug('applic-wireframe:loaded', `${Date.now() - applic.created}ms`);
 
 class ApplicGrid extends LitElement {
   static get properties() {
-    return { 
-      nonce: { type: String }
-    };
+    return { };
   }
 
   render() {
@@ -29,16 +27,33 @@ class ApplicGrid extends LitElement {
           max-width: 100%; 
           margin: 0 0 0; }
 
-        ._expander {
+        ._header {
           ${applic.$.css.apply('--layout--sizing--border-box')} 
           ${applic.$.css.apply('--layout--horizontal')} 
           ${applic.$.css.apply('--layout--center')} 
           ${applic.$.css.apply('--layout--flex-none')} 
 
-          height: 48px;
-          padding: 0 20px; }
+          border-bottom: 1px solid #d6d6d6;
 
-        ._expander ::slotted(*) {
+          height: 48px;
+          margin: 0 16px; 
+          padding: 0 4px; }
+
+        ._header-actions {
+          ${applic.$.css.apply('--layout--sizing--border-box')} 
+          ${applic.$.css.apply('--layout--horizontal')} 
+          ${applic.$.css.apply('--layout--center')} 
+          ${applic.$.css.apply('--layout--flex-none')} 
+
+          margin: 0 0 0 auto; }
+/*
+        :host(:not(:hover)) ._header-actions {
+          opacity: 0; }
+
+        :host(:hover) ._header-actions {
+          opacity: 1; }
+*/
+        ._header ::slotted(*) {
           ${applic.$.css.apply('--typo')}
 
           font-size: 10px;
@@ -49,12 +64,17 @@ class ApplicGrid extends LitElement {
 
           color: #979797; }
 
+
+
         ._list {
           ${css.apply('--layout--sizing--border-box')}
           ${css.apply('--layout--horizontal')}
           ${css.apply('--layout--wrap')}
 
-          margin: -9px 0 0 0; 
+          width: 100%;
+          max-width: 100%;
+
+          overflow: visible;
           padding: calc(8px / 2); }
 
 
@@ -69,8 +89,9 @@ class ApplicGrid extends LitElement {
 
       </style>
 
-      <div class="_expander">
-        <slot name="label"></slot>${this.open}
+      <div class="_header">
+        <slot name="label"></slot>
+        <div class="_header-actions"><slot name="action"></slot></div>
       </div>
 
       <div class="_list">
@@ -86,11 +107,11 @@ class ApplicGrid extends LitElement {
   }
 
   firstUpdated() {
-  
+
   }
   updated() {
-    Promise.resolve().then(() => {
-      let _width = this.scrollWidth, _colum = Math.round((_width / 180) - .5);
+    applic.utils.buffer(() => {
+      let _width = this.offsetWidth, _colum = Math.round((_width / 180) - .5);
       _width -= 8 + .5;
       this.style.setProperty('--grid-item--width', `calc(${_width / _colum}px - ${8}px)`)
     })

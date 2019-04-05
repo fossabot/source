@@ -1,10 +1,10 @@
 ## Contrast Tool
 
-If you want to contribute please contact someone in [the abbey](discord.gg/Jcu3tRc). 
+If you want to contribute please contact someone in [the abbey](https://discord.gg/Jcu3tRc). 
 
 
 #### Dependencies
-[polymer](https://lit-html.polymer-project.org)  
+[lit-element](https://lit-html.polymer-project.org)  
 [webcomponentsjs](https://github.com/webcomponents/webcomponentsjs)  
 [JSZip](https://github.com/Stuk/jszip)  
 [dropbox](https://github.com/dropbox/dropbox-sdk-js)  

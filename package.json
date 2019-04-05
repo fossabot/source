@@ -11,7 +11,6 @@
     "lint": "polymer lint"
   },
   "dependencies": {
-    "@polymer/polymer": "^3.0.0",
     "@webcomponents/webcomponentsjs": "^2.2.7",
     "dropbox": "^4.0.16",
     "jszip": "^3.2.0",
