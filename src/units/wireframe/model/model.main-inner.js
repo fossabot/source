@@ -115,24 +115,12 @@ export const model = function () {
         ${css.apply('--layout--center-center')} 
         
         width: 100%;
-        margin-top: 56px; 
         pointer-events: none; }
-
-      ._emty--graphic {
-        margin: -64px 0px 20px; }
-
-      ._emty--info {
-        ${css.apply('--typo')}
-        font-size: 13px;
-        line-height: 1;
-        font-weight: 400;
-        letter-spacing: -0.14px;
-        color: #b8b8b8; }
 
       ._emty--detail {
         ${css.apply('--typo')}
 
-        margin-top: 56px;
+        margin-top: 48px;
 
         font-size: 13px;
         line-height: 1;
@@ -150,7 +138,9 @@ export const model = function () {
 
     ${(_section => { return !_section ? '' : 
       applic.graphic.types.map(_type => html`
-        <applic-gid class="_grid">
+        <applic-gid class="_grid"
+          @drop="${this.call('applic:import-drag', { section: _section.nonce, type: _type.nonce })}">
+
           <span slot="label">${_type.name}</span>
 
           <applic-button slot="action" 
@@ -161,8 +151,10 @@ export const model = function () {
           </applic-button>
 
           ${(_graphics => {
-            return !_graphics ? html`
-                  No grafics for this type 
+            return !_graphics.length ? html`
+                  <div class="_emty">
+                    <div class="_emty--detail">Drag .png, .svg, and .gif files here</div>
+                  </div>
                 ` : _graphics.map(_graphic => html`
 
                   <div class="_grid-item" ?hidden="${_graphic.section != _section.nonce}">

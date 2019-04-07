@@ -77,7 +77,8 @@ export const model = function () {
 
         ${(_sections => { return !_sections ? '' : _sections.map(_section => html`
           <applic-list-item ?active="${_section.active}"
-            @click="${this.call('section:select', { nonce: _section.nonce })}">
+            @click="${this.call('section:select', { nonce: _section.nonce })}"
+            @dragover="${this.call('section:select', { nonce: _section.nonce })}">
 
             <applic-icon name="folder_open" slot="graphic"></applic-icon>
             <span>${_section.name}</span>

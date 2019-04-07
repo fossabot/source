@@ -13,10 +13,13 @@ applic.graphic.__proto__.updated = () => { };
 
 applic.graphic.types = [{
    nonce: 'twitch:emote',
-   name: 'Emote'
+   name: 'Emoticon'
 }, {
    nonce: 'twitch:badge',
    name: 'Badge'
+}, {
+   nonce: 'telegram:sticker',
+   name: 'Sticker'
 }]
 
 
@@ -64,7 +67,7 @@ applic.graphic.create = (_params) => {
          this.detail = _params.blob.detail;
 
          this.section = _params.section;
-         this.type = 'twitch:emote'
+         this.type = _params.type;
 
 
          this.uri = '';

@@ -33,14 +33,15 @@ applic.import.traverse = (_params) => {
          // console.debug('applic-import:traverse-new', _params)
 
          Promise.resolve().then(() => {
-            let _files = 0; for (const _file of _params.files) {
-               if (_file.type && '' != _file.type) _files++
-            };
-
-            if (_files < _params.files.length && _params.items) {
+            // let _files = 0; for (const _file of _params.files) {
+            //    if (_file.type && '' != _file.type) _files++
+            // };
+            if (_params.entries) {
+            // if (_files < _params.files.length && _params.items) {
                // console.debug('applic-import:traverse-deep-search');
                (async () => {
-                  await this._traverse({ items: _params.items });
+                  await this._traverse({ entries: _params.entries });
+                  // await this._traverse({ items: _params.items });
                   applic.utils.buffer(this._resolve.bind(this));
                })()
 
@@ -59,12 +60,15 @@ applic.import.traverse = (_params) => {
             if (!_iteration.entries) _iteration.entries = [];
             if (!_iteration.depth) _iteration.depth = 0;
 
-            if (_iteration.items) {
-               for (const _item of _iteration.items) {
-                  _iteration.entries.push(_item.webkitGetAsEntry());
-               };
-            };
-
+            // if (_iteration.items) {
+            //    console.log('get entries')
+               
+            //    for (const _item of _iteration.items) {
+            //       const _entry = _item.webkitGetAsEntry()
+            //       console.log('_entry', _entry)
+            //       _iteration.entries.push(_entry);
+            //    };
+            // };
 
             for (const _entry of _iteration.entries) {
                if (!_entry) return;
@@ -81,7 +85,7 @@ applic.import.traverse = (_params) => {
                      _entry.createReader().readEntries(async (_entries) => {
                         await this._traverse({
                            entries: _entries,
-                           depth: ++_iteration.depth
+                           depth: 1 + _iteration.depth
                         });
 
                         resolve()

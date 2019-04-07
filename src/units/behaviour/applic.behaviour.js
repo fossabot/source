@@ -54,6 +54,7 @@ applic.__proto__.newImport = (_params) => {
 
       this.graphic = {};
       this.section = _params.section;
+      this.type = _params.type;
 
       // console.log('importer-created', _params)
     }
@@ -61,6 +62,7 @@ applic.__proto__.newImport = (_params) => {
     add(_blob) {
       this.graphic[_blob.nonce] = applic.graphic.create({
         section: this.section,
+        type: this.type,
         blob: _blob
       })
     }

@@ -7,5 +7,3 @@ The complete set of contributors may be found at https://contrast-tool.github.io
 */
 
 import './units/behaviour/applic.behaviour.js'
-// is lazy // import './units/processing/applic.processing.js'
-

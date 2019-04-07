@@ -35,6 +35,8 @@ class ApplicMount extends LitElement {
           ${this.css.apply('--stance--fit')}
           ${this.css.apply('--layout--sizing--border-box')}
           ${this.css.apply('--layout--vertical')}
+  
+          ${this.css.apply('--typo--noselect')}
 
           transition: opacity 120ms cubic-bezier(0.4, 0.0, 1, 1);
           overflow: hidden; }
@@ -213,6 +215,9 @@ class ApplicMount extends LitElement {
         case 'applic:import-folder':
           files.importFolder(_params)
           break;
+        case 'applic:import-drag':
+          drop.catch(_params)
+          break;
 
       }
     }
@@ -229,41 +234,53 @@ customElements.define('applic-mount', ApplicMount);
 
 
 
+
+/**
+ * All image-types work technically. BUT I DO NOT WANT PEOPLE JUST DOWNLOAD
+ * IMAGES FROM GOOGLE AND MAKE EMOTES OUT OF THEM. So I limit it to the most
+ * common file types from people that actually create proper emotes.
+ */
+const types = ['image/x-png', 'image/png', 'image/gif', 'image/svg'];
 const files = {};
+
 files.import = (_params) => {
-  console.log('files.import', _params)
-  const _import = _newImport();
-  _import.setAttribute('accept', 'image/x-png, image/png, image/gif, image/svg');
+  const _import = _newImport(_params);
+  _import.setAttribute('accept', types.join(','));
   _import.click();
 };
 
 files.importFolder = (_params) => {
-  console.log('files.importFolder', _params)
-  const _import = _newImport();
+  const _import = _newImport(_params);
   _import.setAttribute('directory', '');
-  _import.setAttribute('webkitdirectory', '');  
+  _import.setAttribute('webkitdirectory', '');
   _import.click();
 };
 
-files.change = async (_event) => {
-  console.log(_event)
+const _newImport = (_params) => {
+  const _import = document.createElement('input');
+  _import.setAttribute('type', 'file');
+  _import.setAttribute('multiple', '');
+  _import.addEventListener('change', (_event) => {
+    files.register(_params, { files: Array.from(_import.files) });
+  });
 
-  const _transfer = _event.dataTransfer;
+  document.body.appendChild(_import)
+  return _import;
+};
+
+
+files.register = async (_params, _transfer) => {
+  let _rejected = [];
 
   const _importer = applic.newImport({
-    section: applic.section.active
+    section: _params.section || applic.section.active,
+    type: _params.type || applic.graphic.types[0].nonce
   });
 
   const _traverse = applic.import.traverse({
-    /**
-     * All image-types work technically. BUT I DO NOT WANT PEOPLE JUST DOWNLOAD
-     * IMAGES FROM GOOGLE AND MAKE EMOTES OUT OF THEM. So I limit it to the most
-     * common file types from people that actually create proper emotes.
-     */
-    types: ['image/png', 'image/svg', 'image/gif'],
-
+    types: types,
     files: !_transfer.files ? false : Array.from(_transfer.files),
-    items: !_transfer.items ? false : Array.from(_transfer.items)
+    entries: !_transfer.entries ? false : Array.from(_transfer.entries)
   });
 
   _traverse.onRegistered = (_params) => {
@@ -275,64 +292,61 @@ files.change = async (_event) => {
   };
 
   _traverse.onResolved = () => {
-    _importer.resolved()
+    _importer.resolved();
+    if (_rejected.length == 1) {
+      console.groupCollapsed(`${_rejected.length} Import rejected`);
+      _rejected.forEach((_params) => console.log(`${_params.type}' of '${_params.name}'`));
+      console.groupEnd();
+    };
   };
 
   _traverse.onRejected = (_params) => {
-    console.warn('[Import rejected]', `File type '${_params.type}' of '${_params.name}' is not supported`);
+    _rejected.push(_params)
   };
-
-};
-
-const _newImport = () => {
-  const _import = document.createElement('input');
-  _import.setAttribute('type', 'file');
-  _import.setAttribute('multiple', '');
-  _import.addEventListener('change', files.change)
-  return _import;
 };
 
 
 const drop = {};
+drop.dataTransfer = { catched: true };
+
 drop.move = (_event) => { _event.preventDefault(); };
 drop.release = (_event) => {
-  (async () => {
-    const _transfer = _event.dataTransfer;
-
-    const _importer = applic.newImport({
-      section: applic.section.active
-    });
-
-    const _traverse = applic.import.traverse({
-      /**
-       * All image-types work technically. BUT I DO NOT WANT PEOPLE JUST DOWNLOAD
-       * IMAGES FROM GOOGLE AND MAKE EMOTES OUT OF THEM. So I limit it to the most
-       * common file types from people that actually create proper emotes.
-       */
-      types: ['image/png', 'image/svg', 'image/gif'],
-
-      files: !_transfer.files ? false : Array.from(_transfer.files),
-      items: !_transfer.items ? false : Array.from(_transfer.items)
-    });
-
-    _traverse.onRegistered = (_params) => {
-      _importer.add(_params.blob);
-    };
-
-    _traverse.onChanged = (_params) => {
-      _importer.update(_params.blob);
-    };
-
-    _traverse.onResolved = () => {
-      _importer.resolved()
-    };
-
-    _traverse.onRejected = (_params) => {
-      console.warn('[Import rejected]', `File type '${_params.type}' of '${_params.name}' is not supported`);
-    };
-
-  })()
-
+  const _transfer = _event.dataTransfer;
+  
   _event.dropEffect = 'copy';
-  _event.preventDefault(); return false;
+  _event.preventDefault();
+
+  drop.dataTransfer = {
+    catched: false, entries: [],
+    files: !_transfer.files ? false : Array.from(_transfer.files),
+  };
+
+  if (_transfer.items) for (const _item of _transfer.items) {
+    drop.dataTransfer.entries.push(_item.webkitGetAsEntry());
+  };
+ 
+
+  applic.utils.buffer(() => {
+    applic.utils.buffer(() => {
+      if (drop.dataTransfer.catched) return;
+
+      files.register({
+        section: applic.section.active,
+        type: applic.graphic.types[0].nonce
+      }, drop.dataTransfer)
+    })
+  })
+
+  return false;
+};
+
+drop.catch = (_params) => {
+  applic.utils.buffer(() => {
+    files.register({
+      section: _params.section,
+      type: _params.type
+    }, drop.dataTransfer)
+    
+    drop.dataTransfer.catched = true;
+  })
 };

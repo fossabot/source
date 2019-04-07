@@ -23,8 +23,6 @@ class ApplicGrid extends LitElement {
           ${css.apply('--layout--sizing--border-box')}
           ${css.apply('--layout--vertical')}
 
-          width: 100%;
-          max-width: 100%; 
           margin: 0 0 0; }
 
         ._header {
@@ -74,7 +72,6 @@ class ApplicGrid extends LitElement {
           width: 100%;
           max-width: 100%;
 
-          overflow: visible;
           padding: calc(8px / 2); }
 
 
