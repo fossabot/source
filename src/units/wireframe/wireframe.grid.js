@@ -116,4 +116,4 @@ class ApplicGrid extends LitElement {
 
 }
 
-customElements.define('applic-gid', ApplicGrid);
+customElements.define('applic-grid', ApplicGrid);

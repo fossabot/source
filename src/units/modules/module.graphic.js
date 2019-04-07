@@ -17,9 +17,6 @@ applic.graphic.types = [{
 }, {
    nonce: 'twitch:badge',
    name: 'Badge'
-}, {
-   nonce: 'telegram:sticker',
-   name: 'Sticker'
 }]
 
 

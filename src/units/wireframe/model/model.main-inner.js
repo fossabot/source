@@ -138,7 +138,7 @@ export const model = function () {
 
     ${(_section => { return !_section ? '' : 
       applic.graphic.types.map(_type => html`
-        <applic-gid class="_grid"
+        <applic-grid class="_grid"
           @drop="${this.call('applic:import-drag', { section: _section.nonce, type: _type.nonce })}">
 
           <span slot="label">${_type.name}</span>
@@ -183,7 +183,7 @@ export const model = function () {
 
                 `);
           })(_section ? applic.graphic.get({ section: _section.nonce, type: _type.nonce }) : false)}
-        </applic-gid>
+        </applic-grid>
       `)
     }) (applic.section ? applic.section.get('~') : false)}
 
@@ -193,7 +193,7 @@ export const model = function () {
 
     ${
     '' /*(_section => html`
-      <applic-gid class="_grid">
+      <applic-grid class="_grid">
         <span slot="label">Label</span>
         ${0 < this.graphic.length ? html`
           ${this.graphic.map(_graphic => html`
@@ -229,7 +229,7 @@ export const model = function () {
             <div class="_emty--detail">Drag .png, .svg, and .gif files here</div>
           </div>
         `}
-      </applic-gid>
+      </applic-grid>
             
     `)(applic.section ? applic.section.get('~') : '') */}
 
