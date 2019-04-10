@@ -23,11 +23,20 @@ The complete set of contributors may be found at https://contrast-tool.github.io
 	<meta name="viewport" content="width=device-width, minimum-scale=1.0, maximum-scale=1.0, user-scalable=no">
 	
 	<script>
-		self.applic = new class { constructor() {
-			this.__proto__.rootPath = '/';
-			this.__proto__.created = Date.now();
-			this.__proto__.rendered = false;
-		}};
+		self.applic = new class { 
+			constructor() {
+				this.__proto__.rootPath = '/';
+				this.__proto__.created = Date.now();
+				this.__proto__.rendered = false;
+			} 
+
+			_firstFrame() {
+				// delete this._firstFrame;
+				this.__proto__.rendered = true;
+				console.debug('--- first frame ---');
+			}
+
+		}
 	</script>
 	
 	<meta itemprop="name" content="Contrast Tool">
@@ -59,63 +68,50 @@ The complete set of contributors may be found at https://contrast-tool.github.io
 	<meta name="apple-mobile-web-app-status-bar-style" content="black-translucent">
 	
 	<link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Roboto:300,400,500|Material+Icons+Sharp">
-	<style> body { margin: 0; background: #f4f4f4; } </style>
+	<style> 
+		body { 
+			margin: 0; 
+			background: #f4f4f4; }
+
+		body { 
+			background-image: url('images/manifest/icon-48x48.png');
+			background-repeat: no-repeat;
+			background-attachment: fixed;
+			background-position: center; 
+			background-size: 48px 48px; } 
+
+	</style>
 	
 	<script>
-		// A2HS - https://developers.google.com/web/fundamentals/app-install-banners/
-		if (self.navigator.standalone === true || self.matchMedia('(display-mode: standalone)').matches) { 
-			console.info('A2HS is active'); 
-		} else {
-			self.addEventListener('beforeinstallprompt', (_event) => {
-				applic.deferredPrompt = _event;  console.info('A2HS is available');
-				applic.deferredPrompt.preventDefault();
-
-				applic.deferredInstall = () => {
-					if (!applic.deferredPrompt) return;
-
-					applic.deferredPrompt.prompt().catch((_error) => console.error );
-					applic.deferredPrompt.userChoice.then((_result) => {
-						if (_result.outcome === 'accepted') {
-							console.debug('User accepted the A2HS prompt');
-						} else {
-							console.debug('User dismissed the A2HS prompt');
-						};
-
-						applic.utils.buffer(() => {
-							applic.deferredPrompt = null;
-							applic.deferredInstall = () => { };
-						})
-					});
-				};
-
-				// TODO: Add an in-app install prompt.
-				setTimeout(applic.deferredInstall, 1000 * 2)
-			});
-		}
-
 		// ServiceWorker
 		if ('serviceWorker' in navigator) {
-			self.addEventListener('load', () => {	
+			self.addEventListener('load', () => {
 				navigator.serviceWorker.register('service-worker.js', { scope: applic.rootPath })
-					.then((_sw) => { applic.__proto__.sw = _sw})
+					.then((_sw) => { applic.__proto__.sw = _sw })
 			});
 		};
-
+	
 	</script>
 
+	<script src="src/units/applic.a2hs.js"></script>
 	<script src="node_modules/@webcomponents/webcomponentsjs/webcomponents-bundle.js"></script>
 
 	<script type="module" src="src/applic.wireframe.js"></script>
-	<script type="module" src="src/applic.js"></script>
-	<script type="module" src="src/applic.lazies.js"></script>
+	<script type="module">
+		Promise.resolve().then(async () => {
+			await import('./src/applic.js');
+			await import('./src/applic.lazies.js');
+		});
+	</script>
+	<!-- <script type="module" src="src/applic.js"></script> -->
+	<!-- <script type="module" src="src/applic.lazies.js"></script> -->
 
 </head>
 
 <body>
 	<applic-mount></applic-mount>
 	<noscript>Please enable JavaScript to view this application.</noscript>
-	<script> requestAnimationFrame(() => { self.applic.__proto__.rendered = true; }); </script>
-	<script> requestAnimationFrame(() => { console.debug('--- first frame ---'); }); </script>
+	<script> requestAnimationFrame(applic._firstFrame.bind(applic)) </script>
 </body>
 
 </html>

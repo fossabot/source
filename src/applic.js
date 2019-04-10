@@ -7,3 +7,5 @@ The complete set of contributors may be found at https://contrast-tool.github.io
 */
 
 import './units/behaviour/applic.behaviour.js'
+
+console.info('applic:loaded', `${Date.now() - applic.created}ms`);

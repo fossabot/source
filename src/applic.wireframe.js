@@ -15,9 +15,4 @@ import './units/applic-event.js'
 import './lib/elements/all-elements.js'
 import './units/wireframe/wireframe.mount.js'
 
-// applic.utils.buffer(async () => {
-//    await import('./applic.js');
-//    await import('./applic.lazies.js');
-// })
-
 applic.$ = document.querySelector('applic-mount');

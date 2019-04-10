@@ -38,6 +38,7 @@ class ApplicMount extends LitElement {
   
           ${this.css.apply('--typo--noselect')}
 
+          background: #f4f4f4;
           transition: opacity 120ms cubic-bezier(0.4, 0.0, 1, 1);
           overflow: hidden; }
 

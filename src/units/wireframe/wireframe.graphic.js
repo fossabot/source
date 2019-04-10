@@ -34,12 +34,12 @@ class ApplicGraphic extends LitElement {
     applic.on('applic:changed', this.updated.bind(this));
   }
 
-  firstUpdated() {
+  firstUpdated() { }
   
-  }
-  updated() {
+  updated() { 
     const _graphic = applic.graphic.get(this.nonce);
     const _image = this.shadowRoot.querySelector('._graphic');
+    
 
     if (!_graphic) {
       _image.setAttribute('uri', '');
