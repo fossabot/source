@@ -107,6 +107,25 @@ export const model = function () {
         opacity: 0;
       }
 
+      ._grid-item--selector { 
+        ${css.apply('--stance--absolute')}
+        ${css.apply('--stance--pin--top-start')}
+        ${css.apply('--layout--horizontal')}
+        ${css.apply('--layout--center')}
+
+        margin: 3px 0 0 0px;
+      }
+      ._grid-item[selected] { 
+        transform: scale(0.9);
+      }
+      ._grid-item[selected] ._grid-item--selector { 
+        transform: scale(1.1);
+        margin: -17px 0 0 -17px;
+      }
+      ._grid-item:not([selected]):not(:hover) ._grid-item--selector { 
+        opacity: 0;
+      }
+
       ._emty {
         ${css.apply('--stance--absolute')}
         ${css.apply('--stance--fit')}
@@ -157,9 +176,21 @@ export const model = function () {
                   </div>
                 ` : _graphics.map(_graphic => html`
 
-                  <div class="_grid-item" ?hidden="${_graphic.section != _section.nonce}">
+                  <div class="_grid-item" 
+                    ?hidden="${_graphic.section != _section.nonce}"
+                    ?selected="${_graphic.selected}">
+
+                    <div class="_grid-item--selector">
+                      <applic-icon-button icon="${_graphic.selected ? 'check_circle_outline' : 'radio_button_unchecked'}" size="dense"
+                        @click="${this.call('graphic:update', { nonce: _graphic.nonce, value: { selected: !_graphic.selected } })}">
+                        <applic-hint>Select "${_graphic.alias}"</applic-hint>
+                      </applic-icon-button>
+                    </div>
+
                     <div class="_grid-item--header">
                       <div class="_grid-item--titel">${_graphic.alias}</div>
+
+           
 
                       <div class="_grid-item--action">
                         <applic-icon-button icon="close" size="dense"

@@ -167,10 +167,10 @@ class ApplicSideSheet extends LitElement {
       };
     };
 
-    if (this.persistent && this.align != 'end') {
+    if (this.open && this.persistent && this.align != 'end') {
       $_node.style.margin = `0px 0px 0px 0px`;
       $_node.style.padding = `0px 0px 0px ${_width}px`;
-    } else if (this.persistent) {
+    } else if (this.open && this.persistent) {
       $_node.style.margin = `0px 0px 0px 0px`;
       $_node.style.padding = `0px ${_width}px 0px 0px`;
     } else {

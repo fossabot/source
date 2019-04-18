@@ -100,7 +100,8 @@ class ApplicMount extends LitElement {
             <div class="applic bar-row">
               <div class="applic bar-section align-start">
 
-                <applic-icon-button icon="notes">
+                <applic-icon-button icon="notes"
+                  @click="${this.call('layout-navigation:toggle')}">
                   <applic-hint>Toggle navigation</applic-hint>
                 </applic-icon-button>
 
@@ -196,6 +197,11 @@ class ApplicMount extends LitElement {
   call(_type, _params) {
     return () => {
       switch (_type) {
+        case 'layout-navigation:toggle':
+          const _nvaigation = this.shadowRoot.querySelector('._side-sheet');
+            _nvaigation.toggle();
+          break;
+
         case 'section:select':
           applic.section.select(_params.nonce)
           break;
@@ -206,6 +212,9 @@ class ApplicMount extends LitElement {
           applic.section.create()
           break;
 
+        case 'graphic:update':
+          applic.graphic.update(_params.nonce, _params.value)
+          break;
         case 'graphic:remove':
           applic.graphic.remove(_params.nonce)
           break;

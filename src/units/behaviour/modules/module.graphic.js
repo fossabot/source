@@ -40,9 +40,9 @@ applic.graphic.get = (_nonce) => {
    }
 };
 
-applic.graphic.select = (_nonce) => {
+applic.graphic.update = (_nonce, _value) => {
    if (!GRAPHIC_STATE[_nonce]) return;
-
+   GRAPHIC_STATE[_nonce].update(_value);
 }
 
 applic.graphic.remove = (_nonce) => {
@@ -63,6 +63,8 @@ applic.graphic.create = (_params) => {
          this.blob = _params.blob;
          this.detail = _params.blob.detail;
 
+         this.selected = false;
+
          this.section = _params.section;
          this.type = _params.type;
 
@@ -81,8 +83,12 @@ applic.graphic.create = (_params) => {
       }
 
       update(_params) {
-         if (_params.section) this.section = _params.section;
-         if (_params.blob) this.blob = _params.blob;
+         const _defined = (_key) => { return _params[_key] != undefined}
+
+         if (_defined('selected')) this.selected = _params.selected;
+
+         if (_defined('section')) this.section = _params.section;
+         if (_defined('blob')) this.blob = _params.blob;
 
          this._changed();
       }
