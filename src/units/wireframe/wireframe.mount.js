@@ -98,14 +98,35 @@ class ApplicMount extends LitElement {
         <div class="_body-wrap">
           <div class="_body-header applic bar">
             <div class="applic bar-row">
-              <div class="applic bar-section align-start">
+              ${(() => {
+                return !this._selected.length ? html`
+                  <div class="applic bar-section align-start">
 
-                <applic-icon-button icon="notes"
-                  @click="${this.call('layout-navigation:toggle')}">
-                  <applic-hint>Toggle navigation</applic-hint>
-                </applic-icon-button>
+                    <applic-icon-button icon="notes"
+                      @click="${this.call('layout-navigation:toggle')}">
+                      <applic-hint>Toggle navigation</applic-hint>
+                    </applic-icon-button>
 
-              </div>
+                  </div>
+
+                ` : html`
+                  <div class="applic bar-section align-start">
+
+                    <applic-icon-button icon="select_all">
+                      <applic-hint>Select All</applic-hint>
+                    </applic-icon-button>
+
+                  </div>
+
+                  <div class="applic bar-section align-end">
+                    <applic-button icon="notes">
+                      Export
+                    </applic-button>
+
+                  </div>
+
+                `;
+              })()}
             </div>
           </div>
 
@@ -143,9 +164,8 @@ class ApplicMount extends LitElement {
 
     if (applic.rendered) this.setAttribute('unresolved', '');
     this.setAttribute('startup', '');
-
-    this.section = [];
-    this.graphic = [];
+   
+    this._selected = [];
 
     // applic.on('applic:updated', this.requestUpdate.bind(this))
     applic.on('applic:updated', this._update.bind(this))
@@ -153,7 +173,7 @@ class ApplicMount extends LitElement {
     self.addEventListener('resize', this._resize.bind(this), { passive: true });
     this._resize();
   }
-
+ 
   _resize() {
     const _breakpoint = (() => {
       const _width = self.innerWidth;
@@ -234,8 +254,9 @@ class ApplicMount extends LitElement {
   };
 
   _update() {
-    this.requestUpdate();
+    this._selected = applic.graphic.get({ selected: true });
 
+    this.requestUpdate();
   }
 
 }

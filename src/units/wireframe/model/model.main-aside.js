@@ -113,18 +113,23 @@ export const model = function () {
     </style>
    
     <div class="_aside grid">
-      ${this.graphic.map(_graphic => html`
-        <div class="_aside grid-item">
-          <div class="_aside grid-item--titel">Image</div>
-          <applic-image uri="${_graphic.uri}" aspect="1:1" class="_aside grid-item--graphic"></applic-image>
+      ${(_graphics => {
+        return !_graphics.length ? html`
 
-          <div class="_aside grid-item--detail">
-            <span>Modified: 1:13 pm</span>
-            <span>Created: 1:13 pm</span>
+        ` : _graphics.map(_graphic => html`
+
+          <div class="_aside grid-item">
+            <div class="_aside grid-item--titel">Image</div>
+            <applic-image uri="${_graphic.uri}" aspect="1:1" class="_aside grid-item--graphic"></applic-image>
+
+            <div class="_aside grid-item--detail">
+              <span>Modified: 1:13 pm</span>
+              <span>Created: 1:13 pm</span>
+            </div>
+
           </div>
-
-        </div>
-      `)}
+        `);
+      })(this._selected)}
     </div>
     
   `
