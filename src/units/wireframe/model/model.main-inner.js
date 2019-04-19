@@ -12,11 +12,13 @@ import { css } from '../wireframe.style.js';
 export const model = function () {
   return html`
     <style>
-      ._grid-item {
+      ._grid-item,
+      ._grid-item--cell {
         ${css.apply('--stance--relative')}
         ${css.apply('--layout--sizing--border-box')}
-        ${css.apply('--layout--vertical')}
+        ${css.apply('--layout--vertical')} }
 
+      ._grid-item--cell {
         padding: 0px 12px;
 
         border: 1px solid #d6d6d6;
@@ -113,16 +115,13 @@ export const model = function () {
         ${css.apply('--layout--horizontal')}
         ${css.apply('--layout--center')}
 
-        margin: 3px 0 0 0px;
+        z-index: 1;
+        margin: -5px 0 0 -5px;
       }
-      ._grid-item[selected] { 
-        transform: scale(0.9);
+      ._grid-item[selected] ._grid-item--cell { 
+        transform: scale(0.92);
       }
-      ._grid-item[selected] ._grid-item--selector { 
-        transform: scale(1.1);
-        margin: -17px 0 0 -17px;
-      }
-      ._grid-item:not([selected]):not(:hover) ._grid-item--selector { 
+      ._grid-item:not([selected]) ._grid-item--selector { 
         opacity: 0;
       }
 
@@ -176,40 +175,41 @@ export const model = function () {
                   </div>
                 ` : _graphics.map(_graphic => html`
 
-                  <div class="_grid-item" 
+                  <div class="_grid-item"
+                    @click="${this.call('graphic:update', { nonce: _graphic.nonce, value: { selected: !_graphic.selected } })}"
                     ?hidden="${_graphic.section != _section.nonce}"
                     ?selected="${_graphic.selected}">
 
                     <div class="_grid-item--selector">
-                      <applic-icon-button icon="${_graphic.selected ? 'check_circle_outline' : 'radio_button_unchecked'}" size="dense"
-                        @click="${this.call('graphic:update', { nonce: _graphic.nonce, value: { selected: !_graphic.selected } })}">
+                      <applic-icon-button icon="${_graphic.selected ? 'check_circle_outline' : 'radio_button_unchecked'}" size="dense">
                         <applic-hint>Select "${_graphic.alias}"</applic-hint>
                       </applic-icon-button>
                     </div>
 
-                    <div class="_grid-item--header">
-                      <div class="_grid-item--titel">${_graphic.alias}</div>
+                    <div class="_grid-item--cell">
+                      <div class="_grid-item--header">
+                        <div class="_grid-item--titel">${_graphic.alias}</div>
 
-           
+                        <div class="_grid-item--action">
+                          <applic-icon-button icon="close" size="dense"
+                            @click="${this.call('graphic:remove', { nonce: _graphic.nonce })}">
+                            <applic-hint>Remove "${_graphic.alias}"</applic-hint>
+                          </applic-icon-button>
 
-                      <div class="_grid-item--action">
-                        <applic-icon-button icon="close" size="dense"
-                          @click="${this.call('graphic:remove', { nonce: _graphic.nonce })}">
-                          <applic-hint>Remove "${_graphic.alias}"</applic-hint>
-                        </applic-icon-button>
+                        </div>
+
                       </div>
 
+                      <applic-graphic nonce="${_graphic.nonce}" class="_grid-item--graphic">
+                      </applic-graphic>
+
+                      <div class="_grid-item--detail">
+                        <span>Imported: ${applic.utils.readable.date(_graphic.detail.created)}</span>
+                        <span>Modified: ${applic.utils.readable.date(_graphic.detail.lastModified)}</span>
+
+                      </div>
+                  
                     </div>
-
-                    <applic-graphic nonce="${_graphic.nonce}" class="_grid-item--graphic">
-                    </applic-graphic>
-
-                    <div class="_grid-item--detail">
-                      <span>Imported: ${applic.utils.readable.date(_graphic.detail.created)}</span>
-                      <span>Modified: ${applic.utils.readable.date(_graphic.detail.lastModified)}</span>
-
-                    </div>
-                
                   </div>
 
                 `);
