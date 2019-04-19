@@ -5,6 +5,7 @@
   "shell":      "./index.html",
   
   "fragments": [
+    "./src/units/applic.a2hs.js",
     "./src/applic.js",
     "./src/applic.lazies.js",
     

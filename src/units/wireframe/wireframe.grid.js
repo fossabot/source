@@ -108,7 +108,7 @@ class ApplicGrid extends LitElement {
   }
   updated() {
     applic.utils.buffer(() => {
-      let _width = this.offsetWidth - 1, _colum = Math.floor(_width / 180);
+      let _width = this.offsetWidth - 1, _colum = Math.floor(_width / 160);
       _width -= 8 + .5;
       this.style.setProperty('--grid-item--width', `calc(${_width / _colum}px - ${8}px)`)
     });

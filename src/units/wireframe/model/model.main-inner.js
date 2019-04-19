@@ -118,10 +118,16 @@ export const model = function () {
         z-index: 1;
         margin: -5px 0 0 -5px;
       }
-      ._grid-item[selected] ._grid-item--cell { 
-        transform: scale(0.92);
+   
+      ._grid-item[selected] ._grid-item--selector { 
+        color: var(--theme-color);
       }
-      ._grid-item:not([selected]) ._grid-item--selector { 
+     
+
+      ._grid[mode="select"] ._grid-item--cell { 
+        transform: scale(0.95);
+      }
+      ._grid:not([mode="select"]) ._grid-item--selector { 
         opacity: 0;
       }
 
@@ -157,6 +163,7 @@ export const model = function () {
     ${(_section => { return !_section ? '' : 
       applic.graphic.types.map(_type => html`
         <applic-grid class="_grid"
+          mode="${this._selected.length ? 'select' : 'view'}"
           @drop="${this.call('applic:import-drag', { section: _section.nonce, type: _type.nonce })}">
 
           <span slot="label">${_type.name}</span>
@@ -181,7 +188,8 @@ export const model = function () {
                     ?selected="${_graphic.selected}">
 
                     <div class="_grid-item--selector">
-                      <applic-icon-button icon="${_graphic.selected ? 'check_circle_outline' : 'radio_button_unchecked'}" size="dense">
+                      <applic-icon-button toggle size="dense" ?active="${_graphic.selected}" 
+                        icon="radio_button_unchecked" icon-active="check_circle">
                         <applic-hint>Select "${_graphic.alias}"</applic-hint>
                       </applic-icon-button>
                     </div>

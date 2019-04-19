@@ -120,11 +120,10 @@ export const model = function () {
 
           <div class="_aside grid-item">
             <div class="_aside grid-item--titel">Image</div>
-            <applic-image uri="${_graphic.uri}" aspect="1:1" class="_aside grid-item--graphic"></applic-image>
+            <applic-graphic nonce="${_graphic.nonce}" class="_grid-item--graphic">
+            </applic-graphic>
 
             <div class="_aside grid-item--detail">
-              <span>Modified: 1:13 pm</span>
-              <span>Created: 1:13 pm</span>
             </div>
 
           </div>

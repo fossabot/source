@@ -43,7 +43,7 @@ class ApplicMount extends LitElement {
           overflow: hidden; }
 
         :host([unresolved]) { opacity: 0; transition: opacity 0ms 0ms; }
-        :host(:not([startup])) [hide-on-startup] { opacity: 1; transition: opacity 120ms 20ms cubic-bezier(0.4, 0.0, 1, 1); }
+        :host(:not([startup])) [hide-on-startup] { opacity: 1; transition: opacity 120ms 120ms cubic-bezier(0.4, 0.0, 1, 1); }
         :host([startup]) [hide-on-startup] { opacity: 0; transition: opacity 0ms 0ms;  }
 
         ._sheet-wrap {
@@ -119,6 +119,9 @@ class ApplicMount extends LitElement {
                   </div>
 
                   <div class="applic bar-section align-end">
+                    <applic-button icon="notes">
+                      Remove
+                    </applic-button>
                     <applic-button icon="notes">
                       Export
                     </applic-button>

@@ -11,8 +11,27 @@ import { LitElement, html } from 'lit-element';
 class ApplicIconBtn extends LitElement {
   static get properties() {
     return {
-      icon: '',
-      size: ''
+      size: '',
+
+      icon: {
+        type: String,
+        value: '',
+        attribute: 'icon'
+      },
+      iconActive: {
+        type: String,
+        value: '',
+        attribute: 'icon-active'
+      },
+
+      toggle: {
+        type: Boolean,
+        value: false
+      },
+      active: {
+        type: Boolean,
+        value: false
+      }
     };
   }
 
@@ -43,16 +62,30 @@ class ApplicIconBtn extends LitElement {
 
         :host([tune="accent"]) applic-icon {
           color: #ff9569; }
+
+        :host([toggle][active]) * {
+          color: var(--theme-color);
+        }
         
       </style>
 
-      <applic-icon name="${this.icon}" size="${this.size}"></applic-icon>
+      ${this.toggle && this.active ? html`
+        <applic-icon name="${this.iconActive}" size="${this.size}"></applic-icon>
+      ` : html`
+        <applic-icon name="${this.icon}" size="${this.size}"></applic-icon>
+      `}
     `;
   }
   constructor() {
     super();
     this.setAttribute('aria-role', 'button');
+
   }
+
+  updated() {
+     
+  }
+
 }
 
 customElements.define('applic-icon-button', ApplicIconBtn);
