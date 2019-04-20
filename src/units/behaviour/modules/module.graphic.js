@@ -86,7 +86,6 @@ applic.graphic.create = (_params) => {
          const _defined = (_key) => { return _params[_key] != undefined}
 
          if (_defined('selected')) this.selected = _params.selected;
-
          if (_defined('section')) this.section = _params.section;
          if (_defined('blob')) this.blob = _params.blob;
 

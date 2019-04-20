@@ -212,7 +212,6 @@ export const model = function () {
                       </applic-graphic>
 
                       <div class="_grid-item--detail">
-                        <span>Imported: ${applic.utils.readable.date(_graphic.detail.created)}</span>
                         <span>Modified: ${applic.utils.readable.date(_graphic.detail.lastModified)}</span>
 
                       </div>

@@ -67,6 +67,9 @@ class ApplicMount extends LitElement {
         ._body-side-sheet {  
           --side-sheet--width: 280px; }
      
+        ._body-header > * {
+          padding: 0px 8px;
+        }
 
         ._body-main {  
           ${this.css.apply('--stance--relative')}
@@ -103,16 +106,25 @@ class ApplicMount extends LitElement {
                   <div class="applic bar-section align-start">
 
                     <applic-icon-button icon="notes"
-                      @click="${this.call('layout-navigation:toggle')}">
+                      @click="${this.call('layout-navigation:toggle')}"
+                      @dragover="${this.call('layout-navigation:show')}">
                       <applic-hint>Toggle navigation</applic-hint>
                     </applic-icon-button>
+
+                  </div>
+
+                  <div class="applic bar-section align-end">
+                    <applic-button icon="notes">
+                      Export all
+                    </applic-button>
 
                   </div>
 
                 ` : html`
                   <div class="applic bar-section align-start">
 
-                    <applic-icon-button icon="select_all">
+                    <applic-icon-button icon="select_all"
+                      @click="${this.call('graphic:select-all')}">
                       <applic-hint>Select All</applic-hint>
                     </applic-icon-button>
 
@@ -120,16 +132,16 @@ class ApplicMount extends LitElement {
 
                   <div class="applic bar-section align-end">
                     <applic-button icon="notes">
-                      Remove
+                      Export
                     </applic-button>
                     <applic-button icon="notes">
-                      Export
+                      Delete
                     </applic-button>
 
                   </div>
 
                 `;
-              })()}
+      })()}
             </div>
           </div>
 
@@ -167,7 +179,7 @@ class ApplicMount extends LitElement {
 
     if (applic.rendered) this.setAttribute('unresolved', '');
     this.setAttribute('startup', '');
-   
+
     this._selected = [];
 
     // applic.on('applic:updated', this.requestUpdate.bind(this))
@@ -176,7 +188,7 @@ class ApplicMount extends LitElement {
     self.addEventListener('resize', this._resize.bind(this), { passive: true });
     this._resize();
   }
- 
+
   _resize() {
     const _breakpoint = (() => {
       const _width = self.innerWidth;
@@ -218,23 +230,35 @@ class ApplicMount extends LitElement {
 
 
   call(_type, _params) {
+    const _nvaigation = this.shadowRoot.querySelector('._side-sheet');
+
     return () => {
       switch (_type) {
         case 'layout-navigation:toggle':
-          const _nvaigation = this.shadowRoot.querySelector('._side-sheet');
-            _nvaigation.toggle();
+          _nvaigation.toggle();
+          break;
+        case 'layout-navigation:show':
+          _nvaigation.expand();
           break;
 
         case 'section:select':
-          applic.section.select(_params.nonce)
+          applic.section.select(_params.nonce);
           break;
         case 'section:remove':
-          applic.section.remove(_params.nonce)
+          applic.section.remove(_params.nonce);
           break;
         case 'section:create':
-          applic.section.create()
+          applic.section.create();
           break;
 
+        case 'graphic:select-all':
+          const _graphics = applic.graphic.get({section: applic.section.active});
+          const _selected = applic.graphic.get({ selected: true});
+
+          if (_graphics) _graphics.forEach(_graphic => {
+            _graphic.update({ selected: _selected.length != _graphics.length });
+          });
+          break;
         case 'graphic:update':
           applic.graphic.update(_params.nonce, _params.value)
           break;
@@ -346,7 +370,7 @@ drop.dataTransfer = { catched: true };
 drop.move = (_event) => { _event.preventDefault(); };
 drop.release = (_event) => {
   const _transfer = _event.dataTransfer;
-  
+
   _event.dropEffect = 'copy';
   _event.preventDefault();
 
@@ -358,7 +382,7 @@ drop.release = (_event) => {
   if (_transfer.items) for (const _item of _transfer.items) {
     drop.dataTransfer.entries.push(_item.webkitGetAsEntry());
   };
- 
+
 
   applic.utils.buffer(() => {
     applic.utils.buffer(() => {
@@ -380,7 +404,7 @@ drop.catch = (_params) => {
       section: _params.section,
       type: _params.type
     }, drop.dataTransfer)
-    
+
     drop.dataTransfer.catched = true;
   })
 };

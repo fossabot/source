@@ -99,7 +99,9 @@ class ApplicSideSheet extends LitElement {
 
       </style>
 
-      <div class="_scrim" ?active="${!this.persistent && this.open}"></div>
+      <div class="_scrim" 
+        ?active="${!this.persistent && this.open}"
+        @dragover="${this.collapse}"></div>
       <div class="_card"><slot></slot></div>
 
     `;
@@ -114,10 +116,10 @@ class ApplicSideSheet extends LitElement {
     // $_scrim.addEventListener('touchstart', this.collapse.bind(this), { passive: true });
     // $_scrim.addEventListener('mousedown', this.collapse.bind(this), { passive: true });
 
-    // this.expandDur = '200ms';
-    // this.expandTmf = 'cubic-bezier(0.0, 0.0, 0.2, 1)';
-    // this.collapseDur = '150ms';
-    // this.collapseTmf = 'cubic-bezier(0.4, 0.0, 1, 1)';
+    this.expandDur = '200ms';
+    this.expandTmf = 'cubic-bezier(0.0, 0.0, 0.2, 1)';
+    this.collapseDur = '150ms';
+    this.collapseTmf = 'cubic-bezier(0.4, 0.0, 1, 1)';
 
     // this.requestUpdate();
     // window.addEventListener('resize', this._update.bind(this));
@@ -153,29 +155,45 @@ class ApplicSideSheet extends LitElement {
 
     const _width = $_card.offsetWidth - 30;
 
+    $_card.style.transitionProperty = `margin`;
+
     if (this.align != 'end') {
       if (this.open) {
         $_card.style.margin = `-${30}px 0px -${30}px -${30}px`;
+        $_card.style.transitionDuration = `${this.expandDur}`;
+        $_card.style.transitionTimingFunction = `${this.expandTmf}`;
       } else {
         $_card.style.margin = `-${30}px 0px -${30}px -${_width + 30}px`;
+        $_card.style.transitionDuration = `${this.collapseDur}`;
+        $_card.style.transitionTimingFunction = `${this.collapseTmf}`;
       };
     } else {
       if (this.open) {
         $_card.style.margin = `-${30}px -${30}px -${30}px 0px`;
+        $_card.style.transitionDuration = `${this.expandDur}`;
+        $_card.style.transitionTimingFunction = `${this.expandTmf}`;
       } else {
         $_card.style.margin = `-${30}px -${_width + 30}px -${30}px 0px`;
+        $_card.style.transitionDuration = `${this.collapseDur}`;
+        $_card.style.transitionTimingFunction = `${this.collapseTmf}`;
       };
     };
 
     if (this.open && this.persistent && this.align != 'end') {
       $_node.style.margin = `0px 0px 0px 0px`;
       $_node.style.padding = `0px 0px 0px ${_width}px`;
+      $_node.style.transitionDuration = `${this.expandDur}`;
+      $_node.style.transitionTimingFunction = `${this.expandTmf}`;
     } else if (this.open && this.persistent) {
       $_node.style.margin = `0px 0px 0px 0px`;
       $_node.style.padding = `0px ${_width}px 0px 0px`;
+      $_node.style.transitionDuration = `${this.expandDur}`;
+      $_node.style.transitionTimingFunction = `${this.expandTmf}`;
     } else {
       $_node.style.margin = `0px 0px 0px 0px`;
       $_node.style.padding = `0px 0px 0px 0px`;
+      $_node.style.transitionDuration = `${this.collapseDur}`;
+      $_node.style.transitionTimingFunction = `${this.collapseTmf}`;
     };
 
 
