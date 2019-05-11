@@ -14,10 +14,12 @@ export const model = function () {
     <style>
       ${css.include('applic::bar')}
 
+      ._navigation { }
+
       ._navigation-header {
         ${css.apply('--layout--sizing--border-box')} 
 
-        margin: -60px 0 0 -30px;
+        margin: -61px 0 0 -30px;
         padding: 60px 0 0 30px;
 
         border-bottom: 1px solid #d6d6d6;
@@ -63,6 +65,15 @@ export const model = function () {
     <div class="_navigation-header applic bar">
       <div class="applic bar-row">
         <div class="applic bar-section align-start"></div>
+        <div class="applic bar-section align-end">
+          ${this.layout.breakpoint < 2 ? `` : html`
+            <applic-icon-button icon="${!this._options.navigation.hide ? 'chevron_left' : 'chevron_right'}"
+              @click="${this.call('layout-navigation:toggle-persistence')}">
+              <applic-hint>Toggle navigation</applic-hint>
+            </applic-icon-button>
+          `}
+
+        </div>
       </div>
 
       <div class="applic bar-row">

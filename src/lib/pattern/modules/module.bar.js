@@ -29,7 +29,7 @@ export const module = {
       height: 48px;
     }
     .applic.bar-row.dense {
-      height: 45.5px;
+      height: 48px;
     }
 
     .applic.bar-section {

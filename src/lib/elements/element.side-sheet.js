@@ -27,7 +27,7 @@ class ApplicSideSheet extends LitElement {
         type: Boolean,
         value: true,
         reflect: true
-      },
+      }
 
     };
   }

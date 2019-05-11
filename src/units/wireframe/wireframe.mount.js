@@ -31,6 +31,10 @@ class ApplicMount extends LitElement {
         ${css.include('applic::bar')}
 
         :host {
+          --applic-line--width: 1px;
+        }
+
+        :host {
           ${this.css.apply('--stance--fixed')}
           ${this.css.apply('--stance--fit')}
           ${this.css.apply('--layout--sizing--border-box')}
@@ -38,7 +42,7 @@ class ApplicMount extends LitElement {
   
           ${this.css.apply('--typo--noselect')}
 
-          background: #f4f4f4;
+          background: #e8e8e8;
           transition: opacity 120ms cubic-bezier(0.4, 0.0, 1, 1);
           overflow: hidden; }
 
@@ -46,124 +50,23 @@ class ApplicMount extends LitElement {
         :host(:not([startup])) [hide-on-startup] { opacity: 1; transition: opacity 120ms 120ms cubic-bezier(0.4, 0.0, 1, 1); }
         :host([startup]) [hide-on-startup] { opacity: 0; transition: opacity 0ms 0ms;  }
 
-        ._sheet-wrap {
-          ${this.css.apply('--stance--relative')}
-          ${this.css.apply('--layout--sizing--border-box')}
-          ${this.css.apply('--layout--horizontal')}
-          ${this.css.apply('--layout--flex')}   } 
+        ._applic-wrap {
+          ${this.css.apply('--stance--realtive')}
 
-        applic-side-side {  }
-
-        ._body-wrap {
-          z-index: 0;
-          ${this.css.apply('--stance--relative')}
-          ${this.css.apply('--layout--sizing--border-box')}
-          ${this.css.apply('--layout--vertical')} 
-          ${this.css.apply('--layout--flex')} } 
-
-        ._side-sheet { 
-          --side-sheet--width: 320px;
-          z-index: 4; }
-        ._body-side-sheet {  
-          --side-sheet--width: 280px; }
-     
-        ._body-header > * {
-          padding: 0px 8px;
         }
-
-        ._body-main {  
-          ${this.css.apply('--stance--relative')}
-          ${this.css.apply('--layout--sizing--border-box')}
-          ${this.css.apply('--layout--vertical')} 
-          ${this.css.apply('--layout--flex--none')} 
-
-          height: 100%;
-          width: 100%;
-        } 
-
-        ._body-header {
-          z-index: 3;
-          
-          margin: -60px -30px 0 -30px;
-          padding: 60px 30px 0 30px;
-
-          border-bottom: 1px solid #d6d6d6;
-          background: #fafafa; }
 
       </style>
 
-      <div class="_sheet-wrap">
-        <applic-side-sheet class="_side-sheet" align="start"
-          ?persistent="${this.layout.breakpoint >= 3}">
-          ${this.model('wireframe-sheet:nav')}
-        </applic-side-sheet>
-   
-        <div class="_body-wrap">
-          <div class="_body-header applic bar">
-            <div class="applic bar-row">
-              ${(() => {
-                return !this._selected.length ? html`
-                  <div class="applic bar-section align-start">
 
-                    <applic-icon-button icon="notes"
-                      @click="${this.call('layout-navigation:toggle')}"
-                      @dragover="${this.call('layout-navigation:show')}">
-                      <applic-hint>Toggle navigation</applic-hint>
-                    </applic-icon-button>
+      ${this.model('wireframe-main:banner')}
 
-                  </div>
+      <div class="applic bar _applic-wrap">
+        
 
-                  <div class="applic bar-section align-end">
-                    <applic-button icon="notes">
-                      Export all
-                    </applic-button>
-
-                  </div>
-
-                ` : html`
-                  <div class="applic bar-section align-start">
-
-                    <applic-icon-button icon="select_all"
-                      @click="${this.call('graphic:select-all')}">
-                      <applic-hint>Select All</applic-hint>
-                    </applic-icon-button>
-
-                  </div>
-
-                  <div class="applic bar-section align-end">
-                    <applic-button icon="notes">
-                      Export
-                    </applic-button>
-                    <applic-button icon="notes">
-                      Delete
-                    </applic-button>
-
-                  </div>
-
-                `;
-      })()}
-            </div>
-          </div>
-
-          <div class="_sheet-wrap">
-            <div class="_body-main">
-              <applic-scrollable class="_body-inner">
-                ${this.model('wireframe-main:inner')}
-              </applic-scrollable>
-            </div>
-
-            <applic-side-sheet class="_body-side-sheet" align="end"
-              ?persistent="${this.layout.breakpoint >= 2}">              
-              <applic-scrollable class="_body-aside">
-                ${this.model('wireframe-main:aside')}
-              </applic-scrollable>
-            </applic-side-sheet>
-
-          </div>
-        </div>
       </div>
 
 
+      ${this.model('wireframe-detail:card')}
       ${this.model('wireframe-overlay:dev')}
 
     `;
@@ -171,6 +74,14 @@ class ApplicMount extends LitElement {
 
   constructor() {
     super();
+
+    this._options = {
+      navigation: {
+        hide: false
+      }
+
+    }
+
 
     this.css = css;
     this.model = (_nonce) => {
@@ -190,21 +101,10 @@ class ApplicMount extends LitElement {
   }
 
   _resize() {
-    const _breakpoint = (() => {
-      const _width = self.innerWidth;
-      let _size = 0;
-
-      if (_width > 480) _size++;
-      if (_width > 720) _size++;
-      if (_width > 1320) _size++;
-
-      return _size;
-    })();
-
-    if (!this.layout || this.layout.breakpoint != _breakpoint) {
-      this.layout = { breakpoint: _breakpoint };
-    };
-
+    const _width = self.innerWidth;
+    _width < 620 ? 
+      this.setAttribute('dense', '') : 
+      this.removeAttribute('dense');
   };
 
 
@@ -228,17 +128,20 @@ class ApplicMount extends LitElement {
     // console.log(this.layout)
   }
 
-
   call(_type, _params) {
-    const _nvaigation = this.shadowRoot.querySelector('._side-sheet');
+    const _navigation = this.shadowRoot.querySelector('._side-sheet');
 
     return () => {
       switch (_type) {
+        case 'layout-navigation:toggle-persistence':
+          this._options.navigation.hide = !this._options.navigation.hide;
+          this.requestUpdate();
+          break;
         case 'layout-navigation:toggle':
-          _nvaigation.toggle();
+          _navigation.toggle();
           break;
         case 'layout-navigation:show':
-          _nvaigation.expand();
+          _navigation.expand();
           break;
 
         case 'section:select':

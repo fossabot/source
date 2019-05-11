@@ -13,12 +13,12 @@ applic.__proto__.location = new class {
 
   push(_path) { 
     // console.log('push', _path);
-    self.history.pushState({}, '', `/#${_path}`);
+    self.history.pushState({}, '', `${location.pathname}#${_path}`);
   }
 
   replace(_path) { 
     // console.log('replace', _path);
-    self.history.replaceState({}, '', `/#${_path}`);
+    self.history.replaceState({}, '', `${location.pathname}#${_path}`);
   }
 
   _location(_location) {
