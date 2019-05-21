@@ -43,20 +43,22 @@ class ApplicMount extends LitElement {
           ${css.apply('--typo--noselect')}
 
           background: #2C2F33;
-          margin: 28px 0px 0px 0px;
+          margin: 36px 0px 0px 0px;
 
-          transition: opacity 120ms cubic-bezier(0.4, 0.0, 1, 1);
-          overflow: hidden; }
+          transition: opacity 120ms cubic-bezier(0.4, 0.0, 1, 1); }
 
         :host([unresolved]) { opacity: 0; transition: opacity 0ms 0ms; }
+        /* :host([startup]) * { transition: none !important; } */
 
         ._applic-body {
+          z-index: 2;
           ${css.apply('--stance--relative')}
           ${css.apply('--layout--vertical')}
           ${css.apply('--layout--flex')}
 
+          margin: calc(0px - var(--applic-line--width)) 0px 0px 0px;
           background: #fff;
-          border-radius: ${!!applic.a2hs.active ? '4px 0px 0px 0px': '0px'};
+          border-radius: 4px 0px 0px 0px;
           overflow: hidden;
         }
 
@@ -112,6 +114,7 @@ class ApplicMount extends LitElement {
 
     }
 
+    this.css = css;
     this.model = (_nonce) => {
       return model[_nonce] ? (model[_nonce].bind(this))() : `<!-- ${_nonce} -->`;
     };
@@ -122,6 +125,7 @@ class ApplicMount extends LitElement {
     this._selected = [];
 
     // applic.on('applic:updated', this.requestUpdate.bind(this))
+    applic.on('applic-state:changed', this._update.bind(this))
     applic.on('applic:updated', this._update.bind(this))
 
     self.addEventListener('resize', this._resize.bind(this), { passive: true });
@@ -136,15 +140,19 @@ class ApplicMount extends LitElement {
   };
 
   _update() {
+    const _state = applic.get('*');
+    this.viewmode = _state.location && _state.location.path[0] == 'guide' ? 'guide' : 'editor';
 
+    this.requestUpdate();
   }
 
   firstUpdated() {
     applic.utils.buffer(() => {
-      this.removeAttribute('startup');
       this.removeAttribute('unresolved');
       this.addEventListener('transitionend', () => {
-
+        applic.utils.buffer(() => {
+            this.removeAttribute('startup');
+        });
       }, { once: true })
     });
 

@@ -9,6 +9,7 @@ The complete set of contributors may be found at https://acontrast-tool.github.i
 applic.__proto__.location = new class {
   constructor() {
     this._update();
+    self.addEventListener('hashchange', this._update.bind(this))
   }
 
   push(_path) { 
@@ -40,15 +41,20 @@ applic.__proto__.location = new class {
   _changed() { }
 
   _update() {
-    const _location = self.location.href.replace(self.location.origin, '');
-
+    const _root = self.location.origin + self.location.pathname;
+    const _location = self.location.href.replace(_root.substring(0, _root.length - 1), '');
     this.params = this._settings(_location.split('?')[1] || '');
     this.location = this._location(_location.split('?')[0] || '');
+    
+    applic.set('location', {
+      path: this.location,
+      keys: this.params
+    });
 
     if (this.location.length < 2) {
       return this.replace('/');
     };
-    
+
   }
 
 }

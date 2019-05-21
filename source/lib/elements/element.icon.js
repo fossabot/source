@@ -40,13 +40,15 @@ class ApplicIcon extends LitElement {
           text-transform: none;
           letter-spacing: normal;
           word-wrap: normal;
-          white-space: nowrap; 
-        
-          color: var(--icon-color); }
+          white-space: nowrap; }
 
           
+        :host([size="inline"]) { 
+          --icon-size: 14px;
+          margin: 0px 4px 0px 0px;
+        }
         :host([size="dense"]) { 
-          --icon-size: 20px;
+          --icon-size: 16px;
           margin: -4px;
         }
         :host([size="huge"]) {--icon-size: 64px; }

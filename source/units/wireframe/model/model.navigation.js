@@ -16,12 +16,23 @@ export const model = function () {
         ${css.apply('--layout--flex-none')}
 
         width: 72px;
+
+        transition: width 200ms cubic-bezier(0.4, 0.0, 0.2, 1);
+      }
+      .wireframe.navigation[is-guide]{
+        width: 240px;
+      }
+
+      .wireframe.navigation-item {
+
       }
 
     </style>
 
-    <div class="wireframe navigation">
-    
+    <div class="wireframe navigation" ?is-guide="${this.viewmode == 'guide'}">
+      <a href="#/" class="wireframe navigation-item">
+
+      </a>
     </div>
   `
 }
