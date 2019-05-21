@@ -6,13 +6,11 @@ The complete set of authors may be found at https://contrast-tool.github.io/docs
 The complete set of contributors may be found at https://contrast-tool.github.io/docs/CONTRIBUTORS.md
 */
 
-import './lib/utils/applic.utils.js'
-import './lib/utils/applic.polyfill.js'
+import { model as navigation } from './model.navigation.js';
+import { model as toolbar } from './model.toolbar.js';
 
-import './units/applic-event.js'
-// import './units/applic-state.js'
-
-import './lib/elements/all-elements.js'
-import './units/wireframe/wireframe.mount.js'
-
-applic.$ = document.querySelector('applic-mount');
+export const model = {
+  'wireframe:navigation': navigation,
+  'wireframe:toolbar': toolbar
+  
+};

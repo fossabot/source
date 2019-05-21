@@ -1,6 +1,5 @@
 ## Contrast Tool
-If you want to contribute to this project, please contact someone in [the abbey](https://discord.gg/Jcu3tRc). 
-
+See [/contrast-tool/contrast-tool.github.io](https://github.com/contrast-tool/contrast-tool.github.io)
 
 #### Dependencies
 [lit-element](https://lit-html.polymer-project.org) 

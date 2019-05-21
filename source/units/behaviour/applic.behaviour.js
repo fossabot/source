@@ -51,7 +51,7 @@ applic.__proto__.newImport = (_params) => {
       if (!_params.section) throw 'Require section for import';
 
       this.graphic = {};
-      this.section = _params.section;
+      this.section = _params.section;œ
       this.type = _params.type;
 
       // console.log('importer-created', _params)

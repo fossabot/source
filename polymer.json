@@ -1,25 +1,19 @@
 {
-  "basePath": "/",
+  "basePath": "/nightly/",
 
   "entrypoint": "./index.html",
   "shell":      "./index.html",
   
   "fragments": [
-    "./src/units/applic.a2hs.js",
-    "./src/applic.js",
-    "./src/applic.lazies.js",
-    
-    "./src/units/processing/applic.processing.js" ],
+    "./source/applic.js",
+    "./source/applic.lazies.js" ],
 
-  "sources": [
-    "./images/**/*",
-    "./lib/**/*" ],
+  "sources": [ "./resources/**/*" ],
 
   "extraDependencies": [
     "./404.html", 
-    "./manifest.json",
-    "./node_modules/@webcomponents/webcomponentsjs/**/*.js",
-    "./node_modules/dropbox/dist/Dropbox-sdk.min.js" ],
+    "./source/manifest.json",
+    "./node_modules/@webcomponents/webcomponentsjs/**/*.js" ],
 
   "lint": { "rules": [ "polymer-3" ] },
 

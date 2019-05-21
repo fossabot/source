@@ -15,7 +15,7 @@ export const module = {
       ${css.apply('--layout--vertical')}
     }
 
-    .flex-spacer {
+    .applic.flex-spacer {
       ${css.apply('--layout--flex')}
       pointer-events: none;
     }
@@ -29,7 +29,7 @@ export const module = {
       height: 48px;
     }
     .applic.bar-row.dense {
-      height: 48px;
+      height: 32px;
     }
 
     .applic.bar-section {
