@@ -42,8 +42,8 @@ export const model = function () {
       }
 
       .wireframe.toolbar-action {
-        width: calc(72px - 6px);
-        padding: 0px 6px 0px 12px;
+        width: calc(78px);
+        padding: 0px 6px 0px 6px;
         transition: width 200ms cubic-bezier(0.4, 0.0, 0.2, 1);
       }
       .wireframe.toolbar-action[active] {

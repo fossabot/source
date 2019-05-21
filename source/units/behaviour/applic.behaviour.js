@@ -7,7 +7,6 @@ The complete set of contributors may be found at https://contrast-tool.github.io
 */
 
 import './applic.import.js';
-import './applic.location.js';
 
 import './modules/module.graphic.js';
 import './modules/module.section.js';

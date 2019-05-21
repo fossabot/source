@@ -48,7 +48,7 @@ class ApplicMount extends LitElement {
           transition: opacity 120ms cubic-bezier(0.4, 0.0, 1, 1); }
 
         :host([unresolved]) { opacity: 0; transition: opacity 0ms 0ms; }
-        /* :host([startup]) * { transition: none !important; } */
+        :host([startup]) * { transition: none !important; }
 
         ._applic-body {
           z-index: 2;
@@ -56,23 +56,33 @@ class ApplicMount extends LitElement {
           ${css.apply('--layout--vertical')}
           ${css.apply('--layout--flex')}
 
-          margin: calc(0px - var(--applic-line--width)) 0px 0px 0px;
-          background: #fff;
-          border-radius: 4px 0px 0px 0px;
-          overflow: hidden;
         }
 
 
         ._applic-body-inner {
           ${css.apply('--layout--vertical')}
           ${css.apply('--layout--flex')}
+
+          min-height: calc(100vw - 36px);
+          width: calc(100vw - 78px);
+          margin: calc(0px - var(--applic-line--width)) auto 0px 0px;
+
+          border-radius: 6px 0px 0px 0px;
+          background: #fff;
+
+          transition: width 250ms cubic-bezier(0.4, 0.0, 0.2, 1);
         }
 
+        ._applic-body-inner[is-guide]{
+          border-radius: 6px 6px 0px 0px;
+          width: 640px;
+        }
+        
         ._applic-banner {
           ${css.apply('--layout--vertical')}
           ${css.apply('--layout--flex--none')}
         }
-        
+
       </style>
 
 
@@ -80,22 +90,9 @@ class ApplicMount extends LitElement {
       ${this.model('wireframe:navigation')}
 
       <div class="_applic-body">
-        <div class="_applic-banner applic bar">
-          <div class="applic bar-row dense">
-            <div class="applic bar-section align-start">
-            
-            </div>
-            <div class="applic bar-section align-end">
-              <button>tune</button>
-            </div>
-
-          </div>
-        </div>
-
-        <div class="_applic-body-inner">
+        <div class="_applic-body-inner" ?is-guide="${this.viewmode == 'guide'}">
 
         </div>
-
       </div>
 
       </div>
@@ -127,6 +124,7 @@ class ApplicMount extends LitElement {
     // applic.on('applic:updated', this.requestUpdate.bind(this))
     applic.on('applic-state:changed', this._update.bind(this))
     applic.on('applic:updated', this._update.bind(this))
+    this._update();
 
     self.addEventListener('resize', this._resize.bind(this), { passive: true });
     this._resize();
@@ -149,11 +147,9 @@ class ApplicMount extends LitElement {
   firstUpdated() {
     applic.utils.buffer(() => {
       this.removeAttribute('unresolved');
-      this.addEventListener('transitionend', () => {
-        applic.utils.buffer(() => {
-            this.removeAttribute('startup');
-        });
-      }, { once: true })
+      setTimeout(() => {
+        this.removeAttribute('startup');
+      }, 500);
     });
 
     console.debug("applic-wireframe:ready", `${Date.now() - applic.created}ms`);

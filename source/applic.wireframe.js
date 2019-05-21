@@ -13,6 +13,7 @@ import './lib/utils/applic.polyfill.js'
 // backend
 import './units/applic-event.js'
 import './units/applic-state.js'
+import './units/applic-location.js'
 import './units/applic-a2hs.js'
 
 // frame

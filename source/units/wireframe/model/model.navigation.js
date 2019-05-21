@@ -15,9 +15,9 @@ export const model = function () {
       .wireframe.navigation {
         ${css.apply('--layout--flex-none')}
 
-        width: 72px;
+        width: 78px;
 
-        transition: width 200ms cubic-bezier(0.4, 0.0, 0.2, 1);
+        transition: width 250ms cubic-bezier(0.4, 0.0, 0.2, 1);
       }
       .wireframe.navigation[is-guide]{
         width: 240px;
