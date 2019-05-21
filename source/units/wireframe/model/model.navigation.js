@@ -15,12 +15,16 @@ export const model = function () {
       .wireframe.navigation {
         ${css.apply('--layout--flex-none')}
 
-        width: 78px;
+        width: var(--wireframe-nav--dense);
+        margin: 0px 0px 0px 0px;
 
-        transition: width 250ms cubic-bezier(0.4, 0.0, 0.2, 1);
+        transition: 
+          margin 250ms cubic-bezier(0.4, 0.0, 0.2, 1),
+          width 250ms cubic-bezier(0.4, 0.0, 0.2, 1);
       }
-      .wireframe.navigation[is-guide]{
-        width: 240px;
+      :host([is-guide]) .wireframe.navigation {
+        width: var(--wireframe-nav--large);
+        margin: calc(var(--wireframe-toolbar--large) - 36px) 0px 0px 0px;
       }
 
       .wireframe.navigation-item {
@@ -29,10 +33,8 @@ export const model = function () {
 
     </style>
 
-    <div class="wireframe navigation" ?is-guide="${this.viewmode == 'guide'}">
-      <a href="#/" class="wireframe navigation-item">
-
-      </a>
+    <div class="wireframe navigation">
+    
     </div>
   `
 }

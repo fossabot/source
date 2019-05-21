@@ -20,14 +20,21 @@ export const model = function () {
         ${css.apply('--layout--horizontal')}
         ${css.apply('--layout--flex-none')}
 
-        height: 36px;
+        height: var(--wireframe-toolbar--dense);
 
         background: #2C2F33;
         border-bottom: var(--applic-line);
+
+        transition: height 250ms cubic-bezier(0.4, 0.0, 0.2, 1);
+      }
+      :host([is-guide]) .wireframe.toolbar {
+        height: var(--wireframe-toolbar--large);
       }
 
       .wireframe.toolbar-item,
       .wireframe.toolbar-action {
+        z-index: 10;
+
         ${css.apply('--layout--sizing--border-box')}
         ${css.apply('--layout--horizontal')}
         ${css.apply('--layout--center-center')}
@@ -36,17 +43,17 @@ export const model = function () {
         ${css.apply('--typo--button')}
         color: #fff;
 
-        height: 100%;
+        height: var(--wireframe-toolbar--dense);
         padding: 0px 6px;
         cursor: pointer;
       }
 
       .wireframe.toolbar-action {
-        width: calc(78px);
+        width: 78px;
         padding: 0px 6px 0px 6px;
         transition: width 200ms cubic-bezier(0.4, 0.0, 0.2, 1);
       }
-      .wireframe.toolbar-action[active] {
+      :host([is-guide]) .wireframe.toolbar-action {
         width: 36px;
       }
 
@@ -54,7 +61,7 @@ export const model = function () {
 
     <div class="wireframe toolbar">
       <a class="wireframe toolbar-action" 
-        ?active="${this.viewmode == 'guide'}"
+        click=""
         href="${this.viewmode == 'guide' ? '#/' : '#/guide/introduction'}">
         <applic-icon name="${this.viewmode == 'guide' ? 'arrow_back' : 'explore'}" size="dense">
         </applic-icon>

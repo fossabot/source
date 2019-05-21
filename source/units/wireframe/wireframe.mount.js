@@ -32,6 +32,18 @@ class ApplicMount extends LitElement {
           --applic-line--color: rgba(0,0,0,.12);
           --applic-line: var(--applic-line--width) solid var(--applic-line--color);
           --applic-line--none: 0px solid var(--applic-line--color);
+
+
+          --wireframe-toolbar--dense: 36px;
+          --wireframe-toolbar--large: 112px;
+
+          --wireframe-nav--dense: 78px;
+          --wireframe-nav--large: 220px;
+
+          --wireframe-card: 640px;
+          --wireframe-card--margin: calc((100vw 
+            - var(--wireframe-nav--large)
+            - var(--wireframe-card)) / 2);
         }
 
         :host {
@@ -43,39 +55,57 @@ class ApplicMount extends LitElement {
           ${css.apply('--typo--noselect')}
 
           background: #2C2F33;
-          margin: 36px 0px 0px 0px;
+          pointer-events: none;
+          
+          min-width: 890px;
+          overflow-x: auto;
 
+          margin: var(--wireframe-toolbar--dense) 0px 0px 0px;
           transition: opacity 120ms cubic-bezier(0.4, 0.0, 1, 1); }
 
         :host([unresolved]) { opacity: 0; transition: opacity 0ms 0ms; }
         :host([startup]) * { transition: none !important; }
+        :host * { pointer-events: all; }
+
+
 
         ._applic-body {
           z-index: 2;
           ${css.apply('--stance--relative')}
-          ${css.apply('--layout--vertical')}
+          ${css.apply('--layout--horizontal')}
           ${css.apply('--layout--flex')}
 
+          margin: calc(0px - var(--applic-line--width)) 0px 0px 0px;
+          transition: margin 250ms cubic-bezier(0.4, 0.0, 0.2, 1);
         }
 
+        :host([is-guide]) ._applic-body {
+          margin: 0px var(--wireframe-card--margin) 0px;
+        }
 
         ._applic-body-inner {
           ${css.apply('--layout--vertical')}
-          ${css.apply('--layout--flex')}
+          ${css.apply('--layout--flex-none')}
 
-          min-height: calc(100vw - 36px);
-          width: calc(100vw - 78px);
+          min-height: calc(100vh - var(--wireframe-toolbar--dense));
+          width: calc(100vw - var(--wireframe-nav--dense));
           margin: calc(0px - var(--applic-line--width)) auto 0px 0px;
 
           border-radius: 6px 0px 0px 0px;
           background: #fff;
 
-          transition: width 250ms cubic-bezier(0.4, 0.0, 0.2, 1);
+          transition: 
+            margin 250ms cubic-bezier(0.4, 0.0, 0.2, 1),
+            min-height 250ms cubic-bezier(0.4, 0.0, 0.2, 1),
+            width 250ms cubic-bezier(0.4, 0.0, 0.2, 1);
         }
+      
 
-        ._applic-body-inner[is-guide]{
-          border-radius: 6px 6px 0px 0px;
-          width: 640px;
+        :host([is-guide]) ._applic-body-inner{
+          border-radius: 6px 6px 6px 6px;
+          width: var(--wireframe-card);
+          min-height: calc(100vh - 112px);
+          margin: calc(var(--wireframe-toolbar--large) - 56px) 0px 0px 0px;
         }
         
         ._applic-banner {
@@ -87,12 +117,14 @@ class ApplicMount extends LitElement {
 
 
       ${this.model('wireframe:toolbar')}
-      ${this.model('wireframe:navigation')}
-
+      
       <div class="_applic-body">
-        <div class="_applic-body-inner" ?is-guide="${this.viewmode == 'guide'}">
+        ${this.model('wireframe:navigation')}
+        
+        <div class="_applic-body-inner">
 
         </div>
+
       </div>
 
       </div>
@@ -156,6 +188,9 @@ class ApplicMount extends LitElement {
   }
 
   updated() {
+    this.viewmode == 'guide' ?
+      this.setAttribute('is-guide', '') :
+      this.removeAttribute('is-guide');
 
   }
 
