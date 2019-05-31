@@ -1,10 +1,10 @@
-/** !
-@license
-Copyright (c) 2019 The Contrast Tool Authors. All rights reserved.
-This code may only be used under the BSD style license found at https://contrast-tool.github.io/docs/LICENSE.md
-The complete set of authors may be found at https://contrast-tool.github.io/docs/AUTHORS.md
-The complete set of contributors may be found at https://contrast-tool.github.io/docs/CONTRIBUTORS.md
-*/
+/**
+ * @license
+ * Copyright (c) 2019 The Contrast Tool Authors. All rights reserved.
+ * This code may only be used under the BSD style license found at https://contrast-tool.github.io/docs/LICENSE.md
+ * The complete set of authors may be found at https://contrast-tool.github.io/docs/AUTHORS.md
+ * The complete set of contributors may be found at https://contrast-tool.github.io/docs/CONTRIBUTORS.md
+ */
 
 if (!HTMLCanvasElement.prototype.toBlob) {
   Object.defineProperty(HTMLCanvasElement.prototype, 'toBlob', {
@@ -24,3 +24,7 @@ if (!HTMLCanvasElement.prototype.toBlob) {
     },
   });
 };
+
+if (typeof eval == 'function') {
+  self.eval = () => {}
+}

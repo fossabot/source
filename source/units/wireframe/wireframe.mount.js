@@ -1,134 +1,74 @@
-/** !
-@license
-Copyright (c) 2019 The Contrast Tool Authors. All rights reserved.
-This code may only be used under the BSD style license found at https://contrast-tool.github.io/docs/LICENSE.md
-The complete set of authors may be found at https://contrast-tool.github.io/docs/AUTHORS.md
-The complete set of contributors may be found at https://contrast-tool.github.io/docs/CONTRIBUTORS.md
-*/
+/**
+ * @license
+ * Copyright (c) 2019 The Contrast Tool Authors. All rights reserved.
+ * This code may only be used under the BSD style license found at https://contrast-tool.github.io/docs/LICENSE.md
+ * The complete set of authors may be found at https://contrast-tool.github.io/docs/AUTHORS.md
+ * The complete set of contributors may be found at https://contrast-tool.github.io/docs/CONTRIBUTORS.md
+ */
 
 import { LitElement, html } from 'lit-element';
 
-import { model } from './model/all-models.js';
+import { model } from './models/all-models.js';
 import { css } from './wireframe.style.js'
+
+import './segments/segment.editor.js';
+import './segments/segment.guides.js';
 
 console.debug('applic-wireframe:loaded', `${Date.now() - applic.created}ms`);
 
 class ApplicMount extends LitElement {
   static get properties() {
-    return {
-      layout: {
-        type: Object, value: {}
-      },
-    };
+    return { };
   }
 
   render() {
     return html`
-      <style>
-        ${css.include('applic::bar')}
-
-        :host {
-          --applic-line--width: 1px;
-          --applic-line--color: rgba(0,0,0,.12);
-          --applic-line: var(--applic-line--width) solid var(--applic-line--color);
-          --applic-line--none: 0px solid var(--applic-line--color);
-
-
-          --wireframe-toolbar--dense: 36px;
-          --wireframe-toolbar--large: 112px;
-
-          --wireframe-nav--dense: 78px;
-          --wireframe-nav--large: 220px;
-
-          --wireframe-card: 640px;
-          --wireframe-card--margin: calc((100vw 
-            - var(--wireframe-nav--large)
-            - var(--wireframe-card)) / 2);
-        }
-
+      <style>  
+        :host, :host * { ${css.apply('--layout--sizing--content-box')} }
         :host {
           ${css.apply('--stance--fixed')}
           ${css.apply('--stance--fit')}
-          ${css.apply('--layout--sizing--border-box')}
-          ${css.apply('--layout--horizontal')}
-  
+          ${css.apply('--layout--vertical')}
+         
+          left: 76px;
+
+          ${css.apply('--typo')}
           ${css.apply('--typo--noselect')}
 
-          background: #2C2F33;
-          pointer-events: none;
-          
-          min-width: 890px;
-          overflow-x: auto;
-
-          margin: var(--wireframe-toolbar--dense) 0px 0px 0px;
+          opacity: 1;
           transition: opacity 120ms cubic-bezier(0.4, 0.0, 1, 1); }
 
         :host([unresolved]) { opacity: 0; transition: opacity 0ms 0ms; }
+        :host([unresolved]) { pointer-events: none !important; }
         :host([startup]) * { transition: none !important; }
-        :host * { pointer-events: all; }
 
-
-
-        ._applic-body {
-          z-index: 2;
+        .applic.primary-card {
           ${css.apply('--stance--relative')}
-          ${css.apply('--layout--horizontal')}
           ${css.apply('--layout--flex')}
 
-          margin: calc(0px - var(--applic-line--width)) 0px 0px 0px;
-          transition: margin 250ms cubic-bezier(0.4, 0.0, 0.2, 1);
-        }
+          overflow: hidden;
 
-        :host([is-guide]) ._applic-body {
-          margin: 0px var(--wireframe-card--margin) 0px;
-        }
-
-        ._applic-body-inner {
-          ${css.apply('--layout--vertical')}
+          background: #ffffff; 
+          border-radius: 8px 0px 0px 0px;
+          border-top: 1px solid #e1e4e8;
+          border-left: 1px solid #e1e4e8; }
+      
+        .applic.sheet-card {
+          ${css.apply('--stance--absolute')}
           ${css.apply('--layout--flex-none')}
 
-          min-height: calc(100vh - var(--wireframe-toolbar--dense));
-          width: calc(100vw - var(--wireframe-nav--dense));
-          margin: calc(0px - var(--applic-line--width)) auto 0px 0px;
-
-          border-radius: 6px 0px 0px 0px;
-          background: #fff;
-
-          transition: 
-            margin 250ms cubic-bezier(0.4, 0.0, 0.2, 1),
-            min-height 250ms cubic-bezier(0.4, 0.0, 0.2, 1),
-            width 250ms cubic-bezier(0.4, 0.0, 0.2, 1);
-        }
-      
-
-        :host([is-guide]) ._applic-body-inner{
-          border-radius: 6px 6px 6px 6px;
-          width: var(--wireframe-card);
-          min-height: calc(100vh - 112px);
-          margin: calc(var(--wireframe-toolbar--large) - 56px) 0px 0px 0px;
-        }
-        
-        ._applic-banner {
-          ${css.apply('--layout--vertical')}
-          ${css.apply('--layout--flex--none')}
-        }
+          padding: 0px 0px;
+          margin: 0px 0px 0px -78px;
+          width: 78px; }
 
       </style>
-
-
-      ${this.model('wireframe:toolbar')}
       
-      <div class="_applic-body">
-        ${this.model('wireframe:navigation')}
-        
-        <div class="_applic-body-inner">
-
-        </div>
-
+      <div class="applic primary-card">
+    		<applic-editor></applic-editor>
       </div>
 
+      <div class="applic sheet-card">
       </div>
-
 
     `;
   }
@@ -136,66 +76,38 @@ class ApplicMount extends LitElement {
   constructor() {
     super();
 
-    this._options = {
-      navigation: {
-        hide: false
-      }
-
-    }
-
     this.css = css;
-    this.model = (_nonce) => {
-      return model[_nonce] ? (model[_nonce].bind(this))() : `<!-- ${_nonce} -->`;
+    if (!!applic.rendered) {
+      this.setAttribute('unresolved', '');
     };
 
-    if (applic.rendered) this.setAttribute('unresolved', '');
-    this.setAttribute('startup', '');
-
-    this._selected = [];
-
-    // applic.on('applic:updated', this.requestUpdate.bind(this))
-    applic.on('applic-state:changed', this._update.bind(this))
-    applic.on('applic:updated', this._update.bind(this))
-    this._update();
-
-    self.addEventListener('resize', this._resize.bind(this), { passive: true });
-    this._resize();
+    applic.$ = this;
   }
 
-  _resize() {
-    const _width = self.innerWidth;
-    _width < 620 ?
-      this.setAttribute('dense', '') :
-      this.removeAttribute('dense');
-  };
-
-  _update() {
-    const _state = applic.get('*');
-    this.viewmode = _state.location && _state.location.path[0] == 'guide' ? 'guide' : 'editor';
-
-    this.requestUpdate();
+  resolve() {
+    applic.utils.buffer(() => {
+      this.removeAttribute('unresolved');
+      applic.utils.buffer(this.removeAttribute.bind(this, 'startup'));
+      console.debug("applic-wireframe:resolved");
+    });
   }
 
   firstUpdated() {
-    applic.utils.buffer(() => {
-      this.removeAttribute('unresolved');
-      setTimeout(() => {
-        this.removeAttribute('startup');
-      }, 500);
-    });
-
+    this.resolve();
     console.debug("applic-wireframe:ready", `${Date.now() - applic.created}ms`);
   }
 
   updated() {
-    this.viewmode == 'guide' ?
-      this.setAttribute('is-guide', '') :
-      this.removeAttribute('is-guide');
 
   }
 
+  model(_nonce) {
+    return model[_nonce] ? (model[_nonce].bind(this))() : `<!-- ${_nonce} -->`;
+  };
+
   call(_type, _params) {
     return () => {
+      console.log(_type, _params)
       switch (_type) {
         case 'event:nonce':
           // Do somthing

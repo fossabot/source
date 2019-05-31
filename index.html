@@ -24,83 +24,79 @@ The complete set of contributors may be found at https://contrast-tool.github.io
 	<style> body { margin: 0px 0px 0px 0px; height: 100vh; overflow: hidden; } </style>
 
 	<script>
-		self.applic = new class {
-			constructor() {
-				this.__proto__.rootPath = '/nightly/';
-				this.__proto__.created = Date.now();
-				this.__proto__.rendered = false;
-			}
-		};
+		self.applic = new class {};
+		applic.__proto__.created = Date.now();
+		applic.__proto__.rendered = false;
+		applic.__proto__.location = {rootPath: '/nightly/'};
+		applic.__proto__.essentials = {};
 	</script>
 
 	<meta itemprop="name" content="Contrast Tool - Nightly">
 	<meta itemprop="description" content="An interactive viewer to compare and export your web graphics.">
-	<meta itemprop="image" content="https://contrast-tool.github.io/resources/web/canary.web-card.png">
+	<meta itemprop="image" content="https://contrast-tool.github.io/resources/web/web.card.png">
 
 	<meta name="theme-color" content="#2C2F33">
-	<link rel="manifest" href="./source/manifest.json?build=2.0.0-concept.6">
+	<link rel="manifest" href="./manifest.json?build=2.0.0-concept.6">
 
 	<meta property="og:type" content="website">
 	<meta property="og:title" content="Contrast Tool - Nightly">
-	<meta property="og:image" content="https://contrast-tool.github.io/resources/web/canary.web-card.png">
+	<meta property="og:image" content="https://contrast-tool.github.io/resources/web/web.card.png">
 	<meta property="og:description" content="An interactive viewer to compare and export your web graphics.">
 	<meta property="og:site_name" content="Contrast Tool - Nightly">
 	<meta property="og:url" content="https://contrast-tool.github.io/">
 
 	<meta name="twitter:card" content="summary_large_image">
 
-	<link rel="icon" type="image/x-icon" href="./resources/web/canary.web.png">
-	<link rel="icon" sizes="192x192" href="./resources/manifest/canary.192.png">
-	<link rel="shortcut icon" href="./resources/manifest/canary.72.png">
-	<link rel="apple-touch-icon" href="./resources/manifest/canary.72.png">
-	<link rel="apple-touch-icon" sizes="72x72" href="./resources/manifest/canary.72.png">
-	<link rel="apple-touch-icon" sizes="144x144" href="./resources/manifest/canary.144.png">
-	<link rel="apple-touch-icon" sizes="180x180" href="./resources/manifest/canary.180.png">
+	<link rel="icon" type="image/x-icon" href="./resources/web/web.canary.png">
+	<link rel="icon" sizes="192x192" href="./resources/icon/canary.192.png">
+	<link rel="shortcut icon" href="./resources/icon/canary.72.png">
+	<link rel="apple-touch-icon" href="./resources/icon/canary.72.png">
+	<link rel="apple-touch-icon" sizes="72x72" href="./resources/icon/canary.72.png">
+	<link rel="apple-touch-icon" sizes="144x144" href="./resources/icon/canary.144.png">
+	<link rel="apple-touch-icon" sizes="180x180" href="./resources/icon/canary.180.png">
 
 	<meta name="mobile-web-app-capable" content="yes">
 	<meta name="apple-mobile-web-app-capable" content="yes">
 	<meta name="apple-mobile-web-app-status-bar-style" content="black-translucent">
 
-	<script src="node_modules/@webcomponents/webcomponentsjs/webcomponents-bundle.js"></script>
-	<script type="module" src="source/applic.wireframe.js"></script>
-
-	<script type="module">
-		Promise.resolve().then(async () => {
-			await import('./source/applic.js');
-			await import('./source/applic.lazies.js');
-		});
-		
-		if ('serviceWorker' in navigator) {
-			navigator.serviceWorker.register('service-worker.js', { scope: applic.rootPath })
-				.then((_sw) => { console.debug('applic-service-worker:active'); applic.__proto__.sw = _sw })
-				.catch((_err) => console.error)
-		};
-		
-	</script>
-
 	<link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Roboto:300,400,500|Material+Icons+Sharp">
 
-	<style>
-		body {
-			background: #2C2F33;
-			background-image: url('./resources/manifest/canary.192.png');
-			background-repeat: no-repeat;
-			background-attachment: fixed;
-			background-position: top calc(50vh - 72px) center;
-			background-size: 48px 48px;
-		}
-	</style>
+	<script src="node_modules/@webcomponents/webcomponentsjs/webcomponents-bundle.js"></script>
+	<script type="module" src="./source/applic.js"></script>
+
+	<script type="module">
+		const _worker = {};
+
+		_worker.register = () => {
+			if ('serviceWorker' in navigator) {
+				navigator.serviceWorker.register('./service-worker.js', { scope: applic.location.rootPath })
+					.then((_sw) => { applic.essentials.sw = _sw })
+					.catch((_err) => console.error)
+			};
+		};
+		
+		_worker.unregister = (_detail, _event) => {
+			if (_event.code != 'KeyR' || !_event.ctrlKey) return;
+			if (_event.shiftKey) self.localStorage.clear();
+
+			_event.preventDefault();
+			applic.essentials.sw.unregister()
+				.then(() => { self.location.reload(true) })
+				.catch((_err) => console.error);
+		};
+
+		applic.on('load', _worker.register, { passive: true, once: true })
+		applic.on('keydown', _worker.unregister, { passive: false })
+	</script>
+
+	<style> body { background: #2C2F33; } </style>
 
 </head>
 
 <body>
+	<applic-startup></applic-startup>
 	<applic-mount></applic-mount>
-	<script>
-		requestAnimationFrame(() => {
-			applic.__proto__.rendered = true;
-			console.debug('--- first frame ---');
-		}) 
-	</script>
+	<script> requestAnimationFrame(() => { console.debug('--- first frame ---'); applic.__proto__.rendered = true; })  </script>
 </body>
 
 </html>

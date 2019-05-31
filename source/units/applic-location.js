@@ -1,10 +1,10 @@
-/** !
-@license
-Copyright (c) 2019 The Contrast Tool Authors. All rights reserved.
-This code may only be used under the BSD style license found at https://contrast-tool.github.io/docs/LICENSE.md
-The complete set of authors may be found at https://contrast-tool.github.io/docs/AUTHORS.md
-The complete set of contributors may be found at https://acontrast-tool.github.io/static/CONTRIBUTORS.md
-*/
+/**
+ * @license
+ * Copyright (c) 2019 The Contrast Tool Authors. All rights reserved.
+ * This code may only be used under the BSD style license found at https://contrast-tool.github.io/docs/LICENSE.md
+ * The complete set of authors may be found at https://contrast-tool.github.io/docs/AUTHORS.md
+ * The complete set of contributors may be found at https://contrast-tool.github.io/docs/CONTRIBUTORS.md
+ */
 
 applic.__proto__.location = new class {
   constructor() {
@@ -46,7 +46,7 @@ applic.__proto__.location = new class {
     this.params = this._settings(_location.split('?')[1] || '');
     this.location = this._location(_location.split('?')[0] || '');
     
-    applic.set('location', {
+    applic.state.set('applic:location', {
       path: this.location,
       keys: this.params
     });

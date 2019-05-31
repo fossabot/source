@@ -6,24 +6,23 @@
   "description": "An interactive viewer to compare and export your web graphics.",
   "icons": [
     {
-      "src": "/resources/manifest/canary.48.png",
+      "src": "/resources/icon/canary.48.png",
       "sizes": "48x48",
       "type": "image/png"
     },
     {
-      "src": "/resources/manifest/canary.192.png",
+      "src": "/resources/icon/canary.192.png",
       "sizes": "192x192",
       "type": "image/png"
     },
     {
-      "src": "/resources/manifest/canary.512.png",
+      "src": "/resources/icon/canary.512.png",
       "sizes": "512x512",
       "type": "image/png"
     }
   ],
   "start_url": "/nightly/",
   "display": "fullscreen",
-  "orientation": "landscape-primary",
   "theme_color": "#2C2F33",
   "background_color": "#2C2F33"
 }

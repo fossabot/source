@@ -1,26 +1,22 @@
-/** !
-@license
-Copyright (c) 2019 The Contrast Tool Authors. All rights reserved.
-This code may only be used under the BSD style license found at https://contrast-tool.github.io/docs/LICENSE.md
-The complete set of authors may be found at https://contrast-tool.github.io/docs/AUTHORS.md
-The complete set of contributors may be found at https://contrast-tool.github.io/docs/CONTRIBUTORS.md
-*/
+/**
+ * @license
+ * Copyright (c) 2019 The Contrast Tool Authors. All rights reserved.
+ * This code may only be used under the BSD style license found at https://contrast-tool.github.io/docs/LICENSE.md
+ * The complete set of authors may be found at https://contrast-tool.github.io/docs/AUTHORS.md
+ * The complete set of contributors may be found at https://contrast-tool.github.io/docs/CONTRIBUTORS.md
+ */
 
 export const mixins = {
   '--typo': () => `
-    font-family: Roboto, sans-serif;
+    font-family: 'Roboto', sans-serif;
     -moz-osx-font-smoothing: grayscale;
     -webkit-font-smoothing: antialiased;
-
-    color: #6f6f6f;
   `,
 
   '--typo-sans': () => `
-    font-family: Roboto, sans-serif;
+    font-family: 'Roboto', sans-serif;
     -moz-osx-font-smoothing: grayscale;
     -webkit-font-smoothing: antialiased;
-
-    color: #6f6f6f;
   `,
 
 
@@ -153,6 +149,14 @@ export const mixins = {
     text-transform: inherit;
   `,
 
+  '--typo--toolbar': (css) => `
+    ${css.apply('--typo-sans')}
+    font-size: 13px;
+    line-height: 32px;
+    font-weight: 500;
+    letter-spacing: .5px;
+    text-decoration: none;
+  `,
   '--typo--button': (css) => `
     ${css.apply('--typo-sans')}
     font-size: 12px;

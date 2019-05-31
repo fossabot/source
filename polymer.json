@@ -5,7 +5,6 @@
   "shell":      "./index.html",
   
   "fragments": [
-    "./source/applic.js",
     "./source/applic.lazies.js" ],
 
   "sources": [ "./resources/**/*" ],

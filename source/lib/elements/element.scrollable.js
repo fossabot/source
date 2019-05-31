@@ -1,10 +1,10 @@
-/** !
-@license
-Copyright (c) 2019 The Contrast Tool Authors. All rights reserved.
-This code may only be used under the BSD style license found at https://contrast-tool.github.io/docs/LICENSE.md
-The complete set of authors may be found at https://contrast-tool.github.io/docs/AUTHORS.md
-The complete set of contributors may be found at https://contrast-tool.github.io/docs/CONTRIBUTORS.md
-*/
+/**
+ * @license
+ * Copyright (c) 2019 The Contrast Tool Authors. All rights reserved.
+ * This code may only be used under the BSD style license found at https://contrast-tool.github.io/docs/LICENSE.md
+ * The complete set of authors may be found at https://contrast-tool.github.io/docs/AUTHORS.md
+ * The complete set of contributors may be found at https://contrast-tool.github.io/docs/CONTRIBUTORS.md
+ */
 
 import { LitElement, html } from 'lit-element';
 
@@ -100,7 +100,6 @@ class ApplicScrollable extends LitElement {
 
     window.addEventListener('resize', this._reset.bind(this));
     window.addEventListener('resize', this._update.bind(this));
-
   }
 
   firstUpdated() {
@@ -114,6 +113,7 @@ class ApplicScrollable extends LitElement {
     $_wrap.addEventListener('scroll', this._trigger.bind(this));
     $_wrap.addEventListener('mouseover', this._trigger.bind(this));
 
+    this._reset();
     this._update();
   }
 

@@ -5,3 +5,10 @@
  * The complete set of authors may be found at https://contrast-tool.github.io/docs/AUTHORS.md
  * The complete set of contributors may be found at https://contrast-tool.github.io/docs/CONTRIBUTORS.md
  */
+
+import { model as ctrlSheets } from './model.controls.sheets.js';
+
+export const model = {
+  'controls:sheets': ctrlSheets
+  
+};

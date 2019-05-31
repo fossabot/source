@@ -1,10 +1,10 @@
-/** !
-@license
-Copyright (c) 2019 The Contrast Tool Authors. All rights reserved.
-This code may only be used under the BSD style license found at https://contrast-tool.github.io/docs/LICENSE.md
-The complete set of authors may be found at https://contrast-tool.github.io/docs/AUTHORS.md
-The complete set of contributors may be found at https://contrast-tool.github.io/docs/CONTRIBUTORS.md
-*/
+/**
+ * @license
+ * Copyright (c) 2019 The Contrast Tool Authors. All rights reserved.
+ * This code may only be used under the BSD style license found at https://contrast-tool.github.io/docs/LICENSE.md
+ * The complete set of authors may be found at https://contrast-tool.github.io/docs/AUTHORS.md
+ * The complete set of contributors may be found at https://contrast-tool.github.io/docs/CONTRIBUTORS.md
+ */
 
 import { LitElement, html } from 'lit-element';
 
@@ -44,11 +44,11 @@ class ApplicIcon extends LitElement {
 
           
         :host([size="inline"]) { 
-          --icon-size: 14px;
-          margin: 0px 4px 0px 0px;
+          --icon-size: 16px;
+          margin: 0px 6px 0px 0px;
         }
         :host([size="dense"]) { 
-          --icon-size: 16px;
+          --icon-size: 20px;
           margin: -4px;
         }
         :host([size="huge"]) {--icon-size: 64px; }
