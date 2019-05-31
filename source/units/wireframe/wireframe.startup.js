@@ -108,7 +108,6 @@ class ApplicStartup extends LitElement {
         <div class="startup card">
           <div class="startup inner">
             <span class="startup body">
-              Contrast Tool is a local application and doesn't rely on third-parties. We also do not collect data for analytical purposes nor store any identifiable or personal information externally.
             </span>
           </div>
           
