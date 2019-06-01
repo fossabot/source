@@ -80,6 +80,7 @@ class ApplicMount extends LitElement {
       this.setAttribute('unresolved', '');
     };
 
+    applic.on('applic-localization:changed', this.requestUpdate.bind(this));
   }
 
   resolve() {

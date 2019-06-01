@@ -8,6 +8,14 @@
 
 export class ApplicEvent {
   constructor() {}
-  on() {}
-  dispatch() {}
+  on(nonce, callback, params) { 
+    self.addEventListener(nonce, (evt) => {
+      callback(evt.detail, event);
+    }, params);
+  }
+
+  dispatch(nonce, params) {
+    self.dispatchEvent(new CustomEvent(nonce, { detail: params }));
+  }
+  
 }

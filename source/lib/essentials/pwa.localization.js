@@ -31,7 +31,7 @@ export class ApplicLocalization {
     applic.localization.all = _index.translations;
 
     applic.debug('pwa-localization:index-updated');
-    applic.dispatch('pwa-localization:updated');
+    applic.dispatch('applic-localization:changed');
 
     this._updateTable();
   }
@@ -43,16 +43,14 @@ export class ApplicLocalization {
     applic.localization.table[applic.lang] = _table;
 
     applic.debug('pwa-localization:table-updated');
-    applic.dispatch('pwa-localization:updated');
+    applic.dispatch('applic-localization:changed');
 
     this._loadResolve();
   }
 
   get(nonce) {
-    const _value = applic.localization.table[applic.lang][nonce];
-
-    if (_value) return _value
-    else return `err, "${nonce}" is undefind`;
+    return !applic.localization.table[applic.lang] ? '' :
+      applic.localization.table[applic.lang][nonce] || 'err, "${nonce}" is undefind';
   }
 
 }
