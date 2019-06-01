@@ -4,10 +4,11 @@
   "entrypoint": "./index.html",
   "shell":      "./index.html",
   
-  "fragments": [
+  "fragments": [ 
     "./source/applic.lazies.js" ],
 
-  "sources": [ "./resources/**/*" ],
+  "sources": [ 
+    "./resources/**/*" ],
 
   "extraDependencies": [
     "./404.html", 

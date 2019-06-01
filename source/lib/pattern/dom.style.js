@@ -6,8 +6,8 @@
  * The complete set of contributors may be found at https://contrast-tool.github.io/docs/CONTRIBUTORS.md
  */
 
-import { cssMixins } from '../../lib/pattern/mixins/all-mixins.js';
-import { cssModules } from '../../lib/pattern/modules/all-modules.js';
+import { cssMixins } from './css-mixins/all-mixins.js';
+import { cssModules } from './css-modules/all-modules.js';
 
 const _getMixin = (_nonce) => {
   if (!cssMixins[_nonce]) return `/* ${_nonce} is not defined */`

@@ -7,40 +7,36 @@
  */
 
 import { LitElement, html } from 'lit-element';
+import { css } from '../pattern/dom.style.js';
 
-class ApplicList extends LitElement {
-  static get properties() {
-    return {
-      name: ''
-    };
-  }
 
+class ApplicSpan extends LitElement {
   render() {
     return html`
       <style>
         :host {
-          ${applic.$.css.apply('--layout--sizing--border-box')} 
-          ${applic.$.css.apply('--layout--vertical')} 
-          ${applic.$.css.apply('--layout--flex-none')} 
+          ${css.apply('--layout--sizing--content-box')} 
+          ${css.apply('--layout--inline')} 
         
-          padding: 10px 0px; 
-          width: 100%; }
-
-        ::slotted(.applic.list-divider) {
-          height: 1px;
-          background: #d6d6d6;
-
-          margin: 10px 20px;
+          font-family: 'Roboto', sans-serif;
+          -moz-osx-font-smoothing: grayscale;
+          -webkit-font-smoothing: antialiased;
         }
 
       </style>
 
       <slot></slot>
+
     `;
   }
+
   constructor() {
     super();
+
   }
+
+  firstUpdated() { }
+
 }
 
-customElements.define('applic-list', ApplicList);
+customElements.define('applic-span', ApplicSpan);

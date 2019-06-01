@@ -13,13 +13,6 @@ export const mixins = {
     -webkit-font-smoothing: antialiased;
   `,
 
-  '--typo-sans': () => `
-    font-family: 'Roboto', sans-serif;
-    -moz-osx-font-smoothing: grayscale;
-    -webkit-font-smoothing: antialiased;
-  `,
-
-
   '--typo--nowrap': () => `
       white-space: nowrap;
       overflow: hidden;
@@ -40,7 +33,7 @@ export const mixins = {
 
 
   '--typo--headline1': (css) => `
-    ${css.apply('--typo-sans')}
+    ${css.apply('--typo')}
     font-size: 96px;
     line-height: 96px;
     font-weight: 300;
@@ -49,7 +42,7 @@ export const mixins = {
     text-transform: inherit;
   `,
   '--typo--headline2': (css) => `
-    ${css.apply('--typo-sans')}
+    ${css.apply('--typo')}
     font-size: 60px;
     line-height: 60px;
     font-weight: 300;
@@ -58,7 +51,7 @@ export const mixins = {
     text-transform: inherit;
   `,
   '--typo--headline3': (css) => `
-    ${css.apply('--typo-sans')}
+    ${css.apply('--typo')}
     font-size: 48px;
     line-height: 50px;
     font-weight: 400;
@@ -67,7 +60,7 @@ export const mixins = {
     text-transform: inherit;
   `,
   '--typo--headline4': (css) => `
-    ${css.apply('--typo-sans')}
+    ${css.apply('--typo')}
     font-size: 34px;
     line-height: 40px;
     font-weight: 400;
@@ -76,7 +69,7 @@ export const mixins = {
     text-transform: inherit;
   `,
   '--typo--headline5': (css) => `
-    ${css.apply('--typo-sans')}
+    ${css.apply('--typo')}
     font-size: 24px;
     line-height: 32px;
     font-weight: 500;
@@ -85,7 +78,7 @@ export const mixins = {
     text-transform: inherit;
   `,
   '--typo--headline6': (css) => `
-    ${css.apply('--typo-sans')}
+    ${css.apply('--typo')}
     font-size: 20px;
     line-height: 32px;
     font-weight: 500;
@@ -94,7 +87,7 @@ export const mixins = {
     text-transform: inherit;
   `,
   '--typo--subtitle1': (css) => `
-    ${css.apply('--typo-sans')}
+    ${css.apply('--typo')}
     font-size: 16px;
     line-height: 28px;
     font-weight: 400;
@@ -103,7 +96,7 @@ export const mixins = {
     text-transform: inherit;
   `,
   '--typo--subtitle2': (css) => `
-    ${css.apply('--typo-sans')}
+    ${css.apply('--typo')}
     font-size: 14px;
     line-height: 22px;
     font-weight: 500;
@@ -150,7 +143,7 @@ export const mixins = {
   `,
 
   '--typo--toolbar': (css) => `
-    ${css.apply('--typo-sans')}
+    ${css.apply('--typo')}
     font-size: 13px;
     line-height: 32px;
     font-weight: 500;
@@ -158,7 +151,7 @@ export const mixins = {
     text-decoration: none;
   `,
   '--typo--button': (css) => `
-    ${css.apply('--typo-sans')}
+    ${css.apply('--typo')}
     font-size: 12px;
     line-height: 32px;
     font-weight: 500;
@@ -167,7 +160,7 @@ export const mixins = {
     text-transform: uppercase;
   `,
   '--typo--overline': (css) => `
-    ${css.apply('--typo-sans')}
+    ${css.apply('--typo')}
     font-size: 10px;
     line-height: 32px;
     font-weight: 500;

@@ -7,12 +7,7 @@
  */
 
 import { LitElement, html } from 'lit-element';
-
-import { model } from './models/all-models.js';
-import { css } from './wireframe.style.js'
-
-import './segments/segment.editor.js';
-import './segments/segment.guides.js';
+import { css } from '../../lib/pattern/dom.style.js';
 
 console.debug('applic-wireframe:loaded', `${Date.now() - applic.created}ms`);
 
@@ -42,9 +37,9 @@ class ApplicMount extends LitElement {
           ${css.apply('--layout--vertical')}
           ${css.apply('--layout--flex')}
 
-          margin: 32px 0px 0px;
-          border-radius: 4px;
-          background: #f2f2f2ff;
+          margin: 4px 0px 0px;
+          border-radius: 8px;
+          background: #ffffff;
         }
 
         .applic.perma-banner {
@@ -66,7 +61,7 @@ class ApplicMount extends LitElement {
       </div>
 
       <div class="applic perma-banner">
-        <applic-typo is="body">${applic.localize('dev:notice')}</applic-typo>
+        <applic-typo is="hint">${applic.localize('dev:notice')}</applic-typo>
 
       </div>
     `;
@@ -83,22 +78,18 @@ class ApplicMount extends LitElement {
     applic.on('applic-localization:changed', this.requestUpdate.bind(this));
   }
 
-  resolve() {
+  firstUpdated() {
     applic.utils.buffer(() => {
       this.removeAttribute('unresolved');
       applic.utils.buffer(this.removeAttribute.bind(this, 'startup'));
       console.debug("applic-wireframe:resolved");
     });
-  }
-
-  firstUpdated() {
-    this.resolve();
+    
     console.debug("applic-wireframe:ready", `${Date.now() - applic.created}ms`);
   }
 
-  updated() {
+  updated() { }
 
-  }
 
   model(_nonce) {
     return model[_nonce] ? (model[_nonce].bind(this))() : `<!-- ${_nonce} -->`;

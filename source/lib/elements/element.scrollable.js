@@ -7,16 +7,17 @@
  */
 
 import { LitElement, html } from 'lit-element';
+import { css } from '../pattern/dom.style.js';
 
 class ApplicScrollable extends LitElement {
   render() {
     return html`
       <style>
         :host {
-          ${applic.$.css.apply('--stance--relative')} 
-          ${applic.$.css.apply('--layout--sizing--content-box')} 
-          ${applic.$.css.apply('--layout--horizontal')} 
-          ${applic.$.css.apply('--layout--flex')} 
+          ${css.apply('--stance--relative')} 
+          ${css.apply('--layout--sizing--content-box')} 
+          ${css.apply('--layout--horizontal')} 
+          ${css.apply('--layout--flex')} 
 
           max-height: 100%;
           max-width: 100%;
@@ -25,46 +26,46 @@ class ApplicScrollable extends LitElement {
           overflow: hidden; }
 
         :host([flex-none]) { 
-          ${applic.$.css.apply('--layout--flex--none')} 
+          ${css.apply('--layout--flex--none')} 
         }
         
         
         ._wrap {
-          ${applic.$.css.apply('--layout--block')} 
-          ${applic.$.css.apply('--layout--sizing--border-box')} 
-          ${applic.$.css.apply('--layout--flex')} 
+          ${css.apply('--layout--block')} 
+          ${css.apply('--layout--sizing--border-box')} 
+          ${css.apply('--layout--flex')} 
 
           -webkit-overflow-scrolling: touch;
           overflow: -moz-scrollbars-none;
           overflow: scroll; }
 
         ._wrap-inner {
-          ${applic.$.css.apply('--layout--block')} 
-          ${applic.$.css.apply('--layout--sizing--content-box')} }
+          ${css.apply('--layout--block')} 
+          ${css.apply('--layout--sizing--content-box')} }
 
 
 
        ._scroll-bar {
-          ${applic.$.css.apply('--layout--sizing--border-box')} 
-          ${applic.$.css.apply('--stance--absolute')} 
-          ${applic.$.css.apply('--layout--vertical')} 
+          ${css.apply('--layout--sizing--border-box')} 
+          ${css.apply('--stance--absolute')} 
+          ${css.apply('--layout--vertical')} 
 
           padding: 5px; }
 
        ._scroll-bar._scroll-bar--x {
-          ${applic.$.css.apply('--stance--pin--bottom-start')} 
+          ${css.apply('--stance--pin--bottom-start')} 
           height: 13px; }
 
         ._scroll-bar._scroll-bar--y {
-          ${applic.$.css.apply('--stance--pin--top-end')} 
+          ${css.apply('--stance--pin--top-end')} 
           width: 13px; }
 
  
 
         ._scroll-bar > div {
-          ${applic.$.css.apply('--layout--sizing--border-box')} 
-          ${applic.$.css.apply('--stance--absolute')} 
-          ${applic.$.css.apply('--layout--flex')} 
+          ${css.apply('--layout--sizing--border-box')} 
+          ${css.apply('--stance--absolute')} 
+          ${css.apply('--layout--flex')} 
 
           height: calc(100% - 10px);
           width: calc(100% - 10px);
