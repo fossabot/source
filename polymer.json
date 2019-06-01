@@ -11,7 +11,7 @@
 
   "extraDependencies": [
     "./404.html", 
-    "./source/manifest.json",
+    "./manifest.json",
     "./node_modules/@webcomponents/webcomponentsjs/**/*.js" ],
 
   "lint": { "rules": [ "polymer-3" ] },
