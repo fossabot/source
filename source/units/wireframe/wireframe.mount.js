@@ -42,7 +42,7 @@ class ApplicMount extends LitElement {
           ${css.apply('--layout--vertical')}
           ${css.apply('--layout--flex')}
 
-          margin: 28px 0px 0px;
+          margin: 32px 0px 0px;
           border-radius: 4px;
           background: #f2f2f2ff;
         }
@@ -52,8 +52,9 @@ class ApplicMount extends LitElement {
           ${css.apply('--layout--horizontal')}
           ${css.apply('--layout--center-center')}
           ${css.apply('--layout--flex-none')}
+          ${css.apply('--typo--hint')}
 
-          padding: 4px;
+          padding: 4px 16px;
           color: #fff;
         }
 
@@ -65,7 +66,7 @@ class ApplicMount extends LitElement {
       </div>
 
       <div class="applic perma-banner">
-        <applic-typo is="body">${applic.localize('')}</applic-typo>
+        <applic-typo is="body">${applic.localize('dev:notice')}</applic-typo>
 
       </div>
     `;

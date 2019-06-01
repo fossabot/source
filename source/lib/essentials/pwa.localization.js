@@ -11,33 +11,48 @@ export class ApplicLocalization {
     this.config = applic.localization;
     this._waiting = [];
 
-    this._hasLoaded = new Promise((resolve) => {
-      this._loadIndexResolve = resolve;
-      this._loadIndex()
+    applic.localization.all = {};
+    applic.localization.table = {}
+    applic.localization.default = undefined;
+
+    this.hasloaded = new Promise((resolve) => {
+      this._loadResolve = resolve;
     });
+
+    this._loadIndex();
   }
 
   async _loadIndex() {
-    setTimeout(async () => {
-      const _index = await applic.utils.fetchJson(this.config.indexPath)
+    const _indexUri = this.config.indexPath;
+    const _index = await applic.utils.fetchJson(_indexUri);
 
-      applic.lang = applic.lang ? applic.lang  :_index.default;
-      applic.localization.default = _index.default;
-      applic.localization.all = _index.translations;
+    applic.lang = applic.lang ? applic.lang : _index.default;
+    applic.localization.default = _index.default;
+    applic.localization.all = _index.translations;
 
-      this._loadIndexResolve();
-    }, 2000);
+    applic.debug('pwa-localization:index-updated');
+    applic.dispatch('pwa-localization:updated');
+
+    this._updateTable();
   }
 
+  async _updateTable() {
+    const _tableUri = applic.localization.all[applic.lang].table;
+    const _table = await applic.utils.fetchJson(_tableUri);
 
-  get() {
-    return new Promise(async (resolve) => {
-      await this._hasLoaded;
+    applic.localization.table[applic.lang] = _table;
 
-      resolve('done');
+    applic.debug('pwa-localization:table-updated');
+    applic.dispatch('pwa-localization:updated');
 
-      console.log(applic.localization.all)
-    })
+    this._loadResolve();
+  }
+
+  get(nonce) {
+    const _value = applic.localization.table[applic.lang][nonce];
+
+    if (_value) return _value
+    else return `err, "${nonce}" is undefind`;
   }
 
 }

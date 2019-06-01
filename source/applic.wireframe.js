@@ -11,13 +11,9 @@
 import './units/wireframe/wireframe.mount.js'
 
 
-const _temp = document.createElement('template');
-
-_temp.innerHTML = `
+document.body.innerHTML = `
   <applic-mount>
 
   </applic-mount>
 
 `;
-
-document.body.appendChild(_temp.content)
