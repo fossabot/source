@@ -6,10 +6,10 @@
  * The complete set of contributors may be found at https://contrast-tool.github.io/docs/CONTRIBUTORS.md
  */
 
-applic.__proto__.utils = {};
+export const applicUtils = {};
 
-applic.__proto__.utils.readable = {};
-applic.__proto__.utils.readable.date = (_date) => {
+applicUtils.readable = {};
+applicUtils.readable.date = (_date) => {
   let _string = '', _today = new Date() - _date <= 12 * 60 * 60 * 1000;
 
   if (_today) {
@@ -30,21 +30,21 @@ applic.__proto__.utils.readable.date = (_date) => {
   return _string;
 };
 
-applic.__proto__.utils.buffer = (callback) => {
+applicUtils.buffer = (callback) => {
   Promise.resolve().then(() => {
     setTimeout(callback);
   });
 };
 
-applic.__proto__.utils.switch = (key, template) => {
+applicUtils.switch = (key, template) => {
   return template[key]();
 };
-applic.__proto__.utils.map = (object, template) => {
+applicUtils.map = (object, template) => {
   if (!object) return object;
   return Object.keys(object).map(
       (nonce) => template(object[nonce], nonce));
 };
-applic.__proto__.utils.pick = (object, key, value) => {
+applicUtils.pick = (object, key, value) => {
   if (!object) return object;
   const picks = {};
   Object.keys(object).forEach((nonce) => {
@@ -55,7 +55,7 @@ applic.__proto__.utils.pick = (object, key, value) => {
   return picks;
 };
 
-applic.__proto__.utils.arrayify = (obj) => {
+applicUtils.arrayify = (obj) => {
   const _list = []; 
   for (const _nonce in obj) {
     _list.push(obj[_nonce])
@@ -63,13 +63,13 @@ applic.__proto__.utils.arrayify = (obj) => {
   return _list;
 };
 
-applic.__proto__.utils.object = {};
+applicUtils.object = {};
 /**
  * @param {object} obj0
  * @param {object} obj1
  * @return {object}
  */
-applic.__proto__.utils.object.concat = (obj0, obj1) => {
+applicUtils.object.concat = (obj0, obj1) => {
   for (const p in obj1) {
     try {
       if (obj1[p].constructor == Object) {
@@ -86,7 +86,7 @@ applic.__proto__.utils.object.concat = (obj0, obj1) => {
 };
 
 
-applic.__proto__.utils.object.set = (obj, path, value) => {
+applicUtils.object.set = (obj, path, value) => {
   if (!obj) return null;
   const stack = path.split('.');
 
@@ -111,7 +111,7 @@ applic.__proto__.utils.object.set = (obj, path, value) => {
  * @param {string} path
  * @return {*}
  */
-applic.__proto__.utils.object.get = (obj, path) => {
+applicUtils.object.get = (obj, path) => {
   if (!obj) return null;
   if ('*' == path) return obj;
 
@@ -133,7 +133,7 @@ applic.__proto__.utils.object.get = (obj, path) => {
  * @param {object} obj1
  * @return {*}
  */
-applic.__proto__.utils.equal = (obj0, obj1) => {
+applicUtils.equal = (obj0, obj1) => {
   return JSON.stringify(obj0) == JSON.stringify(obj1);
 };
 
@@ -141,8 +141,8 @@ applic.__proto__.utils.equal = (obj0, obj1) => {
  * @param {HTMLDocument} $node
  * @return {object}
  */
-applic.__proto__.utils.node = {}
-applic.__proto__.utils.node.bounds = ($node) => {
+applicUtils.node = {}
+applicUtils.node.bounds = ($node) => {
   const width = $node.scrollWidth;
   const height = $node.scrollHeight;
 
@@ -168,14 +168,14 @@ applic.__proto__.utils.node.bounds = ($node) => {
 /**
  * @return {string}
  */
-applic.__proto__.utils.nonce = () => {
+applicUtils.nonce = () => {
   return Math.random().toString(16).substring(2, 15) + Math.random().toString(16).substring(2, 15);
 };
 
 /**
  * @return {string}
  */
-applic.__proto__.utils.alias = () => {
+applicUtils.alias = () => {
   return `${Math.random().toString(16).substring(2, 8)}`.toUpperCase();
 };
 
@@ -184,7 +184,7 @@ applic.__proto__.utils.alias = () => {
  * @param {number} w
  * @param {number} h
  */
-applic.__proto__.utils.window = (uri, w, h) => {
+applicUtils.window = (uri, w, h) => {
   const left = (screen.width / 2) - (w / 2);
   const top = (screen.height / 2) - (h / 2) - 68;
   return self.open(uri, '', `width=${w},height=${h},top=${top},left=${left}`);
@@ -195,7 +195,7 @@ applic.__proto__.utils.window = (uri, w, h) => {
  * @param {object} obj
  * @return {array}
  */
-applic.__proto__.utils.arrayify = (obj) => {
+applicUtils.arrayify = (obj) => {
   if (!obj) return [];
   const array = [];
   Object.keys(obj).forEach((key) => {
@@ -208,7 +208,7 @@ applic.__proto__.utils.arrayify = (obj) => {
  * @param {object} obj
  * @return {object}
  */
-applic.__proto__.utils.clone = (obj) => {
+applicUtils.clone = (obj) => {
   if (obj == null || typeof obj != 'object') return obj;
 
   if (obj instanceof Array) {
@@ -231,7 +231,7 @@ applic.__proto__.utils.clone = (obj) => {
  * @param {string} uri
  * @return {object}
  */
-applic.__proto__.utils.fetchJson = (uri) => {
+applicUtils.fetchJson = (uri) => {
   return new Promise((resolve) => {
     const xobj = new XMLHttpRequest(); (() => {
       xobj.overrideMimeType('application/json');
@@ -247,7 +247,7 @@ applic.__proto__.utils.fetchJson = (uri) => {
 };
 
 
-applic.__proto__.utils.cipher = (salt) => {
+applicUtils.cipher = (salt) => {
   const textToChars = (text) => text.split('').map((c) => c.charCodeAt(0));
   const byteHex = (n) => ('0' + Number(n).toString(16)).substr(-2);
   const applySaltToChar = (code) => textToChars(salt).reduce((a, b) => a ^ b, code);
@@ -259,7 +259,7 @@ applic.__proto__.utils.cipher = (salt) => {
       .join('');
 };
 
-applic.__proto__.utils.decipher = (salt) => {
+applicUtils.decipher = (salt) => {
   const textToChars = (text) => text.split('').map((c) => c.charCodeAt(0));
   // const saltChars = textToChars(salt);
   const applySaltToChar = (code) => textToChars(salt).reduce((a, b) => a ^ b, code);

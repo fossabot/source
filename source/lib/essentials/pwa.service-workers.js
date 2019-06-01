@@ -6,18 +6,7 @@
  * The complete set of contributors may be found at https://contrast-tool.github.io/docs/CONTRIBUTORS.md
  */
 
-// import './lib/elements/all-elements.js'
-// import './units/wireframe/wireframe.startup.js'
-import './units/wireframe/wireframe.mount.js'
+export class ApplicServiceWorkers {
+  constructor() {}
 
-
-const _temp = document.createElement('template');
-
-_temp.innerHTML = `
-  <applic-mount>
-
-  </applic-mount>
-
-`;
-
-document.body.appendChild(_temp.content)
+}

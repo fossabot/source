@@ -1,3 +1,4 @@
+<!doctype html>
 <!--
 @license
 Copyright (c) 2019 The Contrast Tool Authors. All rights reserved.
@@ -5,8 +6,6 @@ This code may only be used under the BSD style license found at https://contrast
 The complete set of authors may be found at https://contrast-tool.github.io/docs/AUTHORS.md
 The complete set of contributors may be found at https://contrast-tool.github.io/docs/CONTRIBUTORS.md
 -->
-
-<!doctype html>
 <html lang="en-NL" dir="ltr">
 
 <head>
@@ -21,22 +20,14 @@ The complete set of contributors may be found at https://contrast-tool.github.io
 	<meta name="google-site-verification" content="d0XZavN80gjJJtY4t5AKzcm3PfXBsLIM_7MTepJaI0c" />
 
 	<meta name="viewport" content="width=device-width, minimum-scale=1.0, maximum-scale=1.0, user-scalable=no">
-	<style> body { margin: 0px 0px 0px 0px; height: 100vh; overflow: hidden; } </style>
-
-	<script>
-		self.applic = new class {};
-		applic.__proto__.created = Date.now();
-		applic.__proto__.rendered = false;
-		applic.__proto__.location = {rootPath: '/nightly/'};
-		applic.__proto__.essentials = {};
-	</script>
+	<style> body { margin: 0px; height: 100vh; overflow: hidden; } </style>
 
 	<meta itemprop="name" content="Contrast Tool - Nightly">
 	<meta itemprop="description" content="An interactive viewer to compare and export your web graphics.">
 	<meta itemprop="image" content="https://contrast-tool.github.io/resources/web/web.card.png">
 
 	<meta name="theme-color" content="#2C2F33">
-	<link rel="manifest" href="./manifest.json?build=2.0.0-concept.6">
+	<link rel="manifest" href="./manifest.json">
 
 	<meta property="og:type" content="website">
 	<meta property="og:title" content="Contrast Tool - Nightly">
@@ -62,7 +53,8 @@ The complete set of contributors may be found at https://contrast-tool.github.io
 	<link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Roboto:300,400,500|Material+Icons+Sharp">
 
 	<script src="node_modules/@webcomponents/webcomponentsjs/webcomponents-bundle.js"></script>
-	<script type="module" src="./source/applic.js"></script>
+	<script type="module" src="./source/lib/applic.js"></script>
+	<script type="module" src="./source/applic.wireframe.js"></script>
 
 	<script type="module">
 		const _worker = {};
@@ -75,7 +67,7 @@ The complete set of contributors may be found at https://contrast-tool.github.io
 			};
 		};
 		
-		_worker.unregister = (_detail, _event) => {
+		_worker.unregister = (_event) => {
 			if (_event.code != 'KeyR' || !_event.ctrlKey) return;
 			if (_event.shiftKey) self.localStorage.clear();
 
@@ -85,18 +77,20 @@ The complete set of contributors may be found at https://contrast-tool.github.io
 				.catch((_err) => console.error);
 		};
 
-		applic.on('load', _worker.register, { passive: true, once: true })
-		applic.on('keydown', _worker.unregister, { passive: false })
+		self.addEventListener('load', _worker.register, { passive: true, once: true })
+		self.addEventListener('keydown', _worker.unregister, { passive: false })
 	</script>
 
-	<style> body { background: #2C2F33; } </style>
+	<style>
+		body { background-color: #2c2f33ff; }
+
+	</style>
 
 </head>
 
 <body>
-	<applic-startup></applic-startup>
-	<applic-mount></applic-mount>
-	<script> requestAnimationFrame(() => { console.debug('--- first frame ---'); applic.__proto__.rendered = true; })  </script>
+	<!-- Build with lit-html and lit-element -->
 </body>
 
 </html>
+

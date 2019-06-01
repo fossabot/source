@@ -30,11 +30,6 @@ class ApplicMount extends LitElement {
           ${css.apply('--stance--fit')}
           ${css.apply('--layout--vertical')}
          
-          left: 76px;
-
-          ${css.apply('--typo')}
-          ${css.apply('--typo--noselect')}
-
           opacity: 1;
           transition: opacity 120ms cubic-bezier(0.4, 0.0, 1, 1); }
 
@@ -42,34 +37,37 @@ class ApplicMount extends LitElement {
         :host([unresolved]) { pointer-events: none !important; }
         :host([startup]) * { transition: none !important; }
 
-        .applic.primary-card {
+        .applic.wrap {
           ${css.apply('--stance--relative')}
+          ${css.apply('--layout--vertical')}
           ${css.apply('--layout--flex')}
 
-          overflow: hidden;
+          margin: 28px 0px 0px;
+          border-radius: 4px;
+          background: #f2f2f2ff;
+        }
 
-          background: #ffffff; 
-          border-radius: 8px 0px 0px 0px;
-          border-top: 1px solid #e1e4e8;
-          border-left: 1px solid #e1e4e8; }
-      
-        .applic.sheet-card {
-          ${css.apply('--stance--absolute')}
+        .applic.perma-banner {
+          ${css.apply('--stance--relative')}
+          ${css.apply('--layout--horizontal')}
+          ${css.apply('--layout--center-center')}
           ${css.apply('--layout--flex-none')}
 
-          padding: 0px 0px;
-          margin: 0px 0px 0px -78px;
-          width: 78px; }
+          padding: 4px;
+          color: #fff;
+        }
 
       </style>
       
-      <div class="applic primary-card">
-    		<applic-editor></applic-editor>
+      <div class="applic wrap">
+        <slot></slot>
+
       </div>
 
-      <div class="applic sheet-card">
-      </div>
+      <div class="applic perma-banner">
+        <applic-typo is="body">${applic.localize('')}</applic-typo>
 
+      </div>
     `;
   }
 
@@ -81,7 +79,6 @@ class ApplicMount extends LitElement {
       this.setAttribute('unresolved', '');
     };
 
-    applic.$ = this;
   }
 
   resolve() {

@@ -1,0 +1,21 @@
+{
+  "default": "en-NL",
+
+  "translations": {
+    "en-NL": {
+      "changed": "Januaray 1, 2019",
+      "translator": "Rikkun Brouwers",
+      "table": "/resources/lang/localize.en-NL.json",
+      "docs": "/resources/docs/en-NL/"
+    },
+
+    "de-NL": {
+      "changed": "Januaray 1, 2019",
+      "translator": "Milo Brouwers",
+      "table": "/resources/lang/localize.de-NL.json",
+      "docs": "/resources/docs/de-NL/"
+    }
+
+  }
+
+}
