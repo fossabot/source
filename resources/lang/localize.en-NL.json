@@ -1,5 +1,10 @@
 {
   "dev:notice": 
-  "This is only a developer build. Please don't share this url."
+  "debug-build:en-NL",
+
+  "editor:import-new-files": 
+  "Add Files",
+  "editor:import-new-directory": 
+  "Select Directory"
 
 }

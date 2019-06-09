@@ -2,7 +2,7 @@
   "dir": "ltr",
   "lang": "en-NL",
   "name": "Contrast Tool - Nightly",
-  "short_name": "CT - Nightly",
+  "short_name": "Contrast Tool",
   "description": "An interactive viewer to compare and export your web graphics.",
   "icons": [
     {
@@ -22,7 +22,8 @@
     }
   ],
   "start_url": "/nightly/",
-  "display": "fullscreen",
+  "display": "standalone",
+  "orientation": "any",
   "theme_color": "#2C2F33",
   "background_color": "#2C2F33"
 }

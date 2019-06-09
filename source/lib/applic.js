@@ -22,6 +22,8 @@ self.applic = new class {
   audit() { console.info(...arguments); }
   debug() { console.debug(...arguments); }
   validated() { return !this.store.get('applic:validated').pending; }
+  path(path) { return `${applic.location.rootPath.replace(/\/$/, "")}${path}`; }
+  devlop() { return -1 != self.location.href.indexOf('localhost'); }
 };
 
 applic.__proto__.utils = applicUtils;
@@ -31,11 +33,11 @@ applic.utils.object.concat(applic.__proto__, {
   rendered: false,
 
   location: { 
-    rootPath: '/nightly/' 
+    rootPath: applic.devlop() ? './' : '/nightly/' 
   },
 
   localization: {
-    indexPath: './resources/lang/localize-index.json' 
+    indexPath: '/resources/lang/localize-index.json' 
   }
 
 });
@@ -76,7 +78,11 @@ applic.utils.object.concat(applic.__proto__, {
 
 applic.utils.object.concat(applic.__proto__, {
   localize: applic.pwa.localize.get.bind(applic.pwa.localize),
-
+  request: (nonce, params) => {
+    return () => {
+      console.log('applic-dom:request', nonce, params)
+    }
+  }
 });
 
 requestAnimationFrame(() => {

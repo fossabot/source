@@ -7,6 +7,7 @@
  */
 
 import './element.scrollable.js';
+import './element.pannel.js';
 
 import './inline.span.js';
 import './inline.icon.js';

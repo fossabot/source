@@ -20,7 +20,7 @@ The complete set of contributors may be found at https://contrast-tool.github.io
 	<meta name="google-site-verification" content="d0XZavN80gjJJtY4t5AKzcm3PfXBsLIM_7MTepJaI0c" />
 
 	<meta name="viewport" content="width=device-width, minimum-scale=1.0, maximum-scale=1.0, user-scalable=no">
-	<style> body { margin: 0px; height: 100vh; overflow: hidden; } </style>
+	<style> body { margin: 0px; overflow: hidden; } </style>
 
 	<meta itemprop="name" content="Contrast Tool - Nightly">
 	<meta itemprop="description" content="An interactive viewer to compare and export your web graphics.">
@@ -56,39 +56,13 @@ The complete set of contributors may be found at https://contrast-tool.github.io
 	<script type="module" src="./source/lib/applic.js"></script>
 	<script type="module" src="./source/applic.wireframe.js"></script>
 
-	<script type="module">
-		const _worker = {};
-
-		_worker.register = () => {
-			if ('serviceWorker' in navigator) {
-				navigator.serviceWorker.register('./service-worker.js', { scope: applic.location.rootPath })
-					.then((_sw) => { applic.essentials.sw = _sw })
-					.catch((_err) => console.error)
-			};
-		};
-		
-		_worker.unregister = (_event) => {
-			if (_event.code != 'KeyR' || !_event.ctrlKey) return;
-			if (_event.shiftKey) self.localStorage.clear();
-
-			_event.preventDefault();
-			applic.essentials.sw.unregister()
-				.then(() => { self.location.reload(true) })
-				.catch((_err) => console.error);
-		};
-
-		self.addEventListener('load', _worker.register, { passive: true, once: true })
-		self.addEventListener('keydown', _worker.unregister, { passive: false })
-	</script>
-
-	<style>
-		body { background-color: #2c2f33ff; }
-
-	</style>
+	<style> body { background-color: #2c2f33; } </style>
 
 </head>
 
-<body> </body>
+<body>
+
+</body>
 
 </html>
 

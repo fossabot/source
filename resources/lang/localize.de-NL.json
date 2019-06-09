@@ -1,5 +1,10 @@
 {
   "dev:notice": 
-  "Bitte teilen Sie diese Anwendung nicht. Dies ist ein Entwickler-Build."
+  "debug-build:en-NL",
+
+  "editor:import-files": 
+  "Dateien hinzufügen",
+  "editor:import-folder": 
+  "Verzeichnis auswählen"
 
 }

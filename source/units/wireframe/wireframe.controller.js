@@ -11,7 +11,7 @@ import { css } from '../../lib/pattern/dom.style.js';
 
 console.debug('applic-wireframe:loaded', `${Date.now() - applic.created}ms`);
 
-class ApplicMount extends LitElement {
+class ApplicController extends LitElement {
   static get properties() {
     return { };
   }
@@ -23,7 +23,7 @@ class ApplicMount extends LitElement {
 
         :host {
           ${css.apply('--stance--absolute')}
-          ${css.apply('--stance--fit')}
+          ${css.apply('--stance--pin-bottom')}
           ${css.apply('--layout--vertical')}
          
           opacity: 1;
@@ -33,9 +33,30 @@ class ApplicMount extends LitElement {
         :host([unresolved]) { pointer-events: none !important; }
         :host([startup]) * { transition: none !important; }
 
+        .applic.perma-banner {
+          ${css.apply('--stance--absolute')}
+          ${css.apply('--stance--pin--bottom')}
+          ${css.apply('--layout--horizontal')}
+          ${css.apply('--layout--center-center')}
+          ${css.apply('--layout--flex-none')}
+
+          height: 48px;
+          width: 100%;
+          max-width: 560px;
+          border: 1px solid #e1e4e8;
+          border-radius: 24px;
+
+          margin: 0px auto;
+          background: #ffffff;
+        }
+      
       </style>
     
-      <slot></slot>
+      
+      <div class="applic perma-banner">
+        <slot></slot>
+
+      </div>
 
     `;
   }
@@ -43,40 +64,12 @@ class ApplicMount extends LitElement {
   constructor() {
     super();
 
-    if (!!applic.rendered) this.setAttribute('unresolved', '');
-    applic.on('applic-localization:changed', this.requestUpdate.bind(this));
   }
 
-  firstUpdated() {
-    applic.utils.buffer(() => {
-      this.removeAttribute('unresolved');
-      applic.utils.buffer(this.removeAttribute.bind(this, 'startup'));
-      console.debug("applic-wireframe:resolved");
-    });
-    
-    console.debug("applic-wireframe:ready", `${Date.now() - applic.created}ms`);
-  }
+  firstUpdated() { }
 
   updated() { }
 
-
-  model(_nonce) {
-    return model[_nonce] ? (model[_nonce].bind(this))() : `<!-- ${_nonce} -->`;
-  };
-
-  call(_type, _params) {
-    return () => {
-      console.log(_type, _params)
-      switch (_type) {
-        case 'event:nonce':
-          // Do somthing
-          break;
-      
-
-      }
-    }
-  };
-
 }
 
-customElements.define('applic-mount', ApplicMount);
+customElements.define('applic-controller', ApplicController);

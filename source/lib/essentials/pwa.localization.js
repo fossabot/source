@@ -23,7 +23,7 @@ export class ApplicLocalization {
   }
 
   async _loadIndex() {
-    const _indexUri = this.config.indexPath;
+    const _indexUri = applic.path(this.config.indexPath);
     const _index = await applic.utils.fetchJson(_indexUri);
 
     applic.lang = applic.lang ? applic.lang : _index.default;
@@ -37,7 +37,7 @@ export class ApplicLocalization {
   }
 
   async _updateTable() {
-    const _tableUri = applic.localization.all[applic.lang].table;
+    const _tableUri = applic.path(applic.localization.all[applic.lang].table);
     const _table = await applic.utils.fetchJson(_tableUri);
 
     applic.localization.table[applic.lang] = _table;
@@ -50,7 +50,7 @@ export class ApplicLocalization {
 
   get(nonce) {
     return !applic.localization.table[applic.lang] ? '' :
-      applic.localization.table[applic.lang][nonce] || 'err, "${nonce}" is undefind';
+      applic.localization.table[applic.lang][nonce] || `err, "${nonce}" is undefind`;
   }
 
 }

@@ -40,9 +40,16 @@ class ApplicScrollable extends LitElement {
           overflow: scroll; }
 
         ._wrap-inner {
+          ${css.apply('--layout--vertical')} 
+          ${css.apply('--layout--sizing--content-box')} 
+          height: 100%;
+        }
+        /*
+        ._wrap-inner {
           ${css.apply('--layout--block')} 
-          ${css.apply('--layout--sizing--content-box')} }
-
+          ${css.apply('--layout--sizing--content-box')} 
+        }
+        */
 
 
        ._scroll-bar {
@@ -50,7 +57,10 @@ class ApplicScrollable extends LitElement {
           ${css.apply('--stance--absolute')} 
           ${css.apply('--layout--vertical')} 
 
+          z-index: 999;
           padding: 5px; }
+
+       :host([no-scrollbar]) ._scroll-bar { display: none !important; }
 
        ._scroll-bar._scroll-bar--x {
           ${css.apply('--stance--pin--bottom-start')} 
@@ -102,6 +112,13 @@ class ApplicScrollable extends LitElement {
     window.addEventListener('resize', this._reset.bind(this));
     window.addEventListener('resize', this._update.bind(this));
   }
+
+  scrollTo(params) {
+    // console.log('scrollto', params)
+
+    const $_wrap = this.shadowRoot.querySelector('._wrap');
+    $_wrap.scrollTo(params);
+  } 
 
   firstUpdated() {
     this.scroll_show = false;
@@ -158,6 +175,12 @@ class ApplicScrollable extends LitElement {
 
     // console.log(this.scroll_y)
     // console.log(this.scroll_size_y)
+    this.dispatchEvent(new CustomEvent('scrolled', { detail: {
+      pos: {
+        x: $_wrap.scrollLeft, 
+        y: $_wrap.scrollTop
+      }
+    } }))
 
     await this.updateComplete;
     this.requestUpdate();
@@ -179,8 +202,6 @@ class ApplicScrollable extends LitElement {
     $_wrapInner.style.padding = `0 ${this._width_add}px ${this._height_add}px 0`
   }
 
-
-
   async _reset() {
     const $_wrap = this.shadowRoot.querySelector('._wrap');
 
@@ -199,6 +220,9 @@ class ApplicScrollable extends LitElement {
     this._update();
     this.requestUpdate();
   }
+
+
+
 }
 
 customElements.define('applic-scrollable', ApplicScrollable);

@@ -7,30 +7,58 @@
  */
 
 import './lib/elements/all-elements.js'
+import { html, render } from 'lit-html';
 
 import './units/wireframe/wireframe.mount.js'
+import './units/wireframe/wireframe.controller.js'
 
 
-document.body.innerHTML = `
+const _template = html`
   <applic-mount>
+
     <applic-scrollable>
+      <div>
+        <button 
+          @click="${applic.request('applic:import', { type: 'file' })}">
+          ${applic.localize('editor:import-new-files')}
+        </button>
+        <button 
+          @click="${applic.request('applic:import', { type: 'directory' })}">
+          ${applic.localize('editor:import-new-directory')}
+        </button>
+      <div>
 
-      <applic-checkbox>
-        <applic-span class="caption">Checkbox</applic-span>
-        <applic-span class="sub-caption">
-          With a longer subtitle that wraps to another line
-        </applic-span>
-      </applic-checkbox>
+      <div>
 
-      <applic-button>
-        <applic-span slot="caption">Button</applic-span>
-      </applic-button>
-
-      <applic-icon-button>
-        <applic-icon slot="icon">menu</applic-icon>
-      </applic-icon-button>
-
+      </div>
+      
     </applic-scrollable>
-  </applic-mount>
 
+    <applic-controller>
+      <div slot="controller:tools" style="height: 48px;">
+        <div>controller:tools</div>
+      </div>
+      <div slot="controller:export" style="height: 480px;">
+        <div>controller:export</div>
+      </div>
+    </applic-controller>
+
+  </applic-mount>
 `;
+
+render(_template, document.body)
+
+
+//   <applic-span class="caption">Checkbox</applic-span>
+//   <applic-span class="sub-caption">
+//     With a longer subtitle that wraps to another line
+//   </applic-span>
+// </applic-checkbox>
+
+// <applic-button>
+//   <applic-span slot="caption">Button</applic-span>
+// </applic-button>
+
+// <applic-icon-button>
+//   <applic-icon slot="icon">menu</applic-icon>
+// </applic-icon-button>
