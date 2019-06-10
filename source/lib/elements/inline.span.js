@@ -16,9 +16,32 @@ class ApplicSpan extends LitElement {
       <style>
         :host {
           ${css.apply('--layout--sizing--content-box')} 
-          ${css.apply('--layout--inline')} 
+          display: inline;
 
           ${css.apply('--typo')} 
+        }
+
+        ::slotted(a) {
+          ${css.apply('--stance--relative')} 
+
+          color: inherit;
+          text-decoration: none;
+
+          transition-duration: 40ms;
+          transition-delay: 40ms;
+          transition-property: color;
+          transition-timing-function: cubic-bezier(0.4, 0, 0.2, 1);
+        }
+        ::slotted(a):after {
+          ${css.apply('--stance--absolute')}
+          ${css.apply('--stance--fit')}
+
+          margin: -2px;
+          content: '';
+        }
+
+        ::slotted(a:hover) {
+          color: rgb(var(--CR600-rgb));
         }
 
         :host([inert]) {
@@ -45,6 +68,30 @@ class ApplicSpan extends LitElement {
           letter-spacing: 0.25px;
           text-decoration: inherit;
           text-transform: inherit;
+
+          color: rgb(var(--GG800-rgb));
+        }
+
+        :host([typo="title"]) {
+          font-size: 20px;
+          line-height: 32px;
+          font-weight: 500;
+          letter-spacing: 0.15px;
+          text-decoration: inherit;
+          text-transform: inherit;
+
+          color: rgb(var(--CR600-rgb));
+        }
+
+        :host([typo="subtitle"]) {
+          font-size: 16px;
+          line-height: 28px;
+          font-weight: 400;
+          letter-spacing: 0.15px;
+          text-decoration: inherit;
+          text-transform: inherit;
+
+          color: rgb(var(--CR600-rgb));
         }
 
         :host([typo="hint"]) {
@@ -54,6 +101,19 @@ class ApplicSpan extends LitElement {
           letter-spacing: 0.4px;
           text-decoration: inherit;
           text-transform: inherit;
+
+          color: rgb(var(--GG700-rgb));
+        }
+
+        :host([typo="hint"]) {
+          font-size: 12px;
+          line-height: 20px;
+          font-weight: 400;
+          letter-spacing: 0.4px;
+          text-decoration: inherit;
+          text-transform: inherit;
+
+          color: rgb(var(--GG700-rgb));
         }
 
       </style>

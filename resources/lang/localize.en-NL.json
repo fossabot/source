@@ -1,10 +1,20 @@
 {
   "dev:notice": 
-  "debug-build:en-NL",
+  "debug-build:en-NL – Please do not share this URL.",
+
+  "dev:nightly-caption": 
+  "Sorry for the lack of interface.",
+  "dev:nightly-sub-caption": 
+  "I want to finally release this application. And the layout is really distracting me from finishing the backend code that actually doses all the wizardry.",
 
   "editor:import-new-files": 
   "Add Files",
   "editor:import-new-directory": 
-  "Select Directory"
+  "Select Directory",
+
+  "editor:export-all": 
+  "Export All", 
+  "editor:export-selected": 
+  "Export"
 
 }

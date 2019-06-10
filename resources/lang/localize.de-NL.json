@@ -1,10 +1,20 @@
 {
   "dev:notice": 
-  "debug-build:en-NL",
+  "debug-build:de-NL – Bitte geben Sie diese URL nicht weiter.",
+
+  "dev:nightly-caption": 
+  "Entschuldigung für das fehlende Interface.",
+  "dev:nightly-sub-caption": 
+  "Ich möchte die Anwendung endlich freigeben. Und das Layout lenkt mich wirklich davon ab applicationden Backend-Code fertigzustellen, der alle notwendig funktionen enthält.",
 
   "editor:import-files": 
   "Dateien hinzufügen",
   "editor:import-folder": 
-  "Verzeichnis auswählen"
+  "Verzeichnis auswählen",
+
+  "editor:export-all": 
+  "All Exportieren", 
+  "editor:export-selected": 
+  "Exportieren"
 
 }

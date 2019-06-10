@@ -11,3 +11,6 @@ import './element.pannel.js';
 
 import './inline.span.js';
 import './inline.icon.js';
+
+import './input.button.js';
+import './input.text.js';
