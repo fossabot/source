@@ -13,6 +13,7 @@ import { css } from './lib/pattern/dom.style.js';
 import './units/wireframe/wireframe.mount.js'
 import './units/wireframe/wireframe.editor.js'
 
+import './units/behaviour/applic.behaviour.js'
 
 const _template = html`
   <style>
@@ -70,6 +71,7 @@ const _template = html`
     #applicDetails, 
     #applicTools { 
       ${css.apply('--layout--horizontal')} 
+      ${css.apply('--layout--wrap')} 
       padding: 20px 20px; } 
 
     #applicDetails > *,
@@ -85,39 +87,40 @@ const _template = html`
     <applic-editor> 
 
       <div slot="editor:start"
-        style="padding:20px 24px 0px; max-width: 560px; box-sizing: border-box;">
-        <applic-span typo="title">${applic.localize('dev:nightly-caption')}</applic-span><br>
-        <applic-span typo="body">${applic.localize('dev:nightly-sub-caption')}</applic-span>
-      </div> 
-
-      <div slot="editor:start"
         id="applicTools">
         <applic-button type="secondary"
-          @click="${applic.request('applic:import', { type: 'file' })}">
+          @click="${applic.request('applic-request:import', { type: 'file' })}">
           ${applic.localize('editor:import-new-files')}
         </applic-button>
         <applic-button type="secondary"
-          @click="${applic.request('applic:import', { type: 'directory' })}">
+          @click="${applic.request('applic-request:import', { type: 'directory' })}">
           ${applic.localize('editor:import-new-directory')}
         </applic-button>
         <div class="applic spacer"></div>
         <applic-button type="primary" disabled
-          @click="${applic.request('applic:package', { range: 'all' })}">
+          @click="${applic.request('applic-request:package', { range: 'all' })}">
           ${applic.localize('editor:export-all')}
         </applic-button>
       </div>
+      
+      <div slot="editor:empty-state"
+        style="max-width: 480px; box-sizing: border-box;">
+        <applic-span typo="title">${applic.localize('dev:nightly-caption')}</applic-span><br>
+        <applic-span typo="body">${applic.localize('dev:nightly-sub-caption')}</applic-span>
+      </div> 
 
       <div slot="editor:end" id="applicDetails">
         <div>
-          <applic-span typo="hint">Tool by <a href="https://twitter.com/RikkunBrouwers">Rikkun Brouwers</a></applic-span>
+          <applic-span typo="hint" inert>Tool by Rikkun Brouwers</applic-span><br>
         </div>
 
         <div class="applic spacer"></div>
         ${applic.utils.arrayify(applic.localization.all).map(lang => html`
-          <applic-span typo="hint"><a href="./#/?preset.prefrences=lang:${lang.nonce}">${lang.name}</a></applic-span>
+          <applic-span typo="hint" ?highlight="${applic.lang == lang.nonce}">
+            <a href="./#/?apply.prefrences=lang:${lang.nonce}">${lang.name}</a>
+          </applic-span>
         `)}
       </div>
-    
     </applic-editor>
 
     <div id="devNotice">

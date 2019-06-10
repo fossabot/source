@@ -1,6 +1,6 @@
 {
   "dev:notice": 
-  "debug-build:en-NL – Please do not share this URL.",
+  "Please do not share this URL",
 
   "dev:nightly-caption": 
   "Sorry for the lack of interface.",
@@ -11,7 +11,6 @@
   "Add Files",
   "editor:import-new-directory": 
   "Select Directory",
-
   "editor:export-all": 
   "Export All", 
   "editor:export-selected": 

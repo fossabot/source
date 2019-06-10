@@ -79,9 +79,7 @@ applic.utils.object.concat(applic.__proto__, {
 applic.utils.object.concat(applic.__proto__, {
   localize: applic.pwa.localize.get.bind(applic.pwa.localize),
   request: (nonce, params) => {
-    return () => {
-      console.log('applic-dom:request', nonce, params)
-    }
+    return applic.dispatch.bind(null, nonce, params)
   }
 });
 

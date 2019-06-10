@@ -21,28 +21,6 @@ class ApplicSpan extends LitElement {
           ${css.apply('--typo')} 
         }
 
-        ::slotted(a) {
-          ${css.apply('--stance--relative')} 
-
-          color: inherit;
-          text-decoration: none;
-
-          transition-duration: 40ms;
-          transition-delay: 40ms;
-          transition-property: color;
-          transition-timing-function: cubic-bezier(0.4, 0, 0.2, 1);
-        }
-        ::slotted(a):after {
-          ${css.apply('--stance--absolute')}
-          ${css.apply('--stance--fit')}
-
-          margin: -2px;
-          content: '';
-        }
-
-        ::slotted(a:hover) {
-          color: rgb(var(--CR600-rgb));
-        }
 
         :host([inert]) {
           pointer-events: none;
@@ -114,6 +92,31 @@ class ApplicSpan extends LitElement {
           text-transform: inherit;
 
           color: rgb(var(--GG700-rgb));
+        }
+
+
+        ::slotted(a) {
+          ${css.apply('--stance--relative')} 
+
+          color: inherit;
+          text-decoration: none;
+
+          transition-duration: 40ms;
+          transition-delay: 40ms;
+          transition-property: color;
+          transition-timing-function: cubic-bezier(0.4, 0, 0.2, 1);
+        }
+        ::slotted(a):after {
+          ${css.apply('--stance--absolute')}
+          ${css.apply('--stance--fit')}
+
+          margin: -2px;
+          content: '';
+        }
+        
+        :host([highlight]),
+        ::slotted(a:hover) {
+          color: rgb(var(--CR600-rgb));
         }
 
       </style>

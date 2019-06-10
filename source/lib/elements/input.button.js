@@ -59,7 +59,7 @@ class ApplicButton extends LitElement {
         }
 
         :host([type="secondary"]:hover) {
-          background-color: rgba(var(--CR500-rgb), 0.04);
+          background-color: rgba(var(--CR500-rgb), 0.03);
           border-color: rgb(var(--CR100-rgb));
         }
         :host([type="secondary"]:active) {

@@ -6,76 +6,45 @@
  * The complete set of contributors may be found at https://contrast-tool.github.io/docs/CONTRIBUTORS.md
  */
 
-// import './modules/module.graphic.js';
-import './modules/module.section.js';
+
+applic.on('applic-request:import', (_params) => {
+  _params.type == 'directory' ? 
+    _import.directory(_params) : _import.files(_params);
+})
 
 
-applic.__proto__.files = {};
+const _import = {}
 
-applic.files.register = (detail, params) => {
-  // console.log('applic.files.register', detail, params)
+_import.fileTypes = ['image/x-png', 'image/png','image/gif','image/svg']
 
-  const file = {
-    nonce: applic.utils.nonce(),
+_import.files = (_params) => {
+  const _node = document.createElement('input');
+  _node.setAttribute('type', 'file');
+  _node.setAttribute('multiple', '');
+  _node.setAttribute('accept', _import.fileTypes.join(','));
+  _node.addEventListener('change', _import.handleInput.bind(null, _node, _params), { passive: true});
+  _node.click();
+}
 
-    source: {
-      blob: detail.blob, 
-      uri: detail.uri
-    }
+_import.directory = (_params) => {
+  const _node = document.createElement('input');
+  _node.setAttribute('type', 'file');
+  _node.setAttribute('accept', _import.fileTypes.join(','));
+  _node.setAttribute('multiple', '');
+  _node.setAttribute('webkitdirectory', '');
+  _node.addEventListener('change', _import.handleInput.bind(null, _node, _params), { passive: true});
+  _node.click();
+}
 
-  };
+_import.handleInput = (_node, _params) => {
+  const _rejected = Array.from(_node.files)
+    .filter((_f) => {return -1 == _import.fileTypes.indexOf(_f.type)})
+    .filter((_f) => {return 0 != _f.name.indexOf('.')})
 
-  applic.state.set(`applic:files.${file.nonce}`, file)
+  const _files = Array.from(_node.files)
+    .filter((_f) => {return -1 != _import.fileTypes.indexOf(_f.type)})
 
-};
-
-
-
-applic.__proto__.import = {};
-
-applic.import.types  = ['image/png', 'image/gif'];
-applic.import.catched = async (fileList, params) => {
-  for (const _file of fileList) {
-    if (-1 == applic.import.types.indexOf(_file.type)) return;
-
-    applic.files.register({
-      name: _file.name, type: _file.type,
-      blob: _file, uri: URL.createObjectURL(_file),
-      modified: _file.lastModifiedDate
-    }, params);
-
-  };
-};
-
-
-// applic.__proto__.newImport = (_params) => {
-//   return new class {
-//     constructor() {
-//       if (!_params.section) throw 'Require section for import';
-
-//       this.graphic = {};
-//       this.section = _params.section;œ
-//       this.type = _params.type;
-
-//       // console.log('importer-created', _params)
-//     }
-
-//     add(_blob) {
-//       this.graphic[_blob.nonce] = applic.graphic.create({
-//         section: this.section,
-//         type: this.type,
-//         blob: _blob
-//       })
-//     }
-
-//     update(_blob) {
-//       this.graphic[_blob.nonce].update({
-//         blob: _blob
-//       })
-//     }
-
-//     resolved() {
-//       // console.log('importer-resolved')
-//     }
-//   }
-// };
+  console.log('_files', _files)
+  console.log('_rejected', _rejected)
+  console.log(_params)
+}
