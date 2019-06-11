@@ -1,11 +1,6 @@
 {
-  "dev:notice": 
-  "Please do not share this URL",
-
-  "dev:nightly-caption": 
-  "Sorry for the lack of interface.",
-  "dev:nightly-sub-caption": 
-  "I want to finally release this application. And the layout is really distracting me from finishing the backend code that actually doses all the wizardry.",
+  "applic-detail:caption": 
+  "Tool by Rikkun Brouwers",
 
   "editor:import-new-files": 
   "Add Files",

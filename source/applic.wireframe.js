@@ -18,11 +18,19 @@ import './units/behaviour/applic.behaviour.js'
 const _template = html`
   <style>
     html {
-      --CR100-rgb: 255,134,127;
+      --CR50-rgb: 255, 234, 234;
+      --CR100-rgb: 255, 203, 203;
+      --CR200-rgb: 255, 169, 169;
+      --CR300-rgb: 255, 134, 134;
+      --CR400-rgb: 255, 108, 108;
       --CR500-rgb: 255, 82, 82;
-      --CR600-rgb: 255, 82, 82;
+      --CR600-rgb: 255, 75, 75;
+      --CR700-rgb: 255, 65, 65;
+      --CR800-rgb: 255, 56, 56;
+      --CR900-rgb: 255, 40, 40;
 
       --dark-mode-bg-rgb: 50, 54, 57;
+
       --GG050-rgb: 248, 249, 250;
       --GG100-rgb: 241, 243, 244;
       --GG200-rgb: 232, 234, 237;
@@ -33,44 +41,12 @@ const _template = html`
       --GG700-rgb: 95, 99, 104;
       --GG800-rgb: 60, 64, 67;
       --GG900-rgb: 32, 33, 36;
-      --GB050-rgb: 232, 240, 254;
-      --GB100-rgb: 210, 227, 252;
-      --GB200-rgb: 174, 203, 250;
-      --GB300-rgb: 138, 180, 248;
-      --GB400-rgb: 102, 157, 246;
-      --GB500-rgb: 66, 133, 244;
-      --GB600-rgb: 26, 115, 232;
-      --GB700-rgb: 25, 103, 210;
-      --GB800-rgb: 24, 90, 188;
-      --GB900-rgb: 23, 78, 166;
-      --GB400-dark-rgb: 107, 165, 237;
-      --GB600-dark-rgb: 37, 129, 223;
-      --GR050-rgb: 252, 142, 230;
-      --GR100-rgb: 250, 210, 207;
-      --GR200-rgb: 246, 174, 169;
-      --GR300-rgb: 242, 139, 130;
-      --GR400-rgb: 238, 103, 92;
-      --GR500-rgb: 234, 67, 53;
-      --GR600-rgb: 217, 48, 37;
-      --GR700-rgb: 197, 34, 31;
-      --GR800-rgb: 179, 20, 18;
-      --GR900-rgb: 165, 14, 14;
-      --GR500-dark-rgb: 230, 106, 94;
-      --GR600-dark-rgb: 211, 59, 48;
-      --GR800-dark-rgb: 180, 27, 26;
     }
-
-    #devNotice {
-      ${css.apply('--layout--horizontal')}
-      ${css.apply('--layout--center-center')}
-
-      background-color: rgb(var(--CR600-rgb)); } 
-    
-    #devNotice * { color: white; } 
 
     #applicDetails, 
     #applicTools { 
       ${css.apply('--layout--horizontal')} 
+      ${css.apply('--layout--end')} 
       ${css.apply('--layout--wrap')} 
       padding: 20px 20px; } 
 
@@ -96,24 +72,17 @@ const _template = html`
           @click="${applic.request('applic-request:import', { type: 'directory' })}">
           ${applic.localize('editor:import-new-directory')}
         </applic-button>
+        
         <div class="applic spacer"></div>
+
         <applic-button type="primary" disabled
           @click="${applic.request('applic-request:package', { range: 'all' })}">
           ${applic.localize('editor:export-all')}
         </applic-button>
       </div>
       
-      <div slot="editor:empty-state"
-        style="max-width: 480px; box-sizing: border-box;">
-        <applic-span typo="title">${applic.localize('dev:nightly-caption')}</applic-span><br>
-        <applic-span typo="body">${applic.localize('dev:nightly-sub-caption')}</applic-span>
-      </div> 
-
       <div slot="editor:end" id="applicDetails">
-        <div>
-          <applic-span typo="hint" inert>Tool by Rikkun Brouwers</applic-span><br>
-        </div>
-
+        <applic-span typo="hint">${applic.localize('applic-detail:caption')}</applic-span><br>
         <div class="applic spacer"></div>
         ${applic.utils.arrayify(applic.localization.all).map(lang => html`
           <applic-span typo="hint" ?highlight="${applic.lang == lang.nonce}">
@@ -122,10 +91,6 @@ const _template = html`
         `)}
       </div>
     </applic-editor>
-
-    <div id="devNotice">
-      <applic-span typo="hint">${applic.localize('dev:notice')}</applic-span><br>
-    </div>
 
   </applic-mount>
 `;

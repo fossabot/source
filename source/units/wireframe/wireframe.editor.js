@@ -27,26 +27,26 @@ class ApplicEditor extends LitElement {
           ${css.apply('--layout--flex-auto')}
           ${css.apply('--layout--vertical')}
 
-          padding: 0px 24px;
-        } 
+          padding: 24px 24px 0px;
+        }   
+        .applic.list-header {
+          border-bottom: 1px solid rgb(var(--GG100-rgb));
+          margin: 0px 24px;
+        }   
 
-        .applic.list-item {
-
-          padding: 16px 0px;
-        } 
-      
       </style>
 
+    <slot name="editor:start"></slot> 
+
+    <div class="applic list-header"></div>
+
     <applic-scrollable>
-      <slot name="editor:start"></slot> 
 
       <div class="applic list">
-        ${this.graphics.length ? this.graphics.map((graphic) => html`
+        ${this.graphics.map((graphic) => html`
           <applic-editor-item nonce="${graphic.nonce}">
           </applic-editor-item>
-        `) : html`
-          <slot name="editor:empty-state"></slot>  
-        `}
+        `)}
       </div>
       
       <slot name="editor:end"></slot> 
@@ -61,7 +61,8 @@ class ApplicEditor extends LitElement {
 
     this.graphics = [];
     applic.on('applic-graphics:changed', () => {
-      this.requestUpdate();
+      this.graphics = applic.utils.arrayify(applic.graphics)
+      this.requestUpdate(); 
     });
   }
 
@@ -92,12 +93,109 @@ class ApplicEditorItem extends LitElement {
         :host {
           ${css.apply('--stance--relative')}
           ${css.apply('--layout--vertical')}
+          ${css.apply('--layout--center')}
           ${css.apply('--layout--flex-none')}
+
+          border-bottom: 1px solid rgb(var(--GG100-rgb));
+          padding: 0px 0px 24px;
+          margin: 0px 0px 24px;
         }
+
       
+        .item.image {
+          ${css.apply('--stance--relative')}
+          ${css.apply('--layout--vertical')}
+          ${css.apply('--layout--center-center')}
+          width: 96px;
+
+          margin: 4px;
+          background-color: rgb(var(--GG100-rgb));
+        }
+
+        .item.image:after {
+          content: "";
+          display: block;
+          padding-bottom: calc(100% + 24px);
+        }
+
+        .item.image > img {
+          ${css.apply('--stance--absolute')}
+          ${css.apply('--stance--pin--top')}
+          height: calc(100% - 24px);
+          width: 100%;
+          padding: 4px; 
+          object-fit: contain;
+        }
+
+        .item.image > div {
+          ${css.apply('--stance--absolute')}
+          ${css.apply('--stance--pin--bottom')}
+          ${css.apply('--layout--horizontal')}
+          ${css.apply('--layout--center-center')}
+          height: 24px;
+        }
+
+
+        .item.image.is-large {
+          width: 196px;
+          max-width: calc(50% - 8px);
+        }
+        .item.image.is-small {
+          width: 36px;
+        }
+
+        .item.details {
+          ${css.apply('--layout--vertical')}
+
+          padding: 8px;
+          margin: 0px;
+
+          width: 416px;
+          max-width: 100%;
+        }
+
+        @media (min-width: 720px) {
+          :host {
+            ${css.apply('--layout--horizontal')}
+            ${css.apply('--layout--start')}
+          }
+
+          .item.details {
+            ${css.apply('--layout--vertical')}
+
+            border-right: 1px solid rgb(var(--GG100-rgb));
+            padding: 8px 24px 8px 0px;
+            margin: 0px 16px 0px 0px;
+            width: 240px;
+            height: 100%;
+          }
+        }
+
+
+        .item.body {
+          ${css.apply('--layout--horizontal')}
+          ${css.apply('--layout--wrap')}
+
+          padding: 4px 4px;
+          margin: -8px 0px;
+        }
+
       </style>
 
-      applic-editor-item ${this.nonce}
+      <div class="item details">
+        <input type="text" value="${this.detail.name}">
+      </div>
+
+      <div class="item body">
+        <div class="item image is-large">
+          <div><applic-span typo="hint">Source</applic-span></div>
+          <img src="${this.uri}">
+        </div>
+        <div class="item image is-large">
+          <div><applic-span typo="hint">Output</applic-span></div>
+          <img src="${this.uri}">
+        </div>
+      </div>
 
     `;
   }
@@ -105,10 +203,31 @@ class ApplicEditorItem extends LitElement {
   constructor() {
     super();
 
+    this.uri = ''
+    this.detail = {
+      name: ''
+    }
+
+    applic.on('applic-graphics:changed', this._update.bind(this));
   }
 
-  firstUpdated() { }
-  updated() { }
+  _update()  {
+    const _graphic =applic.graphics[this.nonce];
+
+    this.uri = _graphic.origin.uri;
+    this.detail = {
+      name: _graphic.origin.name
+    };
+      
+    this.requestUpdate();
+  }
+
+  firstUpdated() { 
+    this._update()
+  }
+  updated() {
+  
+  }
 
 }
 
