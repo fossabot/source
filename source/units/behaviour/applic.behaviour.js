@@ -12,35 +12,40 @@ applic.on('applic-request:import', (_params) => {
     _import.directory(_params) : _import.files(_params);
 })
 
-
-
+applic.graphics = {};
 class ApplicGraphic {
-  constructor(_params) {
-    this.nonce = _params.nonce;
-    this.origin = _params.origin;
+  constructor(_raw, _params) {
+    this.nonce = applic.utils.nonce();
+    this.origin =  {
+      blob: _raw,
+      name: _raw.name,
+      type: _raw.type,
+      uri: URL.createObjectURL(_raw)
+    };
+    this.frames = [];
+    applic.graphics[this.nonce] = this;
+    this.changed();
+    this._fragment();
+  }
+
+  async _fragment() {
+    this.frames = await applic.processing.fragment(this.origin.blob)
+    this.changed();
+    console.log(this.frames)
+  }
+
+  changed() {
+    applic.dispatch('applic-graphics:changed')
+
   }
 
 }
 
 const _graphics = {};
-applic.graphics = {};
 
 _graphics.register = (_file, _params) => {
-  const _nonce = applic.utils.nonce();
-
-  applic.graphics[_nonce] = new ApplicGraphic({
-    nonce: _nonce,
-    origin: {
-      name: _file.name,
-      type: _file.type,
-      uri: URL.createObjectURL(_file)
-    }
-  });
-
-  applic.dispatch('applic-graphics:changed')
+  new ApplicGraphic(_file, _params);
 }
-
-
 
 
 const _import = {}
@@ -85,3 +90,31 @@ _import.handleInput = (_node, _params) => {
     _graphics.register(_file, _params)
   })
 }
+
+
+const _drop = {}
+
+_drop.ignore = (_event) => {
+  _event.preventDefault();
+  return false;
+}
+
+_drop.catch = (_event) => {
+  _event.preventDefault();
+
+  const _files = Array.from(_event.dataTransfer.files)
+    .filter((_f) => {return -1 != _import.fileTypes.indexOf(_f.type)})
+
+  _files.forEach(_file => {
+    _graphics.register(_file, {
+      
+    })
+  })
+
+  return false;
+}
+
+self.addEventListener('dragenter', _drop.ignore, false)
+self.addEventListener('dragleave', _drop.ignore, false)
+self.addEventListener('dragover', _drop.ignore, false)
+self.addEventListener('drop', _drop.catch, false)

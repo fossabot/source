@@ -12,6 +12,8 @@
   },
   "dependencies": {
     "@webcomponents/webcomponentsjs": "^2.2.7",
+    "gif-extract-frames": "^1.0.2",
+    "gif-frames": "^1.0.1",
     "jszip": "^3.2.1",
     "lit-element": "^2.1.0"
   },

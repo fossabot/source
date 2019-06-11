@@ -100,7 +100,6 @@ class ApplicEditorItem extends LitElement {
           padding: 0px 0px 24px;
           margin: 0px 0px 24px;
         }
-
       
         .item.image {
           ${css.apply('--stance--relative')}
@@ -123,7 +122,6 @@ class ApplicEditorItem extends LitElement {
           ${css.apply('--stance--pin--top')}
           height: calc(100% - 24px);
           width: 100%;
-          padding: 4px; 
           object-fit: contain;
         }
 
@@ -135,13 +133,13 @@ class ApplicEditorItem extends LitElement {
           height: 24px;
         }
 
-
         .item.image.is-large {
           width: 196px;
           max-width: calc(50% - 8px);
         }
+
         .item.image.is-small {
-          width: 36px;
+          width: 72px;
         }
 
         .item.details {
@@ -151,6 +149,22 @@ class ApplicEditorItem extends LitElement {
           margin: 0px;
 
           width: 416px;
+          max-width: 100%;
+        }
+
+        .item.body {
+          ${css.apply('--layout--horizontal')}
+          ${css.apply('--layout--wrap')}
+
+          max-width: 416px;
+
+          padding: 4px 4px;
+          margin: -8px 0px;
+        }
+
+        .item.body-frames {
+          ${css.apply('--layout--horizontal')}
+          ${css.apply('--layout--wrap')}
           max-width: 100%;
         }
 
@@ -169,15 +183,10 @@ class ApplicEditorItem extends LitElement {
             width: 240px;
             height: 100%;
           }
-        }
 
-
-        .item.body {
-          ${css.apply('--layout--horizontal')}
-          ${css.apply('--layout--wrap')}
-
-          padding: 4px 4px;
-          margin: -8px 0px;
+          .item.body {
+            max-width: 100%;
+          }
         }
 
       </style>
@@ -195,6 +204,15 @@ class ApplicEditorItem extends LitElement {
           <div><applic-span typo="hint">Output</applic-span></div>
           <img src="${this.uri}">
         </div>
+
+        <div class="item body-frames">
+          ${this.frames.map(frame => html`
+            <div class="item image is-small">
+              <div><applic-span typo="hint">${frame.duration}ms</applic-span></div>
+              <img src="${frame.uri}">
+            </div>
+          `)}
+        </div>
       </div>
 
     `;
@@ -204,6 +222,7 @@ class ApplicEditorItem extends LitElement {
     super();
 
     this.uri = ''
+    this.frames = []
     this.detail = {
       name: ''
     }
@@ -215,6 +234,7 @@ class ApplicEditorItem extends LitElement {
     const _graphic =applic.graphics[this.nonce];
 
     this.uri = _graphic.origin.uri;
+    this.frames = _graphic.frames;
     this.detail = {
       name: _graphic.origin.name
     };

@@ -72,7 +72,7 @@ const _template = html`
           @click="${applic.request('applic-request:import', { type: 'directory' })}">
           ${applic.localize('editor:import-new-directory')}
         </applic-button>
-        
+
         <div class="applic spacer"></div>
 
         <applic-button type="primary" disabled
@@ -111,3 +111,8 @@ render(_template, document.body)
 // <applic-icon-button>
 //   <applic-icon slot="icon">menu</applic-icon>
 // </applic-icon-button>
+
+
+applic.utils.buffer(async () => {
+  await import('./applic.lazies.js')
+})
