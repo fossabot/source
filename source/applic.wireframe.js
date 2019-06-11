@@ -82,8 +82,12 @@ const _template = html`
       </div>
       
       <div slot="editor:end" id="applicDetails">
-        <applic-span typo="hint">${applic.localize('applic-detail:caption')}</applic-span><br>
+        <div>
+          <applic-span typo="hint">${applic.localize('applic-detail:caption')}</applic-span><br>
+          <applic-span typo="hint">${applic.localize('applic-detail:sub-caption')}</applic-span><br>
+        </div>
         <div class="applic spacer"></div>
+
         ${applic.utils.arrayify(applic.localization.all).map(lang => html`
           <applic-span typo="hint" ?highlight="${applic.lang == lang.nonce}">
             <a href="./#/?apply.prefrences=lang:${lang.nonce}">${lang.name}</a>

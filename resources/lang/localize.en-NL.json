@@ -1,6 +1,8 @@
 {
   "applic-detail:caption": 
-  "Tool by Rikkun Brouwers",
+  "Tool by Rikkun Brouwers.",
+  "applic-detail:sub-caption": 
+  "Copyright 2019 The Contrast Tool Authors. Code licensed under the BSD License.",
 
   "editor:import-new-files": 
   "Add Files",

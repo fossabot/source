@@ -31,7 +31,6 @@ class ApplicGraphic {
   async _fragment() {
     this.frames = await applic.processing.fragment(this.origin.blob)
     this.changed();
-    console.log(this.frames)
   }
 
   changed() {
@@ -50,7 +49,8 @@ _graphics.register = (_file, _params) => {
 
 const _import = {}
 
-_import.fileTypes = ['image/x-png', 'image/png','image/gif','image/svg']
+// _import.fileTypes = ['image/x-png', 'image/png','image/gif','image/svg']
+_import.fileTypes = ['image/gif']
 
 _import.files = (_params) => {
   const _node = _import.newInput(_params);

@@ -140,6 +140,7 @@ class ApplicEditorItem extends LitElement {
 
         .item.image.is-small {
           width: 72px;
+          margin: 2px;
         }
 
         .item.details {
@@ -150,6 +151,9 @@ class ApplicEditorItem extends LitElement {
 
           width: 416px;
           max-width: 100%;
+        }
+        .item.details > div {
+          ${css.apply('--layout--horizontal')}
         }
 
         .item.body {
@@ -181,7 +185,7 @@ class ApplicEditorItem extends LitElement {
             border-right: 1px solid rgb(var(--GG100-rgb));
             padding: 8px 24px 8px 0px;
             margin: 0px 16px 0px 0px;
-            width: 240px;
+            width: 320px;
             height: 100%;
           }
 
@@ -190,31 +194,49 @@ class ApplicEditorItem extends LitElement {
           }
         }
 
-        [disposal] {
-          outline: 1px solid green;
+        [disposal='1'] {
+          border-top: 2px solid transparent;
+        }
+        [disposal='0'] {
+          border-top: 2px solid #43b581;
+        }
+        [disposal='2'] {
+          border-top: 2px solid #5687fb;
+        }
+
+        [active] {
+          outline: 2px solid red;
         }
 
       </style>
 
       <div class="item details">
+        <div>
+          <div class="item image is-large">
+            <div><applic-span typo="hint">Source</applic-span></div>
+            <img src="${this.uri}">
+          </div>
+          <div class="item image is-large">
+            <div><applic-span typo="hint">Output</applic-span></div>
+            ${this.activeFrame.uri ? html`
+              <img src="${this.activeFrame.uri}">
+            ` : ''}
+          </div>
+        </div>
         <input type="text" value="${this.detail.name}">
+
       </div>
 
       <div class="item body">
-        <div class="item image is-large">
-          <div><applic-span typo="hint">Source</applic-span></div>
-          <img src="${this.uri}">
-        </div>
-        <div class="item image is-large">
-          <div><applic-span typo="hint">Output</applic-span></div>
-          <img src="${this.frameUri}">
-        </div>
-          
         <div class="item body-frames">
           ${this.frames.map(frame => html`
-            <div class="item image is-small" ?disposal="${frame.disposal}">
-              <div><applic-span typo="hint">${frame.duration}ms</applic-span></div>
-              <img src="${frame.uri}">
+            <div class="item image is-small"
+              title="${frame.nonce}"
+              @mouseout="${this._resume(frame)}" 
+              @mouseover="${this._freeze(frame)}" 
+              disposal="${frame.disposal}" ?active="${frame.nonce == this.activeFrame.nonce}">
+              <div><applic-span typo="hint"> ${frame.duration}ms</applic-span></div>
+              <img src="${frame.uri_source}">
             </div>
           `)}
         </div>
@@ -227,24 +249,59 @@ class ApplicEditorItem extends LitElement {
     super();
 
     this.uri = ''
-    this.frameUri = ''
+    this.activeFrame = { uri: '' }
     this.frames = []
     this.detail = { name: '' }
 
     applic.on('applic-graphics:changed', this._update.bind(this));
 
-    let i = 0;
-    const _click = () => {
-      if (!this.frames.length) return setTimeout(_click.bind(this), 100);
-      if (i >= this.frames.length) i = 0;
 
-      this.frameUri = this.frames[i].uri;
-      this.requestUpdate();
+    this._clickFreeze = false;
+    this._clickFrame = 0;
+    this._clickTimer = null;
+    this._click()
+  }
 
-      setTimeout(_click.bind(this), this.frames[i].duration);
-      i++;
-    };
-    _click()
+  _click() {
+    self.clearTimeout(this._clickTimer);
+
+    if (this._clickFreeze) return;
+    if (!this.frames.length) return this._clickTimer = setTimeout(this._click.bind(this), 100);
+    if (this._clickFrame >= this.frames.length) this._clickFrame = 0;
+
+    this._clickTimer = setTimeout(this._click.bind(this), this.frames[this._clickFrame].duration);
+    this.activeFrame = this.frames[this._clickFrame];
+    this.requestUpdate();
+    this._clickFrame++;
+  }
+
+  _freeze(frame) {
+    return () => {
+      if (this._clickFreeze) return;
+      this._clickFreeze = true;
+
+      let _pos = 0;
+      this.frames.forEach(_frame => {
+        if (_frame.nonce == frame.nonce) {
+          this.activeFrame = frame;
+          this._clickFrame = _pos;
+          this.requestUpdate();
+          // break;
+        } else _pos++;
+      });
+
+    }
+  }
+
+  _resume(frame) {
+    return () => {
+      if (!this._clickFreeze) return;
+      this._clickFreeze = false;
+      applic.utils.buffer(() => {
+        if (this._clickFreeze) return;
+        this._click()
+      })
+    }
   }
 
   _update()  {

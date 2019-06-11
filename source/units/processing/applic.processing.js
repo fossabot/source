@@ -8,7 +8,7 @@
 
 // gif.js by Johan Nordberg (jnordberg)
 // See https://github.com/jnordberg/gif.js
-import {GifWriter, GifReader} from './applic.gif-decoder.js';
+// import {GifWriter, GifReader} from './applic.gif-decoder.js';
 
 // console.log(GifWriter)
 // console.log(GifReader)
@@ -21,85 +21,36 @@ import {GifWriter, GifReader} from './applic.gif-decoder.js';
 
 applic.processing = {}
 
-applic.processing.fragment = (_blob) => {
+applic.processing.fragment = (blob) => {
   return new Promise(async (resolve) => {
-    const _response = new Uint8Array(await new Response(_blob).arrayBuffer())
-    const _reader = new GifReader(_response);
-    const frames = decodeFramesSync(_reader)
-    
-    resolve(await drawFrames(frames))
-  })
-}
+    const _path = '/source/units/processing/workers/worker.graphic-fragment.js';
+    const _worker = new Worker(_path);
 
-const drawFrames = (frames) => {
-  return new Promise(async (resolve) => {
-    const blobs = [];
-    
-    let i = 0;
-    const _render = () => {
-      return new Promise((resolve) => {
-        if (i >= frames.length) return resolve();
-
-        const frame = frames[i];
-        const reviver = document.createElement('canvas').getContext('2d');
-
-        reviver.canvas.width = frame.width;
-        reviver.canvas.height = frame.height;
-
-        const _arr = reviver.getImageData(0, 0, frame.width, frame.height);
-
-        for (let ii = 0; ii < _arr.data.length; ii++) {
-          _arr.data[ii] = frame.pixels[ii]
-        };
-        
-        reviver.putImageData(_arr, 0, 0);
-        reviver.canvas.toBlob(async (blob) => {
-          console.log(frame)
-          blobs[i] = {
-            blob: blob, 
-            uri: URL.createObjectURL(blob),
-
-            duration: frame.delay * 10,
-            disposal: frame.disposal,
-            interlaced: frame.interlaced,
-
-            height: frame.height,
-            width: frame.width,
-            x: frame.x,
-            y: frame.y
-          }; 
-
-          i++; 
-          await _render();
-          resolve();
-        })
-      })
+    _worker.onmessage = async (event) => {
+      switch (event.data[0] ) {
+        case 'worker:ready':
+          _worker.postMessage(['fragment', {blob: blob}]);
+          break;
+          
+        case 'worker:resolve':
+          const frames = await getObjectURL(event.data[1].frames)
+          resolve(frames)
+          _worker.terminate();
+          break;
+      }
     }
 
-    await _render();
-    resolve(blobs);
   })
 }
 
-const decodeFramesSync = function(reader) {
-  var j, ref, results;
-  return (function() {
-    results = [];
-
-    for (var j = 0, ref = reader.numFrames(); 
-      0 <= ref ? j < ref : j > ref; 
-      0 <= ref ? j++ : j--){ results.push(j); }
-      
-    return results;
-  }).apply(this).map(function(frameIndex) {
-    return decodeFrame(reader, frameIndex);
-  });
-};
-
-const decodeFrame = function(reader, frameIndex) {
-  var frameInfo;
-  frameInfo = reader.frameInfo(frameIndex);
-  frameInfo.pixels = new Uint8ClampedArray(reader.width * reader.height * 4);
-  reader.decodeAndBlitFrameRGBA(frameIndex, frameInfo.pixels);
-  return frameInfo;
-};
+const getObjectURL = (frames) => {
+  return new Promise((resolve) => {
+    let tr = 0;
+    for (let i = 0; i < frames.length; i++) {
+      frames[i].nonce = applic.utils.nonce(),
+      frames[i].uri = URL.createObjectURL(frames[i].blob),
+      frames[i].uri_source = URL.createObjectURL(frames[i].blob_source),
+      tr++; if (tr >= frames.length) resolve(frames)
+    }
+  })
+}
