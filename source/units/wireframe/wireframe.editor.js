@@ -155,6 +155,7 @@ class ApplicEditorItem extends LitElement {
         .item.body {
           ${css.apply('--layout--horizontal')}
           ${css.apply('--layout--wrap')}
+          ${css.apply('--layout--flex')}
 
           max-width: 416px;
 
@@ -189,6 +190,10 @@ class ApplicEditorItem extends LitElement {
           }
         }
 
+        [disposal] {
+          outline: 1px solid green;
+        }
+
       </style>
 
       <div class="item details">
@@ -204,10 +209,10 @@ class ApplicEditorItem extends LitElement {
           <div><applic-span typo="hint">Output</applic-span></div>
           <img src="${this.uri}">
         </div>
-
+          
         <div class="item body-frames">
           ${this.frames.map(frame => html`
-            <div class="item image is-small">
+            <div class="item image is-small" ?disposal="${frame.disposal}">
               <div><applic-span typo="hint">${frame.duration}ms</applic-span></div>
               <img src="${frame.uri}">
             </div>

@@ -48,18 +48,18 @@ const drawFrames = (frames) => {
 
         const _arr = reviver.getImageData(0, 0, frame.width, frame.height);
 
-
         for (let ii = 0; ii < _arr.data.length; ii++) {
           _arr.data[ii] = frame.pixels[ii]
         };
         
         reviver.putImageData(_arr, 0, 0);
         reviver.canvas.toBlob(async (blob) => {
+          console.log(frame)
           blobs[i] = {
             blob: blob, 
             uri: URL.createObjectURL(blob),
 
-            delay: frame.delay,
+            duration: frame.delay,
             disposal: frame.disposal,
             interlaced: frame.interlaced,
 
@@ -85,7 +85,11 @@ const decodeFramesSync = function(reader) {
   var j, ref, results;
   return (function() {
     results = [];
-    for (var j = 0, ref = reader.numFrames(); 0 <= ref ? j < ref : j > ref; 0 <= ref ? j++ : j--){ results.push(j); }
+
+    for (var j = 0, ref = reader.numFrames(); 
+      0 <= ref ? j < ref : j > ref; 
+      0 <= ref ? j++ : j--){ results.push(j); }
+      
     return results;
   }).apply(this).map(function(frameIndex) {
     return decodeFrame(reader, frameIndex);
