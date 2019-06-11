@@ -59,7 +59,7 @@ const drawFrames = (frames) => {
             blob: blob, 
             uri: URL.createObjectURL(blob),
 
-            duration: frame.delay,
+            duration: frame.delay * 10,
             disposal: frame.disposal,
             interlaced: frame.interlaced,
 

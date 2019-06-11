@@ -207,7 +207,7 @@ class ApplicEditorItem extends LitElement {
         </div>
         <div class="item image is-large">
           <div><applic-span typo="hint">Output</applic-span></div>
-          <img src="${this.uri}">
+          <img src="${this.frameUri}">
         </div>
           
         <div class="item body-frames">
@@ -227,12 +227,24 @@ class ApplicEditorItem extends LitElement {
     super();
 
     this.uri = ''
+    this.frameUri = ''
     this.frames = []
-    this.detail = {
-      name: ''
-    }
+    this.detail = { name: '' }
 
     applic.on('applic-graphics:changed', this._update.bind(this));
+
+    let i = 0;
+    const _click = () => {
+      if (!this.frames.length) return setTimeout(_click.bind(this), 100);
+      if (i >= this.frames.length) i = 0;
+
+      this.frameUri = this.frames[i].uri;
+      this.requestUpdate();
+
+      setTimeout(_click.bind(this), this.frames[i].duration);
+      i++;
+    };
+    _click()
   }
 
   _update()  {
